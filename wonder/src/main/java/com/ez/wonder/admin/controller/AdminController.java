@@ -27,9 +27,9 @@ public class AdminController {
 	
 
 	 @RequestMapping("/memberList") 
-	 public String get_memberList(@ModelAttribute SearchVO searchVo, @ModelAttribute MemberVO memberVo, Model model) { 
+	 public String memberList(@ModelAttribute SearchVO searchVo, Model model) { 
      //1
-	 logger.info("회원 목록, 파라미터 memberVo={}", memberVo);
+	 logger.info("회원 목록, 파라미터 searchVo={}", searchVo);
 	 
 	 PaginationInfo pagingInfo = new PaginationInfo();
 	 pagingInfo.setBlockSize(5);
