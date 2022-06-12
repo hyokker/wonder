@@ -30,7 +30,7 @@ build/
 !**/src/test/**/build/
 
 ### Common ###
-application.properties
+**/application.properties
 css/
 js/
 img/
