@@ -34,4 +34,11 @@
 		select count(*) from member
 		<include refid="searchWhere"></include>
 	</select>
+
+<!-- !!! -->
+	<update id="updatePwd" parameterType="String">
+		update admin
+		set adminPwd=#{adminPwd}
+		where adminPwd=#{}
+	</update>
 </mapper>
