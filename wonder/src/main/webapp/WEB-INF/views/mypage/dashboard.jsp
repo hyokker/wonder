@@ -16,7 +16,7 @@
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item active" aria-current="page">대시보드</li>
 								</ol>
-								<h2 class="breadcrumb-title">반갑습니다 홍길동님, 어서오세요</h2>
+								<h2 class="breadcrumb-title">반갑습니다 ${vo.name }님, 어서오세요</h2>
 							</div>
 							
 						</div>
