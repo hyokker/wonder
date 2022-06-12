@@ -13,9 +13,9 @@
 							
 							<div class="breadcrumbs-wrap">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item active" aria-current="page">My Properties</li>
+									<li class="breadcrumb-item active" aria-current="page">My page</li>
 								</ol>
-								<h2 class="breadcrumb-title">My All Properties</h2>
+								<h2 class="breadcrumb-title">마이페이지</h2>
 							</div>
 							
 						</div>
@@ -108,6 +108,9 @@
 													</thead>
 													<tbody>
 														<!-- tr block -->
+														<c:if test="${!empty list}">
+														<!--게시판 내용 반복문 시작  -->
+														<c:forEach var="memberVo" items="${list }">							
 														<tr>
 															<td>
 																<div class="dash_prt_wrap">
@@ -115,9 +118,9 @@
 																		<img src="https://via.placeholder.com/800x500" class="img-fluid" alt="" />
 																	</div>
 																	<div class="dash_prt_caption">
-																		<h5>회원명</h5>
-																		<div class="prt_dashb_lot">회원번호</div>
-																		<div class="prt_dash_rate"><span>거래총액</span></div>
+																		<h5>${memberVo.name}</h5>
+																		<div class="prt_dashb_lot">${memberVo.memNo }</div>
+																		<div class="prt_dash_rate"><span>${memberVo.email }</span></div>
 																	</div>
 																</div>
 															</td>
@@ -142,7 +145,7 @@
 																<div class="_leads_view_title"><span>16 Days ago</span></div>
 															</td>
 															<td>
-																<div class="_leads_status"><span class="active">일반회원</span></div>
+																<div class="_leads_status"><span class="active">${memberVo.type }</span></div>
 																<div class="_leads_view_title"><span>Till 12 Oct</span></div>
 															</td>
 															<td>
@@ -152,7 +155,8 @@
 																</div>
 															</td>
 														</tr>
-														
+														</c:forEach>
+														</c:if>
 														<!-- tr block -->
 														<tr>
 															<td>
