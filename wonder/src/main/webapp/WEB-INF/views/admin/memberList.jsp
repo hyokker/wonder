@@ -232,12 +232,12 @@
 									<ul>
 										<li><a href="dashboard.html"><i class="fa fa-tachometer-alt"></i>매출현황 통계<span class="notti_coun style-1">4</span></a></li>
 										<li><a href="my-profile.html"><i class="fa fa-user-tie"></i>내 정보</a></li>
-										<li><a href="bookmark-list.html"><i class="fa fa-bookmark"></i>Saved Property<span class="notti_coun style-2">7</span></a></li>
-										<li class="active"><a href="my-property.html"><i class="fa fa-tasks"></i>My Properties</a></li>
-										<li><a href="messages.html"><i class="fa fa-envelope"></i>Messages<span class="notti_coun style-3">3</span></a></li>
-										<li><a href="choose-package.html"><i class="fa fa-gift"></i>Choose Package<span class="expiration">10 days left</span></a></li>
-										<li><a href="submit-property-dashboard.html"><i class="fa fa-pen-nib"></i>Submit New Property</a></li>
-										<li><a href="change-password.html"><i class="fa fa-unlock-alt"></i>Change Password</a></li>
+										<li><a href="bookmark-list.html"><i class="fa fa-bookmark"></i>거래대기 목록<span class="notti_coun style-2">7</span></a></li>
+										<li class="active"><a href="my-property.html"><i class="fa fa-tasks"></i>회원관리</a></li>
+										<li><a href="messages.html"><i class="fa fa-envelope"></i>채팅 목록<span class="notti_coun style-3">3</span></a></li>
+										<li><a href="choose-package.html"><i class="fa fa-gift"></i>대시보드 목록<span class="expiration">10 days left</span></a></li>
+										<li><a href="submit-property-dashboard.html"><i class="fa fa-pen-nib"></i>부서별 관리자 생성</a></li>
+										<li><a href="change-password.html"><i class="fa fa-unlock-alt"></i>비밀번호 변경</a></li>
 									</ul>
 								</div>
 								
