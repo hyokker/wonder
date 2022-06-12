@@ -11,7 +11,7 @@
 		<meta name="author" content="Themezhub" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-        <title>RentUP - Residence & Real Estate Template</title>
+        <title>작업물 중개는 원더(WONDER)</title>
 		 
         <!-- Custom CSS -->
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet">
@@ -52,32 +52,33 @@
 						<div class="nav-menus-wrapper" style="transition-property: none;">
 							<ul class="nav-menu">
 							
-								<li class="active"><a href="#">Home<span class="submenu-indicator"></span></a>
+								<li class="active"><a href="#">WONDER?<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
-										<li><a href="index.html">Home 1</a></li>
-										<li><a href="home-2.html">Home 2</a></li>
+										<li><a href="index.html">서비스 소개</a></li>
+									<!-- <li><a href="home-2.html">Home 2</a></li>
 										<li><a href="home-3.html">Home 3</a></li>
 										<li><a href="home-4.html">Home 4</a></li>
 										<li><a href="home-5.html">Home 5</a></li>
 										<li><a href="home-6.html">Home 6</a></li>
 										<li><a href="home-7.html">Home 7</a></li>
-										<li><a href="map.html">Map Home</a></li>
+										<li><a href="map.html">Map Home</a></li> -->
 									</ul>
 								</li>
 								
-								<li><a href="#">Listings<span class="submenu-indicator"></span></a>
+								<li><a href="#">상품 목록<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
-										<li><a href="#">Listing Grid<span class="submenu-indicator"></span></a>
+										<li><a href="#">언어별 상품 목록<span class="submenu-indicator"></span></a>
 											<ul class="nav-dropdown nav-submenu">
-												<li><a href="grid-layout-with-sidebar.html">Grid Style 1</a></li>
-												<li><a href="grid-layout-2.html">Grid Style 2</a></li>
-												<li><a href="grid-layout-3.html">Grid Style 3</a></li>
+												<li><a href="grid-layout-with-sidebar.html">JAVA</a></li>
+												<li><a href="grid-layout-2.html">ORACLE</a></li>
+												<li><a href="grid-layout-3.html">SPRING</a></li>
 											</ul>
 										</li>
-										<li><a href="#">Listing List<span class="submenu-indicator"></span></a>
+										<li><a href="#">가격별 상품 목록<span class="submenu-indicator"></span></a>
 											<ul class="nav-dropdown nav-submenu">
-												<li><a href="list-layout-with-sidebar.html">List Style 1</a></li>
-												<li><a href="list-layout-with-map-2.html">List Style 2</a></li>
+												<li><a href="list-layout-with-sidebar.html">BRONZE</a></li>
+												<li><a href="list-layout-with-map-2.html">SILVER</a></li>
+												<li><a href="list-layout-with-map-2.html">GOLD</a></li>
 											</ul>
 										</li>
 										<li><a href="#">Listing Map<span class="submenu-indicator"></span></a>
@@ -105,7 +106,7 @@
 									</ul>
 								</li>
 								
-								<li><a href="#">Property<span class="submenu-indicator"></span></a>
+								<li><a href="#">자유게시판<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li class=""><a href="#">User Admin<span class="submenu-indicator"></span></a>
 											<ul class="nav-dropdown nav-submenu">
@@ -129,7 +130,7 @@
 									</ul>
 								</li>
 								
-								<li><a href="#">Pages<span class="submenu-indicator"></span></a>
+								<li><a href="#">Q&A게시판<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li><a href="blog.html">Blog Style</a></li>
 										<li><a href="about-us.html">About Us</a></li>
@@ -149,12 +150,12 @@
 								
 								<li>
 									<a href="#" class="alio_green" data-toggle="modal" data-target="#login">
-										<i class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">Sign In</span>
+										<i class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">로그인 하세요</span>
 									</a>
 								</li>
 								<li class="add-listing">
 									<a href="submit-property.html"  class="theme-cl">
-										 <i class="fas fa-plus-circle mr-1"></i>Add Property
+										 <i class="fas fa-plus-circle mr-1"></i>상품 등록
 									</a>
 								</li>
 							</ul>

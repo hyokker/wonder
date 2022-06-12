@@ -29,7 +29,7 @@ public class AdminController {
 	 @RequestMapping("/memberList") 
 	 public String get_memberList(@ModelAttribute SearchVO searchVo, @ModelAttribute MemberVO memberVo, Model model) { 
      //1
-	 logger.info("회원 목록, 파라미터 memberVo={}", memberVo);
+	 logger.info("�쉶�썝 紐⑸줉, �뙆�씪誘명꽣 memberVo={}", memberVo);
 	 
 	 PaginationInfo pagingInfo = new PaginationInfo();
 	 pagingInfo.setBlockSize(5);
@@ -39,16 +39,16 @@ public class AdminController {
 	 searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 	 searchVo.setRecordCountPerPage(9);
 	 
-	 //2 DB 작업
+	 //2 DB �옉�뾽
 	 List<MemberVO> list = adminService.selectMember(searchVo);
-	 logger.info("회원 목록 조회 결과, list.size={}", list.size());
+	 logger.info("�쉶�썝 紐⑸줉 議고쉶 寃곌낵, list.size={}", list.size());
 	 
 	 int totalRecord = adminService.getTotalRecord(searchVo);
-	 logger.info("회원 목록 totalRecord={}", totalRecord);
+	 logger.info("�쉶�썝 紐⑸줉 totalRecord={}", totalRecord);
 	 
 	 pagingInfo.setTotalRecord(totalRecord);
 	 
-	 //3 결과 저장
+	 //3 寃곌낵 ���옣
 	 model.addAttribute("list", list);
 	 model.addAttribute("pagingInfo", pagingInfo);
 	 
