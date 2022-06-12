@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.member.model.MemberVO;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 	private static final Logger logger
 		= LoggerFactory.getLogger(AdminController.class);

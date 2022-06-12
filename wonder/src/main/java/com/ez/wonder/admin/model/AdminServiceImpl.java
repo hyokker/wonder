@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.member.model.MemberVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +20,7 @@ public class AdminServiceImpl implements AdminService{
 	private final AdminDAO adminDao;
 	
 	@Override
-	List<MemberVO> selectMember(SearchVO searchVo){
+	public List<MemberVO> selectMember(SearchVO searchVo){
 		return adminDao.selectMember(searchVo);
 	}
 	
