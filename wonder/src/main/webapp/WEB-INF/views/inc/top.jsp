@@ -11,7 +11,6 @@
 		<meta name="author" content="Themezhub" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-        <title>RentUP - Residence & Real Estate Template</title>
 		 
         <!-- Custom CSS -->
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet">
@@ -164,3 +163,6 @@
 			</div>
 			<!-- End Navigation -->
 			<div class="clearfix"></div>
+			<!-- ============================================================== -->
+			<!-- Top header  -->
+			<!-- ============================================================== -->
