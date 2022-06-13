@@ -329,10 +329,11 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-7 col-md-8">
 				<div class="sec-heading center">
-					<h2>Good Reviews By Clients</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-						enim ad minim veniam.</p>
+					<h2>고객분들의 전문가 리뷰를 확인하세요.</h2>
+					<p>우리 원더에서는, 고객분들의 생생한 리뷰를 확인 하실 수 있습니다. 원하는 것을 찾아 자신의 
+					작업물에 더해보세요. 우리와 함께하는 전문가들은 직접 선별하고 확인하여, 전문가로 등록합니다.
+					리뷰를 확인하세요!
+					</p>
 				</div>
 			</div>
 		</div>
@@ -351,9 +352,9 @@
 											class="img-fluid" alt="">
 									</div>
 									<div class="_tsl_flex_capst">
-										<h5>Susan D. Murphy</h5>
+										<h5>홍길동</h5>
 										<div class="_ovr_posts">
-											<span>CEO, Leader</span>
+											<span>JAVA개발 의뢰인</span>
 										</div>
 										<div class="_ovr_rates">
 											<span><i class="fa fa-star"></i></span>4.7
@@ -369,9 +370,8 @@
 							</div>
 
 							<div class="facts-detail">
-								<p>Faucibus tristique felis potenti ultrices ornare rhoncus
-									semper hac facilisi Rutrum tellus lorem sem velit nisi non
-									pharetra in dui.</p>
+								<p>빠르게 원하는 부분까지 다 작업해줘서 너무 좋았어요~ 
+								또 이용하고 싶어요!</p>
 							</div>
 						</div>
 					</div>
@@ -386,9 +386,9 @@
 											class="img-fluid" alt="">
 									</div>
 									<div class="_tsl_flex_capst">
-										<h5>Maxine E. Gagliardi</h5>
+										<h5>박길동</h5>
 										<div class="_ovr_posts">
-											<span>Apple CEO</span>
+											<span>Python 개발 의뢰인</span>
 										</div>
 										<div class="_ovr_rates">
 											<span><i class="fa fa-star"></i></span>4.5
@@ -404,9 +404,8 @@
 							</div>
 
 							<div class="facts-detail">
-								<p>Faucibus tristique felis potenti ultrices ornare rhoncus
-									semper hac facilisi Rutrum tellus lorem sem velit nisi non
-									pharetra in dui.</p>
+								<p>개발 관련해서 필요한 것들은 다음에도 원더를 이용할게요~ 너무 좋아요.
+								앞으로도 다른 사람들이 원더를 이용하면 좋을 것 같아요 ㅎㅎㅎ</p>
 							</div>
 						</div>
 					</div>
@@ -421,9 +420,9 @@
 											class="img-fluid" alt="">
 									</div>
 									<div class="_tsl_flex_capst">
-										<h5>Roy M. Cardona</h5>
+										<h5>김효건</h5>
 										<div class="_ovr_posts">
-											<span>Google Founder</span>
+											<span>홈페이지 의뢰인</span>
 										</div>
 										<div class="_ovr_rates">
 											<span><i class="fa fa-star"></i></span>4.9
@@ -439,9 +438,9 @@
 							</div>
 
 							<div class="facts-detail">
-								<p>Faucibus tristique felis potenti ultrices ornare rhoncus
-									semper hac facilisi Rutrum tellus lorem sem velit nisi non
-									pharetra in dui.</p>
+								<p>최근들어 제 주변 사람들이 왜 원더를 이용하는지 알 것 같아요.
+								너무 빠르고 간편하고, 또 전문가분들이 친절하게 해주셔서 저도 부담없이 질문 드릴 수 있었어요
+								작업물 의뢰는 역시~ 원더~</p>
 							</div>
 						</div>
 					</div>
@@ -531,10 +530,9 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-7 col-md-8">
 				<div class="sec-heading center">
-					<h2>Latest News & Articles</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-						enim ad minim veniam.</p>
+					<h2>실시간 상품 및 의뢰 요청</h2>
+					<p>지금 이 순간에도 고객분들은 의뢰를 요청하고, 전문가들은 이를 해결 하고 있어요.
+					최신 순위 상품들과 의뢰서를 보여드릴게요</p>
 				</div>
 			</div>
 		</div>
