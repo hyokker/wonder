@@ -7,7 +7,7 @@
 
 <!-- ============================ Page Title Start================================== -->
 <div class="page-title"
-	style="background: #f4f4f4 url(https://via.placeholder.com/1920x980);"
+	style="background: #f4f4f4 url;"
 	data-overlay="5">
 	<div class="container">
 		<div class="row">
@@ -71,11 +71,11 @@
 	<div class="container">
 
 		<div class="row justify-content-center">
-			<div class="col-xl-7 col-lg-10 col-md-12 col-sm-12">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 				<div class="text-center mb-5">
-					<span class="text-light">Our Awards</span>
-					<h2 class="font-weight-normal text-light">Over 1,24,000+ Happy
-						User Bieng with us Still they Love Our Services</h2>
+					<span class="text-light">원더의 기록</span>
+					<h2 class="font-weight-normal text-light">1년간 약 3천명의 고객분들과 전문가가
+					 원더를 통해 작업했습니다.</h2>
 				</div>
 			</div>
 		</div>
@@ -88,9 +88,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>32</span> M
+							<span>147</span> 명
 						</h5>
-						<span class="text-light">Blue Burmin Award</span>
+						<span class="text-light">일일 이용자</span>
 					</div>
 				</div>
 			</div>
@@ -101,9 +101,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>43</span> M
+							<span>4412</span> 명
 						</h5>
-						<span class="text-light">Mimo X11 Award</span>
+						<span class="text-light">월별 이용자</span>
 					</div>
 				</div>
 			</div>
@@ -114,9 +114,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>51</span> M
+							<span>89</span> 건
 						</h5>
-						<span class="text-light">Australian UGC Award</span>
+						<span class="text-light">월별 작업물</span>
 					</div>
 				</div>
 			</div>
@@ -127,9 +127,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>42</span> M
+							<span>1012</span> 건
 						</h5>
-						<span class="text-light">IITCA Green Award</span>
+						<span class="text-light">연간 작업물</span>
 					</div>
 				</div>
 			</div>
@@ -146,8 +146,8 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
 				<div class="sec-heading center">
-					<h2>Meet Our Team</h2>
-					<p>Professional & Dedicated Team</p>
+					<h2>원더의 개발자를 만나보세요</h2>
+					<p>이젠아카데미 파이널 프로젝트 2조</p>
 				</div>
 			</div>
 		</div>
@@ -167,8 +167,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Shaurya Preet</h4>
-								<span>Co-Founder</span>
+								<h4>이 지현</h4>
+								<span>2조의 조장</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -193,8 +193,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Shivangi Preet</h4>
-								<span>Content Writer</span>
+								<h4>오 지훈</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -219,8 +219,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Yash Preet</h4>
-								<span>Content Writer</span>
+								<h4>이 정진</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -245,8 +245,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Dhananjay Preet</h4>
-								<span>CEO & Manager</span>
+								<h4>서 원기</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -271,8 +271,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Rahul Gilkrist</h4>
-								<span>App Designer</span>
+								<h4>장 현수</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -297,8 +297,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Adam Wilcard</h4>
-								<span>Web Developer</span>
+								<h4>김 효건</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
