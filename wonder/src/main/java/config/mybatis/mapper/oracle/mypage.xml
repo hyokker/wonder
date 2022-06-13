@@ -3,7 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.wonder.mypage.model.MypageDAO">
 
-
+<select id="selectMemberByNo" parameterType="int" resultType="memberVo">
+	select * from member where mem_no=#{no} <!-- 멤버번호 세션값으로 받아오는걸로 바꿔야함!!!! -->
+</select>
 
 
 
