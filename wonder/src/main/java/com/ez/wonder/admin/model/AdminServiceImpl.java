@@ -29,22 +29,30 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.getTotalRecord(searchVo);
 	}
 	
-	public int checkPwd(String adminPwd) {
-		String dbPwd = (String) session.getAttribute("adminPwd");
+	@Override
+	public AdminVO selectByAdminId(String adminId) {
+		return adminDao.selectByAdminId(adminId);
+	}
+	
+	public int checkLogin(String adminId, String adminPwd) {
+		String dbPwd = adminDao.selectPwd(adminId);
 		
 		int result = 0;
 		if(dbPwd!=null && !dbPwd.isEmpty()) {
 			if(dbPwd.equals(adminPwd)) {
-				result = AdminService.AGREE_PWD;
+				result=AdminService.LOGIN_OK;
 			}else {
-				result = AdminService.DISAGREE_PWD;
+				result=AdminService.DISAGREE_PWD;
 			}
+		}else {
+			result=AdminService.NONE_USERID;
 		}
+		
 		return result;
 	}
 	
-	@Override
-	public int updatePwd(String adminPwd) {
-		return adminDao.upadtePwd(adminPwd);
+	public int updateAdmin(AdminVO adminVo) {
+		return adminDao.updateAdmin(adminVo);
 	}
+
 }

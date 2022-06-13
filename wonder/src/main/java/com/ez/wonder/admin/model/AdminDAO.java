@@ -11,5 +11,7 @@ import com.ez.wonder.member.model.MemberVO;
 public interface AdminDAO {
 	List<MemberVO> selectMember(SearchVO searchVo);
 	int getTotalRecord(SearchVO searchVo);
-	int updatePwd(String adminPwd);
+	AdminVO selectByAdminId(String adminId);
+	String selectPwd(String adminId);
+	int updateAdmin(AdminVO adminVo);
 }

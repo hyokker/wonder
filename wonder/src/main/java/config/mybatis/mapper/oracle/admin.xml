@@ -35,10 +35,19 @@
 		<include refid="searchWhere"></include>
 	</select>
 
-<!-- !!! -->
-	<update id="updatePwd" parameterType="String">
+	<select id="selectByAdminId" parameterType="string" resultType="adminVo">
+		select * from admin
+		where admin_Id=#{admin_Id}
+	</select>
+	
+	<select id="selectPwd" parameterType="string" resultType="string">
+		select admin_Pwd from admin
+		where admin_Id=#{admin_Id}
+	</select>
+	
+	<update id="updateAdmin" parameterType="adminVo">
 		update admin
-		set adminPwd=#{adminPwd}
-		where adminPwd=#{}
+		set admin_Pwd=#{admin_Pwd}
+		where admin_Id=#{admin_Id}
 	</update>
 </mapper>
