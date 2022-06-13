@@ -183,15 +183,15 @@
 								<!-- Slide Title -->
 								<div class="home-slider-desc">
 									<div class="home-slider-title">
-										<h5 class="offers_tags">Get 25% Discount</h5>
+										<h5 class="offers_tags">작업물 의뢰를 원하시나요?</h5>
 										<h3>
-											Find Your Best<br>
-											<span class="trans_text">Dream City</span>
+											원더에서 의뢰하세요!<br>
+											<span class="trans_text">WONDER</span>
 										</h3>
 									</div>
 
-									<a href="single-property-1.html" class="read-more theme-bg">Browse
-										Dream Place<i class="fa fa-arrow-right ml-2"></i>
+									<a href="single-property-1.html" class="read-more theme-bg">
+									원더에서 전문가 찾기<i class="fa fa-arrow-right ml-2"></i>
 									</a>
 								</div>
 								<!-- Slide Title / End -->
