@@ -39,21 +39,21 @@
 
 					<h2>우리 서비스의 이야기</h2>
 					<span class="theme-cl">우리의 원더는 이렇게 성장했어요!</span>
-					<p class="mt-4">Lorem ipsum dolor sit amet, consectetur
+					<p class="mt-4">IT 관련 기업 및 직업들이 많아지면서, 
+					많은 인구들은 프로그래머로써 취업하길 원했어요. 하지만 취업의 시장은 너무 높거나, 프리랜서로 활동하고 싶은 전문가들이 많았죠.
+					또한 기업들과 개인들의 프로그래밍 및 디자인 등 작업물 의뢰가 많아졌습니다.
+					 우리 '원더'는 이 부분을 파고들어 의뢰가 필요한 '고객'과 작업이 필요한 '전문가'들이 
+					 활동할 수 있는 중개 플랫폼을 오픈했습니다. </p>
+					<!-- <p class="mb-3">Lorem ipsum dolor sit amet, consectetur
 						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
 						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.</p>
-					<p class="mb-3">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip.</p>
-					<a href="#" class="btn theme-bg btn-rounded">More About Us</a>
+						exercitation ullamco laboris nisi ut aliquip.</p> -->
+					<a href="#" class="btn theme-bg btn-rounded">전문가에게 의뢰하기</a>
 				</div>
 			</div>
 
 			<div class="col-lg-6 col-md-6">
-				<img src="https://via.placeholder.com/1920x980"
+				<img src="${pageContext.request.contextPath}/img/aboutUs.jpg"
 					class="img-fluid rounded" alt="" />
 			</div>
 
