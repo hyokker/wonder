@@ -16,7 +16,7 @@
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item active" aria-current="page">대시보드</li>
 								</ol>
-								<h2 class="breadcrumb-title">반갑습니다 홍길동님, 어서오세요</h2>
+								<h2 class="breadcrumb-title">반갑습니다 ${vo.name }님, 어서오세요</h2>
 							</div>
 							
 						</div>
@@ -43,13 +43,13 @@
 								<div class="dash_user_menues">
 									<ul>
 										<li class="active"><a href="<c:url value='/mypage/dash' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
-										<li><a href="my-profile.html"><i class="fa fa-user-tie"></i>내 정보</a></li>
-										<li><a href="bookmark-list.html"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
-										<li><a href="my-property.html"><i class="fa fa-tasks"></i>거래내역</a></li>
-										<li><a href="messages.html"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
-										<li><a href="choose-package.html"><i class="fa fa-gift"></i>Choose Package<span class="expiration">10 days left</span></a></li>
-										<li><a href="submit-property-dashboard.html"><i class="fa fa-pen-nib"></i>내 정보 수정</a></li>
-										<li><a href="change-password.html"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
+										<li><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
+										<li><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
+										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-tasks"></i>거래내역</a></li>
+										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
+										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-gift"></i>Choose Package<span class="expiration">10 days left</span></a></li>
+										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-pen-nib"></i>내 정보 수정</a></li>
+										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
 									</ul>
 								</div>
 								

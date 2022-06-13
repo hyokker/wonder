@@ -38,7 +38,7 @@
 				<div class="container">
 					<nav id="navigation" class="navigation navigation-landscape">
 						<div class="nav-header">
-							<a class="nav-brand" href="#">
+							<a class="nav-brand" href="<c:url value='/'/>">
 								<img src="${pageContext.request.contextPath}/img/logo.png" class="logo" alt="" />
 							</a>
 							<div class="nav-toggle"></div>
@@ -52,7 +52,7 @@
 						<div class="nav-menus-wrapper" style="transition-property: none;">
 							<ul class="nav-menu">
 							
-								<li class="active"><a href="#">WONDER?<span class="submenu-indicator"></span></a>
+								<li class="active"><a href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li><a href="index.html">서비스 소개</a></li>
 									<!-- <li><a href="home-2.html">Home 2</a></li>
@@ -173,7 +173,7 @@
 		<div class="home-slider margin-bottom-0">
 
 			<!-- Slide -->
-			<div data-background-image="https://via.placeholder.com/1920x980"
+			<div data-background-image="${pageContext.request.contextPath}/img/aboutUs.jpg"
 				class="item">
 				<div class="container">
 					<div class="row">
@@ -183,15 +183,15 @@
 								<!-- Slide Title -->
 								<div class="home-slider-desc">
 									<div class="home-slider-title">
-										<h5 class="offers_tags">Get 25% Discount</h5>
+										<h5 class="offers_tags">작업물 의뢰를 원하시나요?</h5>
 										<h3>
-											Find Your Best<br>
-											<span class="trans_text">Dream City</span>
+											원더에서 의뢰하세요!<br>
+											<span class="trans_text">WONDER</span>
 										</h3>
 									</div>
 
-									<a href="single-property-1.html" class="read-more theme-bg">Browse
-										Dream Place<i class="fa fa-arrow-right ml-2"></i>
+									<a href="single-property-1.html" class="read-more theme-bg">
+									원더에서 전문가 찾기<i class="fa fa-arrow-right ml-2"></i>
 									</a>
 								</div>
 								<!-- Slide Title / End -->
@@ -2045,112 +2045,86 @@
 		</section>
 		<!-- ============================ Price Table End ================================== -->
 
-		<!-- ============================ Call To Action ================================== -->
+	<!-- ============================ Call To Action ================================== -->
 		<section class="theme-bg call_action_wrap-wrap">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-
+						
 						<div class="call_action_wrap">
 							<div class="call_action_wrap-head">
-								<h3>Do You Have Questions ?</h3>
-								<span>We'll help you to grow your career and growth.</span>
+								<h3>원더의 프리랜서가 당신의 연락을 기다립니다</h3>
 							</div>
-							<a href="#" class="btn btn-call_action_wrap">Contact Us Today</a>
+							<a href="#" class="btn btn-call_action_wrap">문의하기</a>
 						</div>
-
+						
 					</div>
 				</div>
 			</div>
 		</section>
-		<!-- ============================ Call To Action End ================================== -->
-
-		<!-- ============================ Footer Start ================================== -->
+	<!-- ============================ Call To Action End ================================== -->
+			
+	<!-- ============================ Footer Start ================================== -->
 		<footer class="dark-footer skin-dark-footer style-2">
 			<div class="footer-middle">
 				<div class="container">
 					<div class="row">
-
+						
 						<div class="col-lg-5 col-md-5">
 							<div class="footer_widget">
-								<img src="assets/img/logo-light.png"
-									class="img-footer small mb-2" alt="" />
-								<h4 class="extream mb-3">
-									Do you need help with<br>anything?
-								</h4>
-								<p>Receive updates, hot deals, tutorials, discounts sent
-									straignt in your inbox every month</p>
-								<div class="foot-news-last">
-									<div class="input-group">
-										<input type="text" class="form-control"
-											placeholder="Email Address">
-										<div class="input-group-append">
-											<button type="button"
-												class="input-group-text theme-bg b-0 text-light">Subscribe</button>
-										</div>
-									</div>
-								</div>
+								<!-- img src="${pageContext.request.contextPath}/img/logo-light.png" class="img-footer small mb-2" alt="" / -->
+								<h4 class="extream mb-3">WONDER</h4>
+								<p style="font-size: 1.4em">원더는 실력있는 개발자, 디자이너와 함께합니다</p>
 							</div>
 						</div>
-
+						
 						<div class="col-lg-6 col-md-7 ml-auto">
 							<div class="row">
-
+							
 								<div class="col-lg-4 col-md-4">
 									<div class="footer_widget">
-										<h4 class="widget_title">Layouts</h4>
+										<h4 class="widget_title">Service</h4>
 										<ul class="footer-menu">
-											<li><a href="#">Home Page</a></li>
-											<li><a href="#">About Page</a></li>
-											<li><a href="#">Service Page</a></li>
-											<li><a href="#">Property Page</a></li>
-											<li><a href="#">Contact Page</a></li>
-											<li><a href="#">Single Blog</a></li>
+											<li><a href="#">서비스소개</a></li>
+											<li><a href="#">FAQ</a></li>
+											<li><a href="#">고객센터</a></li>
 										</ul>
 									</div>
 								</div>
-
-								<div class="col-lg-4 col-md-4">
-									<div class="footer_widget">
-										<h4 class="widget_title">All Sections</h4>
-										<ul class="footer-menu">
-											<li><a href="#">Headers<span class="new">New</span></a></li>
-											<li><a href="#">Features</a></li>
-											<li><a href="#">Attractive<span class="new">New</span></a></li>
-											<li><a href="#">Testimonials</a></li>
-											<li><a href="#">Videos</a></li>
-											<li><a href="#">Footers</a></li>
-										</ul>
-									</div>
-								</div>
-
+										
 								<div class="col-lg-4 col-md-4">
 									<div class="footer_widget">
 										<h4 class="widget_title">Company</h4>
 										<ul class="footer-menu">
-											<li><a href="#">About</a></li>
-											<li><a href="#">Blog</a></li>
-											<li><a href="#">Pricing</a></li>
-											<li><a href="#">Affiliate</a></li>
-											<li><a href="#">Login</a></li>
-											<li><a href="#">Changelog<span class="update">Update</span></a></li>
+											<li><a href="#">회사소개</a></li>
+											<li><a href="#">채용정보</a></li>
+											<li><a href="#">제휴제안</a></li>
 										</ul>
 									</div>
 								</div>
-
+						
+								<div class="col-lg-4 col-md-4">
+									<div class="footer_widget">
+										<h4 class="widget_title">Provision</h4>
+										<ul class="footer-menu">
+											<li><a href="#">이용약관</a></li>
+											<li><a href="#">개인정보처리방침</a></li>
+											<li><a href="#">위치기반서비스 이용약관</a></li>
+										</ul>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			
 			<div class="footer-bottom">
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-lg-12 col-md-12 text-center">
-							<p class="mb-0">
-								© 2021 RentUP. Designd By <a href="https://themezhub.com">ThemezHub</a>.
-							</p>
+							<p class="mb-0">© WONDER Corp</p>
 						</div>
 					</div>
 				</div>

@@ -7,7 +7,7 @@
 
 <!-- ============================ Page Title Start================================== -->
 <div class="page-title"
-	style="background: #f4f4f4 url(https://via.placeholder.com/1920x980);"
+	style="background: #f4f4f4 url;"
 	data-overlay="5">
 	<div class="container">
 		<div class="row">
@@ -39,21 +39,21 @@
 
 					<h2>우리 서비스의 이야기</h2>
 					<span class="theme-cl">우리의 원더는 이렇게 성장했어요!</span>
-					<p class="mt-4">Lorem ipsum dolor sit amet, consectetur
+					<p class="mt-4">IT 관련 기업 및 직업들이 많아지면서, 
+					많은 인구들은 프로그래머로써 취업하길 원했어요. 하지만 취업의 시장은 너무 높거나, 프리랜서로 활동하고 싶은 전문가들이 많았죠.
+					또한 기업들과 개인들의 프로그래밍 및 디자인 등 작업물 의뢰가 많아졌습니다.
+					 우리 '원더'는 이 부분을 파고들어 의뢰가 필요한 '고객'과 작업이 필요한 '전문가'들이 
+					 활동할 수 있는 중개 플랫폼을 오픈했습니다. </p>
+					<!-- <p class="mb-3">Lorem ipsum dolor sit amet, consectetur
 						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
 						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.</p>
-					<p class="mb-3">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip.</p>
-					<a href="#" class="btn theme-bg btn-rounded">More About Us</a>
+						exercitation ullamco laboris nisi ut aliquip.</p> -->
+					<a href="#" class="btn theme-bg btn-rounded">전문가에게 의뢰하기</a>
 				</div>
 			</div>
 
 			<div class="col-lg-6 col-md-6">
-				<img src="https://via.placeholder.com/1920x980"
+				<img src="${pageContext.request.contextPath}/img/aboutUs.jpg"
 					class="img-fluid rounded" alt="" />
 			</div>
 
@@ -71,11 +71,11 @@
 	<div class="container">
 
 		<div class="row justify-content-center">
-			<div class="col-xl-7 col-lg-10 col-md-12 col-sm-12">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 				<div class="text-center mb-5">
-					<span class="text-light">Our Awards</span>
-					<h2 class="font-weight-normal text-light">Over 1,24,000+ Happy
-						User Bieng with us Still they Love Our Services</h2>
+					<span class="text-light">원더의 기록</span>
+					<h2 class="font-weight-normal text-light">1년간 약 3천명의 고객분들과 전문가가
+					 원더를 통해 작업했습니다.</h2>
 				</div>
 			</div>
 		</div>
@@ -88,9 +88,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>32</span> M
+							<span>147</span> 명
 						</h5>
-						<span class="text-light">Blue Burmin Award</span>
+						<span class="text-light">일일 이용자</span>
 					</div>
 				</div>
 			</div>
@@ -101,9 +101,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>43</span> M
+							<span>4412</span> 명
 						</h5>
-						<span class="text-light">Mimo X11 Award</span>
+						<span class="text-light">월별 이용자</span>
 					</div>
 				</div>
 			</div>
@@ -114,9 +114,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>51</span> M
+							<span>89</span> 건
 						</h5>
-						<span class="text-light">Australian UGC Award</span>
+						<span class="text-light">월별 작업물</span>
 					</div>
 				</div>
 			</div>
@@ -127,9 +127,9 @@
 					</div>
 					<div class="_morder_counter_caption">
 						<h5 class="text-light">
-							<span>42</span> M
+							<span>1012</span> 건
 						</h5>
-						<span class="text-light">IITCA Green Award</span>
+						<span class="text-light">연간 작업물</span>
 					</div>
 				</div>
 			</div>
@@ -146,8 +146,8 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
 				<div class="sec-heading center">
-					<h2>Meet Our Team</h2>
-					<p>Professional & Dedicated Team</p>
+					<h2>원더의 개발자를 만나보세요</h2>
+					<p>이젠아카데미 파이널 프로젝트 2조</p>
 				</div>
 			</div>
 		</div>
@@ -167,8 +167,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Shaurya Preet</h4>
-								<span>Co-Founder</span>
+								<h4>이 지현</h4>
+								<span>2조의 조장</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -193,8 +193,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Shivangi Preet</h4>
-								<span>Content Writer</span>
+								<h4>오 지훈</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -219,8 +219,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Yash Preet</h4>
-								<span>Content Writer</span>
+								<h4>이 정진</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -245,8 +245,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Dhananjay Preet</h4>
-								<span>CEO & Manager</span>
+								<h4>서 원기</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -271,8 +271,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Rahul Gilkrist</h4>
-								<span>App Designer</span>
+								<h4>장 현수</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -297,8 +297,8 @@
 							</div>
 
 							<div class="teamgrid-content">
-								<h4>Adam Wilcard</h4>
-								<span>Web Developer</span>
+								<h4>김 효건</h4>
+								<span>2조의 팀원</span>
 							</div>
 
 							<div class="teamgrid-social">
@@ -329,10 +329,11 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-7 col-md-8">
 				<div class="sec-heading center">
-					<h2>Good Reviews By Clients</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-						enim ad minim veniam.</p>
+					<h2>고객분들의 전문가 리뷰를 확인하세요.</h2>
+					<p>우리 원더에서는, 고객분들의 생생한 리뷰를 확인 하실 수 있습니다. 원하는 것을 찾아 자신의 
+					작업물에 더해보세요. 우리와 함께하는 전문가들은 직접 선별하고 확인하여, 전문가로 등록합니다.
+					리뷰를 확인하세요!
+					</p>
 				</div>
 			</div>
 		</div>
@@ -351,9 +352,9 @@
 											class="img-fluid" alt="">
 									</div>
 									<div class="_tsl_flex_capst">
-										<h5>Susan D. Murphy</h5>
+										<h5>홍길동</h5>
 										<div class="_ovr_posts">
-											<span>CEO, Leader</span>
+											<span>JAVA개발 의뢰인</span>
 										</div>
 										<div class="_ovr_rates">
 											<span><i class="fa fa-star"></i></span>4.7
@@ -369,9 +370,8 @@
 							</div>
 
 							<div class="facts-detail">
-								<p>Faucibus tristique felis potenti ultrices ornare rhoncus
-									semper hac facilisi Rutrum tellus lorem sem velit nisi non
-									pharetra in dui.</p>
+								<p>빠르게 원하는 부분까지 다 작업해줘서 너무 좋았어요~ 
+								또 이용하고 싶어요!</p>
 							</div>
 						</div>
 					</div>
@@ -386,9 +386,9 @@
 											class="img-fluid" alt="">
 									</div>
 									<div class="_tsl_flex_capst">
-										<h5>Maxine E. Gagliardi</h5>
+										<h5>박길동</h5>
 										<div class="_ovr_posts">
-											<span>Apple CEO</span>
+											<span>Python 개발 의뢰인</span>
 										</div>
 										<div class="_ovr_rates">
 											<span><i class="fa fa-star"></i></span>4.5
@@ -404,9 +404,8 @@
 							</div>
 
 							<div class="facts-detail">
-								<p>Faucibus tristique felis potenti ultrices ornare rhoncus
-									semper hac facilisi Rutrum tellus lorem sem velit nisi non
-									pharetra in dui.</p>
+								<p>개발 관련해서 필요한 것들은 다음에도 원더를 이용할게요~ 너무 좋아요.
+								앞으로도 다른 사람들이 원더를 이용하면 좋을 것 같아요 ㅎㅎㅎ</p>
 							</div>
 						</div>
 					</div>
@@ -421,9 +420,9 @@
 											class="img-fluid" alt="">
 									</div>
 									<div class="_tsl_flex_capst">
-										<h5>Roy M. Cardona</h5>
+										<h5>김효건</h5>
 										<div class="_ovr_posts">
-											<span>Google Founder</span>
+											<span>홈페이지 의뢰인</span>
 										</div>
 										<div class="_ovr_rates">
 											<span><i class="fa fa-star"></i></span>4.9
@@ -439,9 +438,9 @@
 							</div>
 
 							<div class="facts-detail">
-								<p>Faucibus tristique felis potenti ultrices ornare rhoncus
-									semper hac facilisi Rutrum tellus lorem sem velit nisi non
-									pharetra in dui.</p>
+								<p>최근들어 제 주변 사람들이 왜 원더를 이용하는지 알 것 같아요.
+								너무 빠르고 간편하고, 또 전문가분들이 친절하게 해주셔서 저도 부담없이 질문 드릴 수 있었어요
+								작업물 의뢰는 역시~ 원더~</p>
 							</div>
 						</div>
 					</div>
@@ -531,10 +530,9 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-7 col-md-8">
 				<div class="sec-heading center">
-					<h2>Latest News & Articles</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-						do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-						enim ad minim veniam.</p>
+					<h2>실시간 상품 및 의뢰 요청</h2>
+					<p>지금 이 순간에도 고객분들은 의뢰를 요청하고, 전문가들은 이를 해결 하고 있어요.
+					최신 순위 상품들과 의뢰서를 보여드릴게요</p>
 				</div>
 			</div>
 		</div>

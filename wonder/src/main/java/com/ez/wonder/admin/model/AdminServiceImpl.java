@@ -28,4 +28,31 @@ public class AdminServiceImpl implements AdminService{
 	public int getTotalRecord(SearchVO searchVo) {
 		return adminDao.getTotalRecord(searchVo);
 	}
+	
+	@Override
+	public AdminVO selectByAdminId(String adminId) {
+		return adminDao.selectByAdminId(adminId);
+	}
+	
+	public int checkLogin(String adminId, String adminPwd) {
+		String dbPwd = adminDao.selectPwd(adminId);
+		
+		int result = 0;
+		if(dbPwd!=null && !dbPwd.isEmpty()) {
+			if(dbPwd.equals(adminPwd)) {
+				result=AdminService.LOGIN_OK;
+			}else {
+				result=AdminService.DISAGREE_PWD;
+			}
+		}else {
+			result=AdminService.NONE_USERID;
+		}
+		
+		return result;
+	}
+	
+	public int updateAdmin(AdminVO adminVo) {
+		return adminDao.updateAdmin(adminVo);
+	}
+
 }

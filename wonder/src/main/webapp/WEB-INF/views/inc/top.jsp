@@ -38,7 +38,7 @@
 				<div class="container">
 					<nav id="navigation" class="navigation navigation-landscape">
 						<div class="nav-header">
-							<a class="nav-brand" href="#">
+							<a class="nav-brand" href="<c:url value='/'/>">
 								<img src="${pageContext.request.contextPath}/img/logo.png" class="logo" alt="" />
 							</a>
 							<div class="nav-toggle"></div>
@@ -52,7 +52,7 @@
 						<div class="nav-menus-wrapper" style="transition-property: none;">
 							<ul class="nav-menu">
 							
-								<li class="active"><a href="#">WONDER?<span class="submenu-indicator"></span></a>
+								<li class="active"><a href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li><a href="index.html">서비스 소개</a></li>
 									<!-- <li><a href="home-2.html">Home 2</a></li>
