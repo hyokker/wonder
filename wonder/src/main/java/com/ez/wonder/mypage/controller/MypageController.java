@@ -29,5 +29,13 @@ public class MypageController {
 		return "/mypage/dashboard";
 	}
 	
+	@RequestMapping("/profile")
+	public void mypage_profile() {
+		logger.info("프로필 페이지");
+	}
 
+	@RequestMapping("/bookmark")
+	public void mypage_bookmark() {
+		logger.info("찜(북마크) 페이지");
+	}
 }
