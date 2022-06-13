@@ -7,4 +7,6 @@ import com.ez.wonder.member.model.MemberVO;
 @Mapper
 public interface MypageDAO {
 	MemberVO selectMemberByNo(int no);
+	MemberVO selectMemberById(String userId);
+	int updateMember(MemberVO vo);
 }

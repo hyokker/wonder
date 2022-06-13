@@ -7,6 +7,14 @@
 	select * from member where mem_no=#{no} <!-- 멤버번호 세션값으로 받아오는걸로 바꿔야함!!!! -->
 </select>
 
+<select id="selectMemberById" parameterType="String" resultType="memberVo">
+	select * from member where user_id=#{userId}
+</select>
 
+<update id="updateMember" parameterType="memberVo" >
+	update member
+	set nickname=#{nickname}, email=#{email}, tel=#{tel}
+	where user_id=#{userId}
+</update>
 
 </mapper>
