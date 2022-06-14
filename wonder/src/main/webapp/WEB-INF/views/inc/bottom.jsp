@@ -99,10 +99,10 @@
 								<div class="edlio_152">
 									<ul class="nav nav-pills tabs_system center" id="pills-tab" role="tablist">
 									  <li class="nav-item">
-										<a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+										<a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true"><i class="fas fa-sign-in-alt mr-2"></i>로그인</a>
 									  </li>
 									  <li class="nav-item">
-										<a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup" role="tab" aria-controls="pills-signup" aria-selected="false"><i class="fas fa-user-plus mr-2"></i>Register</a>
+										<a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup" role="tab" aria-controls="pills-signup" aria-selected="false"><i class="fas fa-user-plus mr-2"></i>회원가입</a>
 									  </li>
 									</ul>
 								</div>
@@ -112,7 +112,7 @@
 											<form>
 											
 												<div class="form-group">
-													<label>User Name</label>
+													<label>회원 아이디</label>
 													<div class="input-with-icon">
 														<input type="text" class="form-control">
 														<i class="ti-user"></i>
@@ -120,7 +120,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label>Password</label>
+													<label>비밀 번호</label>
 													<div class="input-with-icon">
 														<input type="password" class="form-control">
 														<i class="ti-unlock"></i>
@@ -131,16 +131,16 @@
 													<div class="eltio_ol9">
 														<div class="eltio_k1">
 															<input id="dd" class="checkbox-custom" name="dd" type="checkbox">
-															<label for="dd" class="checkbox-custom-label">Remember Me</label>
+															<label for="dd" class="checkbox-custom-label">아이디 기억</label>
 														</div>	
 														<div class="eltio_k2">
-															<a href="#">Lost Your Password?</a>
+															<a href="#">비밀번호를 잊어버리셨나요?</a>
 														</div>	
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<button type="submit" class="btn btn-md full-width pop-login">Login</button>
+													<button type="submit" class="btn btn-md full-width pop-login">로그인</button>
 												</div>
 											
 											</form>
@@ -151,26 +151,46 @@
 											<form>
 											
 												<div class="form-group">
-													<label>Full Name</label>
+													<label>회원 ID</label>
 													<div class="input-with-icon">
-														<input type="text" class="form-control">
+														<input type="text" class="form-control" name="userId">
 														<i class="ti-user"></i>
 													</div>
 												</div>
-												
 												<div class="form-group">
-													<label>Email ID</label>
+													<label>이름</label>
 													<div class="input-with-icon">
-														<input type="email" class="form-control">
+														<input type="text" class="form-control" name="name">
 														<i class="ti-user"></i>
 													</div>
 												</div>
-												
 												<div class="form-group">
-													<label>Password</label>
+													<label>비밀번호</label>
 													<div class="input-with-icon">
-														<input type="password" class="form-control">
+														<input type="password" class="form-control" name="pwd">
 														<i class="ti-unlock"></i>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>비밀번호 확인</label>
+													<div class="input-with-icon">
+														<input type="password" class="form-control" name="checkPwd">
+														<i class="ti-unlock"></i>
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label>이메일</label>
+													<div class="input-with-icon">
+														<input type="email" class="form-control" name="email">
+														<i class="ti-user"></i>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>연락처</label>
+													<div class="input-with-icon">
+														<input type="text" class="form-control" name="hp">
+														<i class="ti-user"></i>
 													</div>
 												</div>
 												
@@ -178,13 +198,13 @@
 													<div class="eltio_ol9">
 														<div class="eltio_k1">
 															<input id="dd" class="checkbox-custom" name="dd" type="checkbox">
-															<label for="dd" class="checkbox-custom-label">By using the website, you accept the terms and conditions</label>
+															<label for="dd" class="checkbox-custom-label">이용약관에 동의 해주세요.</label>
 														</div>	
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<button type="submit" class="btn btn-md full-width pop-login">Register</button>
+													<button type="submit" class="btn btn-md full-width pop-login">회원 가입</button>
 												</div>
 											
 											</form>

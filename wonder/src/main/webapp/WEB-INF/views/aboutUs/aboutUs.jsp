@@ -7,8 +7,7 @@
 
 <!-- ============================ Page Title Start================================== -->
 <div class="page-title"
-	style="background: #f4f4f4 url;"
-	data-overlay="5">
+	style="background: #f4f4f4 url(<c:url value='/img/main.jpg' />);" data-overlay="5">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
@@ -548,17 +547,16 @@
 							src="https://via.placeholder.com/1200x740" class="img-fluid"
 							alt="" /></a>
 						<div class="gtid_blog_info">
-							<span>12</span>Sep 2021
+							<span>1</span>2022년 3월
 						</div>
 					</div>
 
 					<div class="blog-body">
 						<h4 class="bl-title">
-							<a href="blog-detail.html">Creative Designs</a><span
+							<a href="blog-detail.html">디자인 작업 해드립니다~!</a><span
 								class="latest_new_post">New</span>
 						</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod.</p>
+						<p>5년 경력의 디자이너 입니다. 필요하신 디자인 있으면 말씀해주세요~</p>
 					</div>
 
 					<div class="modern_property_footer">
@@ -569,7 +567,7 @@
 									alt=""></a>
 							</div>
 							<h5>
-								<a href="agent-page.html" tabindex="-1">Shaurya Preet</a>
+								<a href="agent-page.html" tabindex="-1">디자이너 홍</a>
 							</h5>
 						</div>
 						<span class="article-pulish-date"><i
@@ -588,17 +586,17 @@
 							src="https://via.placeholder.com/1200x740" class="img-fluid"
 							alt="" /></a>
 						<div class="gtid_blog_info">
-							<span>15</span>Aug 2021
+							<span>2</span>2022년 5월
 						</div>
 					</div>
 
 					<div class="blog-body">
 						<h4 class="bl-title">
-							<a href="blog-detail.html">UX/UI Developer</a><span
+							<a href="blog-detail.html">풀스택 개발의 모든것</a><span
 								class="latest_new_post hot">Hot</span>
 						</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod.</p>
+						<p>현재 실무경력 22년의 고급 개발자입니다. 무엇이든지 회의후에 만들어 내보도록 하겠습니다
+							언제든지 문의주세요!.</p>
 					</div>
 
 					<div class="modern_property_footer">
@@ -609,7 +607,7 @@
 									alt=""></a>
 							</div>
 							<h5>
-								<a href="agent-page.html" tabindex="-1">Nirgam Singh</a>
+								<a href="agent-page.html" tabindex="-1">코딩박사</a>
 							</h5>
 						</div>
 						<span class="article-pulish-date"><i
@@ -628,17 +626,17 @@
 							src="https://via.placeholder.com/1200x740" class="img-fluid"
 							alt="" /></a>
 						<div class="gtid_blog_info">
-							<span>27</span>Nov 2021
+							<span>6</span>2022년 6월
 						</div>
 					</div>
 
 					<div class="blog-body">
 						<h4 class="bl-title">
-							<a href="blog-detail.html">WordPress Developer & UI</a><span
+							<a href="blog-detail.html">회사 홈페이지 의뢰드립니다.</a><span
 								class="latest_new_post">New</span>
 						</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod.</p>
+						<p>안녕하세요. 새로 회사를 설립하게된 이젠입니다. 회사 설립에 필요한 홈페이지를 제작하고싶어요.
+							전문가분들 부탁드릴게요</p>
 					</div>
 
 					<div class="modern_property_footer">
@@ -649,7 +647,7 @@
 									alt=""></a>
 							</div>
 							<h5>
-								<a href="agent-page.html" tabindex="-1">Dhananjay Singh</a>
+								<a href="agent-page.html" tabindex="-1">이젠 대표</a>
 							</h5>
 						</div>
 						<span class="article-pulish-date"><i
