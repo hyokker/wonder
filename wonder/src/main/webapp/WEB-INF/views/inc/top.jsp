@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
+
 <html lang="ko">
 	<head>
 		<meta charset="utf-8" />
@@ -17,6 +18,7 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet">
         
     </head>
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 	
     <body class="yellow-skin">
 	

@@ -11,16 +11,16 @@
 			<!-- ============================================================== -->
 			
 			<!-- ============================ Page Title Start================================== -->
-			<div class="page-title" style="background:#f4f4f4 url(https://via.placeholder.com/1920x980);" data-overlay="5">
+			<div class="page-title" style="background:#f4f4f4 url(<c:url value='/img/mypage/mypage_banner.jpg' />);" data-overlay="5">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12">
 							
 							<div class="breadcrumbs-wrap">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item active" aria-current="page">Saved Properties</li>
+									<li class="breadcrumb-item active" aria-current="page">반갑습니다</li>
 								</ol>
-								<h2 class="breadcrumb-title">Your All Saved Properties</h2>
+								<h2 class="breadcrumb-title">오지훈님의 개인페이지입니다</h2>
 							</div>
 							
 						</div>
@@ -46,14 +46,12 @@
 								
 								<div class="dash_user_menues">
 									<ul>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
+										<li><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
 										<li><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
 										<li class="active"><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-tasks"></i>거래내역</a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-gift"></i>Choose Package<span class="expiration">10 days left</span></a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-pen-nib"></i>내 정보 수정</a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
+										<li><a href="<c:url value='/mypage/transaction' />"><i class="fa fa-tasks"></i>거래내역</a></li>
+										<li><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
+										<li><a href="<c:url value='/mypage/changePwd' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
 									</ul>
 								</div>
 								
@@ -82,14 +80,14 @@
 
 										<tbody>
 											<tr>
-												<th><i class="fa fa-file-text"></i> 상품</th>
+												<th><i class="fa fa-file-text"></i> 상품목록</th>
 												<th></th>
 											</tr>
 
 											<!-- Item #1 -->
 											<tr>
 												<td class="dashboard_propert_wrapper">
-													<img src="https://via.placeholder.com/800x500" alt="">
+													<img src="<c:url value='/img/mypage/bookmark/ex01.jpg' />" alt="찜목록 사진">
 													<div class="title">
 														<h4><a href="#">디자인여기야</a></h4>
 														<span>사용자가 사용하기 편안한 반응형 홈페이지를 제작해 드립니다.
@@ -105,7 +103,7 @@
 											<!-- Item #2 -->
 											<tr>
 												<td class="dashboard_propert_wrapper">
-													<img src="https://via.placeholder.com/800x500" alt="">
+													<img src="<c:url value='/img/mypage/bookmark/ex02.jpg' />" alt="찜목록 사진">
 													<div class="title">
 														<h4><a href="#">메이크홈즈</a></h4>
 														<span>SEO최적화 거품없는 가격으로 반응형 홈페이지 제작해 드립니다.</span>
@@ -120,11 +118,11 @@
 											<!-- Item #3 -->
 											<tr>
 												<td class="dashboard_propert_wrapper">
-													<img src="https://via.placeholder.com/800x500" alt="">
+													<img src="<c:url value='/img/mypage/bookmark/ex03.png' />" alt="찜목록 사진">
 													<div class="title">
-														<h4><a href="#">Selway Villas</a></h4>
-														<span>33 William St. Northbrook, IL </span>
-														<span class="table-property-price">$420,000</span>
+														<h4><a href="#">빌러블</a></h4>
+														<span>디자인 파일을 주시면 퍼블리싱해 드립니다. </span>
+														<span class="table-property-price">55,000 원</span>
 													</div>
 												</td>
 												<td class="action">
@@ -135,11 +133,11 @@
 											<!-- Item #4 -->
 											<tr>
 												<td class="dashboard_propert_wrapper">
-													<img src="https://via.placeholder.com/800x500" alt="">
+													<img src="<c:url value='/img/mypage/bookmark/ex04.jpg' />" alt="찜목록 사진">
 													<div class="title">
-														<h4><a href="#">Town Manchester</a></h4>
-														<span> 7843 Durham Avenue, MD  </span>
-														<span class="table-property-price">$420,000</span>
+														<h4><a href="#">따따따디자인</a></h4>
+														<span> 반응형 홈페이지제작 및 기업 맞춤형 홈페이지 제작해 드립니다. </span>
+														<span class="table-property-price">550,000 원</span>
 													</div>
 												</td>
 												<td class="action">

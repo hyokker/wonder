@@ -17,4 +17,14 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDao.selectMemberByNo(no);
 	}
 
+	@Override
+	public MemberVO selectMemberById(String userId) {
+		return mypageDao.selectMemberById(userId);
+	}
+
+	@Override
+	public int updateMember(MemberVO vo) {
+		return mypageDao.updateMember(vo);
+	}
+
 }

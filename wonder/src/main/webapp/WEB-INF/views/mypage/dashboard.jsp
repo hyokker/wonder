@@ -2,21 +2,23 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/top.jsp" %>
+<link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
 
 			<!-- ============================================================== -->
 			<!-- Top header  -->
 			<!-- ============================================================== -->
 			
 			<!-- ============================ Page Title Start================================== -->
-			<div class="page-title" style="background:#f4f4f4 url(https://via.placeholder.com/1920x980);" data-overlay="5">
+			<div class="page-title" style="background:#f4f4f4 url(<c:url value='/img/mypage/mypage_banner.jpg' />);" data-overlay="5">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12">
+							
 							<div class="breadcrumbs-wrap">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item active" aria-current="page">대시보드</li>
+									<li class="breadcrumb-item active" aria-current="page">반갑습니다</li>
 								</ol>
-								<h2 class="breadcrumb-title">반갑습니다 ${vo.name }님, 어서오세요</h2>
+								<h2 class="breadcrumb-title">${userId }님의 개인페이지입니다</h2>
 							</div>
 							
 						</div>
@@ -42,14 +44,12 @@
 								
 								<div class="dash_user_menues">
 									<ul>
-										<li class="active"><a href="<c:url value='/mypage/dash' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
+										<li class="active"><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
 										<li><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
 										<li><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-tasks"></i>거래내역</a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-gift"></i>Choose Package<span class="expiration">10 days left</span></a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-pen-nib"></i>내 정보 수정</a></li>
-										<li><a href="<c:url value='/mypage/dash' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
+										<li><a href="<c:url value='/mypage/transaction' />"><i class="fa fa-tasks"></i>거래내역</a></li>
+										<li><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
+										<li><a href="<c:url value='/mypage/changePwd' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
 									</ul>
 								</div>
 								
