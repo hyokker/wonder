@@ -32,7 +32,8 @@ public class AdminController {
 	
 
 	 @RequestMapping("/memberList") 
-	 public String memberList(@ModelAttribute SearchVO searchVo, Model model) { 
+	 public String memberList(@ModelAttribute SearchVO searchVo, Model model,
+			 HttpSession session) { 
      //1
 	 logger.info("회원 목록, 파라미터 searchVo={}", searchVo);
 	 
@@ -47,6 +48,14 @@ public class AdminController {
 	 //2 DB 작업
 	 List<MemberVO> list = adminService.selectMember(searchVo);
 	 logger.info("회원 목록 조회 결과, list.size={}", list.size());
+	 
+	 String adimin_Id = "admin";
+	 session.setAttribute("adminId", adimin_Id);
+	 String adminId = (String)session.getAttribute("adminId");
+	 AdminVO adminVo = adminService.selectByAdminId(adminId);
+	 logger.info("관리자 정보 조회 결과, adminVo={}", adminVo);
+	 model.addAttribute("adminVo", adminVo);
+	 //관리자 세션 불러오는 부분 유틸리티로 만들까? (반복돼서 코드 지저분함)
 	 
 	 int totalRecord = adminService.getTotalRecord(searchVo);
 	 logger.info("회원 목록 totalRecord={}", totalRecord);
@@ -112,5 +121,33 @@ public class AdminController {
 		model.addAttribute("url", url);
 		
 		return "/common/message";
+	 }
+	 
+	 @GetMapping("/dashboard")
+	 public String viewDashboard() {
+		 logger.info("대시보드 화면");
+		 
+		 return "/admin/dashboard";
+	 }
+	 
+	 @GetMapping("/pdList")
+	 public String viewPdList() {
+		 logger.info("대시보드 화면");
+		 
+		 return "/admin/pdList";
+	 }
+	 
+	 @GetMapping("/nonApprovalList")
+	 public String viewNonApprovalList() {
+		 logger.info("대시보드 화면");
+		 
+		 return "/admin/nonApprovalList";
+	 }
+	 
+	 @GetMapping("/createAdmin")
+	 public String viewCreateAdmin() {
+		 logger.info("대시보드 화면");
+		 
+		 return "/admin/createAdmin";
 	 }
 }
