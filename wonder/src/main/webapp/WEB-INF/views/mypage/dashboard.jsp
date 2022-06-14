@@ -3,6 +3,101 @@
 
 <%@ include file="../inc/top.jsp" %>
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'사용언어별 거래량',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script> -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawLineChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'lang per'],
+          ['Java',     11],
+          ['CSS',      7],
+          ['HTML',  8],
+          ['SPRING', 7],
+          ['JavaScript',    3]
+        ]);
+
+        var options = {
+          title: '성사된 거래의 언어 사용률',
+          pieHole: 0.4,
+          width:500,
+          height:400,
+          pieSliceTextStyle: 'black',
+          colors: ['#3abc45', '#5cc865', '#8dd593', '#b7e8bb', '#d5ecd6']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+      
+      function drawLineChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Month', '거래건수', '월별 평균점수'],
+            ['7월',  4, 4.5],
+            ['8월',  5,4],
+            ['9월',  5,4.7],
+            ['10월',  4,4.3],
+            ['11월',  5,4],
+            ['12월',  5,4.8],
+            ['1월',  5,4.2],
+            ['2월',  6,4],
+            ['3월',  4,4.3],
+            ['4월',  5,4.7],
+            ['5월',  5,4.9],
+            ['6월',  4,4.7]
+          ]);
+
+          var options = {
+            title: '월별 거래 건수',
+            width: 700,
+            curveType: 'function',
+            colors: ['#3abc45','#f33066'],
+            legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+          chart.draw(data, options);
+        }
+    </script>
 
 			<!-- ============================================================== -->
 			<!-- Top header  -->
@@ -37,9 +132,9 @@
 							<div class="property_dashboard_navbar">
 								
 								<div class="dash_user_avater">
-									<img src="https://via.placeholder.com/500x500" class="img-fluid avater" alt="">
-									<h4>홍길동</h4>
-									<span>서울특별시 마포구</span>
+									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
+									<h4>${userId }</h4>
+									<span>${vo.email }</span>
 								</div>
 								
 								<div class="dash_user_menues">
@@ -67,28 +162,28 @@
 							<div class="dashboard-body">
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12">
-										<h4>Your Current Package: <span class="pc-title theme-cl">Gold Package</span></h4>
+										<h4>접속중인 회원 등급 : <span class="pc-title theme-cl">프리랜서</span></h4>
 									</div>
 								</div>
 								
 								<div class="row">
 									<div class="col-lg-4 col-md-6 col-sm-12">
 										<div class="dashboard_stats_wrap widget-1">
-											<div class="dashboard_stats_wrap_content"><h4>607</h4> <span>Listed Property</span></div>
+											<div class="dashboard_stats_wrap_content"><h4>57</h4> <span>연간 거래완료건수</span></div>
 											<div class="dashboard_stats_wrap-icon"><i class="ti-location-pin"></i></div>
 										</div>	
 									</div>
 									
 									<div class="col-lg-4 col-md-6 col-sm-12">
 										<div class="dashboard_stats_wrap widget-3">
-											<div class="dashboard_stats_wrap_content"><h4>$10,540</h4> <span>Earned This Week</span></div>
+											<div class="dashboard_stats_wrap_content"><h4>13,580,000원</h4> <span>연간 계약 총 금액</span></div>
 											<div class="dashboard_stats_wrap-icon"><i class="ti-wallet"></i></div>
 										</div>	
 									</div>
 									
 									<div class="col-lg-4 col-md-6 col-sm-12">
 										<div class="dashboard_stats_wrap widget-2">
-											<div class="dashboard_stats_wrap_content"><h4>5,40580</h4> <span>Earned This Month</span></div>
+											<div class="dashboard_stats_wrap_content"><h4>54,580회</h4> <span>연간 내글의 조회수</span></div>
 											<div class="dashboard_stats_wrap-icon"><i class="ti-credit-card"></i></div>
 										</div>	
 									</div>
@@ -97,28 +192,38 @@
 								<!--  row -->
 								
 								<div class="row">
-									<div class="col-lg-8 col-md-7 col-sm-12">
+									<div class="col-lg-12 col-md-7 col-sm-12">
 										<div class="card">
 											<div class="card-header">
-												<h4 class="mb-0">Extra Area Chart</h4>
+												<h4 class="mb-0">판매관련 통계 그래프</h4>
 											</div>
 											<div class="card-body">
-												<ul class="list-inline text-center m-t-40">
-													<li>
+												<ul class="list-inline text-center m-t-40" style="margin-left: 500px">
+													<!-- <li>
 														<h5><i class="fa fa-circle m-r-5 text-warning"></i>Website A</h5>
+													</li> -->
+													<li>
+														<h5><i class="fa fa-circle m-r-5 text-success"></i>거래건수</h5>
 													</li>
 													<li>
-														<h5><i class="fa fa-circle m-r-5 text-danger"></i>Website B</h5>
-													</li>
-													<li>
-														<h5><i class="fa fa-circle m-r-5 text-success"></i>Website C</h5>
+														<h5><i class="fa fa-circle m-r-5 text-danger"></i>월별 평균점수</h5>
 													</li>
 												</ul>
-												<div class="chart" id="extra-area-chart" style="height: 300px;"></div>
+												<div class="chart" id="extra-area-chart" style="height: 300px;">    
+													    <div id="donutchart" style="width: 400px; height: 310px; display: inline-block;"></div>
+						   								 <div id="curve_chart" style="width: 400px; height: 310px; display: inline-block; margin-left: 100px;"></div>
+						
+												</div>
+												
 											</div>
 										</div>
 									</div>
 									
+
+								</div>
+								<!-- row -->
+								
+								<div class="row">
 									<div class="col-lg-4 col-md-5 col-sm-12">
 										<div class="card">
 											<div class="card-header">
@@ -182,11 +287,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								<!-- row -->
-								
-								<div class="row">
-									<div class="col-lg-12 col-md-12">
+									<div class="col-lg-8 col-md-8">
 										<div class="card">
 											<div class="card-header">
 												<h4 class="mb-0">Order Status</h4>
@@ -227,6 +328,22 @@
 																<td><div class="label text-danger bg-danger-light">Cancel</div></td>  
 																<td>$ 710.5</td>
 																<td>11/05/2015</td>                                          
+															</tr>
+															
+															<tr>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Mount See Villa</a></td>
+																<td>#287246</td>
+																<td><div class="label text-success bg-success-light">Paid</div></td>
+																<td>$ 482.70</td>
+																<td>06/09/2016</td>
+															</tr>
+															
+															<tr>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Mount See Villa</a></td>
+																<td>#287246</td>
+																<td><div class="label text-success bg-success-light">Paid</div></td>
+																<td>$ 482.70</td>
+																<td>06/09/2016</td>
 															</tr>
 															
 															<tr>

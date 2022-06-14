@@ -25,7 +25,7 @@ public class MypageController {
 	private final MypageService mypageService;
 	
 	@RequestMapping("/dashboard")
-	public void mypage_dashboard(HttpServletRequest request,Model model) {
+	public void mypage_dashboard(HttpServletRequest request,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
 		logger.info("대시보드 페이지");
 		
 		MemberVO vo = mypageService.selectMemberByNo(1);
@@ -68,22 +68,46 @@ public class MypageController {
 	
 
 	@RequestMapping("/bookmark")
-	public void mypage_bookmark() {
+	public void mypage_bookmark(HttpSession session,Model model) {
 		logger.info("찜(북마크) 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("프로필 페이지 vo={}",vo);
+		
+		model.addAttribute("vo",vo);
 	}
 	
 	@RequestMapping("/transaction")
-	public void mypage_transaction() {
+	public void mypage_transaction(HttpSession session,Model model) {
 		logger.info("거래 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("프로필 페이지 vo={}",vo);
+		
+		model.addAttribute("vo",vo);
 	}
 	
 	@RequestMapping("/chatting")
-	public void mypage_chatting() {
+	public void mypage_chatting(HttpSession session,Model model) {
 		logger.info("채팅 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("프로필 페이지 vo={}",vo);
+		
+		model.addAttribute("vo",vo);
 	}
 	
 	@RequestMapping("/changePwd")
-	public void mypage_changePwd() {
+	public void mypage_changePwd(HttpSession session,Model model) {
 		logger.info("암호 변경 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("프로필 페이지 vo={}",vo);
+		
+		model.addAttribute("vo",vo);
 	}
 }

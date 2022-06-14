@@ -38,9 +38,9 @@
 							<div class="property_dashboard_navbar">
 								
 								<div class="dash_user_avater">
-									<img src="https://via.placeholder.com/500x500" class="img-fluid avater" alt="">
-									<h4>Adam Harshvardhan</h4>
-									<span>Canada USA</span>
+									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
+									<h4>${userId }</h4>
+									<span>${vo.email }</span>
 								</div>
 	
 								<div class="dash_user_menues">
@@ -80,168 +80,168 @@
 										<ul>
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status online"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status online"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Tilly Bartlett</h5>
+															<h5>이정진</h5>
 															<span>36 min ago</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year.. </p>
+														<p>안녕하세요, 의뢰글 보고 연락드립니다 </p>
 													</div>
 												</a>
 											</li>
 
 											<li class="active-message">
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status offline"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status offline"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>George Howarth</h5>
+															<h5>오지훈</h5>
 															<span>2 hours ago</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>그럼 말씀하신것처럼 진행하겠습니다</p>
 													</div>
 												</a>
 											</li>
 											
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status busy"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status busy"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Harriet Ball</h5>
+															<h5>이지현</h5>
 															<span>Yesterday</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>저희 서비스를 이용해주셔서 감사합니다!</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status online"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status online"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Sienna Bruce</h5>
+															<h5>서원기</h5>
 															<span>02.01.2020</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>1차 작업물입니다 확인부탁드립니다.</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status busy"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status busy"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Leo Stewart</h5>
+															<h5>장현수</h5>
 															<span>03.01.2020</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>그러면 말씀하신걸로 적용할게요</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status online"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status online"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Shaurya Preet</h5>
+															<h5>홍길동</h5>
 															<span>05.01.2020</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>감사합니다, 거래완료 눌러주시면 됩니다!</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status offline"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status offline"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Dan Preet</h5>
+															<h5>김잔디</h5>
 															<span>04.01.2020</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>글씨체를 좀 바꾸는게 좋을것같아요</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status online"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status online"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Maddison</h5>
+															<h5>박종익</h5>
 															<span>31.05.2019</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>배너는 이런느낌으로 부탁드립니다</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status busy"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status busy"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Maddison</h5>
+															<h5>빈진호</h5>
 															<span>27.05.2019</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>저희 서비스를 이용해주셔서 정말 감사드립니다!</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status busy"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status busy"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Eleanor Lloyd</h5>
+															<h5>박완일</h5>
 															<span>24.05.2019</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>언제쯤 받아볼 수 있을까요?</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status offline"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status offline"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Anna Curtis</h5>
+															<h5>오동한</h5>
 															<span>05.01.2020</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>네~그럼 완료되면 연락드리겠습니다</p>
 													</div>
 												</a>
 											</li>
 
 											<li>
 												<a href="#">
-													<div class="dash-msg-avatar"><img src="https://via.placeholder.com/500x500" alt=""><span class="_user_status online"></span></div>
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status online"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>Tyler Fraser</h5>
+															<h5>박상훈</h5>
 															<span>07.01.2020</span>
 														</div>
-														<p>Hello, I am a web designer with 5 year..</p>
+														<p>서비스 이용에 차질을 드려 죄송합니다. 빠른시간내에 처리하겠습니다.</p>
 													</div>
 												</a>
 											</li>
@@ -254,45 +254,45 @@
 									<div class="dash-msg-content">
 
 										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="https://image.flaticon.com/icons/png/512/145/145849.png" alt=""></div>
-											<div class="dash-msg-text"><p>Hello, Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin</p></div>
+											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+											<div class="dash-msg-text"><p>안녕하세요!</p></div>
 										</div>
 
 										<div class="message-plunch me">
-											<div class="dash-msg-avatar"><img src="https://via.placeholder.com/400x400" alt=""></div>
-											<div class="dash-msg-text"><p>looked up one of the more obscure Latin words, consectetur, from a Lorem</p></div>
+											<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
+											<div class="dash-msg-text"><p>안녕하세요! 의뢰주신 내용이 헬스장 스케쥴 관리 반응형 사이트 맞으실까요?</p></div>
 										</div>
 
 										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="https://image.flaticon.com/icons/png/512/145/145849.png" alt=""></div>
-											<div class="dash-msg-text"><p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing</p></div>
+											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+											<div class="dash-msg-text"><p>네! 기간은 30일이내로 생각중이고, 원하는 스타일의 사이트를 메일로 보내드릴게요.</p></div>
 										</div>
 
 										<div class="message-plunch me">
-											<div class="dash-msg-avatar"><img src="https://via.placeholder.com/400x400" alt=""></div>
-											<div class="dash-msg-text"><p>please consider donating a small sum to help pay for the hosting and bandwidth bill.</p></div>
+											<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
+											<div class="dash-msg-text"><p>감사합니다, 보내주신내용 확인해봤는데요, 이야기하신 기간내에 완료 가능할것같습니다.</p></div>
 										</div>
 
 										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="https://image.flaticon.com/icons/png/512/145/145849.png" alt=""></div>
-											<div class="dash-msg-text"><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p></div>
+											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+											<div class="dash-msg-text"><p>다행이네요 혹시 메인페이지에 제가 원하는 애니메이션 효과를 넣으려면 추가요금이 필요할까요?</p></div>
 										</div>
 
 										<div class="message-plunch me">
-											<div class="dash-msg-avatar"><img src="https://via.placeholder.com/400x400" alt=""></div>
-											<div class="dash-msg-text"><p>numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p></div>
+											<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
+											<div class="dash-msg-text"><p>그 애니메이션은 그냥 추가해드리겠습니다! 작업 진행내용은 3일마다 간단하게 보고드릴게요.</p></div>
 										</div>
 
 										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="https://image.flaticon.com/icons/png/512/145/145849.png" alt=""></div>
-											<div class="dash-msg-text"><p>But I must explain to you how all this mistaken idea of denouncing pleasure</p></div>
+											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+											<div class="dash-msg-text"><p>네 알겠습니다 그럼 수고해주세요!</p></div>
 										</div>
 										
 										<!-- Reply Area -->
 										<div class="clearfix"></div>
 										<div class="message-reply">
-											<textarea cols="40" rows="3" class="form-control with-light" placeholder="Your Message"></textarea>
-											<button type="submit" class="btn theme-bg">Send Message</button>
+											<textarea cols="40" rows="3" class="form-control with-light" placeholder="내용을 입력해주세요"></textarea>
+											<button type="submit" class="btn theme-bg">전송</button>
 										</div>
 										
 									</div>

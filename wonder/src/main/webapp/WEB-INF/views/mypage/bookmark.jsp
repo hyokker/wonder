@@ -39,9 +39,9 @@
 							<div class="property_dashboard_navbar">
 								
 								<div class="dash_user_avater">
-									<img src="https://via.placeholder.com/500x500" class="img-fluid avater" alt="">
-									<h4>홍길동</h4>
-									<span>서울특별시 마포구</span>
+									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
+									<h4>${userId }</h4>
+									<span>${vo.email }</span>
 								</div>
 								
 								<div class="dash_user_menues">
