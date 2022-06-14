@@ -6,9 +6,191 @@
 #profile {
 	height: 32rem;
 }
+	
+
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+    display: inline-flex;
+  }
+  
+  /* make hover effect work properly in IE */
+  .rating__icon {
+    pointer-events: none;
+  }
+  
+  /* hide radio inputs */
+  .rating__input {
+   position: absolute !important;
+   left: -9999px !important;
+  }
+
+  /* set icon padding and size */
+  .rating__label {
+    cursor: pointer;
+    /* if you change the left/right padding, update the margin-right property of .rating__label--half as well. */
+    padding: 0 0.1em;
+    font-size: 2rem;
+  }
+
+  /* add padding and positioning to half star labels */
+  .rating__label--half {
+    padding-right: 0;
+    margin-right: -0.5em;
+    z-index: 2;
+  }
+  
+  /* set default star color */
+  .rating__icon--star {
+    color: orange;
+  }
+  
+  /* set color of none icon when unchecked */
+  .rating__icon--none {
+    color: #eee;
+  }
+
+  /* if none icon is checked, make it red */
+  .rating__input--none:checked + .rating__label .rating__icon--none {
+    color: red;
+  }
+
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+  
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star,
+  .rating-group:hover .rating__label--half .rating__icon--star {
+    color: orange;
+  }
+
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover ~ .rating__label .rating__icon--star,
+  .rating__input:hover ~ .rating__label--half .rating__icon--star {
+    color: #ddd;
+  }
+  
+  /* make none icon grey on rating group hover */
+  .rating-group:hover .rating__input--none:not(:hover) + .rating__label .rating__icon--none {
+     color: #eee;
+  }
+
+  /* make none icon red on hover */
+  .rating__input--none:hover + .rating__label .rating__icon--none {
+    color: red;
+  }
+
+	[type="radio"]:checked + label,
+	[type="radio"]:not(:checked) + label {
+	    padding-left: 0;
+	}
+	[type="radio"]:checked + label:before,
+	[type="radio"]:not(:checked) + label:before {
+	    content: none;
+	} 
+	[type="radio"]:checked + label:after,
+	[type="radio"]:not(:checked) + label:after {
+	    content: none;
+	}
+	
+	/* star percentage */
+	.rating {
+  display: inline-block;
+  unicode-bidi: bidi-override;
+  color: #888888;
+  font-size: 30px;
+  height: 25px;
+  width: auto;
+  margin: 0;
+  position: relative;
+  padding: 0;
+  top: -16px;
+}
+
+.rating-upper {
+  color: orange;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.rating-lower {
+  padding: 0;
+  display: flex;
+  z-index: 0;
+}
+
+.bigScore{
+	font-size: 40px;
+    font-weight: 700;
+    line-height: 33px;
+    color: #2a2f3a;
+}
+.avgScore{
+	font-size: 25px;
+    font-weight: 700;
+    line-height: 1em;
+    color: #2a2f3a;
+    margin-right: 200px;
+    margin-top: 4px;
+}
+
+/* detail - 가격정보 */
+.pricingTitle{
+	height: 3.875em !important;
+	line-height: 0.625em !important;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* detail - 소제목 */
+#myTabContent h5{
+	margin: 15px 0 15px 5px;
+}
+#myTabContent p{
+	margin-left: 5px;
+}
+
+/* modal */
+#exampleModalToggle{
+	top: -80px;
+}
+
+/* datePicker */
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #27ae60;
+    color: white !important;
+}
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+    background-color: #27ae60;
+    color: white;
+}
+th.next.available, .prev.available {
+    background: #2C3E50;
+}
+th.next.available:hover, th.prev.available:hover {
+    background: #2c3e50b3;
+}
+.daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
+    border-color: white !important;
+}
+
+/* 전문가 정보 */
+.dash_user_menues ul li {
+    padding: 8px 25px;
+    color: #2C3E50;
+}
 </style>
+
 <!-- slick -->
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<!-- starRating -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- Gallery + profile -->
 <section class="gallery_parts pt-2 pb-2 d-none d-sm-none d-md-none d-lg-none d-xl-block">
@@ -32,11 +214,11 @@
 					
 					<div class="dash_user_menues">
 						<ul>
-							<li><a href="#"><i class="fa fa-tachometer-alt"></i>연락 가능 시간: 9시 ~ 23시</a></li>
-							<li><a href="#"><i class="fa fa-tachometer-alt"></i>평균 응답 시간: 2시간 이내</a></li>
-							<li><a href="#"><i class="fa fa-bookmark"></i>총 작업개수: 17개</a></li>
-							<li><a href="#"><i class="fa fa-tasks"></i>소개</a></li>
-							<li>안녕하세요</li>
+							<li><i class="fa fa-bookmark"></i>연락 가능 시간: 9시 ~ 23시</li>
+							<li><i class="fa fa-bookmark"></i>총 작업개수: 17개</li>
+							<li><i class="fa fa-tasks"></i>소개</li>
+							<li style="padding: 0 25px">합리적인 비용과 체계적인 분석으로 성공적인 메타버스 입점을 돕는 알파디입니다.
+궁금한 내용은 언제든 편하게 문의해주세요! </li>
 						</ul>
 					</div>
 					
@@ -60,18 +242,18 @@
 							<div class="property_info_detail_wrap mb-4">
 								<div class="property_info_detail_wrap_first">
 									<div class="pr-price-into">
-										<ul class="prs_lists mb-0">
+										<%-- <ul class="prs_lists mb-0">
 											<li><img src="${pageContext.request.contextPath}/img/deals.png" class="img-fluid" width="60" alt="" /> Special Offer</li>
 											<li><span class="bath">Per Friendly</span></li>
-										</ul>
+										</ul> --%>
 										<h2>Unity기반 메타버스 게임을 제작해 드립니다.</h2>
 									</div>
 								</div>
 								<div class="property_detail_section">
 									<div class="prt-sect-pric">
 										<ul class="_share_lists">
-											<li><a href="#"><i class="fa fa-bookmark"></i></a></li>
-											<li><a href="#"><i class="fa fa-share"></i></a></li>
+											<li><a href="#"><i class="fa fa-heart" style="color: red"></i></a></li>
+											<li style="padding-left: 5px">찜하기</li>
 										</ul>
 									</div>
 								</div>
@@ -105,7 +287,10 @@
 									<!-- detail menu -->
 									<ul class="nav nav-tabs floor_plans" id="myTab" role="tablist">
 										<li class="nav-item">
-											<a class="nav-link active" id="buy-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">서비스설명</a>
+											<a class="nav-link active" id="buy-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">전체보기</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="0bed-tab" data-toggle="tab" href="#0bed" role="tab" aria-controls="0bed" aria-selected="false">서비스설명</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" id="1bed-tab" data-toggle="tab" href="#1bed" role="tab" aria-controls="1bed" aria-selected="false">가격정보</a>
@@ -121,394 +306,423 @@
 									<div class="tab-content" id="myTabContent">
 										<!-- All Tabs -->
 										<div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-											<!-- Single List -->
+											<!-- tab 1 -->
 											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">1 B</h4>
-															<p class="m-0"><span>1 Bed, 1 Bath</span><br><span>$1,400-$1,800, 900-1200 sqft</span></p>
-															<span class="theme-cl">10 April</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">2659</a></td>
-														<td>$1200+</td>
-														<td>780 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">18 June</span></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">1365</a></td>
-														<td>$1400+</td>
-														<td>800 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">4 July June</span></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">1596</a></td>
-														<td>$1500+</td>
-														<td>900 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">10 july</span></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">7532</a></td>
-														<td>$1350+</td>
-														<td>850 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">16 July</span></td>
-													</tr>
-												  </tbody>
-												</table>
+												<h5>서비스설명</h5>
+												<p>①"몰" 이란 (주)테스트닷컴 회사가 재화 또는 용역(이하 "재화등"이라 함)을 이용자에게 제공하기 위하여 컴퓨터등 정보통신설비를 이용하여 재화등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.
+
+②"이용자"란 "몰"에 접속하여 이 약관에 따라 "몰"이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.
+
+③ '회원'이라 함은 "몰"에 개인정보를 제공하여 회원등록을 한 자로서, "몰"의 정보를 지속적으로 제공받으며, "몰"이 제공하는 서비스를 계속적으로 이용할 수 있는 자를 말합니다.
+
+④ '비회원'이라 함은 회원에 가입하지 않고 "몰"이 제공하는 서비스를 이용하는 자를 말합니다.
+
+제3조 (약관등의 명시와 설명 및 개정) 
+① "몰"은 이 약관의 내용과 상호 및 대표자 성명, 영업소 소재지 주소(소비자의 불만을 처리할 수 있는 곳의 주소를 포함), 전화번호·모사전송번호·전자우편주소, 사업자등록번호, 통신판매업신고번호, 개인정보관리책임자등을 이용자가 쉽게 알 수 있도록 테스트샵 사이버몰의 초기 서비스화면(전면)에 게시합니다. 다만, 약관의 내용은 이용자가 연결화면을 통하여 볼 수 있도록 할 수 있습니다.
+
+② "몰은 이용자가 약관에 동의하기에 앞서 약관에 정하여져 있는 내용 중 청약철회·배송책임·
+환불조건 등과 같은 중요한 내용을 이용자가 이해할 수 있도록 별도의 연결화면 또는 팝업화면 등
+을 제공하여 이용자의 확인을 구하여야 합니다.
+
+③ "몰"은 전자상거래등에서의소비자보호에관한법률, 약관의규제에관한법률, 전자거래기본법, 전자
+서명법, 정보통신망이용촉진등에관한법률, 방문판매등에관한법률, 소비자보호법 등 관련법을 위배하
+지 않는 범위에서 이 약관을 개정할 수 있습니다.
+
+④ "몰"이 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 몰의 초기
+화면에 그 적용일자 7일이전부터 적용일자 전일까지 공지합니다.
+다만, 이용자에게 불리하게 약관내용을 변경하는 경우에는 최소한 30일 이상의 사전 유예기간을 두
+고 공지합니다. 이 경우 "몰"은 개정전 내용과 개정후 내용을 명확하게 비교하여 이용자가 알기 쉽
+도록 표시합니다. 
+
+⑤ "몰"이 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 체결되는 계약에만 적용되
+고 그 이전에 이미 체결된 계약에 대해서는 개정전의 약관조항이 그대로 적용됩니다. 다만 이미 계
+약을 체결한 이용자가 개정약관 조항의 적용을 받기를 원하는 뜻을 제3항에 의한 개정약관의 공지
+기간내에 '몰"에 송신하여 "몰"의 동의를 받은 경우에는 개정약관 조항이 적용됩니다.
+
+⑥ 이 약관에서 정하지 아니한 사항과 이 약관의 해석에 관하여는 전자상거래등에서의소비자보호
+에관한법률, 약관의규제등에관한법률, 공정거래위원회가 정하는 전자상거래등에서의소비자보호지침 
+및 관계법령 또는 상관례에 따릅니다.</p>
 											</div>
 											
-											<!-- Single List -->
+											<!-- tab 2 -->
 											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">2 B</h4>
-															<p class="m-0"><span>2 Bed, 2 Bath</span><br><span>$2,200-$2,800, 1200-1500 sqft</span></p>
-															<span class="theme-cl">17 Aug</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">3642</a></th>
-														<td>$3,200+</td>
-														<td>1800 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">5 Aug</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7236</a></th>
-														<td>$2,900+</td>
-														<td>1600 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">10 Aug</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">8742</a></th>
-														<td>$2,400+</td>
-														<td>1400 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">17 Aug</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">9142</a></th>
-														<td>$2,300+</td>
-														<td>1300 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">25 Aug</span></td>
-													</tr>
-												  </tbody>
-												</table>
+												<div class="pricing packages_style_5">
+											<h5>가격 정보</h5>
+												<div class="row">
+													<div class="col-lg-3 text-center d-lg-block d-md-none d-sm-none d-none">
+														<ul>
+															<li class="pricingTitle">
+																<span></span>
+															</li>
+															<li>
+																<span>가격</span>
+															</li>
+															<li>
+																<span>패키지 설명</span>
+															</li>
+															<li>
+																<span>상업적 이용</span>
+															</li>
+															<li>
+																<span>맞춤 디자인 제공</span>
+															</li>
+															<li>
+																<span>소스 코드 제공</span>
+															</li>
+															<li>
+																<span>결제 기능</span>
+															</li>
+															<li>
+																<span>수정 횟수</span>
+															</li>
+															<li>
+																<span>작업일</span>
+															</li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-4 col-sm-12 text-center">
+														<ul>
+															<li class="pricingTitle">
+																STANDARD
+																<span class="show-mb"></span>
+															</li>
+															<li>
+																$29
+															</li>
+															<li>
+																패키지 설명
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																1회
+															</li>
+															<li>
+																15일
+															</li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-4 col-sm-12 text-center pricing--emphasise">
+														<ul>
+															<li class="pricingTitle">
+																DELUXE
+																<span class="show-mb">Area</span>
+															</li>
+															<li>
+																$49
+															</li>
+															<li>
+																패키지 설명
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																2회
+															</li>
+															<li>
+																20일
+															</li>
+														</ul>
+													</div>
+													
+													<div class="col-lg-3 col-md-4 col-sm-12 text-center">
+														<ul>
+															<li class="pricingTitle">
+																PREMIUM
+															</li>
+															<li>
+																$79
+															</li>
+															<li>
+																패키지 설명
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																3회
+															</li>
+															<li>
+																30일
+															</li>
+														</ul>
+													</div>
+												</div>
+												
+						                    </div>
 											</div>
 
-											<!-- Single List -->
+											<!-- tab 3 -->
 											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">2 A</h4>
-															<p class="m-0"><span>3 Bed, 2 Bath</span><br><span>$2,600-$3,500, 1200-2000 sqft</span></p>
-															<span class="theme-cl">10 April</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">9648</a></th>
-														<td>$1800+</td>
-														<td>950 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">18 Sep</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">6831</a></th>
-														<td>$3500+</td>
-														<td>1500 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">18 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7830</a></th>
-														<td>$3200+</td>
-														<td>1250 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">20 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">8095</a></th>
-														<td>$2500+</td>
-														<td>1050 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">07 Nov</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7280</a></th>
-														<td>$2000+</td>
-														<td>1000 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">10 Dec</span></td>
-													</tr>
-												  </tbody>
-												</table>
+												<h5>수정 및 재진행</h5>
+												<p>수정 및 재진행</p>
+												<p>1. Unity 기반 소형맵 제작</p>
+												<p>—> 1차 배포 과정에서 기획서 범위 내의 수정 요청이 1회 가능합니다.</p>
+												<p>—> 테스트 과정에서는 기획서 범위 내에서 최종 수정 요청이 가능하며 이후 수정은 불가합니다.</p>
+												<p>2. Unity 기반 인게임 로직 맵 제작</p>
+												<p>—> 1차 배포 과정에서 기획서 범위 내의 수정 요청이 2회 가능합니다. </p>
+												<p>—> 테스트 과정에서는 기획서 범위 내에서 최종 수정 요청이 가능하며 이후 수정은 불가합니다.</p>
+												<p>3. Unity 기반 인게임 중형맵 제작</p>
+												<p>—> 컨설팅 및 DIVE 과정에서 기획서 작성 과정이 세부적으로 이루어지며, 최종 기획서 작성 이전까지 기획 수정 요청이 가능합니다.</p>
+												<p>—> 1차 배포 과정에서 기획서와 다른 범위에서의 수정 요청이 가능합니다. </p>
+												<p>—> 테스트 과정에서는 기획서 범위 내에서 최종 수정 요청이 가능하며 이후 수정은 불가합니다.</p>
 											</div>
 											
-											<!-- Single List -->
+											<!-- tab 4 -->
 											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">Studio</h4>
-															<p class="m-0"><span>Studio, 1 Bath</span><br><span>$2,600-$3,500, 1200-2000 sqft</span></p>
-															<span class="theme-cl">10 April</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">9648</a></th>
-														<td>$1800+</td>
-														<td>950 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">18 Sep</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">6831</a></th>
-														<td>$3500+</td>
-														<td>1500 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">18 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7830</a></th>
-														<td>$3200+</td>
-														<td>1250 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">20 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">8095</a></th>
-														<td>$2500+</td>
-														<td>1050 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">07 Nov</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7280</a></th>
-														<td>$2000+</td>
-														<td>1000 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">10 Dec</span></td>
-													</tr>
-												  </tbody>
-												</table>
+												<h5>취소 및 환불 규정</h5>
+												<p>가. 기본 환불 규정</p>
+												<p>1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.</p>
+												<p>2. 작업이 완료된 이후 또는 자료, 프로그램 등 서비스가 제공된 이후에는 환불이 불가합니다.</p>
+												<p>( 소비자보호법 17조 2항의 5조. 용역 또는 「문화산업진흥 기본법」 제2조 제5호의 디지털콘텐츠의 제공이 </p>
+												<p>개시된 경우에 해당)</p>
+												<p>나. 전문가 책임 사유</p>
+												<p>1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 </p>
+												<p>결제금액 전체 환불이 가능합니다.</p>
+												<p>다. 의뢰인 책임 사유</p>
+												<p>1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금</p>
+												<p>액의 10%를 공제하여 환불합니다.</p>
+												<p>총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액</p>
+												<p>총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액</p>
+												<p>총 작업량의 1/2 경과 후 : 반환하지 않음</p>
 											</div>
 											
 										</div>
 										<!-- tabs 1 -->
-										<div class="tab-pane fade" id="1bed" role="tabpanel" aria-labelledby="1bed-tab">
-											<!-- Single List -->
-											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">1 B</h4>
-															<p class="m-0"><span>1 Bed, 1 Bath</span><br><span>$1,400-$1,800, 900-1200 sqft</span></p>
-															<span class="theme-cl">10 April</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">2659</a></td>
-														<td>$1200+</td>
-														<td>780 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">18 June</span></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">1365</a></td>
-														<td>$1400+</td>
-														<td>800 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">4 July June</span></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">1596</a></td>
-														<td>$1500+</td>
-														<td>900 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">10 july</span></td>
-													</tr>
-													<tr>
-														<td><a href="#" class="theme-cl">7532</a></td>
-														<td>$1350+</td>
-														<td>850 sqft</td>
-														<td>1 Bed 1 Bath</td>
-														<td><span class="theme-cl">16 July</span></td>
-													</tr>
-												  </tbody>
-												</table>
-											</div>
+										<div class="tab-pane fade" id="0bed" role="tabpanel" aria-labelledby="0bed-tab">
+											<h5>서비스설명</h5>
+											<p>①"몰" 이란 (주)테스트닷컴 회사가 재화 또는 용역(이하 "재화등"이라 함)을 이용자에게 제공하기 위하여 컴퓨터등 정보통신설비를 이용하여 재화등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.
+
+②"이용자"란 "몰"에 접속하여 이 약관에 따라 "몰"이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.
+
+③ '회원'이라 함은 "몰"에 개인정보를 제공하여 회원등록을 한 자로서, "몰"의 정보를 지속적으로 제공받으며, "몰"이 제공하는 서비스를 계속적으로 이용할 수 있는 자를 말합니다.
+
+④ '비회원'이라 함은 회원에 가입하지 않고 "몰"이 제공하는 서비스를 이용하는 자를 말합니다.
+
+제3조 (약관등의 명시와 설명 및 개정) 
+① "몰"은 이 약관의 내용과 상호 및 대표자 성명, 영업소 소재지 주소(소비자의 불만을 처리할 수 있는 곳의 주소를 포함), 전화번호·모사전송번호·전자우편주소, 사업자등록번호, 통신판매업신고번호, 개인정보관리책임자등을 이용자가 쉽게 알 수 있도록 테스트샵 사이버몰의 초기 서비스화면(전면)에 게시합니다. 다만, 약관의 내용은 이용자가 연결화면을 통하여 볼 수 있도록 할 수 있습니다.
+
+② "몰은 이용자가 약관에 동의하기에 앞서 약관에 정하여져 있는 내용 중 청약철회·배송책임·
+환불조건 등과 같은 중요한 내용을 이용자가 이해할 수 있도록 별도의 연결화면 또는 팝업화면 등
+을 제공하여 이용자의 확인을 구하여야 합니다.
+
+③ "몰"은 전자상거래등에서의소비자보호에관한법률, 약관의규제에관한법률, 전자거래기본법, 전자
+서명법, 정보통신망이용촉진등에관한법률, 방문판매등에관한법률, 소비자보호법 등 관련법을 위배하
+지 않는 범위에서 이 약관을 개정할 수 있습니다.
+
+④ "몰"이 약관을 개정할 경우에는 적용일자 및 개정사유를 명시하여 현행약관과 함께 몰의 초기
+화면에 그 적용일자 7일이전부터 적용일자 전일까지 공지합니다.
+다만, 이용자에게 불리하게 약관내용을 변경하는 경우에는 최소한 30일 이상의 사전 유예기간을 두
+고 공지합니다. 이 경우 "몰"은 개정전 내용과 개정후 내용을 명확하게 비교하여 이용자가 알기 쉽
+도록 표시합니다. 
+
+⑤ "몰"이 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 체결되는 계약에만 적용되
+고 그 이전에 이미 체결된 계약에 대해서는 개정전의 약관조항이 그대로 적용됩니다. 다만 이미 계
+약을 체결한 이용자가 개정약관 조항의 적용을 받기를 원하는 뜻을 제3항에 의한 개정약관의 공지
+기간내에 '몰"에 송신하여 "몰"의 동의를 받은 경우에는 개정약관 조항이 적용됩니다.
+
+⑥ 이 약관에서 정하지 아니한 사항과 이 약관의 해석에 관하여는 전자상거래등에서의소비자보호
+에관한법률, 약관의규제등에관한법률, 공정거래위원회가 정하는 전자상거래등에서의소비자보호지침 
+및 관계법령 또는 상관례에 따릅니다.</p>
 										</div>
 										<!-- tabs 2 -->
-										<div class="tab-pane fade" id="2bed" role="tabpanel" aria-labelledby="2bed-tab">
-											<!-- Single List -->
-											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">2 B</h4>
-															<p class="m-0"><span>2 Bed, 2 Bath</span><br><span>$2,200-$2,800, 1200-1500 sqft</span></p>
-															<span class="theme-cl">17 Aug</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">3642</a></th>
-														<td>$3,200+</td>
-														<td>1800 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">5 Aug</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7236</a></th>
-														<td>$2,900+</td>
-														<td>1600 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">10 Aug</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">8742</a></th>
-														<td>$2,400+</td>
-														<td>1400 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">17 Aug</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">9142</a></th>
-														<td>$2,300+</td>
-														<td>1300 sqft</td>
-														<td>2 Bed 2 Bath</td>
-														<td><span class="theme-cl">25 Aug</span></td>
-													</tr>
-												  </tbody>
-												</table>
-											</div>
-
-											<!-- Single List -->
-											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">2 A</h4>
-															<p class="m-0"><span>3 Bed, 2 Bath</span><br><span>$2,600-$3,500, 1200-2000 sqft</span></p>
-															<span class="theme-cl">10 April</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">9648</a></th>
-														<td>$1800+</td>
-														<td>950 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">18 Sep</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">6831</a></th>
-														<td>$3500+</td>
-														<td>1500 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">18 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7830</a></th>
-														<td>$3200+</td>
-														<td>1250 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">20 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">8095</a></th>
-														<td>$2500+</td>
-														<td>1050 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">07 Nov</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7280</a></th>
-														<td>$2000+</td>
-														<td>1000 sqft</td>
-														<td>3 Bed 2 Bath</td>
-														<td><span class="theme-cl">10 Dec</span></td>
-													</tr>
-												  </tbody>
-												</table>
-											</div>
+										<div class="tab-pane fade" id="1bed" role="tabpanel" aria-labelledby="1bed-tab">
+											<div class="pricing packages_style_5">
+											<h5>가격 정보</h5>
+												<div class="row">
+													<div class="col-lg-3 text-center d-lg-block d-md-none d-sm-none d-none">
+														<ul>
+															<li class="pricingTitle">
+																<span></span>
+															</li>
+															<li>
+																<span>가격</span>
+															</li>
+															<li>
+																<span>패키지 설명</span>
+															</li>
+															<li>
+																<span>상업적 이용</span>
+															</li>
+															<li>
+																<span>맞춤 디자인 제공</span>
+															</li>
+															<li>
+																<span>소스 코드 제공</span>
+															</li>
+															<li>
+																<span>결제 기능</span>
+															</li>
+															<li>
+																<span>수정 횟수</span>
+															</li>
+															<li>
+																<span>작업일</span>
+															</li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-4 col-sm-12 text-center">
+														<ul>
+															<li class="pricingTitle">
+																STANDARD
+																<span class="show-mb"></span>
+															</li>
+															<li>
+																$29
+															</li>
+															<li>
+																패키지 설명
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																1회
+															</li>
+															<li>
+																15일
+															</li>
+														</ul>
+													</div>
+													<div class="col-lg-3 col-md-4 col-sm-12 text-center pricing--emphasise">
+														<ul>
+															<li class="pricingTitle">
+																DELUXE
+																<span class="show-mb">Area</span>
+															</li>
+															<li>
+																$49
+															</li>
+															<li>
+																패키지 설명
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="crossmark"></div>
+															</li>
+															<li>
+																2회
+															</li>
+															<li>
+																20일
+															</li>
+														</ul>
+													</div>
+													
+													<div class="col-lg-3 col-md-4 col-sm-12 text-center">
+														<ul>
+															<li class="pricingTitle">
+																PREMIUM
+															</li>
+															<li>
+																$79
+															</li>
+															<li>
+																패키지 설명
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																<div class="checkmark"></div>
+															</li>
+															<li>
+																3회
+															</li>
+															<li>
+																30일
+															</li>
+														</ul>
+													</div>
+												</div>
+												
+						                    </div>
 										</div>
 										<!-- tabs 3 -->
-										<div class="tab-pane fade" id="studio" role="tabpanel" aria-labelledby="studio-tab">
-											<!-- Single List -->
-											<div class="table-responsive">
-												<table class="table">
-												  <tbody>
-													<tr>
-														<th colspan="3" class="aprt_text">
-															<h4 class="mb-0">Studio</h4>
-															<p class="m-0"><span>Studio, 1 Bath</span><br><span>$2,600-$3,500, 1200-2000 sqft</span></p>
-															<span class="theme-cl">10 April</span>
-														</th>
-														<td colspan="2" class="text-right"><img src="${pageContext.request.contextPath}/img/floor.jpg" class="img-fluid" width="50" alt="" /></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">9648</a></th>
-														<td>$1800+</td>
-														<td>950 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">18 Sep</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">6831</a></th>
-														<td>$3500+</td>
-														<td>1500 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">18 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7830</a></th>
-														<td>$3200+</td>
-														<td>1250 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">20 Oct</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">8095</a></th>
-														<td>$2500+</td>
-														<td>1050 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">07 Nov</span></td>
-													</tr>
-													<tr>
-														<th><a href="#" class="theme-cl">7280</a></th>
-														<td>$2000+</td>
-														<td>1000 sqft</td>
-														<td>Studio 2 Bath</td>
-														<td><span class="theme-cl">10 Dec</span></td>
-													</tr>
-												  </tbody>
-												</table>
-											</div>
+										<div class="tab-pane fade" id="2bed" role="tabpanel" aria-labelledby="2bed-tab">
+											<h5>수정 및 재진행</h5>
+											<p>수정 및 재진행</p>
+											<p>1. Unity 기반 소형맵 제작</p>
+											<p>—> 1차 배포 과정에서 기획서 범위 내의 수정 요청이 1회 가능합니다.</p>
+											<p>—> 테스트 과정에서는 기획서 범위 내에서 최종 수정 요청이 가능하며 이후 수정은 불가합니다.</p>
+											<p>2. Unity 기반 인게임 로직 맵 제작</p>
+											<p>—> 1차 배포 과정에서 기획서 범위 내의 수정 요청이 2회 가능합니다. </p>
+											<p>—> 테스트 과정에서는 기획서 범위 내에서 최종 수정 요청이 가능하며 이후 수정은 불가합니다.</p>
+											<p>3. Unity 기반 인게임 중형맵 제작</p>
+											<p>—> 컨설팅 및 DIVE 과정에서 기획서 작성 과정이 세부적으로 이루어지며, 최종 기획서 작성 이전까지 기획 수정 요청이 가능합니다.</p>
+											<p>—> 1차 배포 과정에서 기획서와 다른 범위에서의 수정 요청이 가능합니다. </p>
+											<p>—> 테스트 과정에서는 기획서 범위 내에서 최종 수정 요청이 가능하며 이후 수정은 불가합니다.</p>
 										</div>
-									
+										<!-- tabs 4 -->
+										<div class="tab-pane fade" id="studio" role="tabpanel" aria-labelledby="studio-tab">
+											<h5>취소 및 환불 규정</h5>
+											<p>가. 기본 환불 규정</p>
+											<p>1. 전문가와 의뢰인의 상호 협의하에 청약 철회 및 환불이 가능합니다.</p>
+											<p>2. 작업이 완료된 이후 또는 자료, 프로그램 등 서비스가 제공된 이후에는 환불이 불가합니다.</p>
+											<p>( 소비자보호법 17조 2항의 5조. 용역 또는 「문화산업진흥 기본법」 제2조 제5호의 디지털콘텐츠의 제공이 </p>
+											<p>개시된 경우에 해당)</p>
+											<p>나. 전문가 책임 사유</p>
+											<p>1. 전문가의 귀책사유로 당초 약정했던 서비스 미이행 혹은 보편적인 관점에서 심각하게 잘못 이행한 경우 </p>
+											<p>결제금액 전체 환불이 가능합니다.</p>
+											<p>다. 의뢰인 책임 사유</p>
+											<p>1. 서비스 진행 도중 의뢰인의 귀책사유로 인해 환불을 요청할 경우, 사용 금액을 아래와 같이 계산 후 총 금</p>
+											<p>액의 10%를 공제하여 환불합니다.</p>
+											<p>총 작업량의 1/3 경과 전 : 이미 납부한 요금의 2/3해당액</p>
+											<p>총 작업량의 1/2 경과 전 : 이미 납부한 요금의 1/2해당액</p>
+											<p>총 작업량의 1/2 경과 후 : 반환하지 않음</p>
+										</div>
 									</div>
 								</div>
 								
@@ -516,56 +730,32 @@
 							<!-- review -->
 							<div class="property_block_wrap">
 								<div class="property_block_wrap_header">
-									<h4 class="property_block_title">12 Reviews</h4>
+									<h4 class="property_block_title">리뷰</h4>
 								</div>
-								
+								<!-- star percentage -->
 								<div class="block-body">
 									<div class="rating-overview">
+										<span class="avgScore">AvgScore</span>
 										<div class="rating-overview-box">
-											<span class="rating-overview-box-total">4.8</span>
-											<span class="rating-overview-box-percent">out of 5.0</span>
-											<div class="star-rating" data-rating="5"><i class="fa fa-star filled"></i><i class="fa fa-star filled"></i><i class="fa fa-star filled"></i><i class="fa fa-star filled"></i><i class="fa fa-star-half filled"></i>
+											<div class="rating">
+											    <span class="rating-upper" style="width: 46%">
+											        <span>★</span>
+											        <span>★</span>
+											        <span>★</span>
+											        <span>★</span>
+											        <span>★</span>
+											    </span>
+											    <span class="rating-lower">
+											        <span>★</span>
+											        <span>★</span>
+											        <span>★</span>
+											        <span>★</span>
+											        <span>★</span>
+											    </span>
 											</div>
 										</div>
-
-										<div class="rating-bars">
-											<div class="rating-bars-item">
-												<span class="rating-bars-name">Property</span>
-												<span class="rating-bars-inner">
-													<span class="rating-bars-rating high" data-rating="4.7">
-														<span class="rating-bars-rating-inner" style="width: 85%;"></span>
-													</span>
-													<strong>4.7</strong>
-												</span>
-											</div>
-											<div class="rating-bars-item">
-												<span class="rating-bars-name">Value for Money</span>
-												<span class="rating-bars-inner">
-													<span class="rating-bars-rating good" data-rating="3.9">
-														<span class="rating-bars-rating-inner" style="width: 75%;"></span>
-													</span>
-													<strong>3.9</strong>
-												</span>
-											</div>
-											<div class="rating-bars-item">
-												<span class="rating-bars-name">Location</span>
-												<span class="rating-bars-inner">
-													<span class="rating-bars-rating mid" data-rating="6.2">
-														<span class="rating-bars-rating-inner" style="width: 65.2%;"></span>
-													</span>
-													<strong>6.2</strong>
-												</span>
-											</div>
-											<div class="rating-bars-item">
-												<span class="rating-bars-name">Agent Support</span>
-												<span class="rating-bars-inner">
-													<span class="rating-bars-rating high" data-rating="7.0">
-														<span class="rating-bars-rating-inner" style="width:70%;"></span>
-													</span>
-													<strong>7.0</strong>
-												</span>
-											</div>
-										</div>
+										<span class="bigScore">3.2</span>
+										<span style="margin: 12px 0 0 15px">out of 5.0 (12개)</span>
 									</div>
 							
 									<div class="author-review">
@@ -573,17 +763,30 @@
 											<ul>
 												<li class="article_comments_wrap">
 													<article>
-														<div class="article_comments_thumb">
-															<img src="https://via.placeholder.com/500x500" alt="">
-														</div>
 														<div class="comment-details">
 															<div class="comment-meta">
 																<div class="comment-left-meta">
 																	<h4 class="author-name">Asiro HD. Mahrakjio</h4>
 																	<div class="comment-date">17th Aug 2021</div>
+																	<div class="rating" style="font-size: 15px;top: -5px">
+																		<span class="rating-upper" style="width: 80%">
+																	        <span>★</span>
+																	        <span>★</span>
+																	        <span>★</span>
+																	        <span>★</span>
+																	        <span>★</span>
+																	    </span>
+																	    <span class="rating-lower">
+																	        <span>★</span>
+																	        <span>★</span>
+																	        <span>★</span>
+																	        <span>★</span>
+																	        <span>★</span>
+																	    </span>
+																	</div>
 																</div>
 															</div>
-															<div class="comment-text">
+															<div class="comment-text" style="margin: 0">
 																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
 																	perspiciatis unde omnis iste natus error.</p>
 															</div>
@@ -592,9 +795,6 @@
 												</li>
 												<li class="article_comments_wrap">
 													<article>
-														<div class="article_comments_thumb">
-															<img src="https://via.placeholder.com/500x500" alt="">
-														</div>
 														<div class="comment-details">
 															<div class="comment-meta">
 																<div class="comment-left-meta">
@@ -611,9 +811,6 @@
 												</li>
 												<li class="article_comments_wrap">
 													<article>
-														<div class="article_comments_thumb">
-															<img src="https://via.placeholder.com/500x500" alt="">
-														</div>
 														<div class="comment-details">
 															<div class="comment-meta">
 																<div class="comment-left-meta">
@@ -631,13 +828,13 @@
 											</ul>
 										</div>
 									</div>
-									<a href="#" class="reviews-checked">12 More Reviews</a>
+									<a href="#" class="reviews-checked">리뷰 더 보기</a>
 								</div>
 							</div>
 							<!-- write review -->
 							<div class="property_block_wrap">
 								<div class="property_block_wrap_header">
-									<h4 class="property_block_title">Write a Review</h4>
+									<h4 class="property_block_title">리뷰 작성</h4>
 								</div>
 								
 								<div class="block-body">
@@ -646,34 +843,51 @@
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label>Ratting</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label>Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label>eMmail ID</label>
-												<input type="email" class="form-control">
+												<div id="half-stars-example">
+												    <div class="rating-group">
+												    	<input type="radio" disabled="disabled">
+												        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio">
+												        <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio">
+												        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio">
+												        <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio">
+												        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" checked>
+												        <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio">
+												        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio">
+												        <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio">
+												        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio">
+												        <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+												        <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio">
+												    </div>
+												</div>
 											</div>
 										</div>
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label>Messages</label>
+												<label>제목</label>
+												<input type="text" class="form-control">
+											</div>
+										</div>
+										
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label>내용</label>
 												<textarea class="form-control ht-80"></textarea>
 											</div>
 										</div>
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<button class="btn theme-bg rounded" type="submit">Submit Review</button>
+												<button class="btn theme-bg rounded" type="submit">등록</button>
 											</div>
 										</div>
 										
@@ -705,19 +919,18 @@
 															<div class="pricing_wrap" style="margin-bottom: 0">
 																<div class="prt_price">
 																	<h2><span>$</span>29</h2>
-																	<span>per user, per month</span>
 																</div>
 																<div class="prt_body">
 																	<ul>
-																		<li>99.5% Uptime Guarantee</li>
-																		<li>120GB CDN Bandwidth</li>
-																		<li>5GB Cloud Storage</li>
-																		<li class="none">Personal Help Support</li>
-																		<li class="none">Enterprise SLA</li>
+																		<li>상업적 이용</li>
+																		<li class="none">맞춤 디자인 제공</li>
+																		<li class="none">소스 코드 제공</li>
+																		<li class="none">결제 기능</li>
+																		<li>작업일/ 수정 횟수	&nbsp;:&nbsp; 15일/ 1회</li>
 																	</ul>
 																</div>
 																<div class="prt_footer">
-																	<a href="#" class="btn choose_package active">Buy Standard</a>
+																	<a href="#" class="btn choose_package active" data-toggle="modal" data-target="#exampleModalToggle">Buy Standard</a>
 																</div>
 															</div>
 														</div>
@@ -735,15 +948,14 @@
 															<div class="prt_price">
 																<div class="recommended">Best Value</div>
 																<h2><span>$</span>49</h2>
-																<span>per user, per month</span>
 															</div>
 															<div class="prt_body">
 																<ul>
-																	<li>99.5% Uptime Guarantee</li>
-																	<li>150GB CDN Bandwidth</li>
-																	<li>10GB Cloud Storage</li>
-																	<li>Personal Help Support</li>
-																	<li class="none">Enterprise SLA</li>
+																	<li>상업적 이용</li>
+																	<li>맞춤 디자인 제공</li>
+																	<li>소스 코드 제공</li>
+																	<li class="none">결제 기능</li>
+																	<li>작업일/ 수정 횟수	&nbsp;:&nbsp; 20일/ 2회</li>
 																</ul>
 															</div>
 															<div class="prt_footer">
@@ -766,15 +978,14 @@
 															</div>
 															<div class="prt_price">
 																<h2><span>$</span>79</h2>
-																<span>2 user, per month</span>
 															</div>
 															<div class="prt_body">
 																<ul>
-																	<li>100% Uptime Guarantee</li>
-																	<li>200GB CDN Bandwidth</li>
-																	<li>20GB Cloud Storage</li>
-																	<li>Personal Help Support</li>
-																	<li>Enterprise SLA</li>
+																	<li>상업적 이용</li>
+																	<li>맞춤 디자인 제공</li>
+																	<li>소스 코드 제공</li>
+																	<li>결제 기능</li>
+																	<li>작업일/ 수정 횟수	&nbsp;:&nbsp; 30일/ 3회</li>
 																</ul>
 															</div>
 															<div class="prt_footer">
@@ -795,18 +1006,138 @@
 					</div>
 				</div>
 			</section>
+<!-- Modal 1 -->
+<div class="modal fade" id="exampleModalToggle" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
+        <h5 class="modal-title" id="exampleModalToggleLabel">제작자 일정</h5>
+        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+      </div>
+      <div class="modal-body">
+		<iframe src="<c:url value='/html/calendar.html'/>" width="790px" height="650px" style="border:none"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button class="btn theme-bg rounded" data-target="#exampleModalToggle2" data-toggle="modal" id="modelButton1">의뢰서 작성하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal 2 -->
+<div class="modal fade" id="exampleModalToggle2" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="margin-left: 15px">
+        <!-- <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5> -->
+        <div class="prt_price" style="margin: 5px 0 0 0">
+			<h2><span>STANDARD : &nbsp;&nbsp;</span><span>$</span>29</h2>
+		</div>
+        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+      </div>
+      <div class="modal-body">
+      	<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="form-group">
+				<label>title</label>
+				<input type="text" class="form-control">
+			</div>
+		</div>
+		
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="form-group">
+				<label>Messages</label>
+				<textarea class="form-control ht-80"></textarea>
+			</div>
+		</div>
+		<div class="row" style="justify-content: space-evenly;text-align: center;">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-4">
+				<div class="form-group">
+					<label>시작일</label>
+					<div class="cld-box">
+						<i class="ti-calendar" style="left: 16px; top: 16px;"></i>
+						<input type="text" name="startDate" class="form-control" style="padding-left: 65px;"/>
+					</div>
+				</div>
+			</div>
+			<span style="margin-top: 40px;">+ 15 days</span>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-4">
+				<div class="form-group">
+					<label>종료일</label>
+					<div class="cld-box">
+						<i class="ti-calendar" style="left: 16px; top: 16px;"></i>
+						<input type="text" name="endDate" class="form-control" style="padding-left: 65px;" readonly="readonly"/>
+					</div>
+				</div>
+			</div>
+     	</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn theme-bg rounded" data-target="#exampleModalToggle" data-toggle="modal" id="modelButton2" style="margin-right: 20.5rem;">제작자 일정보기</button>
+		<button class="btn theme-bg rounded" type="submit">Submit Review</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- slick -->
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function(){
+     		date = new Date();
+    	
+     	$('input[name="startDate"]').daterangepicker({
+      		singleDatePicker: true,
+      		minDate:date,
+      	});
+     	//날짜 자동 덧셈
+     	$('.choose_package').click(function(){
+     		
+        	var endDate=date.addDays(15);
+        	e_year = endDate.getFullYear();
+        	e_month = endDate.getMonth() + 1;
+        	e_day = endDate.getDate();
+         	var end= e_month + "/" + e_day + "/" + e_year;
+        	$('input[name="endDate"]').val(end);
+      		$('input[name="endDate"]').attr("placeholder","End Date");
+        });
+     	//날짜 변경하면 자동으로 종료일 변경
+     	$('input[name="startDate"]').blur(function(){
+     		var startDate = $('input[name="startDate"]').val();
+     		if(startDate.valueOf() < date.valueOf()){
+     			alert();
+     		}else{
+	     		date = new Date(startDate);
+	     		var endDate=date.addDays(15);
+	        	e_year = endDate.getFullYear();
+	        	e_month = endDate.getMonth() + 1;
+	        	e_day = endDate.getDate();
+	         	var end= e_month + "/" + e_day + "/" + e_year;
+	        	$('input[name="endDate"]').val(end);
+     		}
+     	});
+     	
         $('.mySlick').slick({
             dots: true,
             autoplay: true,
             autoplaySpeed: 3000
         });
+        
+        $('#modelButton1').click(function(){
+        	$('#exampleModalToggle').modal('hide');
+        });
+        $('#modelButton2').click(function(){
+        	$('#exampleModalToggle2').modal('hide');
+        });
+        
     });
+    
+    Date.prototype.addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
 </script>
 
 
