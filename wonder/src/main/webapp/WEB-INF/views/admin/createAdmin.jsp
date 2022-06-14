@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-<script type="text/javascript">
-	$(function() {
-		$('form[name=frm1]').submit(function() {
-			if ($("#pwd").val().length < 1) {
-				alert("비밀번호를 입력하세요");
-				$("#pwd").focus();
-				event.preventDefault();
-			} else if ($("#pwd").val() != $("#pwd2").val()) {
-				alert("비밀번호가 일치하지 않습니다.");
-				$("#pwd2").focus();
-				event.preventDefault();
-			}
-		});
-	});
-</script>
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
@@ -41,7 +26,6 @@
 					</div>
 
 					<div class="dash_user_menues">
-
 						<ul>
 							<li><a href="<c:url value='/admin/dashboard'/>"><i
 									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
@@ -56,9 +40,9 @@
 									목록<span class="notti_coun style-3">3</span></a></li>
 							<li><a href="choose-package.html"><i class="fa fa-gift"></i>광고
 									목록 목록<span class="expiration">10 days left</span></a></li>
-							<li  class="active"><a href="<c:url value='/admin/editAccount'/>"><i
+							<li><a href="<c:url value='/admin/editAccount'/>"><i
 									class="fa fa-user-tie"></i>내 정보</a></li>
-							<li><a
+							<li class="active"><a
 								href="<c:url value='/admin/createAdmin'/>"><i
 									class="fa fa-plus-circle"></i>부서별 관리자 생성</a></li>
 						</ul>
@@ -83,12 +67,12 @@
 							action="<c:url value='/admin/editAccount'/>">
 							<fieldset>
 								<div class="frm_submit_block">
-									<h4>내 정보</h4>
+									<h4>부서별 관리자 생성</h4>
 									<div class="frm_submit_wrap">
 										<div class="form-row">
 											<div class="form-group col-md-6">
 												<label>아이디</label> <input type="text" class="form-control"
-													value="${adminVo.adminId }" disabled>
+													value="ID">
 											</div>
 											<div class="form-group col-md-6" style="visibility: hidden;">
 											</div>
@@ -104,9 +88,17 @@
 									</div>
 								</div>
 
-								<div class="form-group col-lg-12 col-md-12 mt-4">
-									<button class="btn btn-theme btn-lg" type="submit"
-										id="editsave">변경사항 저장</button>
+								<div class="form-group col-lg-12 col-md-12">
+									<label>부서별 관리자 생성 약관 *</label>
+									<ul class="no-ul-list">
+										<li><input id="aj-1" class="checkbox-custom" name="aj-1"
+											type="checkbox"> <label for="aj-1"
+											class="checkbox-custom-label">부서별 관리자를 생성하시는 것에 동의하십니까?</label></li>
+									</ul>
+								</div>
+
+								<div class="form-group col-lg-12 col-md-12">
+									<button class="btn btn-theme" type="submit">생성</button>
 								</div>
 							</fieldset>
 						</form>

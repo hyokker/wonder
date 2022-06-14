@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<style type="text/css">
-.dash_prt_thumb {
-	padding-left: 10px;
-}
-</style>
 <%@ include file="../inc/top.jsp"%>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -35,9 +30,9 @@
 						<ul>
 							<li><a href="<c:url value='/admin/dashboard'/>"><i
 									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li class="active"><a href="<c:url value='/admin/memberList'/>"><i
+							<li><a href="<c:url value='/admin/memberList'/>"><i
 									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
-							<li><a href="<c:url value='/admin/pdList'/>"><i
+							<li class="active"><a href="<c:url value='/admin/pdList'/>"><i
 									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
 							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
 									class="fa fa-bookmark"></i>거래대기 목록<span
@@ -74,7 +69,7 @@
 									<div class="foot-news-last">
 										<div class="input-group">
 											<input type="text" class="form-control"
-												placeholder="회원명, 아이디 등으로 조회">
+												placeholder="Email Address">
 											<div class="input-group-append">
 												<span type="button"
 													class="input-group-text theme-bg b-0 text-light"><i
@@ -88,7 +83,7 @@
 									<div class="_prt_filt_add_new">
 										<a href="submit-property-dashboard.html"
 											class="prt_submit_link"><i class="fas fa-plus-circle"></i><span
-											class="d-none d-lg-block d-md-block">부서별 관리자 생성</span></a>
+											class="d-none d-lg-block d-md-block">List New Property</span></a>
 									</div>
 								</div>
 							</div>
@@ -102,71 +97,15 @@
 									<table class="table">
 										<thead class="thead-dark">
 											<tr>
-												<th scope="col">회원목록</th>
-												<th scope="col" class="m2_hide">최근 방문일</th>
-												<th scope="col" class="m2_hide">거래건수</th>
-												<th scope="col" class="m2_hide">가입일</th>
-												<th scope="col">회원분류</th>
-												<th scope="col">승인 / 삭제</th>
+												<th scope="col">Property</th>
+												<th scope="col" class="m2_hide">Leads</th>
+												<th scope="col" class="m2_hide">Stats</th>
+												<th scope="col" class="m2_hide">Posted On</th>
+												<th scope="col">Status</th>
+												<th scope="col">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<!-- tr block -->
-											<c:if test="${!empty list}">
-												<!--게시판 내용 반복문 시작  -->
-												<c:forEach var="memberVo" items="${list }">
-													<tr>
-														<td>
-															<div class="dash_prt_wrap">
-																<div class="dash_prt_thumb">
-																	<img
-																		src="${pageContext.request.contextPath}/img/profile.png"
-																		class="img-fluid" alt="" />
-																</div>
-																<div class="dash_prt_caption">
-																	<h5>${memberVo.name}</h5>
-																	<div class="prt_dashb_lot">${memberVo.memNo }</div>
-																	<div class="prt_dash_rate">
-																		<span>${memberVo.email }</span>
-																	</div>
-																</div>
-															</div>
-														</td>
-														<td class="m2_hide">
-															<div class="prt_leads">
-																<span>3일 전</span><%-- ${Utility.lastVisit } --%>
-															</div>
-														</td>
-														<td class="m2_hide">
-															<div class="_leads_view">
-																<h5>3회</h5>
-															</div>
-															<div class="_leads_view_title">
-																<span>Number of deal</span>
-															</div>
-														</td>
-														<td class="m2_hide">
-															<div class="_leads_posted">
-																<h5>16 Aug - 12:40</h5>
-															</div>
-															<div class="_leads_view_title">
-																<span>16 Days ago</span>
-															</div>
-														</td>
-														<td>
-															<div class="_leads_status">
-																<span class="active">${memberVo.type }</span>
-															</div>
-														</td>
-														<td>
-															<div class="_leads_action">
-																<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-																	class="fas fa-trash"></i></a>
-															</div>
-														</td>
-													</tr>
-												</c:forEach>
-											</c:if>
 											<!-- tr block -->
 											<tr>
 												<td>
@@ -222,7 +161,7 @@
 												</td>
 												<td>
 													<div class="_leads_status">
-														<span class="expire">프리랜서</span>
+														<span class="active">Active</span>
 													</div>
 													<div class="_leads_view_title">
 														<span>Till 12 Oct</span>
@@ -291,7 +230,76 @@
 												</td>
 												<td>
 													<div class="_leads_status">
-														<span class="active">일반회원</span>
+														<span class="expire">Expired</span>
+													</div>
+													<div class="_leads_view_title">
+														<span>Till 12 Oct</span>
+													</div>
+												</td>
+												<td>
+													<div class="_leads_action">
+														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
+															class="fas fa-trash"></i></a>
+													</div>
+												</td>
+											</tr>
+
+											<!-- tr block -->
+											<tr>
+												<td>
+													<div class="dash_prt_wrap">
+														<div class="dash_prt_thumb">
+															<img src="https://via.placeholder.com/800x500"
+																class="img-fluid" alt="" />
+														</div>
+														<div class="dash_prt_caption">
+															<h5>4 Bhk Luxury Villa</h5>
+															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
+															<div class="prt_dash_rate">
+																<span>$ 2,200,000</span>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="m2_hide">
+													<div class="prt_leads">
+														<span>27 till now</span>
+													</div>
+													<div class="prt_leads_list">
+														<ul>
+															<li><a href="#"><img
+																	src="https://via.placeholder.com/500x500"
+																	class="img-fluid img-circle" alt="" /></a></li>
+															<li><a href="#"><img
+																	src="https://via.placeholder.com/500x500"
+																	class="img-fluid img-circle" alt="" /></a></li>
+															<li><a href="#" class="_leads_name style-1">K</a></li>
+															<li><a href="#"><img
+																	src="https://via.placeholder.com/500x500"
+																	class="img-fluid img-circle" alt="" /></a></li>
+															<li><a href="#" class="leades_more">10+</a></li>
+														</ul>
+													</div>
+												</td>
+												<td class="m2_hide">
+													<div class="_leads_view">
+														<h5 class="up">816</h5>
+													</div>
+													<div class="_leads_view_title">
+														<span>Total Views</span>
+													</div>
+												</td>
+												<td class="m2_hide">
+													<div class="_leads_posted">
+														<h5>16 Aug - 12:40</h5>
+													</div>
+													<div class="_leads_view_title">
+														<span>16 Days ago</span>
+													</div>
+												</td>
+												<td>
+													<div class="_leads_status">
+														<span class="active">Active</span>
 													</div>
 													<div class="_leads_view_title">
 														<span>Till 12 Oct</span>
