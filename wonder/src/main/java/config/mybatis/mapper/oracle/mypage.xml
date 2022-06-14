@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.wonder.mypage.model.MypageDAO">
+
+<select id="selectMemberByNo" parameterType="int" resultType="memberVo">
+	select * from member where mem_no=#{no} <!-- 멤버번호 세션값으로 받아오는걸로 바꿔야함!!!! -->
+</select>
+
+<select id="selectMemberById" parameterType="String" resultType="memberVo">
+	select * from member where user_id=#{userId}
+</select>
+
+<update id="updateMember" parameterType="memberVo" >
+	update member
+	set nickname=#{nickname}, email=#{email}, tel=#{tel}
+	where user_id=#{userId}
+</update>
+
+</mapper>

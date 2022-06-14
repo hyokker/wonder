@@ -7042,11 +7042,11 @@ span.tag_t {
 }
 .btn.btn-theme:hover, .btn.btn-theme:focus {
     background:#27ae60;
-	border:1px solid ##27ae60;
+	border:1px solid #27ae60;
     color:#ffffff;
 }
 .btn.btn-theme-light {
-    color:##27ae60;
+    color:#27ae60;
     background:rgba(39, 174, 96,0.12);
     border-radius: 4px;
 	margin-bottom:5px;

@@ -8,17 +8,17 @@
 						
 						<div class="call_action_wrap">
 							<div class="call_action_wrap-head">
-								<h3>Do You Have Questions ?</h3>
-								<span>We'll help you to grow your career and growth.</span>
+								<h3>원더의 프리랜서가 당신의 연락을 기다립니다</h3>
 							</div>
-							<a href="#" class="btn btn-call_action_wrap">Contact Us Today</a>
+							<a href="#" class="btn btn-call_action_wrap">문의하기</a>
 						</div>
 						
 					</div>
 				</div>
 			</div>
 		</section>
-	
+	<!-- ============================ Call To Action End ================================== -->
+			
 	<!-- ============================ Footer Start ================================== -->
 		<footer class="dark-footer skin-dark-footer style-2">
 			<div class="footer-middle">
@@ -27,17 +27,9 @@
 						
 						<div class="col-lg-5 col-md-5">
 							<div class="footer_widget">
-								<img src="${pageContext.request.contextPath}/img/logo-light.png" class="img-footer small mb-2" alt="" />
-								<h4 class="extream mb-3">Do you need help with<br>anything?</h4>
-								<p>Receive updates, hot deals, tutorials, discounts sent straignt in your inbox every month</p>
-								<div class="foot-news-last">
-									<div class="input-group">
-									  <input type="text" class="form-control" placeholder="Email Address">
-										<div class="input-group-append">
-											<button type="button" class="input-group-text theme-bg b-0 text-light">Subscribe</button>
-										</div>
-									</div>
-								</div>
+								<!-- img src="${pageContext.request.contextPath}/img/logo-light.png" class="img-footer small mb-2" alt="" / -->
+								<h4 class="extream mb-3">WONDER</h4>
+								<p style="font-size: 1.4em">원더는 실력있는 개발자, 디자이너와 함께합니다</p>
 							</div>
 						</div>
 						
@@ -46,42 +38,33 @@
 							
 								<div class="col-lg-4 col-md-4">
 									<div class="footer_widget">
-										<h4 class="widget_title">Layouts</h4>
+										<h4 class="widget_title">Service</h4>
 										<ul class="footer-menu">
-											<li><a href="#">Home Page</a></li>
-											<li><a href="#">About Page</a></li>
-											<li><a href="#">Service Page</a></li>
-											<li><a href="#">Property Page</a></li>
-											<li><a href="#">Contact Page</a></li>
-											<li><a href="#">Single Blog</a></li>
+											<li><a href="#">서비스소개</a></li>
+											<li><a href="#">FAQ</a></li>
+											<li><a href="#">고객센터</a></li>
 										</ul>
 									</div>
 								</div>
 										
 								<div class="col-lg-4 col-md-4">
 									<div class="footer_widget">
-										<h4 class="widget_title">All Sections</h4>
+										<h4 class="widget_title">Company</h4>
 										<ul class="footer-menu">
-											<li><a href="#">Headers<span class="new">New</span></a></li>
-											<li><a href="#">Features</a></li>
-											<li><a href="#">Attractive<span class="new">New</span></a></li>
-											<li><a href="#">Testimonials</a></li>
-											<li><a href="#">Videos</a></li>
-											<li><a href="#">Footers</a></li>
+											<li><a href="#">회사소개</a></li>
+											<li><a href="#">채용정보</a></li>
+											<li><a href="#">제휴제안</a></li>
 										</ul>
 									</div>
 								</div>
 						
 								<div class="col-lg-4 col-md-4">
 									<div class="footer_widget">
-										<h4 class="widget_title">Company</h4>
+										<h4 class="widget_title">Provision</h4>
 										<ul class="footer-menu">
-											<li><a href="#">About</a></li>
-											<li><a href="#">Blog</a></li>
-											<li><a href="#">Pricing</a></li>
-											<li><a href="#">Affiliate</a></li>
-											<li><a href="#">Login</a></li>
-											<li><a href="#">Changelog<span class="update">Update</span></a></li>
+											<li><a href="#">이용약관</a></li>
+											<li><a href="#">개인정보처리방침</a></li>
+											<li><a href="#">위치기반서비스 이용약관</a></li>
 										</ul>
 									</div>
 								</div>
@@ -96,7 +79,7 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-lg-12 col-md-12 text-center">
-							<p class="mb-0">© 2021 RentUP. Designd By <a href="https://themezhub.com">ThemezHub</a>.</p>
+							<p class="mb-0">© WONDER Corp</p>
 						</div>
 					</div>
 				</div>
@@ -116,10 +99,10 @@
 								<div class="edlio_152">
 									<ul class="nav nav-pills tabs_system center" id="pills-tab" role="tablist">
 									  <li class="nav-item">
-										<a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+										<a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true"><i class="fas fa-sign-in-alt mr-2"></i>로그인</a>
 									  </li>
 									  <li class="nav-item">
-										<a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup" role="tab" aria-controls="pills-signup" aria-selected="false"><i class="fas fa-user-plus mr-2"></i>Register</a>
+										<a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup" role="tab" aria-controls="pills-signup" aria-selected="false"><i class="fas fa-user-plus mr-2"></i>회원가입</a>
 									  </li>
 									</ul>
 								</div>
@@ -129,7 +112,7 @@
 											<form>
 											
 												<div class="form-group">
-													<label>User Name</label>
+													<label>회원 아이디</label>
 													<div class="input-with-icon">
 														<input type="text" class="form-control">
 														<i class="ti-user"></i>
@@ -137,7 +120,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label>Password</label>
+													<label>비밀 번호</label>
 													<div class="input-with-icon">
 														<input type="password" class="form-control">
 														<i class="ti-unlock"></i>
@@ -148,16 +131,16 @@
 													<div class="eltio_ol9">
 														<div class="eltio_k1">
 															<input id="dd" class="checkbox-custom" name="dd" type="checkbox">
-															<label for="dd" class="checkbox-custom-label">Remember Me</label>
+															<label for="dd" class="checkbox-custom-label">아이디 기억</label>
 														</div>	
 														<div class="eltio_k2">
-															<a href="#">Lost Your Password?</a>
+															<a href="#">비밀번호를 잊어버리셨나요?</a>
 														</div>	
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<button type="submit" class="btn btn-md full-width pop-login">Login</button>
+													<button type="submit" class="btn btn-md full-width pop-login">로그인</button>
 												</div>
 											
 											</form>
@@ -168,26 +151,46 @@
 											<form>
 											
 												<div class="form-group">
-													<label>Full Name</label>
+													<label>회원 ID</label>
 													<div class="input-with-icon">
-														<input type="text" class="form-control">
+														<input type="text" class="form-control" name="userId">
 														<i class="ti-user"></i>
 													</div>
 												</div>
-												
 												<div class="form-group">
-													<label>Email ID</label>
+													<label>이름</label>
 													<div class="input-with-icon">
-														<input type="email" class="form-control">
+														<input type="text" class="form-control" name="name">
 														<i class="ti-user"></i>
 													</div>
 												</div>
-												
 												<div class="form-group">
-													<label>Password</label>
+													<label>비밀번호</label>
 													<div class="input-with-icon">
-														<input type="password" class="form-control">
+														<input type="password" class="form-control" name="pwd">
 														<i class="ti-unlock"></i>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>비밀번호 확인</label>
+													<div class="input-with-icon">
+														<input type="password" class="form-control" name="checkPwd">
+														<i class="ti-unlock"></i>
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label>이메일</label>
+													<div class="input-with-icon">
+														<input type="email" class="form-control" name="email">
+														<i class="ti-user"></i>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>연락처</label>
+													<div class="input-with-icon">
+														<input type="text" class="form-control" name="hp">
+														<i class="ti-user"></i>
 													</div>
 												</div>
 												
@@ -195,13 +198,13 @@
 													<div class="eltio_ol9">
 														<div class="eltio_k1">
 															<input id="dd" class="checkbox-custom" name="dd" type="checkbox">
-															<label for="dd" class="checkbox-custom-label">By using the website, you accept the terms and conditions</label>
+															<label for="dd" class="checkbox-custom-label">이용약관에 동의 해주세요.</label>
 														</div>	
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<button type="submit" class="btn btn-md full-width pop-login">Register</button>
+													<button type="submit" class="btn btn-md full-width pop-login">회원 가입</button>
 												</div>
 											
 											</form>

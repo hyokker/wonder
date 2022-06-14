@@ -2,7 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.wonder.admin.model.AdminDAO">
-	<!-- <select id="selectMember" resultType="memberVo">
-		select * from member
-	</select> -->
+	<sql id="searchWhere">
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			where ${searchCondition}
+			like '%' || #{searchKeyword} ||
+			'%'
+		</if>
+	</sql>
+
+	<select id="selectMember" resultType="memberVo"
+		parameterType="searchVo">
+		select *
+		from
+		(
+			select rownum as RNUM, B.*
+			from
+			(
+				select A.*
+				from member A
+				<include refid="searchWhere"></include>
+				order by regdate desc
+			)B
+		)
+		where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
+	</select>
+
+	<select id="getTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from member
+		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="selectByAdminId" parameterType="string" resultType="adminVo">
+		select * from admin
+		where admin_Id=#{admin_Id}
+	</select>
+	
+	<select id="selectPwd" parameterType="string" resultType="string">
+		select admin_Pwd from admin
+		where admin_Id=#{admin_Id}
+	</select>
+	
+	<update id="updateAdmin" parameterType="adminVo">
+		update admin
+		set admin_Pwd=#{admin_Pwd}
+		where admin_Id=#{admin_Id}
+	</update>
 </mapper>
