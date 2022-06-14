@@ -190,8 +190,8 @@
 										</h3>
 									</div>
 
-									<a href="single-property-1.html" class="read-more theme-bg">
-									원더에서 전문가 찾기<i class="fa fa-arrow-right ml-2"></i>
+									<a href="<c:url value='/aboutUs/aboutUs'/>" class="read-more theme-bg">
+									원더가 뭐에요?<i class="fa fa-arrow-right ml-2"></i>
 									</a>
 								</div>
 								<!-- Slide Title / End -->
@@ -218,16 +218,16 @@
 								<div class="row">
 									<div class="col-lg-4 col-md-3 col-sm-12">
 										<div class="form-group">
-											<label>City/Street</label>
+											<label>개발 언어</label>
 											<div class="input-with-icon">
 												<select id="location" class="form-control">
 													<option value="">&nbsp;</option>
-													<option value="1">New York City</option>
-													<option value="2">Honolulu, Hawaii</option>
-													<option value="3">California</option>
-													<option value="4">New Orleans</option>
+													<option value="1">Java</option>
+													<option value="2">Python</option>
+													<option value="3">Spring</option>
+													<!-- <option value="4">New Orleans</option>
 													<option value="5">Washington</option>
-													<option value="6">Charleston</option>
+													<option value="6">Charleston</option> -->
 												</select>
 											</div>
 										</div>
@@ -235,16 +235,16 @@
 
 									<div class="col-lg-3 col-md-3 col-sm-12">
 										<div class="form-group">
-											<label>Property Type</label>
+											<label>전문가 경력</label>
 											<div class="input-with-icon">
 												<select id="ptypes" class="form-control">
 													<option value="">&nbsp;</option>
-													<option value="1">All categories</option>
-													<option value="2">Apartment</option>
-													<option value="3">Villas</option>
-													<option value="4">Commercial</option>
+													<option value="1">5년 이내</option>
+													<option value="2">10년 이내</option>
+													<option value="3">10년 이상</option>
+													<!-- <option value="4">Commercial</option>
 													<option value="5">Offices</option>
-													<option value="6">Garage</option>
+													<option value="6">Garage</option> -->
 												</select>
 											</div>
 										</div>
@@ -252,15 +252,15 @@
 
 									<div class="col-lg-4 col-md-4 col-sm-12">
 										<div class="form-group none">
-											<label>Price Range</label>
+											<label>상품 종류</label>
 											<div class="input-with-icon">
 												<select id="price" class="form-control">
 													<option value="">&nbsp;</option>
-													<option value="1">From 40,000 To 10m</option>
-													<option value="2">From 60,000 To 20m</option>
-													<option value="3">From 70,000 To 30m</option>
-													<option value="3">From 80,000 To 40m</option>
-													<option value="3">From 90,000 To 50m</option>
+													<option value="1">STANDARD</option>
+													<option value="2">DELUXE</option>
+													<option value="3">PRMIUM</option>
+													<!-- <option value="3">From 80,000 To 40m</option>
+													<option value="3">From 90,000 To 50m</option> -->
 												</select>
 											</div>
 										</div>
@@ -288,12 +288,11 @@
 			<div class="container">
 
 				<div class="row justify-content-center">
-					<div class="col-lg-7 col-md-8">
+					<div class="col-lg-6 col-md-6">
 						<div class="sec-heading center">
-							<h2>How It Works?</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua. Ut enim ad minim veniam.</p>
+							<h2>의뢰는 어떻게 하나요?</h2>
+							<p>처음오신 여러분은 원더에 회원가입 하세요!
+							그리고 저희가 제공하는 양식에 맞게 의뢰서를 작성해보세요! 원더에 등록된 전문가들이 연락 드릴거예요!</p>
 						</div>
 					</div>
 				</div>
@@ -308,9 +307,8 @@
 								</div>
 							</div>
 							<div class="wpk_caption">
-								<h4>Create An Account</h4>
-								<p>There are many variations of passages of Lorem Ipsum
-									available, but the majority have Ipsum available.</p>
+								<h4>1.먼저 가입하세요!</h4>
+								<p>우리 원더에서는 간편하게 회원가입 할 수 있어요</p>
 							</div>
 						</div>
 					</div>
@@ -323,9 +321,9 @@
 								</div>
 							</div>
 							<div class="wpk_caption">
-								<h4>Find & Search Property</h4>
-								<p>There are many variations of passages of Lorem Ipsum
-									available, but the majority have Ipsum available.</p>
+								<h4>전문가 검색 & 의뢰서 작성</h4>
+								<p>전문가를 검색해서 직접 의뢰하거나, 의뢰서를 작성해서
+								전문가들이 의뢰서를 보고 요청해요.</p>
 							</div>
 						</div>
 					</div>
@@ -338,9 +336,8 @@
 								</div>
 							</div>
 							<div class="wpk_caption">
-								<h4>Book Your Property</h4>
-								<p>There are many variations of passages of Lorem Ipsum
-									available, but the majority have Ipsum available.</p>
+								<h4>작업물 확인</h4>
+								<p>매칭된 전문가와 회의 및 조율을 통해서 요청하신 작업물을 확인하고, 대금을 지불해요.</p>
 							</div>
 						</div>
 					</div>
