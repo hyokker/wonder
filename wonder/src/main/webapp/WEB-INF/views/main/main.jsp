@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ include file="../inc/top.jsp" %>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -131,7 +132,7 @@
 								</li>
 								
 								<li><a href="#">Q&A게시판<span class="submenu-indicator"></span></a>
-									<ul class="nav-dropdown nav-submenu">
+							<ul class="nav-dropdown nav-submenu">
 										<li><a href="blog.html">Blog Style</a></li>
 										<li><a href="about-us.html">About Us</a></li>
 										<li><a href="pricing.html">Pricing</a></li>
@@ -164,7 +165,7 @@
 				</div>
 			</div>
 		<!-- End Navigation -->
-		<div class="clearfix"></div>
+		<div class="clearfix"></div> --%>
 		<!-- ============================================================== -->
 		<!-- Top header  -->
 		<!-- ============================================================== -->
@@ -173,8 +174,7 @@
 		<div class="home-slider margin-bottom-0">
 
 			<!-- Slide -->
-			<div data-background-image="${pageContext.request.contextPath}/img/aboutUs.jpg"
-				class="item">
+			<div data-background-image="<c:url value='/img/main.jpg'/>" class="item">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
@@ -2045,7 +2045,7 @@
 		</section>
 		<!-- ============================ Price Table End ================================== -->
 
-	<!-- ============================ Call To Action ================================== -->
+<%-- 	<!-- ============================ Call To Action ================================== -->
 		<section class="theme-bg call_action_wrap-wrap">
 			<div class="container">
 				<div class="row">
@@ -2332,4 +2332,5 @@
 		
 
 </body>
-</html>
+</html> --%>
+<%@ include file="../inc/bottom.jsp" %>
