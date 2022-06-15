@@ -227,7 +227,7 @@
 									<div class="col-lg-4 col-md-5 col-sm-12">
 										<div class="card">
 											<div class="card-header">
-												<h6>Notifications</h6>
+												<h6>새 소식</h6>
 											</div>
 											<div class="ground-list ground-list-hove">
 												<div class="ground ground-single-list">
@@ -236,8 +236,8 @@
 													</a>
 
 													<div class="ground-content">
-														<h6><a href="#">Your listing <strong>Azreal Modern</strong> has been approved!.</a></h6>
-														<span class="small">Just Now</span>
+														<h6><a href="#">새로운 공지사항이 등록되었습니다. <strong>보러가기</strong></a></h6>
+														<span class="small">방금</span>
 													</div>
 												</div>
 												
@@ -247,8 +247,8 @@
 													</a>
 
 													<div class="ground-content">
-														<h6><a href="#">Litha Lynes left a review on <strong>Renovated Apartment</strong></a></h6>
-														<span class="small">20 min ago</span>
+														<h6><a href="#">Kim님으로부터 새로운 채팅이 도착했습니다</a></h6>
+														<span class="small">20분 전</span>
 													</div>
 												</div>
 												
@@ -258,8 +258,8 @@
 													</a>
 
 													<div class="ground-content">
-														<h6><a href="#">Someone bookmark your View listing!<strong>Sargun Villa Bay</strong></a></h6>
-														<span class="small">1 day ago</span>
+														<h6><a href="#">누군가 당신의 글에 리뷰를 남겼습니다</strong></a></h6>
+														<span class="small">하루 전</span>
 													</div>
 												</div>
 												
@@ -269,8 +269,8 @@
 													</a>
 
 													<div class="ground-content">
-														<h6><a href="#">Your listing <strong>Modern Family Home</strong> has been approved!.</a></h6>
-														<span class="small">10 days ago</span>
+														<h6><a href="#">문의글에 관리자가 답변글을 달았습니다.</a></h6>
+														<span class="small">10일 전</span>
 													</div>
 												</div>
 												
@@ -280,8 +280,8 @@
 													</a>
 
 													<div class="ground-content">
-														<h6><a href="#">Adam Brown left a review on <strong>Renovated Apartment</strong></a></h6>
-														<span class="small">Just Now</span>
+														<h6><a href="#">Hong님으로부터 새로운 채팅이 도착했습니다</a></h6>
+														<span class="small">11일 전</span>
 													</div>
 												</div>
 											</div>
@@ -290,67 +290,67 @@
 									<div class="col-lg-8 col-md-8">
 										<div class="card">
 											<div class="card-header">
-												<h4 class="mb-0">Order Status</h4>
+												<h4 class="mb-0">주문 상황 조회</h4>
 											</div>
 											<div class="card-body p-0">
 												<div class="table-responsive">
 													<table class="table table-lg table-hover">
 														<thead>
 															<tr>
-																<th>Name</th>
-																<th>Product ID</th>
-																<th>Status</th>
-																<th>Price</th>
-																<th>Date Created</th>
+																<th>상품명</th>
+																<th>구매자 아이디</th>
+																<th>상태</th>
+																<th>가격</th>
+																<th>의뢰일</th>
 															</tr>
 														</thead>
 														
 														<tbody>
 															<tr>
-																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Luxury House</a></td>
-																<td>#258475</td>
-																<td><div class="label text-success bg-success-light">Paid</div></td>                
-																<td>$ 310</td>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">반응형 홈페이지 제작</a></td>
+																<td>Highzess</td>
+																<td><div class="label text-success bg-success-light">결제완료</div></td>                
+																<td>120,000원</td>
 																<td>04/10/2013</td>  
 															</tr>
 															
 															<tr>
-																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Sargun Apartment</a></td>
-																<td>#249578</td>
-																<td><div class="label text-warning bg-warning-light">Pending</div></td>							
-																<td>$ 584.14</td>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">맞춤형 디자인 홈페이지</a></td>
+																<td>Kim</td>
+																<td><div class="label text-warning bg-warning-light">협의중</div></td>							
+																<td>150,000원</td>
 																<td>05/08/2014</td> 
 															</tr>
 															
 															<tr>
-																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Preet Silver City</a></td>
-																<td>#248712</td>
-																<td><div class="label text-danger bg-danger-light">Cancel</div></td>  
-																<td>$ 710.5</td>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">반응형 홈페이지 제작</a></td>
+																<td>Highzess</td>
+																<td><div class="label text-danger bg-danger-light">취소</div></td>  
+																<td>150,000원</td>
 																<td>11/05/2015</td>                                          
 															</tr>
 															
 															<tr>
-																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Mount See Villa</a></td>
-																<td>#287246</td>
-																<td><div class="label text-success bg-success-light">Paid</div></td>
-																<td>$ 482.70</td>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">반응형 홈페이지 제작</a></td>
+																<td>Highzess</td>
+																<td><div class="label text-success bg-success-light">결제완료</div></td>
+																<td>100,000원</td>
 																<td>06/09/2016</td>
 															</tr>
 															
 															<tr>
-																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Mount See Villa</a></td>
-																<td>#287246</td>
-																<td><div class="label text-success bg-success-light">Paid</div></td>
-																<td>$ 482.70</td>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">맞춤형 디자인 홈페이지</a></td>
+																<td>Hong</td>
+																<td><div class="label text-success bg-success-light">결제완료</div></td>
+																<td>140,000원</td>
 																<td>06/09/2016</td>
 															</tr>
 															
 															<tr>
-																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">Mount See Villa</a></td>
-																<td>#287246</td>
-																<td><div class="label text-success bg-success-light">Paid</div></td>
-																<td>$ 482.70</td>
+																<td><a href="#"><img src="https://via.placeholder.com/800x500" class="avatar avatar-30 mr-2" alt="Avatar">반응형 홈페이지 제작</a></td>
+																<td>Kim</td>
+																<td><div class="label text-success bg-success-light">결제완료</div></td>
+																<td>160,000원</td>
 																<td>06/09/2016</td>
 															</tr>
 															
