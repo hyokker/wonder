@@ -88,7 +88,7 @@
 										<div class="form-row">
 											<div class="form-group col-md-6">
 												<label>아이디</label> <input type="text" class="form-control"
-													value="${adminVo.adminId }" disabled>
+													value="${adminVo.adminId }" disabled="disabled">
 											</div>
 											<div class="form-group col-md-6" style="visibility: hidden;">
 											</div>

@@ -52,7 +52,7 @@
 					<div class="dash_user_footer">
 						<ul>
 							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
-							<li><a href="#"><i class="fa fa-comment"></i></a></li>
+							<li><a href="#"><i class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
 						</ul>
 					</div>
@@ -67,27 +67,27 @@
 
 						<!-- Bookmark Property -->
 						<div class="frm_submit_block">
-							<h4>Bookmark Property</h4>
+							<h4>거래대기 목록</h4>
 						</div>
 
 						<table class="property-table-wrap responsive-table bkmark">
 
 							<tbody>
 								<tr>
-									<th><i class="fa fa-file-text"></i> Property</th>
+									<th><i class="fa fa-file-text"></i>결제 승인되지 않은 거래 내역</th>
 									<th></th>
 								</tr>
 
 								<!-- Item #1 -->
 								<tr>
 									<td class="dashboard_propert_wrapper"><img
-										src="https://via.placeholder.com/800x500" alt="">
+										src="${pageContext.request.contextPath}/img/np1.jpg" alt="">
 										<div class="title">
 											<h4>
-												<a href="#">Serene Uptown</a>
+												<a href="#">최적화된 모바일 앱을 깔끔하게 개발해 드립니다.</a>
 											</h4>
-											<span>6 Bishop Ave. Perkasie, PA </span> <span
-												class="table-property-price">$900 / monthly</span>
+											<span>김개발</span> <span
+												class="table-property-price">90000원 / 할부</span>
 										</div></td>
 									<td class="action"><a href="#" class="delete"><i
 											class="ti-close"></i> Delete</a></td>
@@ -96,13 +96,13 @@
 								<!-- Item #2 -->
 								<tr>
 									<td class="dashboard_propert_wrapper"><img
-										src="https://via.placeholder.com/800x500" alt="">
+										src="${pageContext.request.contextPath}/img/np2.jpg" alt="">
 										<div class="title">
 											<h4>
-												<a href="#">Oak Tree Villas</a>
+												<a href="#">고객 맞춤형 반응형 홈페이지 제작해 드립니다.</a>
 											</h4>
-											<span>71 Lower River Dr. Bronx, NY</span> <span
-												class="table-property-price">$535,000</span>
+											<span>박웹디</span> <span
+												class="table-property-price">535,000 원</span>
 										</div></td>
 									<td class="action"><a href="#" class="delete"><i
 											class="ti-close"></i> Delete</a></td>
