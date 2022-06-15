@@ -69,7 +69,7 @@
 									<div class="foot-news-last">
 										<div class="input-group">
 											<input type="text" class="form-control"
-												placeholder="Email Address">
+												placeholder="회원명, 아이디 등으로 조회">
 											<div class="input-group-append">
 												<span type="button"
 													class="input-group-text theme-bg b-0 text-light"><i
@@ -80,7 +80,7 @@
 								</div>
 								<div class="_prt_filt_dash_last m2_hide">
 									<div class="_prt_filt_radius"></div>
-									<div class="_prt_filt_add_new">
+									<div class="_prt_filt_add_new" style="visibility: hidden">
 										<a href="submit-property-dashboard.html"
 											class="prt_submit_link"><i class="fas fa-plus-circle"></i><span
 											class="d-none d-lg-block d-md-block">List New Property</span></a>
@@ -97,7 +97,7 @@
 									<table class="table">
 										<thead class="thead-dark">
 											<tr>
-												<th scope="col">Property</th>
+												<th scope="col">게시글목록</th>
 												<th scope="col" class="m2_hide">Leads</th>
 												<th scope="col" class="m2_hide">Stats</th>
 												<th scope="col" class="m2_hide">Posted On</th>
