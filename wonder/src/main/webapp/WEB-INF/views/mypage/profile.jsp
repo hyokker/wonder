@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/top.jsp" %>
+<script src="<c:url value='/js/jquery.nice-select.js' />"></script>
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
+<link href="<c:url value='/css/nice-select.css' />" rel="stylesheet">
 <script type="text/javascript">
 	$(function(){
 		$('#submitBt').click(function(){
@@ -10,6 +12,13 @@
 				return false;
 			}
 		});
+		
+		if(${vo.type=='일반회원'}){
+			$('.form-row div').hide();
+			$('.generalMember').show();
+		}
+		
+		$('select').niceSelect();
 	});
 </script>
 
@@ -46,9 +55,9 @@
 							<div class="property_dashboard_navbar">
 								
 								<div class="dash_user_avater">
-									<img src="https://via.placeholder.com/500x500" class="img-fluid avater" alt="">
+									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
 									<h4>${userId }</h4>
-									<span>서울특별시 마포구</span>
+									<span>${vo.email }</span>
 								</div>
 								
 								<div class="dash_user_menues">
@@ -83,59 +92,149 @@
 									<div class="frm_submit_block">	
 										<h4>나의 계정 정보</h4>
 										<div class="frm_submit_wrap">
-											<div class="form-row">
+											<div class="form-row"> <!-- 기준디브 -->
 											
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-6 generalMember">
 													<label>이름</label>
 													<input type="text" class="form-control profile_disabled" value="${vo.name }" disabled="disabled">
 												</div>
 												
-												<div class="form-group col-md-6">
-													<label>이메일</label>
-													<input type="email" class="form-control" name="email" value="${vo.email }">
-												</div>
-												
-												<div class="form-group col-md-6">
-													<label>닉네임</label>
-													<input type="text" class="form-control" name="nickname" value="${vo.nickname }">
-												</div>
-												
-												<div class="form-group col-md-6">
-													<label>연락처</label>
-													<input type="text" class="form-control" name="tel" value="${vo.tel }">
-												</div>
-												
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-6 generalMember">
 													<label>가입일</label>
 													<input type="text" class="form-control profile_disabled" 
 														value="<fmt:formatDate value="${vo.regdate }" pattern="yyyy년 MM월 dd일" />" disabled="disabled">
 												</div>
 												
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-6 generalMember">
 													<label>회원분류</label>
 													<input type="text" class="form-control profile_disabled" value=
-														<c:if test="${vo.type=='N' }">
+														<c:if test="${vo.type=='일반회원' }">
 															"일반회원"
 														</c:if>
 													 disabled="disabled">
-													
 												</div>
 												
-												<!-- <div class="form-group col-md-6">
-													<label>State</label>
-													<input type="text" class="form-control" value="Canada">
+												<div class="form-group col-md-6 generalMember">
+													<label>이메일</label>
+													<input type="email" class="form-control" name="email" value="${vo.email }">
+												</div>
+												
+												<div class="form-group col-md-6 generalMember">
+													<label>닉네임</label>
+													<input type="text" class="form-control" name="nickname" value="${vo.nickname }">
+												</div>
+												
+												<div class="form-group col-md-6 generalMember">
+													<label>연락처</label>
+													<input type="text" class="form-control" name="tel" value="${vo.tel }">
+												</div>
+												
+
+												
+												<div class="form-group col-md-6">
+													<label>전공</label>
+													<input type="text" class="form-control" value="컴퓨터공학과">
 												</div>
 												
 												<div class="form-group col-md-6">
-													<label>Zip</label>
-													<input type="text" class="form-control" value="160052">
+													<label>학력</label>
+													<input type="text" class="form-control" value="이젠대학교 공학석사">
+												</div> 
+												
+												<div class="form-group col-md-6">
+													<label>은행명</label>
+													<input type="text" class="form-control" value="하나은행">
+												</div> 
+												
+												<div class="form-group col-md-6">
+													<label>계좌번호</label>
+													<input type="text" class="form-control" value="395-111111-11111">
 												</div> 
 												
 												<div class="form-group col-md-12">
-													<label>About</label>
-													<textarea class="form-control">Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</textarea>
-												</div>-->
+													<label>보유 자격증</label>
+													<input type="text" class="form-control" value="정보처리기사">
+												</div> 
 												
+												<div class="form-group col-md-6">
+													<label>완료된 작업 건수</label>
+													<input type="text" class="form-control profile_disabled" value="13건" disabled="disabled">
+												</div> 
+												
+												<div class="form-group col-md-4">
+													<label>개발 경력</label>
+													<select id="bage" class="form-control">
+														<option value="">경력을 선택하세요</option>
+														<option value="1">0 - 1년</option>
+														<option value="2" selected="selected">1 - 3년</option>
+														<option value="3">3 - 5년</option>
+														<option value="4">5 - 10년</option>
+														<option value="5">10년+</option>
+													</select>
+												</div>
+												
+												<div class="form-group col-md-12">
+													<label>개발 가능 언어</label>
+													<div class="o-features">
+														<ul class="no-ul-list third-row">
+															<li>
+																<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
+																<label for="a-1" class="checkbox-custom-label">C</label>
+															</li>
+															<li>
+																<input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
+																<label for="a-2" class="checkbox-custom-label">C#</label>
+															</li>
+															<li>
+																<input id="a-3" class="checkbox-custom" name="a-3" type="checkbox">
+																<label for="a-3" class="checkbox-custom-label">C++</label>
+															</li>
+															<li>
+																<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox" checked="checked">
+																<label for="a-4" class="checkbox-custom-label">CSS</label>
+															</li>
+															<li>
+																<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox" checked="checked">
+																<label for="a-5" class="checkbox-custom-label">HTML</label>
+															</li>
+															<li>
+																<input id="a-6" class="checkbox-custom" name="a-6" type="checkbox" checked="checked">
+																<label for="a-6" class="checkbox-custom-label">Java</label>
+															</li>
+															<li>
+																<input id="a-7" class="checkbox-custom" name="a-7" type="checkbox" checked="checked">
+																<label for="a-7" class="checkbox-custom-label">JavaScript</label>
+															</li>
+															<li>
+																<input id="a-8" class="checkbox-custom" name="a-8" type="checkbox" checked="checked">
+																<label for="a-8" class="checkbox-custom-label">JSP</label>
+															</li>
+															<li>
+																<input id="a-9" class="checkbox-custom" name="a-9" type="checkbox">
+																<label for="a-9" class="checkbox-custom-label">Lua</label>
+															</li>
+															<li>
+																<input id="a-10" class="checkbox-custom" name="a-10" type="checkbox">
+																<label for="a-10" class="checkbox-custom-label">Node.js</label>
+															</li>
+															<li>
+																<input id="a-11" class="checkbox-custom" name="a-11" type="checkbox" checked="checked">
+																<label for="a-11" class="checkbox-custom-label">Spring</label>
+															</li>
+															<li>
+																<input id="a-12" class="checkbox-custom" name="a-12" type="checkbox">
+																<label for="a-12" class="checkbox-custom-label">Vue.js</label>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="form-group col-md-12">
+													<label>소개</label>
+													<textarea class="form-control">무조건 남보다 나은 결과물과 서비스를 제공하는것이 저의 목표입니다.
+
+우수한 퀄리티와 다양한 기능을 개발하여 합리적인 금액으로 납품해드리고있습니다 
+사후 서비스까지 책임지는 저에게 맡겨주세요</textarea>
+												</div>	
 											</div>
 										</div>
 									</div>
@@ -165,8 +264,8 @@
 													<input type="text" class="form-control" value="https://linkedin.com/">
 												</div> -->
 												
-												<div class="form-group col-lg-12 col-md-12 mt-4">
-													<button class="btn btn-theme btn-lg" type="submit" id="submitBt">변경사항 적용</button>
+												<div class="form-group col-lg-12 col-md-12 mt-4 generalMember">
+													<button class="btn btn-theme btn-lg " type="submit" id="submitBt">변경사항 적용</button>
 												</div>
 												
 											</div>
@@ -178,6 +277,8 @@
 							</div>
 						</div>
 						
+						<input type="button" value="일반회원"/>
+						<input type="button" value="전문가"/>
 					</div>
 				</div>
 			</section>

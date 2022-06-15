@@ -37,9 +37,9 @@
 							<div class="property_dashboard_navbar">
 								
 								<div class="dash_user_avater">
-									<img src="https://via.placeholder.com/500x500" class="img-fluid avater" alt="">
-									<h4>Adam Harshvardhan</h4>
-									<span>Canada USA</span>
+									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
+									<h4>${userId }</h4>
+									<span>${vo.email }</span>
 								</div>
 								
 								<div class="dash_user_menues">
@@ -71,27 +71,27 @@
 								
 									<!-- Basic Information -->
 									<div class="frm_submit_block">	
-										<h4>Change Your Password</h4>
+										<h4>암호 변경</h4>
 										<div class="frm_submit_wrap">
 											<div class="form-row">
 											
 												<div class="form-group col-lg-12 col-md-6">
-													<label>Old Password</label>
+													<label>이전 비밀번호</label>
 													<input type="password" class="form-control">
 												</div>
 												
 												<div class="form-group col-md-6">
-													<label>New Password</label>
+													<label>새로운 비밀번호</label>
 													<input type="password" class="form-control">
 												</div>
 												
 												<div class="form-group col-md-6">
-													<label>Confirm password</label>
+													<label>새로운 비밀번호 확인</label>
 													<input type="password" class="form-control">
 												</div>
 												
 												<div class="form-group col-lg-12 col-md-12">
-													<button class="btn btn-theme" type="submit">Save Changes</button>
+													<button class="btn btn-theme" type="submit">비밀번호 변경하기</button>
 												</div>
 												
 											</div>
