@@ -10,7 +10,7 @@
 					<div class="call_action_wrap-head">
 						<h3>원더의 프리랜서가 당신의 연락을 기다립니다</h3>
 					</div>
-					<a href="#" class="btn btn-call_action_wrap">문의하기</a>
+					<a href="<c:url value='/contactUs/contactUs'/>" class="btn btn-call_action_wrap">문의하기</a>
 				</div>
 
 			</div>
