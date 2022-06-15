@@ -39,56 +39,6 @@
 			
 				<div class="container">
 					
-					<div class="row m-0">
-						<div class="short_wraping">
-							<div class="row align-items-center">
-							
-								<div class="col-lg-3 col-md-6 col-sm-12  col-sm-6">
-									<ul class="shorting_grid">
-										<li class="list-inline-item"><a href="grid-layout-with-sidebar.html" class="active"><span class="ti-layout-grid2"></span>Grid</a></li>
-										<li class="list-inline-item"><a href="list-layout-with-sidebar.html"><span class="ti-view-list"></span>List</a></li>
-										<li class="list-inline-item"><a href="#"><span class="ti-map-alt"></span>Map</a></li>
-									</ul>
-								</div>
-						
-								<div class="col-lg-6 col-md-12 col-sm-12 order-lg-2 order-md-3 elco_bor col-sm-12">
-									<div class="shorting_pagination">
-										<div class="shorting_pagination_laft">
-											<h5>Showing 1-25 of 72 results</h5>
-										</div>
-										<div class="shorting_pagination_right">
-											<ul>
-												<li><a href="javascript:void(0);" class="active">1</a></li>
-												<li><a href="javascript:void(0);">2</a></li>
-												<li><a href="javascript:void(0);">3</a></li>
-												<li><a href="javascript:void(0);">4</a></li>
-												<li><a href="javascript:void(0);">5</a></li>
-												<li><a href="javascript:void(0);">6</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-						
-								<div class="col-lg-3 col-md-6 col-sm-12 order-lg-3 order-md-2 col-sm-6">
-									<div class="shorting-right">
-										<label>Short By:</label>
-										<div class="dropdown show">
-											<a class="btn btn-filter dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												<span class="selection">Most Rated</span>
-											</a>
-											<div class="drp-select dropdown-menu">
-												<a class="dropdown-item" href="JavaScript:Void(0);">Most Rated</a>
-												<a class="dropdown-item" href="JavaScript:Void(0);">Most Viewd</a>
-												<a class="dropdown-item" href="JavaScript:Void(0);">News Listings</a>
-												<a class="dropdown-item" href="JavaScript:Void(0);">High Rated</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-					</div>
 					
 					<div class="row">
 						
@@ -267,7 +217,7 @@
 															<span class="_list_blickes types">Family</span>
 														</div>
 														<div class="_card_flex_last">
-															<h6 class="listing-card-info-price mb-0">$7,000</h6>
+															<h6 class="listing-card-info-price mb-0">7,000</h6>
 														</div>
 													</div>
 													<div class="_card_list_flex">
@@ -336,16 +286,16 @@
 												<div class="listing-short-detail-wrap">
 													<div class="_card_list_flex mb-2">
 														<div class="_card_flex_01">
-															<span class="_list_blickes _netork">7 Network</span>
-															<span class="_list_blickes types">Condos</span>
+															<span class="_list_blickes _netork">기한</span>
+															<span class="_list_blickes types">타입</span>
 														</div>
 														<div class="_card_flex_last">
-															<h6 class="listing-card-info-price mb-0">$10,500</h6>
+															<h6 class="listing-card-info-price mb-0">가격</h6>
 														</div>
 													</div>
 													<div class="_card_list_flex">
 														<div class="_card_flex_01">
-															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">9632 New Green Garden, Huwai Denever USA, AWE789O</a></h4>
+															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">제목부분!!!</a></h4>
 														</div>
 													</div>
 												</div>
@@ -354,13 +304,13 @@
 											<div class="price-features-wrapper">
 												<div class="list-fx-features">
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>4 Beds
+														<div class="inc-fleat-icon"><img src="${pageContext.request.contextPath}/img/bed.svg" width="13" alt="" /></div>사용언어
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>2 Bath
+														<div class="inc-fleat-icon"><img src="${pageContext.request.contextPath}/img/bathtub.svg" width="13" alt="" /></div>사용언어
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" /></div>1000 sqft
+														<div class="inc-fleat-icon"><img src="${pageContext.request.contextPath}/img/move.svg" width="13" alt="" /></div>사용프레임
 													</div>
 												</div>
 											</div>
@@ -368,14 +318,11 @@
 											<div class="listing-detail-footer">
 												<div class="footer-first">
 													<div class="foot-rates">
-														<span class="elio_rate perfect">4.7</span>
-														<div class="_rate_stio">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</div>
+														<div class="_card_flex_last">
+												<div class="prt_saveed_12lk">
+													<label class="toggler toggler-danger"><input type="checkbox"><i class="ti-heart"></i></label>
+												</div>
+											</div>
 													</div>
 												</div>
 												<div class="footer-flex">
@@ -702,18 +649,18 @@
 		<!-- ============================================================== -->
 		<!-- All Jquery -->
 		<!-- ============================================================== -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/ion.rangeSlider.min.js"></script>
-		<script src="assets/js/select2.min.js"></script>
-		<script src="assets/js/jquery.magnific-popup.min.js"></script>
-		<script src="assets/js/slick.js"></script>
-		<script src="assets/js/slider-bg.js"></script>
-		<script src="assets/js/lightbox.js"></script> 
-		<script src="assets/js/imagesloaded.js"></script>
-		<script src="assets/js/daterangepicker.js"></script>
-		<script src="assets/js/custom.js"></script>
+		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/select2.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/slick.js"></script>
+		<script src="${pageContext.request.contextPath}/js/slider-bg.js"></script>
+		<script src="${pageContext.request.contextPath}/js/lightbox.js"></script> 
+		<script src="${pageContext.request.contextPath}/js/imagesloaded.js"></script>
+		<script src="${pageContext.request.contextPath}/js/daterangepicker.js"></script>
+		<script src="${pageContext.request.contextPath}/js/custom.js"></script>
 		
 		<!-- ============================================================== -->
 		<!-- This page plugins -->

@@ -1,26 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
-<style type="text/css">
-.input-group-text {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: .375rem .75rem;
-    margin-bottom: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-}
 
-</style>
 
 
 	<head>
@@ -118,9 +99,21 @@
 											
 											  -->
 											
+											
+											
 											<div class="form-group col-md-12">
-												<label>사용 언어<a href="#" class="tip-topdata" data-tip="2개 이상 입력시 띄어쓰기를 사용해주세요"><i class="ti-help"></i></a></label>
-												<input type="text" class="form-control">
+												<label>프레임 워크</label>
+												<div class="o-features">
+													<ul class="no-ul-list third-row">
+													<c:forEach var="vo" items="${langList }">
+														<li>
+															<input  class="checkbox-custom" name="langchbox" type="checkbox">
+															<label  class="checkbox-custom-label">${vo.lang }</label>
+														</li>
+													</c:forEach>
+													</ul>
+													
+												</div>
 											</div>
 										
 											
