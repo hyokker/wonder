@@ -174,7 +174,7 @@
 <div class="home-slider margin-bottom-0">
 
 	<!-- Slide -->
-<div data-background-image="<c:url value='/img/main.jpg'/>"
+<div data-background-image=""  style="background:url(<c:url value='/img/mypage/mypage_banner.jpg' />);"
 class="item">
 <div class="container">
 	<div class="row">

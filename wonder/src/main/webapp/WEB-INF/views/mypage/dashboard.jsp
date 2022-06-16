@@ -209,7 +209,7 @@
 														<h5><i class="fa fa-circle m-r-5 text-danger"></i>월별 평균점수</h5>
 													</li>
 												</ul>
-												<div class="chart" id="extra-area-chart" style="height: 300px;">    
+												<div class="chart" style="height: 300px;">    
 													    <div id="donutchart" style="width: 400px; height: 310px; display: inline-block;"></div>
 						   								 <div id="curve_chart" style="width: 400px; height: 310px; display: inline-block; margin-left: 100px;"></div>
 						

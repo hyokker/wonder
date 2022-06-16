@@ -101,11 +101,11 @@
 													<thead class="thead-dark">
 														<tr>
 														  <th scope="col">상품명</th>
-														  <th scope="col" class="m2_hide">Leads</th>
+														  <th scope="col" class="m2_hide">조회수</th>
 														  <th scope="col" class="m2_hide">평점</th>
 														  <th scope="col" class="m2_hide">작업기간</th>
 														  <th scope="col">상태</th>
-														  <th scope="col">Action</th>
+														  <th scope="col">의뢰서 확인</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -124,33 +124,30 @@
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="prt_leads"><span>27 till now</span></div>
+																<div class="prt_leads"><span>1,264</span></div>
 																<div class="prt_leads_list">
 																	<ul>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="_leads_name style-1">K</a></li>
+																		<!-- <li><a href="#" class="_leads_name style-1">음</a></li> -->
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="leades_more">10+</a></li>
+																		<!-- <li><a href="#" class="leades_more">10+</a></li> -->
 																	</ul>
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_view"><h5 class="up">816</h5></div>
-																<div class="_leads_view_title"><span>Total Views</span></div>
+																<div class="_leads_view"><h5 class="up">4.16</h5></div>
+																<div class="_leads_view_title"><span>평균점수</span></div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_posted"><h5>16 Aug - 12:40</h5></div>
-																<div class="_leads_view_title"><span>16 Days ago</span></div>
+																<div class="_leads_posted"><h5>14일 이내</h5></div>
 															</td>
 															<td>
-																<div class="_leads_status"><span class="active">Active</span></div>
-																<div class="_leads_view_title"><span>Till 12 Oct</span></div>
+																<div class="_leads_status"><span class="active">거래중</span></div>
 															</td>
 															<td>
 																<div class="_leads_action">
 																	<a href="#"><i class="fas fa-edit"></i></a>
-																	<a href="#"><i class="fas fa-trash"></i></a>
 																</div>
 															</td>
 														</tr>
@@ -170,33 +167,30 @@
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="prt_leads"><span>27 till now</span></div>
+																<div class="prt_leads"><span>4,148</span></div>
 																<div class="prt_leads_list">
 																	<ul>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="_leads_name style-1">K</a></li>
+																		<!-- <li><a href="#" class="_leads_name style-1">음</a></li> -->
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="leades_more">10+</a></li>
+																		<!-- <li><a href="#" class="leades_more">10+</a></li> -->
 																	</ul>
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_view"><h5 class="up">816</h5></div>
-																<div class="_leads_view_title"><span>Total Views</span></div>
+																<div class="_leads_view"><h5 class="up">4.42</h5></div>
+																<div class="_leads_view_title"><span>평균점수</span></div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_posted"><h5>16 Aug - 12:40</h5></div>
-																<div class="_leads_view_title"><span>16 Days ago</span></div>
+																<div class="_leads_posted"><h5>30일 이내</h5></div>
 															</td>
 															<td>
-																<div class="_leads_status"><span class="expire">Expired</span></div>
-																<div class="_leads_view_title"><span>Till 12 Oct</span></div>
+																<div class="_leads_status"><span class="expire">거래취소</span></div>
 															</td>
 															<td>
 																<div class="_leads_action">
 																	<a href="#"><i class="fas fa-edit"></i></a>
-																	<a href="#"><i class="fas fa-trash"></i></a>
 																</div>
 															</td>
 														</tr>
@@ -216,33 +210,30 @@
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="prt_leads"><span>27 till now</span></div>
+																<div class="prt_leads"><span>1,385</span></div>
 																<div class="prt_leads_list">
 																	<ul>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="_leads_name style-1">K</a></li>
+																		<!-- <li><a href="#" class="_leads_name style-1">음</a></li> -->
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="leades_more">10+</a></li>
+																		<!-- <li><a href="#" class="leades_more">10+</a></li> -->
 																	</ul>
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_view"><h5 class="up">816</h5></div>
-																<div class="_leads_view_title"><span>Total Views</span></div>
+																<div class="_leads_view"><h5 class="up">4.68</h5></div>
+																<div class="_leads_view_title"><span>평균점수</span></div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_posted"><h5>16 Aug - 12:40</h5></div>
-																<div class="_leads_view_title"><span>16 Days ago</span></div>
+																<div class="_leads_posted"><h5>14일 이내</h5></div>
 															</td>
 															<td>
-																<div class="_leads_status"><span class="active">Active</span></div>
-																<div class="_leads_view_title"><span>Till 12 Oct</span></div>
+																<div class="_leads_status"><span class="active">거래중</span></div>
 															</td>
 															<td>
 																<div class="_leads_action">
 																	<a href="#"><i class="fas fa-edit"></i></a>
-																	<a href="#"><i class="fas fa-trash"></i></a>
 																</div>
 															</td>
 														</tr>
@@ -262,33 +253,30 @@
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="prt_leads"><span>27 till now</span></div>
+																<div class="prt_leads"><span>2,504</span></div>
 																<div class="prt_leads_list">
 																	<ul>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="_leads_name style-1">K</a></li>
+																		<!-- <li><a href="#" class="_leads_name style-1">음</a></li> -->
 																		<li><a href="#"><img src="https://via.placeholder.com/500x500" class="img-fluid img-circle" alt="" /></a></li>
-																		<li><a href="#" class="leades_more">10+</a></li>
+																		<!-- <li><a href="#" class="leades_more">10+</a></li> -->
 																	</ul>
 																</div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_view"><h5 class="up">816</h5></div>
-																<div class="_leads_view_title"><span>Total Views</span></div>
+																<div class="_leads_view"><h5 class="up">4.88</h5></div>
+																<div class="_leads_view_title"><span>평균점수</span></div>
 															</td>
 															<td class="m2_hide">
-																<div class="_leads_posted"><h5>16 Aug - 12:40</h5></div>
-																<div class="_leads_view_title"><span>16 Days ago</span></div>
+																<div class="_leads_posted"><h5>7일 이내</h5></div>
 															</td>
 															<td>
-																<div class="_leads_status"><span class="expire">Expired</span></div>
-																<div class="_leads_view_title"><span>Till 12 Oct</span></div>
+																<div class="_leads_status"><span class="expire">거래취소</span></div>
 															</td>
 															<td>
 																<div class="_leads_action">
 																	<a href="#"><i class="fas fa-edit"></i></a>
-																	<a href="#"><i class="fas fa-trash"></i></a>
 																</div>
 															</td>
 														</tr>

@@ -13,7 +13,7 @@
 			}
 		});
 		
-		if(${vo.type=='일반회원'}){
+		if(${vo.type=='N'}){
 			$('.form-row div').hide();
 			$('.generalMember').show();
 		}
