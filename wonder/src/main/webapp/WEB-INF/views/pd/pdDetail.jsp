@@ -2,190 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../inc/top.jsp" %>
-<style type="text/css">
-#profile {
-	height: 32rem;
-}
-	
-
-  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
-  .rating-group {
-    display: inline-flex;
-  }
-  
-  /* make hover effect work properly in IE */
-  .rating__icon {
-    pointer-events: none;
-  }
-  
-  /* hide radio inputs */
-  .rating__input {
-   position: absolute !important;
-   left: -9999px !important;
-  }
-
-  /* set icon padding and size */
-  .rating__label {
-    cursor: pointer;
-    /* if you change the left/right padding, update the margin-right property of .rating__label--half as well. */
-    padding: 0 0.1em;
-    font-size: 2rem;
-  }
-
-  /* add padding and positioning to half star labels */
-  .rating__label--half {
-    padding-right: 0;
-    margin-right: -0.5em;
-    z-index: 2;
-  }
-  
-  /* set default star color */
-  .rating__icon--star {
-    color: orange;
-  }
-  
-  /* set color of none icon when unchecked */
-  .rating__icon--none {
-    color: #eee;
-  }
-
-  /* if none icon is checked, make it red */
-  .rating__input--none:checked + .rating__label .rating__icon--none {
-    color: red;
-  }
-
-  /* if any input is checked, make its following siblings grey */
-  .rating__input:checked ~ .rating__label .rating__icon--star {
-    color: #ddd;
-  }
-  
-  /* make all stars orange on rating group hover */
-  .rating-group:hover .rating__label .rating__icon--star,
-  .rating-group:hover .rating__label--half .rating__icon--star {
-    color: orange;
-  }
-
-  /* make hovered input's following siblings grey on hover */
-  .rating__input:hover ~ .rating__label .rating__icon--star,
-  .rating__input:hover ~ .rating__label--half .rating__icon--star {
-    color: #ddd;
-  }
-  
-  /* make none icon grey on rating group hover */
-  .rating-group:hover .rating__input--none:not(:hover) + .rating__label .rating__icon--none {
-     color: #eee;
-  }
-
-  /* make none icon red on hover */
-  .rating__input--none:hover + .rating__label .rating__icon--none {
-    color: red;
-  }
-
-	[type="radio"]:checked + label,
-	[type="radio"]:not(:checked) + label {
-	    padding-left: 0;
-	}
-	[type="radio"]:checked + label:before,
-	[type="radio"]:not(:checked) + label:before {
-	    content: none;
-	} 
-	[type="radio"]:checked + label:after,
-	[type="radio"]:not(:checked) + label:after {
-	    content: none;
-	}
-	
-	/* star percentage */
-	.rating {
-  display: inline-block;
-  unicode-bidi: bidi-override;
-  color: #888888;
-  font-size: 30px;
-  height: 25px;
-  width: auto;
-  margin: 0;
-  position: relative;
-  padding: 0;
-  top: -16px;
-}
-
-.rating-upper {
-  color: orange;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-
-.rating-lower {
-  padding: 0;
-  display: flex;
-  z-index: 0;
-}
-
-.bigScore{
-	font-size: 40px;
-    font-weight: 700;
-    line-height: 33px;
-    color: #2a2f3a;
-}
-.avgScore{
-	font-size: 25px;
-    font-weight: 700;
-    line-height: 1em;
-    color: #2a2f3a;
-    margin-right: 200px;
-    margin-top: 4px;
-}
-
-/* detail - 가격정보 */
-.pricingTitle{
-	height: 3.875em !important;
-	line-height: 0.625em !important;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-/* detail - 소제목 */
-#myTabContent h5{
-	margin: 15px 0 15px 5px;
-}
-#myTabContent p{
-	margin-left: 5px;
-}
-
-/* modal */
-#exampleModalToggle{
-	top: -80px;
-}
-
-/* datePicker */
-.daterangepicker td.active, .daterangepicker td.active:hover {
-    background-color: #27ae60;
-    color: white !important;
-}
-.daterangepicker td.available:hover, .daterangepicker th.available:hover {
-    background-color: #27ae60;
-    color: white;
-}
-th.next.available, .prev.available {
-    background: #2C3E50;
-}
-th.next.available:hover, th.prev.available:hover {
-    background: #2c3e50b3;
-}
-.daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
-    border-color: white !important;
-}
-
-/* 전문가 정보 */
-.dash_user_menues ul li {
-    padding: 8px 25px;
-    color: #2C3E50;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/pdDetail.css">
 
 <!-- slick -->
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -199,24 +16,25 @@ th.next.available:hover, th.prev.available:hover {
 			<!-- Gallery -->
 			<div class="col-lg-8 col-md-7 col-sm-12">
 				<div class="mySlick">
-			        <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div>
-			        <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div>
-			        <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div>
+			        <div><img src="https://d2v80xjmx68n4w.cloudfront.net/gigs/Zq4Ky1648784180.jpg" class="img-fluid mx-auto" alt="" /></div>
+			        <div><img src="https://d2v80xjmx68n4w.cloudfront.net/gigs/Zq4Ky1648784180.jpg" class="img-fluid mx-auto" alt="" /></div>
+			        <div><img src="https://d2v80xjmx68n4w.cloudfront.net/gigs/Zq4Ky1648784180.jpg" class="img-fluid mx-auto" alt="" /></div>
+			        <!-- <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div> -->
 			    </div>
 			</div>
 			<!-- profile -->
 			<div class="col-lg-4 col-md-4 col-sm-12" id="profile">
-				<div class="property_dashboard_navbar">
+				<div class="property_dashboard_navbar" style="padding: 0;">
 					<div class="dash_user_avater">
-						<img src="https://via.placeholder.com/500x500" class="img-fluid avater" alt="">
+						<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA3MzBfMjUg%2FMDAxNTY0NDc0OTg4ODMy.ZqJOHVWgvIAFFRC0OX65wGbyV2jXpX3FKcBHW760XDYg.UII4II2u9MVQej__czZINBtV3pLo_Caxqf3MGjon2l8g.JPEG.thejoeunart%2F%25BF%25BB%25B7%25CE%25BF%25EC%25BE%25C6%25C0%25CC%25B5%25F0.jpg&type=sc960_832" class="img-fluid avater" alt="">
 						<h4>EZEN</h4>
 					</div>
 					
 					<div class="dash_user_menues">
 						<ul>
-							<li><i class="fa fa-bookmark"></i>연락 가능 시간: 9시 ~ 23시</li>
-							<li><i class="fa fa-bookmark"></i>총 작업개수: 17개</li>
-							<li><i class="fa fa-tasks"></i>소개</li>
+							<li><i class="fa fa-clock" style="font-size: large;margin-right: 10px;"></i>연락 가능 시간: 9시 ~ 23시</li>
+							<li><i class="fa fa-check" style="font-size: large;margin-right: 10px;"></i>총 작업개수: 17개</li>
+							<li><i class="fa fa-address-book" style="font-size: large;margin-right: 10px;"></i>소개</li>
 							<li style="padding: 0 25px">합리적인 비용과 체계적인 분석으로 성공적인 메타버스 입점을 돕는 알파디입니다.
 궁금한 내용은 언제든 편하게 문의해주세요! </li>
 						</ul>
@@ -261,7 +79,7 @@ th.next.available:hover, th.prev.available:hover {
 							<!-- language -->
 							<div class="property_block_wrap">
 								<div class="property_block_wrap_header">
-									<h4 class="property_block_title">language</h4>
+									<h4 class="property_block_title">개발 언어</h4>
 								</div>
 								<div class="block-body">
 									<ul class="avl-features third">
@@ -280,7 +98,7 @@ th.next.available:hover, th.prev.available:hover {
 							<div class="property_block_wrap">
 								<!-- detail header -->
 								<div class="property_block_wrap_header">
-									<h4 class="property_block_title">Details</h4>
+									<h4 class="property_block_title">상세 설명</h4>
 								</div>
 								<!-- detail body -->
 								<div class="block-body">
@@ -825,10 +643,60 @@ th.next.available:hover, th.prev.available:hover {
 														</div>
 													</article>
 												</li>
+												<!-- 나머지 리뷰 -->
+												<li id="more"></li>
+												<li class="article_comments_wrap more_review">
+													<article>
+														<div class="comment-details">
+															<div class="comment-meta">
+																<div class="comment-left-meta">
+																	<h4 class="author-name">Shaurya Singh Preet</h4>
+																	<div class="comment-date">10th June 2021</div>
+																</div>
+															</div>
+															<div class="comment-text">
+																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
+																	perspiciatis unde omnis iste natus error.</p>
+															</div>
+														</div>
+													</article>
+												</li>
+												<li class="article_comments_wrap more_review">
+													<article>
+														<div class="comment-details">
+															<div class="comment-meta">
+																<div class="comment-left-meta">
+																	<h4 class="author-name">Shaurya Singh Preet</h4>
+																	<div class="comment-date">10th June 2021</div>
+																</div>
+															</div>
+															<div class="comment-text">
+																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
+																	perspiciatis unde omnis iste natus error.</p>
+															</div>
+														</div>
+													</article>
+												</li>
+												<li class="article_comments_wrap more_review">
+													<article>
+														<div class="comment-details">
+															<div class="comment-meta">
+																<div class="comment-left-meta">
+																	<h4 class="author-name">Shaurya Singh Preet</h4>
+																	<div class="comment-date">10th June 2021</div>
+																</div>
+															</div>
+															<div class="comment-text">
+																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
+																	perspiciatis unde omnis iste natus error.</p>
+															</div>
+														</div>
+													</article>
+												</li>
 											</ul>
 										</div>
 									</div>
-									<a href="#" class="reviews-checked">리뷰 더 보기</a>
+									<a href="#more" class="reviews-checked">리뷰 더 보기</a>
 								</div>
 							</div>
 							<!-- write review -->
@@ -918,7 +786,7 @@ th.next.available:hover, th.prev.available:hover {
 														<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#generalac">
 															<div class="pricing_wrap" style="margin-bottom: 0">
 																<div class="prt_price">
-																	<h2><span>$</span>29</h2>
+																	<h2 style="font-size: 45px">270,000원</h2>
 																</div>
 																<div class="prt_body">
 																	<ul>
@@ -1030,7 +898,7 @@ th.next.available:hover, th.prev.available:hover {
       <div class="modal-header" style="margin-left: 15px">
         <!-- <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2</h5> -->
         <div class="prt_price" style="margin: 5px 0 0 0">
-			<h2><span>STANDARD : &nbsp;&nbsp;</span><span>$</span>29</h2>
+			<h3><span>STANDARD : &nbsp;&nbsp;</span>270,000원</h3>
 		</div>
         <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
       </div>
@@ -1117,12 +985,14 @@ th.next.available:hover, th.prev.available:hover {
      		}
      	});
      	
+     	// 슬릭
         $('.mySlick').slick({
             dots: true,
             autoplay: true,
             autoplaySpeed: 3000
         });
         
+     	//모달
         $('#modelButton1').click(function(){
         	$('#exampleModalToggle').modal('hide');
         });
@@ -1130,6 +1000,13 @@ th.next.available:hover, th.prev.available:hover {
         	$('#exampleModalToggle2').modal('hide');
         });
         
+        //리뷰 더 보기
+        $('.more_review').hide();
+        
+        $('.reviews-checked').click(function(){
+        	$('.more_review').show();
+        	$('.reviews-checked').text('리뷰 줄이기');
+        });
     });
     
     Date.prototype.addDays = function(days) {
