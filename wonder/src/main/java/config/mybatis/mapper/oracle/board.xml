@@ -48,7 +48,7 @@
 		where board_no=#{boardNo}
 	</update>
 	
-	<select id="selectByNo" parameterType="int" resultType="reBoardVo">
+	<select id="selectByNo" parameterType="int" resultType="boardVo">
 		select * from Board where board_no=#{boardNo}
 	</select>
 

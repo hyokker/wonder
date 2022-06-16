@@ -55,7 +55,7 @@
 	</update>
 
 	<insert id="insertAdmin" parameterType="adminVo">
-		<selectKey keyProperty="admin_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="adminNo" resultType="int" order="BEFORE">
 			select
 			ADMIN_SEQ.nextval from dual
 		</selectKey>

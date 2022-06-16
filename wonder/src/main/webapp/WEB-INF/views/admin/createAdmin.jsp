@@ -69,8 +69,10 @@
 				<div class="dashboard-body">
 					<div class="dashboard-wraper">
 						<!-- Basic Information -->
-						<form name="frm1" method="post"
-							action="<c:url value='/admin/editAccount'/>">
+<%-- 						<form name="frmsubAdmin" method="post"
+							action="<c:url value='/admin/createAdmin'/>"> --%>
+							<form name="frmsubAdmin" method="post"
+                     action="<c:url value='/admin/createAdmin' />">
 							<fieldset>
 								<div class="frm_submit_block">
 									<h4>부서별 관리자 생성</h4>
