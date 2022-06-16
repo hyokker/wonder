@@ -15,14 +15,14 @@
 		select *
 		from
 		(
-			select rownum as RNUM, B.*
-			from
-			(
-				select A.*
-				from member A
-				<include refid="searchWhere"></include>
-				order by regdate desc
-			)B
+		select rownum as RNUM, B.*
+		from
+		(
+		select A.*
+		from member A
+		<include refid="searchWhere"></include>
+		order by regdate desc
+		)B
 		)
 		where RNUM>#{firstRecordIndex} 
 		<![CDATA[
@@ -35,19 +35,36 @@
 		<include refid="searchWhere"></include>
 	</select>
 
-	<select id="selectByAdminId" parameterType="string" resultType="adminVo">
+	<select id="selectByAdminId" parameterType="string"
+		resultType="adminVo">
 		select * from admin
-		where admin_Id=#{admin_Id}
+		where admin_Id=#{adminId}
 	</select>
-	
-	<select id="selectPwd" parameterType="string" resultType="string">
+
+	<select id="selectPwd" parameterType="string"
+		resultType="string">
 		select admin_Pwd from admin
-		where admin_Id=#{admin_Id}
+		where admin_Id=#{adminId}
 	</select>
-	
+
 	<update id="updateAdmin" parameterType="adminVo">
 		update admin
-		set admin_Pwd=#{admin_Pwd}
-		where admin_Id=#{admin_Id}
+		set
+		admin_Pwd=#{adminPwd}
+		where admin_Id=#{adminId}
 	</update>
+
+	<insert id="insertAdmin" parameterType="adminVo">
+		<selectKey keyProperty="adminNo" resultType="int" order="BEFORE">
+			select
+			ADMIN_SEQ.nextval from dual
+		</selectKey>
+		insert into admin(admin_no, admin_id, admin_pwd)
+		values(#{adminNo}, #{adminId}, #{adminPwd})
+	</insert>
+	
+	<select id="dupAdminId" parameterType="String" resultType="int">
+		selecr count(*) from admin
+		where ADMIN_ID = #{adminId}
+	</select>
 </mapper>

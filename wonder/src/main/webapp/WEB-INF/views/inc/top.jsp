@@ -13,13 +13,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
         <title>작업물 중개는 원더(WONDER)</title>
-		 
         <!-- Custom CSS -->
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet">
         
     </head>
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
-	
     <body class="yellow-skin">
 	
 		 <!-- ============================================================== -->
@@ -31,7 +29,6 @@
         <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <div id="main-wrapper">
-		
             <!-- ============================================================== -->
             <!-- Top header  -->
             <!-- ============================================================== -->
