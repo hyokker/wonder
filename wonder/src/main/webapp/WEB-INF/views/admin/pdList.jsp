@@ -69,7 +69,7 @@
 									<div class="foot-news-last">
 										<div class="input-group">
 											<input type="text" class="form-control"
-												placeholder="회원명, 아이디 등으로 조회">
+												placeholder="회원명, 아이디 등으로 조회" size="20">
 											<div class="input-group-append">
 												<span type="button"
 													class="input-group-text theme-bg b-0 text-light"><i

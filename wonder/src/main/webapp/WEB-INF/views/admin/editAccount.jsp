@@ -3,16 +3,18 @@
 <%@ include file="../inc/top.jsp"%>
 <script type="text/javascript">
 	$(function() {
-		$('form[name=frm1]').submit(function() {
-			if ($("#pwd").val().length < 1) {
-				alert("비밀번호를 입력하세요");
-				$("#pwd").focus();
-				event.preventDefault();
-			} else if ($("#pwd").val() != $("#pwd2").val()) {
-				alert("비밀번호가 일치하지 않습니다.");
-				$("#pwd2").focus();
-				event.preventDefault();
-			}
+		$('#editsave').click(function() {
+			$('form[name=frmAdminProfile]').submit(function() {
+				if ($("#pwd").val().length < 1) {
+					alert("비밀번호를 입력하세요");
+					$("#pwd").focus();
+					event.preventDefault();
+				} else if ($("#pwd").val() != $("#pwd2").val()) {
+					alert("비밀번호가 일치하지 않습니다.");
+					$("#pwd2").focus();
+					event.preventDefault();
+				}
+			});
 		});
 	});
 </script>
@@ -56,10 +58,10 @@
 									목록<span class="notti_coun style-3">3</span></a></li>
 							<li><a href="choose-package.html"><i class="fa fa-gift"></i>광고
 									목록 목록<span class="expiration">10 days left</span></a></li>
-							<li  class="active"><a href="<c:url value='/admin/editAccount'/>"><i
+							<li class="active"><a
+								href="<c:url value='/admin/editAccount'/>"><i
 									class="fa fa-user-tie"></i>내 정보</a></li>
-							<li><a
-								href="<c:url value='/admin/createAdmin'/>"><i
+							<li><a href="<c:url value='/admin/createAdmin'/>"><i
 									class="fa fa-plus-circle"></i>부서별 관리자 생성</a></li>
 						</ul>
 					</div>
@@ -79,27 +81,32 @@
 				<div class="dashboard-body">
 					<div class="dashboard-wraper">
 						<!-- Basic Information -->
-						<form name="frm1" method="post"
+						<form name="frmAdminProfile" method="post"
 							action="<c:url value='/admin/editAccount'/>">
 							<fieldset>
 								<div class="frm_submit_block">
 									<h4>내 정보</h4>
 									<div class="frm_submit_wrap">
 										<div class="form-row">
+
 											<div class="form-group col-md-6">
 												<label>아이디</label> <input type="text" class="form-control"
 													value="${adminVo.adminId }" disabled="disabled">
 											</div>
+
 											<div class="form-group col-md-6" style="visibility: hidden;">
 											</div>
+
 											<div class="form-group col-md-6">
-												<label>비밀번호</label> <input type="text" class="form-control"
-													value="PWD" id="pwd">
+												<label>비밀번호</label> <input type="password"
+													class="form-control" placeholder="PWD" id="pwd">
 											</div>
+
 											<div class="form-group col-md-6">
-												<label>비밀번호 확인</label> <input type="text"
-													class="form-control" value="CONFIRM PWD" id="pwd2">
+												<label>비밀번호 확인</label> <input type="password"
+													class="form-control" placeholder="CONFIRM PWD" id="pwd2">
 											</div>
+
 										</div>
 									</div>
 								</div>

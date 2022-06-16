@@ -279,7 +279,6 @@
 
 <!-- Custom Morrisjs JavaScript -->
 <script src="${pageContext.request.contextPath}/js/morris.js"></script>
-
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->
