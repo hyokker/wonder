@@ -5,6 +5,13 @@
 	padding-left: 10px;
 }
 </style>
+<script  type="text/javascript">
+	$('#memList').DataTable();
+</script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
 <%@ include file="../inc/top.jsp"%>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -35,7 +42,8 @@
 						<ul>
 							<li><a href="<c:url value='/admin/dashboard'/>"><i
 									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li class="active"><a href="<c:url value='/admin/memberList'/>"><i
+							<li class="active"><a
+								href="<c:url value='/admin/memberList'/>"><i
 									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
 							<li><a href="<c:url value='/admin/pdList'/>"><i
 									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
@@ -48,8 +56,7 @@
 									목록 목록<span class="expiration">10 days left</span></a></li>
 							<li><a href="<c:url value='/admin/editAccount'/>"><i
 									class="fa fa-user-tie"></i>내 정보</a></li>
-							<li><a
-								href="<c:url value='/admin/createAdmin'/>"><i
+							<li><a href="<c:url value='/admin/createAdmin'/>"><i
 									class="fa fa-plus-circle"></i>부서별 관리자 생성</a></li>
 						</ul>
 					</div>
@@ -74,7 +81,7 @@
 									<div class="foot-news-last">
 										<div class="input-group">
 											<input type="text" class="form-control"
-												placeholder="회원명, 아이디 등으로 조회">
+												placeholder="회원명, 아이디 등으로 조회" size="20">
 											<div class="input-group-append">
 												<span type="button"
 													class="input-group-text theme-bg b-0 text-light"><i
@@ -99,7 +106,7 @@
 						<div class="col-lg-12 col-md-12">
 							<div class="dashboard_property">
 								<div class="table-responsive">
-									<table class="table">
+									<table class="table" id="memList">
 										<thead class="thead-dark">
 											<tr>
 												<th scope="col">회원목록</th>
@@ -134,7 +141,8 @@
 														</td>
 														<td class="m2_hide">
 															<div class="prt_leads">
-																<span>3일 전</span><%-- ${Utility.lastVisit } --%>
+																<span>3일 전</span>
+																<%-- ${Utility.lastVisit } --%>
 															</div>
 														</td>
 														<td class="m2_hide">
@@ -168,556 +176,6 @@
 												</c:forEach>
 											</c:if>
 											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="expire">프리랜서</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="active">일반회원</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="expire">Expired</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="active">Active</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="active">Active</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="expire">Expired</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="active">Active</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-
-											<!-- tr block -->
-											<tr>
-												<td>
-													<div class="dash_prt_wrap">
-														<div class="dash_prt_thumb">
-															<img src="https://via.placeholder.com/800x500"
-																class="img-fluid" alt="" />
-														</div>
-														<div class="dash_prt_caption">
-															<h5>4 Bhk Luxury Villa</h5>
-															<div class="prt_dashb_lot">5682 Brown River Suit 18</div>
-															<div class="prt_dash_rate">
-																<span>$ 2,200,000</span>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="prt_leads">
-														<span>27 till now</span>
-													</div>
-													<div class="prt_leads_list">
-														<ul>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="_leads_name style-1">K</a></li>
-															<li><a href="#"><img
-																	src="https://via.placeholder.com/500x500"
-																	class="img-fluid img-circle" alt="" /></a></li>
-															<li><a href="#" class="leades_more">10+</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_view">
-														<h5 class="up">816</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>Total Views</span>
-													</div>
-												</td>
-												<td class="m2_hide">
-													<div class="_leads_posted">
-														<h5>16 Aug - 12:40</h5>
-													</div>
-													<div class="_leads_view_title">
-														<span>16 Days ago</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_status">
-														<span class="expire">Expired</span>
-													</div>
-													<div class="_leads_view_title">
-														<span>Till 12 Oct</span>
-													</div>
-												</td>
-												<td>
-													<div class="_leads_action">
-														<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-															class="fas fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
 
 										</tbody>
 									</table>

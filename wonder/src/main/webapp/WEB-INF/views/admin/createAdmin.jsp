@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+</script>
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
@@ -71,18 +77,23 @@
 									<div class="frm_submit_wrap">
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label>아이디</label> <input type="text" class="form-control"
-													value="ID">
+												<label>아이디</label> 
+												<input name="adminId" id="adminId" type="text"
+													class="form-control" placeholder="ID" required autofocus/>
+												<input type="hidden" id="adminIdDup">
 											</div>
-											<div class="form-group col-md-6" style="visibility: hidden;">
+
+											<div class="form-group col-md-6" style="padding-top: 33px;">
+												<button class="btn btn-theme" type="submit" id="dupbtn">중복확인</button>
+											</div>
+
+											<div class="form-group col-md-6">
+												<label>비밀번호</label> <input name="adminPwd" type="text"
+													class="form-control" placeholder="PWD" id="pwd">
 											</div>
 											<div class="form-group col-md-6">
-												<label>비밀번호</label> <input type="text" class="form-control"
-													value="PWD" id="pwd">
-											</div>
-											<div class="form-group col-md-6">
-												<label>비밀번호 확인</label> <input type="text"
-													class="form-control" value="CONFIRM PWD" id="pwd2">
+												<label>비밀번호 확인</label> <input name="adminPwd2" type="text"
+													class="form-control" placeholder="CONFIRM PWD" id="pwd2">
 											</div>
 										</div>
 									</div>
@@ -93,7 +104,8 @@
 									<ul class="no-ul-list">
 										<li><input id="aj-1" class="checkbox-custom" name="aj-1"
 											type="checkbox"> <label for="aj-1"
-											class="checkbox-custom-label">부서별 관리자를 생성하시는 것에 동의하십니까?</label></li>
+											class="checkbox-custom-label">부서별 관리자를 생성하시는 것에
+												동의하십니까?</label></li>
 									</ul>
 								</div>
 

@@ -35,7 +35,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	public int checkLogin(String adminId, String adminPwd) {
-		String dbPwd = adminDao.selectPwd(adminId);
+		String dbPwd = adminDao.selectPwd(adminId); //DB에서 admin아이디로 비번 조회
 		
 		int result = 0;
 		if(dbPwd!=null && !dbPwd.isEmpty()) {
@@ -55,4 +55,11 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.updateAdmin(adminVo);
 	}
 
+	@Override
+	public int insertAdmin(AdminVO adminVo) {
+		return adminDao.insertAdmin(adminVo);
+	}
 }
+
+
+ 
