@@ -28,12 +28,29 @@ public class MypageController {
 	public void mypage_dashboard(HttpServletRequest request,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
 		logger.info("대시보드 페이지");
 		
+	}
+	
+	@RequestMapping("/dashboard/general")
+	public String mypage_dashboard_general(HttpServletRequest request, Model model) {
 		MemberVO vo = mypageService.selectMemberByNo(1);
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", vo.getUserId());
 		session.setAttribute("pwd", vo.getPwd());
 		
 		model.addAttribute("vo",vo);
+		
+		return "/mypage/dashboard";
+	}
+	@RequestMapping("/dashboard/free")
+	public String mypage_dashboard_free(HttpServletRequest request, Model model) {
+		MemberVO vo = mypageService.selectMemberByNo(2);
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", vo.getUserId());
+		session.setAttribute("pwd", vo.getPwd());
+		
+		model.addAttribute("vo",vo);
+		
+		return "/mypage/dashboard";
 	}
 	
 	@GetMapping("/profile")

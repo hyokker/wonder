@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.wonder.board.model.BoardService;
 import com.ez.wonder.board.model.BoardVO;
-import com.ez.wonder.common.ConstUtil;
-import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
@@ -53,14 +51,16 @@ public class BoardController {
 		logger.info("자유게시판 목록, 파라미터 searchVo={}", searchVo);
 		
 		//[1] pagingInfo
-		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
-		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
-		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-		
-		//[2] searchVo.set
-		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		/*
+		 * PaginationInfo pagingInfo = new PaginationInfo();
+		 * pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
+		 * pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		 * pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		 * 
+		 * //[2] searchVo.set
+		 * searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		 * searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		 */
 		
 		//List<BoardVO> list=boardService.selectAll(searchVo);
 		//logger.info("글 목록 조회 결과, list.size={}", list.size());
@@ -72,7 +72,7 @@ public class BoardController {
 		//pagingInfo.setTotalRecord(totalRecord);
 		
 		//model.addAttribute("list", list);
-		model.addAttribute("pagingInfo", pagingInfo);
+		//model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "board/list";
 	}
