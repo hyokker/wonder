@@ -759,6 +759,7 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(function(){
+    	//전문가멤버 뷰에서 정보 받아오기
      	date = new Date();
      	
      	$('input[name="startDate"]').daterangepicker({
