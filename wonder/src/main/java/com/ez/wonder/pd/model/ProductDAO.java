@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ProductDAO {
-	ProductVO selcetProductByNo(int pdNo);
-	List<PdDetailVO> selcetPdDetail(int pdNo);
+	List<ProductVO> selectAllPd();
+	
 }

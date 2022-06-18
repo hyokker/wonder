@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface SkillService {
 	List<LanguageVO> allLanguage();
+	List<FrameworkVO>allFrame();
 }

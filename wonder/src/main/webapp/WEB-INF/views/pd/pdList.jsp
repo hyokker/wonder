@@ -9,7 +9,7 @@
         <title>RentUP - Residence & Real Estate Template</title>
 		 
         <!-- Custom CSS -->
-        <link href="assets/css/styles.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet">
 		
     </head>
 	
@@ -52,25 +52,19 @@
 										
 									
 				
-										
 										<div class="form-group">
-											<div class="simple-input">
-												<select id="ptype" class="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">Apartment</option>
-													<option value="2">Condo</option>
-													<option value="3">Family</option>
-													<option value="4">Houses</option>
-													<option value="5">Villa</option>
-												</select>
+											<div class="input-with-icon">
+												<input type="text" class="form-control" placeholder="제목을 검색하세요">
+												<i class="ti-search"></i>
 											</div>
 										</div>
+										
 										
 										<div class="form-group">
 											<div class="simple-input">
 												<select id="status" class="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">Apartment</option>
+													<option value="">개발언어</option>
+													<option value="1"></option>
 													<option value="2">Condo</option>
 													<option value="3">Houses</option>
 													<option value="4">Villa</option>
@@ -79,26 +73,10 @@
 											</div>
 										</div>
 										
-									
-										
-										<div class="form-group">
-											<div class="simple-input">
-												<select id="bedrooms" class="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select>
-											</div>
-										</div>
-									
-										
 										<div class="form-group">
 											<div class="simple-input">
 												<select id="garage" class="form-control">
-													<option value="">&nbsp;</option>
+													<option value="">프레임워크</option>
 													<option value="1">Any Type</option>
 													<option value="2">Yes</option>
 													<option value="3">No</option>
@@ -111,14 +89,14 @@
 											<div class="col-lg-6 col-md-6 col-sm-6">
 												<div class="form-group">
 													<div class="simple-input">
-														<input type="text" class="form-control" placeholder="Min Area">
+														<input type="text" class="form-control" placeholder="최소 수정 횟수">
 													</div>
 												</div>
 											</div>
 											<div class="col-lg-6 col-md-6 col-sm-6">
 												<div class="form-group">
 													<div class="simple-input">
-														<input type="text" class="form-control" placeholder="Max Area">
+														<input type="text" class="form-control" placeholder="최다 수정 횟수">
 													</div>
 												</div>
 											</div>
@@ -126,14 +104,24 @@
 										
 										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
-												<h6>Choose Price</h6>
+												<h6>가격 범위</h6>
 												<div class="rg-slider">
 													 <input type="text" class="js-range-slider" name="my_range" value="" />
 												</div>
 											</div>
-										</div>									
+										</div>		
 										
 										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+												<h6>기한 범위</h6>
+												<div class="rg-slider">
+													 <input type="text" class="js-range-slider" name="my_range" value="" />
+												</div>
+											</div>
+										</div>							
+										
+										<div class="row">
+										<!--  
 											<div class="col-lg-12 col-md-12 col-sm-12 pt-4">
 												<h6>Advance Features</h6>
 												<ul class="row p-0 m-0">
@@ -175,11 +163,12 @@
 													</li>
 												</ul>
 											</div>
+											 -->
 										</div>
 										
 										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-												<button class="btn theme-bg rounded full-width">Find New Home</button>
+												<button class="btn theme-bg rounded full-width">상품 검색</button>
 											</div>
 										</div>
 									
@@ -193,14 +182,14 @@
 							<div class="row justify-content-center">
 						
 								<!-- Single Property -->
+								<c:forEach var="pdVo" items="${pdList }">
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									<div class="property-listing list_view">
 										
 										<div class="listing-img-wrapper">
-											<div class="_exlio_125">For Sale</div>
 											<div class="list-img-slide">
 												<div class="click">
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="${pageContext.request.contextPath}/img/pdListimgex3.png" class="img-fluid mx-auto" alt="" /></a></div>
 													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
 													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
 												</div>
@@ -213,16 +202,16 @@
 												<div class="listing-short-detail-wrap">
 													<div class="_card_list_flex mb-2">
 														<div class="_card_flex_01">
-															<span class="_list_blickes _netork">6 Network</span>
-															<span class="_list_blickes types">Family</span>
+															<span class="_list_blickes _netork">10일</span>
+															<span class="_list_blickes types">${pdVo.userId }</span> <!-- 아이디 -->
 														</div>
 														<div class="_card_flex_last">
-															<h6 class="listing-card-info-price mb-0">7,000</h6>
+															<h6 class="listing-card-info-price mb-0">8,700</h6>
 														</div>
 													</div>
 													<div class="_card_list_flex">
 														<div class="_card_flex_01">
-															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">5689 Resot Relly Market, Montreal Canada, HAQC445</a></h4>
+															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail"> ${pdVo.pdTitle }</a></h4>
 														</div>
 													</div>
 												</div>
@@ -231,108 +220,36 @@
 											<div class="price-features-wrapper">
 												<div class="list-fx-features">
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>3 Beds
+														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>java
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>1 Bath
+														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>javaScript
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" /></div>800 sqft
+														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" />Swing</div>
 													</div>
 												</div>
 											</div>
 											
-											<div class="listing-detail-footer">
-												<div class="footer-first">
-													<div class="foot-rates">
-														<span class="elio_rate good">4.2</span>
-														<div class="_rate_stio">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</div>
-													</div>
-												</div>
-												<div class="footer-flex">
-													<a href="property-detail.html" class="prt-view">View Detail</a>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-								</div>
-								<!-- End Single Property -->
-								
-								<!-- Single Property -->
-								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-									<div class="property-listing list_view">
-										
-										<div class="listing-img-wrapper">
-											<div class="_exlio_125">For Rent</div>
-											<div class="list-img-slide">
-												<div class="click">
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
-												</div>
-											</div>
-										</div>
-										
-										<div class="list_view_flex">
-										
-											<div class="listing-detail-wrapper mt-1">
-												<div class="listing-short-detail-wrap">
-													<div class="_card_list_flex mb-2">
-														<div class="_card_flex_01">
-															<span class="_list_blickes _netork">기한</span>
-															<span class="_list_blickes types">타입</span>
-														</div>
-														<div class="_card_flex_last">
-															<h6 class="listing-card-info-price mb-0">가격</h6>
-														</div>
-													</div>
-													<div class="_card_list_flex">
-														<div class="_card_flex_01">
-															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">제목부분!!!</a></h4>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<div class="price-features-wrapper">
-												<div class="list-fx-features">
-													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="${pageContext.request.contextPath}/img/bed.svg" width="13" alt="" /></div>사용언어
-													</div>
-													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="${pageContext.request.contextPath}/img/bathtub.svg" width="13" alt="" /></div>사용언어
-													</div>
-													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="${pageContext.request.contextPath}/img/move.svg" width="13" alt="" /></div>사용프레임
-													</div>
-												</div>
-											</div>
-											
-											<div class="listing-detail-footer">
-												<div class="footer-first">
-													<div class="foot-rates">
-														<div class="_card_flex_last">
-												<div class="prt_saveed_12lk">
+											<div class="foot-rates">
+												  <div class="prt_saveed_12lk">
 													<label class="toggler toggler-danger"><input type="checkbox"><i class="ti-heart"></i></label>
 												</div>
-											</div>
-													</div>
-												</div>
+												  
+												  
 												<div class="footer-flex">
-													<a href="property-detail.html" class="prt-view">View Detail</a>
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													<a href="property-detail.html" class="prt-view" >View Detail</a>
 												</div>
 											</div>
 										</div>
 										
+										
 									</div>
 								</div>
+								</c:forEach>
 								<!-- End Single Property -->
 								
 								<!-- Single Property -->
@@ -340,10 +257,10 @@
 									<div class="property-listing list_view">
 										
 										<div class="listing-img-wrapper">
-											<div class="_exlio_125">For Sale</div>
+											<div class="_exlio_125">For Rent</div>
 											<div class="list-img-slide">
 												<div class="click">
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="${pageContext.request.contextPath}/img/pdListimgex1.jpg" class="img-fluid mx-auto" alt="" /></a></div>
 													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
 													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
 												</div>
@@ -356,16 +273,16 @@
 												<div class="listing-short-detail-wrap">
 													<div class="_card_list_flex mb-2">
 														<div class="_card_flex_01">
-															<span class="_list_blickes _netork">8 Network</span>
-															<span class="_list_blickes types">Apartment</span>
+															<span class="_list_blickes _netork">10일</span>
+															<span class="_list_blickes types">제한없음</span>
 														</div>
 														<div class="_card_flex_last">
-															<h6 class="listing-card-info-price mb-0">$8,700</h6>
+															<h6 class="listing-card-info-price mb-0">129,900</h6>
 														</div>
 													</div>
 													<div class="_card_list_flex">
 														<div class="_card_flex_01">
-															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">8512 Red Reveals Market, Montreal Canada, SHQT45O</a></h4>
+															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail"> 제목 제목 제목 제목 제목입니다 제목입니다 제목 제목입니다 제목이요</a></h4>
 														</div>
 													</div>
 												</div>
@@ -374,31 +291,98 @@
 											<div class="price-features-wrapper">
 												<div class="list-fx-features">
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>5 Beds
+														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>java
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>2 Bath
+														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>javaScript
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" /></div>900 sqft
+														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" />Swing</div>
 													</div>
 												</div>
 											</div>
 											
 											<div class="listing-detail-footer">
-												<div class="footer-first">
-													<div class="foot-rates">
-														<span class="elio_rate good">4.3</span>
-														<div class="_rate_stio">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
+												 
+											<div class="foot-rates">
+												  <div class="prt_saveed_12lk">
+													<label class="toggler toggler-danger"><input type="checkbox"><i class="ti-heart"></i></label>
+												</div>
+												  
+												  
+												  
+												<div class="footer-flex">
+												&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													<a href="property-detail.html" class="prt-view">View Detail</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- End Single Property -->
+								
+								<!-- Single Property -->
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+									<div class="property-listing list_view">
+										
+										<div class="listing-img-wrapper">
+											<div class="_exlio_125">For Sale</div>
+											<div class="list-img-slide">
+												<div class="click">
+													<div><a href="single-property-1.html"><img src="${pageContext.request.contextPath}/img/pdListimgex2.jpg" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="list_view_flex">
+										
+											<div class="listing-detail-wrapper mt-1">
+												<div class="listing-short-detail-wrap">
+													<div class="_card_list_flex mb-2">
+														<div class="_card_flex_01">
+															<span class="_list_blickes _netork">10일</span>
+															<span class="_list_blickes types">3회</span>
+														</div>
+														<div class="_card_flex_last">
+															<h6 class="listing-card-info-price mb-0">229,900</h6>
+														</div>
+													</div>
+													<div class="_card_list_flex">
+														<div class="_card_flex_01">
+															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail"> 제목 제목 제목 제목 제목입니다 제목입니다 제목제목2</a></h4>
 														</div>
 													</div>
 												</div>
+											</div>
+											
+											<div class="price-features-wrapper">
+												<div class="list-fx-features">
+													<div class="listing-card-info-icon">
+														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>java
+													</div>
+													<div class="listing-card-info-icon">
+														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>javaScript
+													</div>
+													<div class="listing-card-info-icon">
+														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" />Swing</div>
+													</div>
+												</div>
+											</div>
+											
+											<div class="listing-detail-footer">
+												  <div class="foot-rates">
+													<label class="toggler toggler-danger"><input type="checkbox"><i class="ti-heart"></i></label>
+												</div>
+												  
+												  
 												<div class="footer-flex">
+												&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+													&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
 													<a href="property-detail.html" class="prt-view">View Detail</a>
 												</div>
 											</div>
@@ -416,9 +400,9 @@
 											<div class="_exlio_125">For Rent</div>
 											<div class="list-img-slide">
 												<div class="click">
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
-													<div><a href="single-property-1.html"><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="${pageContext.request.contextPath}/img/pdListimgex3.jpg" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="${pageContext.request.contextPath}/img/pdListimgex2.jpg" class="img-fluid mx-auto" alt="" /></a></div>
+													<div><a href="single-property-1.html"><img src="${pageContext.request.contextPath}/img/pdListimgex3.jpg" class="img-fluid mx-auto" alt="" /></a></div>
 												</div>
 											</div>
 										</div>
