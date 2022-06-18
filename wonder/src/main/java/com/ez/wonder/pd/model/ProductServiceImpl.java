@@ -26,4 +26,5 @@ public class ProductServiceImpl implements ProductService{
 	public List<PdDetailVO> selcetPdDetail(int pdNo) {
 		return productDao.selcetPdDetail(pdNo);
 	}
+
 }
