@@ -1,7 +1,6 @@
 package com.ez.wonder.pd.model;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,4 +25,5 @@ public class ProductServiceImpl implements ProductService{
 	public List<PdDetailVO> selcetPdDetail(int pdNo) {
 		return productDao.selcetPdDetail(pdNo);
 	}
+
 }
