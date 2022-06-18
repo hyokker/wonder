@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- ============================ Call To Action ================================== -->
 <section class="theme-bg call_action_wrap-wrap">
 	<div class="container">
@@ -117,8 +116,8 @@
 							<div class="tab-pane fade show active" id="pills-login"
 								role="tabpanel" aria-labelledby="pills-login-tab">
 								<div class="login-form">
-								<!-- 로그인 -->
-									<form name="loginForm" action="" method="post" >
+									<form>
+
 										<div class="form-group">
 											<label>회원 아이디</label>
 											<div class="input-with-icon">
@@ -158,8 +157,8 @@
 							<div class="tab-pane fade" id="pills-signup" role="tabpanel"
 								aria-labelledby="pills-signup-tab">
 								<div class="login-form">
-								<!-- 회원가입 -->
-									<form name="registerForm" action="<c:url value='/aboutUs/aboutUs'/>" method="post">
+									<form>
+
 										<div class="form-group">
 											<label>회원 ID</label>
 											<div class="input-with-icon">
