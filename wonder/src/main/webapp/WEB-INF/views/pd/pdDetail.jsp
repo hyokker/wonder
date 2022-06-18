@@ -603,7 +603,6 @@
 						</div>
 					</div>
 			</section>
-			
 <!-- Modal A -->
 <c:forEach var="detailVo" items="${list }" varStatus="status">
 	<div class="modal fade modalA" id="exampleModalToggleA${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
