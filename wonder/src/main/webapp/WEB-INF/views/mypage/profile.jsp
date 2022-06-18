@@ -3,27 +3,77 @@
 
 <%@ include file="../inc/top.jsp" %>
 <%@ include file="incSide.jsp" %>
-<input type="hidden" id="pageCheck" value="profile">
-
-<script src="<c:url value='/js/jquery.nice-select.js' />"></script>
-<link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
-<link href="<c:url value='/css/nice-select.css' />" rel="stylesheet">
 <script type="text/javascript">
-	$(function(){
+	$(function(){  
+		 var fileTarget = $('#profileUpload');
+
+		  fileTarget.on('change', function(){  // 값이 변경되면
+		    if(window.FileReader){  // modern browser
+		      var filename = $(this)[0].files[0].name;
+		    } 
+		    else {  // old IE
+		      var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
+		    }
+		    console.log(filename);
+		    // 추출한 파일명 삽입
+		    $(this).siblings('.upload_name').val(filename);
+		  });
+		  
+		  //preview image 
+		    var imgTarget = $('.preview-image #profileUpload');
+
+		    imgTarget.on('change', function(){
+		        var parent = $(this).parent();
+		        parent.children('.upload-display').remove();
+
+		        if(window.FileReader){
+		            //image 파일만
+		            if (!$(this)[0].files[0].type.match(/image\//)) return;
+		            
+		            var reader = new FileReader();
+		            reader.onload = function(e){
+		                var src = e.target.result;
+		                parent.append('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+		            }
+		            reader.readAsDataURL($(this)[0].files[0]);
+		        }
+
+		        else {
+		            $(this)[0].select();
+		            $(this)[0].blur();
+		            var imgSrc = document.selection.createRange().text;
+		            parent.append('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+		            var img = $(this).siblings('.upload-display').find('img');
+		            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+		        }
+		    });
+		    
+		  
 		$('#submitBt').click(function(){
 			if(!confirm('정보를 수정하시겠습니까?')){
 				return false;
 			}
 		});
 		
+		
+		
 		if(${vo.type=='일반회원'}){
 			$('.form-row div').hide();
 			$('.generalMember').show();
 		}
 		
-		$('select').niceSelect();
+		
+		
+		
+		  
 	});
 </script>
+<input type="hidden" id="pageCheck" value="profile">
+
+<script src="<c:url value='/js/jquery.nice-select.js' />"></script>
+<link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
+<link href="<c:url value='/css/nice-select.css' />" rel="stylesheet">
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-body">
 							
@@ -173,6 +223,25 @@
 우수한 퀄리티와 다양한 기능을 개발하여 합리적인 금액으로 납품해드리고있습니다 
 사후 서비스까지 책임지는 저에게 맡겨주세요</textarea>
 												</div>	
+												
+												<div class="form-group col-md-12">
+												<br>
+													<label>프로필 사진</label>
+													<div class="uploadBox">
+													
+														<div class="uploadBox_inner">
+															<label class="uploadBox_inner_p" for="profileUpload">프로필 사진<br>업로드</label>
+														</div>
+														
+														<div class="uploadBox_innerRight  preview-image">
+															<input type="hidden" class="upload_name" value="" disabled="disabled">
+															<input type="file" id="profileUpload">
+														</div>
+														
+													</div>
+												</div>	
+												
+												
 											</div>
 										</div>
 									</div>
