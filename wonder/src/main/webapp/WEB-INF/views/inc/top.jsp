@@ -44,7 +44,7 @@
 							<div class="nav-toggle"></div>
 							<div class="mobile_nav">
 								<ul>
-									<li class="_my_prt_list"><a href="#"><span>2</span>My List</a></li>
+									<li class="_my_prt_list"><a href="#"><span></span><!--My List  --></a></li>
 									<li><a href="#" data-toggle="modal" data-target="#login"><i class="fas fa-user-circle fa-lg"></i></a></li>
 								</ul>
 							</div>
