@@ -8,10 +8,9 @@ import lombok.Data;
 public class ProductVO {
 	private int pdNo;
 	private String userId;
-	private String cateType; 
+	private String cateType;
 	private String pdTitle;
-	private String pdContent;
-	private Timestamp regdate; 
+	private Timestamp regdate;
 	private String delType;
 	private int readCount;
 	private String lang;

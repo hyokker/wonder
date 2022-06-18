@@ -1,5 +1,7 @@
 package com.ez.wonder.pd.model;
 
-public interface ProductService {
+import java.util.List;
 
+public interface ProductService {
+	List<ProductVO> selectAllPd();
 }
