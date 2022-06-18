@@ -5,12 +5,6 @@
 <mapper namespace="com.ez.wonder.skill.model.SkillDAO">
 	<select id="allLanguage" resultType="languageVo">
 		select * from language
-		order by lang_No asc
-	</select>
-
-	<select id="allFrame" resultType="frameworkVo">
-		select* from framework 
-		order by frame_No asc
 	</select>
 
 

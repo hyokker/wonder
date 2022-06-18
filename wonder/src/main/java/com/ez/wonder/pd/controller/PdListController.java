@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ez.wonder.pd.model.ProductService;
-import com.ez.wonder.pd.model.ProductVO;
+import com.ez.wonder.skill.model.LanguageVO;
+import com.ez.wonder.skill.model.SkillService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,25 +19,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PdListController {
 	private static final Logger logger
-	=LoggerFactory.getLogger(PdListController.class);
+	=LoggerFactory.getLogger(ProductController.class);
 
-	private final ProductService productService;
+	private final SkillService skillService;
 	
 	@GetMapping("/pdList")
 	public void pdList(Model model) {
-		logger.info("상품 리스트화면");
-		
-		List<ProductVO> pdList= productService.selectAllPd();
-		logger.info("상품 목록 , pdList.size()={}", pdList.size());
-		
-		model.addAttribute("pdList", pdList);
 		
 	}
 	
 
-	
-	
-	
+	@GetMapping("/pdWrite")
+	public void pdWrite(Model model) {
+		logger.info("카테고리 조회 페이지");
+		
+		//2
+		List<LanguageVO> list=skillService.allLanguage();
+		logger.info("카테고리 조회 결과, list.size={}", list.size());
+		
+		//3
+		model.addAttribute("langList", list);
+	}
 		
 		
 }
