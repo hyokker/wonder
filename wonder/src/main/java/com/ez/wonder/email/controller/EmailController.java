@@ -5,7 +5,9 @@ import javax.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ez.wonder.common.EmailSender;
 
@@ -27,16 +29,17 @@ public class EmailController {
 	
 	
 	@RequestMapping("/sendEmail")
-	public String sendEmail() {
+	public String sendEmail(@RequestParam String name,@RequestParam String email,
+			@RequestParam String title, @RequestParam String content) {
 		logger.info("이메일 발송 처리 페이지");
 		String receiver="vhrgh1@daum.net"; //받는사람 이메일
-		String subject="문의에 대한 답변입니다. 안녕하세요";
-		String content="이메일 내용입니다. 감사합니다.";
+		String subject= email+" 님의 문의 입니다.";
+		String content1="제목 : "+title+"\r\n"+"내용 : "+content;
 		String sender = "vhrgh123@naver.com";//보내는 사람의 이메일 주소
 										//앞서 설정한 본인의 naver email
 		
 		try {
-			emailSender.sendEmail(subject, content, receiver, sender);
+			emailSender.sendEmail(subject, content1, receiver, sender);
 			logger.info("이메일 발송 성공");
 		} catch (MessagingException e) {
 			e.printStackTrace();
