@@ -35,6 +35,7 @@ public class MemberController {
 		
 		int result=memberService.checkLogin(vo.getUserId(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);
+		//public
 		
 		String msg="로그인 처리 실패", url="/";
 		if(result==MemberService.LOGIN_OK) {

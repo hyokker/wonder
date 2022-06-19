@@ -16,5 +16,6 @@ public class MemberVO {
 	private Timestamp regdate;
 	private Timestamp outdate;
 	private String type;
+	//public
 
 }
