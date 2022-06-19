@@ -27,7 +27,7 @@ public class ProductController {
 		=LoggerFactory.getLogger(ProductController.class);
 	
 	private final ProductService productService;
-	
+	/*
 	//http://localhost:9095/wonder/pd/pdDetail?pdNo=1
 	@GetMapping("/pdDetail")
 	public String pdDetail(@RequestParam(defaultValue = "0") int pdNo,
@@ -50,5 +50,7 @@ public class ProductController {
 		model.addAttribute("list", list);
 		
 		return "/pd/pdDetail";
+		
 	}
+	*/
 }
