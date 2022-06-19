@@ -17,4 +17,5 @@ public interface MemberService {
 	public MemberVO selectByUserid(String userid);
 	int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
+	//public
 }
