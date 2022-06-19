@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	
 
 <!DOCTYPE html>
 
@@ -43,8 +44,8 @@
 	<div class="nav-toggle"></div>
 	<div class="mobile_nav">
 		<ul>
-			<li class="_my_prt_list"><a href="#"><span>2</span>My List</a></li>
-			<li><a href="#" data-toggle="modal" data-target="#login"><i class="fas fa-user-circle fa-lg"></i></a></li>
+			<!-- <li class="_my_prt_list"><a href="#"><span></span></a></li> -->
+			<!-- <li><a href="#" data-toggle="modal" data-target="#login"><i class="fas fa-user-circle fa-lg"></i></a></li> -->
 		</ul>
 	</div>
 </div>
@@ -162,9 +163,17 @@
 <li><a href="<c:url value='/member/logout'/>">로그아웃</a></li>
 	</li>
 	<li class="add-listing">
-		<a href="<c:url value='/pd/pdWrite'/>" class="theme-cl">
-			 <i class="fas fa-plus-circle mr-1"></i>상품 등록
+		<c:if test="${userId=='admin'}">
+		<a href="<c:url value='/admin/dashboard'/>" class="">
+			 <i class="fas fa-user-circle fa-lg"></i>
 		</a>
+		</c:if>
+		
+		<c:if test="${userId!='admin' }">
+		<a href="<c:url value='/mypage/dashboard'/>" class="">
+			 <i class="fas fa-user-circle fa-lg"></i>
+		</a>
+		</c:if>
 	</li>
 </ul>
 </c:if>
