@@ -1,9 +1,6 @@
 package com.ez.wonder.pd.controller;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,13 +38,14 @@ public class ProductController {
 			return "/common/message";
 		}
 		
-		ProductVO pdVo=productService.selcetProductByNo(pdNo);
-		logger.info("상품 조회 결과, vo={}", pdVo);
-		List<PdDetailVO> list=productService.selcetPdDetail(pdNo);
-		logger.info("상품 상세 조회 결과, list.size={}", list.size());
-		
-		model.addAttribute("pdVo", pdVo);
-		model.addAttribute("list", list);
+		/*
+		 * ProductVO pdVo=productService.selcetProductByNo(pdNo);
+		 * logger.info("상품 조회 결과, vo={}", pdVo); List<PdDetailVO>
+		 * list=productService.selcetPdDetail(pdNo);
+		 * logger.info("상품 상세 조회 결과, list.size={}", list.size());
+		 * 
+		 * model.addAttribute("pdVo", pdVo); model.addAttribute("list", list);
+		 */
 		
 		return "/pd/pdDetail";
 	}

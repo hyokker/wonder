@@ -3,7 +3,7 @@ package com.ez.wonder.pd.model;
 import lombok.Data;
 
 @Data
-public class PddetailVO {
+public class PdDetailVO {
 	private int detailNo ;
 	private int pdNo  ;
 	private String pdType;
