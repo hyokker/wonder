@@ -22,7 +22,7 @@ public class PdListController {
 	=LoggerFactory.getLogger(PdListController.class);
 
 	private final ProductService productService;
-	
+	/*
 	@GetMapping("/pdList")
 	public void pdList(Model model) {
 		logger.info("상품 리스트화면");
@@ -34,7 +34,7 @@ public class PdListController {
 		
 	}
 	
-
+*/
 	
 	
 	

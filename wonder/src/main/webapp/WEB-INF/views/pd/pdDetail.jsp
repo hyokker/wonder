@@ -32,11 +32,10 @@
 					
 					<div class="dash_user_menues">
 						<ul>
-							<li><i class="fa fa-clock" style="font-size: large;margin-right: 10px;"></i>연락 가능 시간: 9시 ~ 23시</li>
-							<li><i class="fa fa-check" style="font-size: large;margin-right: 10px;"></i>총 작업개수: 17개</li>
+							<li><i class="fa fa-clock" style="font-size: large;margin-right: 10px;"></i>연락 가능 시간: </li>
+							<li><i class="fa fa-check" style="font-size: large;margin-right: 10px;"></i>총 작업개수: 개</li>
 							<li><i class="fa fa-address-book" style="font-size: large;margin-right: 10px;"></i>소개</li>
-							<li style="padding: 0 25px">합리적인 비용과 체계적인 분석으로 성공적인 메타버스 입점을 돕는 알파디입니다.
-궁금한 내용은 언제든 편하게 문의해주세요! </li>
+							<li style="padding: 0 25px">소개글</li>
 						</ul>
 					</div>
 					
@@ -378,7 +377,7 @@
 										<span class="avgScore">AvgScore</span>
 										<div class="rating-overview-box">
 											<div class="rating">
-											    <span class="rating-upper" style="width: 46%">
+											    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
 											        <span>★</span>
 											        <span>★</span>
 											        <span>★</span>
@@ -394,127 +393,53 @@
 											    </span>
 											</div>
 										</div>
-										<span class="bigScore">3.2</span>
-										<span style="margin: 12px 0 0 15px">out of 5.0 (12개)</span>
+										<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
+										<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
 									</div>
 							
 									<div class="author-review">
 										<div class="comment-list">
 											<ul>
-												<li class="article_comments_wrap">
-													<article>
-														<div class="comment-details">
-															<div class="comment-meta">
-																<div class="comment-left-meta">
-																	<h4 class="author-name">Asiro HD. Mahrakjio</h4>
-																	<div class="comment-date">17th Aug 2021</div>
-																	<div class="rating" style="font-size: 15px;top: -5px">
-																		<span class="rating-upper" style="width: 80%">
-																	        <span>★</span>
-																	        <span>★</span>
-																	        <span>★</span>
-																	        <span>★</span>
-																	        <span>★</span>
-																	    </span>
-																	    <span class="rating-lower">
-																	        <span>★</span>
-																	        <span>★</span>
-																	        <span>★</span>
-																	        <span>★</span>
-																	        <span>★</span>
-																	    </span>
+												<c:forEach var="reviewVo" items="${reviewList }" varStatus="status">
+													<li class="article_comments_wrap 
+													<c:if test="${status.index > 2 }">
+														more_review
+													</c:if>
+													">
+														<article>
+															<div class="comment-details">
+																<div class="comment-meta">
+																	<div class="comment-left-meta">
+																		<h4 class="author-name">${reviewVo.userId }</h4>
+																		<div class="comment-date">${reviewVo.regdate }</div>
+																		<div class="rating" style="font-size: 15px;top: -5px">
+																			<span class="rating-upper" style="width: ${reviewVo.rating * 20 }%">
+																		        <span>★</span>
+																		        <span>★</span>
+																		        <span>★</span>
+																		        <span>★</span>
+																		        <span>★</span>
+																		    </span>
+																		    <span class="rating-lower">
+																		        <span>★</span>
+																		        <span>★</span>
+																		        <span>★</span>
+																		        <span>★</span>
+																		        <span>★</span>
+																		    </span>
+																		</div>
+																		<span>${reviewVo.rating }</span>
 																	</div>
 																</div>
-															</div>
-															<div class="comment-text" style="margin: 0">
-																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-																	perspiciatis unde omnis iste natus error.</p>
-															</div>
-														</div>
-													</article>
-												</li>
-												<li class="article_comments_wrap">
-													<article>
-														<div class="comment-details">
-															<div class="comment-meta">
-																<div class="comment-left-meta">
-																	<h4 class="author-name">Adam H. Vilson</h4>
-																	<div class="comment-date">07th June 2021</div>
+																<div class="comment-text" style="margin: 0">
+																	<p>${reviewVo.reviewTitle }</p>
+																	<p>${reviewVo.reviewContent }</p>
 																</div>
 															</div>
-															<div class="comment-text">
-																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-																	perspiciatis unde omnis iste natus error.</p>
-															</div>
-														</div>
-													</article>
-												</li>
-												<li class="article_comments_wrap">
-													<article>
-														<div class="comment-details">
-															<div class="comment-meta">
-																<div class="comment-left-meta">
-																	<h4 class="author-name">Shaurya Singh Preet</h4>
-																	<div class="comment-date">10th June 2021</div>
-																</div>
-															</div>
-															<div class="comment-text">
-																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-																	perspiciatis unde omnis iste natus error.</p>
-															</div>
-														</div>
-													</article>
-												</li>
+														</article>
+													</li>
+												</c:forEach>
 												<!-- 나머지 리뷰 -->
-												<li id="more"></li>
-												<li class="article_comments_wrap more_review">
-													<article>
-														<div class="comment-details">
-															<div class="comment-meta">
-																<div class="comment-left-meta">
-																	<h4 class="author-name">Shaurya Singh Preet</h4>
-																	<div class="comment-date">10th June 2021</div>
-																</div>
-															</div>
-															<div class="comment-text">
-																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-																	perspiciatis unde omnis iste natus error.</p>
-															</div>
-														</div>
-													</article>
-												</li>
-												<li class="article_comments_wrap more_review">
-													<article>
-														<div class="comment-details">
-															<div class="comment-meta">
-																<div class="comment-left-meta">
-																	<h4 class="author-name">Shaurya Singh Preet</h4>
-																	<div class="comment-date">10th June 2021</div>
-																</div>
-															</div>
-															<div class="comment-text">
-																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-																	perspiciatis unde omnis iste natus error.</p>
-															</div>
-														</div>
-													</article>
-												</li>
-												<li class="article_comments_wrap more_review">
-													<article>
-														<div class="comment-details">
-															<div class="comment-meta">
-																<div class="comment-left-meta">
-																	<h4 class="author-name">Shaurya Singh Preet</h4>
-																	<div class="comment-date">10th June 2021</div>
-																</div>
-															</div>
-															<div class="comment-text">
-																<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab.
-																	perspiciatis unde omnis iste natus error.</p>
-															</div>
-														</div>
-													</article>
-												</li>
 											</ul>
 										</div>
 									</div>
@@ -528,8 +453,8 @@
 								</div>
 								
 								<div class="block-body">
+								  <form name="frm" method="post" action="<c:url value='/pd/review'/>">
 									<div class="row">
-										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label>Ratting</label>
@@ -537,25 +462,25 @@
 												    <div class="rating-group">
 												    	<input type="radio" disabled="disabled">
 												        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-05" value="0.5" type="radio">
 												        <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-10" value="1" type="radio">
 												        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-15" value="1.5" type="radio">
 												        <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-20" value="2" type="radio">
 												        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" checked>
+												        <input class="rating__input" name="rating" id="rating2-25" value="2.5" type="radio" checked>
 												        <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-30" value="3" type="radio">
 												        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-35" value="3.5" type="radio">
 												        <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-40" value="4" type="radio">
 												        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-45" value="4.5" type="radio">
 												        <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-												        <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio">
+												        <input class="rating__input" name="rating" id="rating2-50" value="5" type="radio">
 												    </div>
 												</div>
 											</div>
@@ -564,24 +489,25 @@
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label>제목</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="reviewTitle">
 											</div>
 										</div>
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label>내용</label>
-												<textarea class="form-control ht-80"></textarea>
+												<textarea class="form-control ht-80" name="reviewContent"></textarea>
 											</div>
 										</div>
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<button class="btn theme-bg rounded" type="submit">등록</button>
+												<input type="hidden" value="${param.pdNo }" name="pdNo">
 											</div>
 										</div>
-										
 									</div>
+								  </form>
 								</div>
 								
 							</div>
@@ -759,7 +685,7 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(function(){
-    	//전문가멤버 뷰에서 정보 받아오기
+    	
      	date = new Date();
      	
      	$('input[name="startDate"]').daterangepicker({
@@ -800,11 +726,18 @@
         });
         
         //리뷰 더 보기
+        var bool=false;
         $('.more_review').hide();
         
         $('.reviews-checked').click(function(){
-        	$('.more_review').show();
-        	$('.reviews-checked').text('리뷰 줄이기');
+        	if(!bool){
+	        	$('.more_review').show();
+	        	$('.reviews-checked').text('리뷰 줄이기');
+        	}else{
+	        	$('.more_review').hide();
+	        	$('.reviews-checked').text('리뷰 더 보기');
+        	}
+        	bool=!bool;
         });
     });
     

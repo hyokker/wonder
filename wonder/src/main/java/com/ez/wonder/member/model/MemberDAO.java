@@ -10,4 +10,5 @@ public interface MemberDAO {
 	public MemberVO selectByUserid(String userid);
 	public int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
+	//public
 }
