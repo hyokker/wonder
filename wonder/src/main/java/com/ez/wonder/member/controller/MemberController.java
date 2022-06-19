@@ -49,7 +49,7 @@ public class MemberController {
 			
 			msg=memVo.getUserId()+"님 로그인되었습니당.";
 			url="/";
-		}else if(result==MemberService.DISAGREE_PWD) {
+		}else if(result==MemberService.DISAGREE_PWD) {	
 			msg="비밀번호가 일치하지 않습니당.";
 		}else if(result==MemberService.NONE_USERID) {
 			msg="해당 아이디가 존재하지 않습니당.";			
