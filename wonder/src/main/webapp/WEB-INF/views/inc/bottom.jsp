@@ -89,6 +89,10 @@
 </footer>
 <!-- ============================ Footer End ================================== -->
 
+<!-- kakao -->
+
+
+
 <!-- Log In Modal -->
 <div class="modal fade" id="login" tabindex="-1" role="dialog"
 	aria-labelledby="registermodal" aria-hidden="true">
@@ -121,6 +125,25 @@
 				
 				
 				<!-- 로그인 -->
+	<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/member.js'/>"></script>
+	<script type="text/javascript">
+			$(function() {
+			$('form[name=loginForm]').submit(function(){
+			if($.trim($('#loginId').val()) == "") {
+				alert("아이디를 입력해주세요.");
+				$('#loginId').focus();
+				event.preventDefault();
+			} else if ($("#loingPwd").val().length < 1) {
+				alert("비밀번호를 입력하세요");
+				$("#loingPwd").focus();
+				event.preventDefault();
+			}
+		});
+	});
+
+	
+	</script>
 				<form name="loginForm" action="<c:url value='/member/login'/>" method="post">
 					<div class="form-group">
 						<label>회원 아이디</label>
@@ -156,6 +179,9 @@
 					<div class="form-group">
 						<button type="submit" class="btn btn-md full-width pop-login">로그인</button>
 					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-md full-width pop-login">카카오로 로그인</button>
+					</div>
 
 				</form>
 			</div>
@@ -166,15 +192,15 @@
 		<script type="text/javascript">
 			$(function() {
 				$('form[name=registerForm]').submit(function() {
-			
-				if ($.trim($('#name').val()) == "") {
+		
+				if(!validate_userid($("#userId").val())) {
+					alert("아이디는 영문, 숫자, _(밑줄문자)만 가능합니다");
+					$("#userId").focus();
+					event.preventDefault();	
+				}else if ($.trim($('#name').val()) == "") {
 					alert("이름을 입력해주세요.");
 					$('#name').focus();
 					event.preventDefault();
-				}else if(!validate_userid($("#userId").val())) {
-							alert("아이디는 영문, 숫자, _(밑줄문자)만 가능합니다");
-							$("#userId").focus();
-							event.preventDefault();	
 				} else if ($.trim($('#nickname').val()) == "") {
 					alert("닉네임을 입력해주세요.");
 					$('#nickname').focus();
@@ -187,16 +213,11 @@
 					alert("비밀번호가 일치하지 않습니다.");
 					$("#pwd2").focus();
 					event.preventDefault();
-				} /*  else if (!validate_tel($('#tel').val())
-					|| !validate_tel($('#tel').val())) {
-					alert("전화번호는 숫자만 가능합니다");
-					$("#tel").focus();
-					event.preventDefault();
-				} else if ($('#chkId').val() != 'Y') {
+				} /* else if ($('#chkId').val() != 'Y') {
 					alert("아이디 중복확인해야 합니다");
 					$("#btnChkId").focus();
-					event.preventDefault();  */
-				//}
+					event.preventDefault();  
+				} */
 		});
 
 });
