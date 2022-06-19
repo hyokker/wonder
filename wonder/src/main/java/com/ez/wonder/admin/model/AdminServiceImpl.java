@@ -59,6 +59,20 @@ public class AdminServiceImpl implements AdminService{
 	public int insertAdmin(AdminVO adminVo) {
 		return adminDao.insertAdmin(adminVo);
 	}
+
+	@Override
+	public int dupAdminId(String adminId) {
+		int cnt = adminDao.dupAdminId(adminId);
+		
+		int result = 0;
+		if(cnt>0) {
+			result = AdminService.UNUSABLE_ID;
+		}else {
+			result = AdminService.USABLE_ID;
+		}
+		
+		return result;
+	}
 }
 
 

@@ -5,7 +5,27 @@
 
 </style>
 <script type="text/javascript">
-
+	$(function() {
+		$('form[name=frmsubAdmin]').submit(function() {
+			if($.trim($('#adminId').val()) == ""){
+				alert("아이디를 입력해주세요");
+				$('#adminId').focus();
+				event.preventDefault();
+			}else if ($('#adminPwd').val().length<1) {
+			    alert("비밀번호를 입력하세요");
+			    $("#adminPwd").focus();
+			    event.preventDefault();
+			}else if($("#adminPwd").val()!=$("#adminPwd2").val()) {
+			    alert("비밀번호가 일치하지 않습니다.");
+			    $("#adminPwd2").focus();
+			    event.preventDefault();
+			}else if ($('#duplicateCheck').val()!='Y'){
+				alert("아이디 중복확인은 필수입니다");
+				$("#duplicateCheck").focus();
+				event.preventDefault();			
+			}
+		});
+	});
 </script>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -69,10 +89,8 @@
 				<div class="dashboard-body">
 					<div class="dashboard-wraper">
 						<!-- Basic Information -->
-<%-- 						<form name="frmsubAdmin" method="post"
-							action="<c:url value='/admin/createAdmin'/>"> --%>
 							<form name="frmsubAdmin" method="post"
-                     action="<c:url value='/admin/createAdmin' />">
+                     action="<c:url value='/admin/createAdmin'/>">
 							<fieldset>
 								<div class="frm_submit_block">
 									<h4>부서별 관리자 생성</h4>
@@ -82,20 +100,20 @@
 												<label>아이디</label> 
 												<input name="adminId" id="adminId" type="text"
 													class="form-control" placeholder="ID" required autofocus/>
-												<input type="hidden" id="adminIdDup">
 											</div>
 
 											<div class="form-group col-md-6" style="padding-top: 33px;">
-												<button class="btn btn-theme" type="submit" id="dupbtn">중복확인</button>
+												<button class="btn btn-theme" type="button" id="duplicateCheck">중복확인</button>
 											</div>
+											<span id="dubmessage"></span>						
 
 											<div class="form-group col-md-6">
 												<label>비밀번호</label> <input name="adminPwd" type="text"
-													class="form-control" placeholder="PWD" id="pwd">
+													class="form-control" placeholder="PWD" id="adminPwd">
 											</div>
 											<div class="form-group col-md-6">
 												<label>비밀번호 확인</label> <input name="adminPwd2" type="text"
-													class="form-control" placeholder="CONFIRM PWD" id="pwd2">
+													class="form-control" placeholder="CONFIRM PWD" id="adminPwd2">
 											</div>
 										</div>
 									</div>
@@ -112,7 +130,7 @@
 								</div>
 
 								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">생성</button>
+									<button class="btn btn-theme" type="submit" id="signup">생성</button>
 								</div>
 							</fieldset>
 						</form>
