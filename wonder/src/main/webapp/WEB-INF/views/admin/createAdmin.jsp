@@ -3,30 +3,19 @@
 <%@ include file="../inc/top.jsp"%>
 
 <style type="text/css">
-
 </style>
 <script type="text/javascript">
-	$(function() {
-		$('form[name=frmsubAdmin]').submit(function() {
-			if($.trim($('#adminId').val()) == ""){
-				alert("아이디를 입력해주세요");
-				$('#adminId').focus();
-				event.preventDefault();
-			}else if ($('#adminPwd').val().length<1) {
-			    alert("비밀번호를 입력하세요");
-			    $("#adminPwd").focus();
-			    event.preventDefault();
-			}else if($("#adminPwd").val()!=$("#adminPwd2").val()) {
-			    alert("비밀번호가 일치하지 않습니다.");
-			    $("#adminPwd2").focus();
-			    event.preventDefault();
-			}else if ($('#duplicateCheck').val()!='Y'){
-				alert("아이디 중복확인은 필수입니다");
-				$("#duplicateCheck").focus();
-				event.preventDefault();			
-			}
-		});
-	});
+function idCheck() {
+	if($.trim($('#adminId').val()) == ""){
+		alert("ID를 입력해주세요.");
+		$('#adminId').focus();
+		event.preventDefault();
+	}else if($.trim($('#adminId').val()).length < 5){
+		alert("ID는 다섯자 이상이어야 합니다.");
+		$('#adminId').focus();
+		event.preventDefault();
+	}
+}
 </script>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -90,23 +79,23 @@
 				<div class="dashboard-body">
 					<div class="dashboard-wraper">
 						<!-- Basic Information -->
-							<form name="frmsubAdmin" method="post"
-                     action="<c:url value='/admin/createAdmin'/>">
+						<form name="frmsubAdmin" method="post"
+							action="<c:url value='/admin/createAdmin'/>">
 							<fieldset>
 								<div class="frm_submit_block">
 									<h4>부서별 관리자 생성</h4>
 									<div class="frm_submit_wrap">
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label>아이디</label> 
-												<input name="adminId" id="adminId" type="text"
-													class="form-control" placeholder="ID" required autofocus/>
+												<label>아이디</label> <input name="adminId" id="adminId"
+													type="text" class="form-control" placeholder="ID" required
+													autofocus />
 											</div>
 
 											<div class="form-group col-md-6" style="padding-top: 33px;">
-												<button class="btn btn-theme" type="button" id="duplicateCheck">중복확인</button>
+												<input class="btn btn-theme" type="button" value="중복확인" onclick="idCheck()">
 											</div>
-											<span id="dubmessage"></span>						
+											<span id="dubmessage"></span>
 
 											<div class="form-group col-md-6">
 												<label>비밀번호</label> <input name="adminPwd" type="text"
@@ -114,24 +103,15 @@
 											</div>
 											<div class="form-group col-md-6">
 												<label>비밀번호 확인</label> <input name="adminPwd2" type="text"
-													class="form-control" placeholder="CONFIRM PWD" id="adminPwd2">
+													class="form-control" placeholder="CONFIRM PWD"
+													id="adminPwd2">
 											</div>
+
 										</div>
 									</div>
 								</div>
-
 								<div class="form-group col-lg-12 col-md-12">
-									<label>부서별 관리자 생성 약관 *</label>
-									<ul class="no-ul-list">
-										<li><input id="aj-1" class="checkbox-custom" name="aj-1"
-											type="checkbox"> <label for="aj-1"
-											class="checkbox-custom-label">부서별 관리자를 생성하시는 것에
-												동의하십니까?</label></li>
-									</ul>
-								</div>
-
-								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit" id="signup">생성</button>
+									<input class="btn btn-theme" type="submit" id="signup" value="생성">
 								</div>
 							</fieldset>
 						</form>
