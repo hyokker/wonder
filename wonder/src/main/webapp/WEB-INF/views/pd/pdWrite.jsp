@@ -11,31 +11,69 @@
 
 <title>RentUP - Residence & Real Estate Template</title>
 <script type="text/javascript">
-	document.getElementById("pd_reg").onclick=function(){
-		alert("click");
-	}
-//	$(function(){
-//		$('#pd_reg').click(function() {
-//			alert("test");
-//			console.log("length: "+ $("input:checkbox[name=langchbox]:checked").length);
-//			var trArr = new Array();
-//			var checkbox = $("input:checkbox[name=langchbox]:checked");
-//			checkbox.each(function(i) {
-//				var li = checkbox.parent().eq(i);
-//				var sLang = li.text();
-				
-//				console.log(sLang);
-//			}
-//		});
-//	}
-
-	$(function(){
-		$('#btWrite').click(function(){
-
-			location.href = '<c:url value="/pd/pdList"/>';
-		});
+	function button1_click() {
+		var pdWriteFrm = document.getElementById("pdWriteFrm");
 		
-	});
+		var pdTitle = pdWriteFrm.elements['pdTitle'].value.trim();
+		console.log(pdTitle);
+		if(pdTitle == '') {
+            alert("제목을 입력해주세요.");
+            return false;
+		}
+		
+		var isLangChk = false;
+        var arr_Lang = pdWriteFrm.elements['langchbox'];
+        for(var i=0;i<arr_Lang.length;i++){
+            if(arr_Lang[i].checked == true) {
+            	isLangChk = true;
+                break;
+            }
+        }
+        
+        if(!isLangChk){
+            alert("개발언어 종류를 한개 이상 선택해주세요.");
+            return false;
+        }
+        
+		var isFrameChk = false;
+        var arr_Frame = pdWriteFrm.elements['framechbox'];
+        for(var i=0;i<arr_Frame.length;i++){
+            if(arr_Frame[i].checked == true) {
+            	isFrameChk = true;
+                break;
+            }
+        }
+        
+        if(!isFrameChk){
+            alert("프레임 워크 종류를 한개 이상 선택해주세요.");
+            return false;
+        }
+
+        var tablist = document.getElementById("pill-tab");
+        var tabs2 = tablist.querySelectorAll('[role=tab]');
+        var delType = tabs2[0].getAttribute('aria-expanded') == null? "TYPR1" : tabs2[0].getAttribute('aria-expanded') === "true"? "TYPE1" : "TYPE2";
+        console.log(delType);
+        
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "delType");
+        hiddenField.setAttribute("value", delType);
+        pdWriteFrm.appendChild(hiddenField);
+        
+        // TODO : 추가로 체크할 입력값 체크로직 추가...
+        
+        console.log(pdWriteFrm);
+		pdWriteFrm.submit();
+
+	};
+	
+	//	$(function() {
+	//		$('#btWrite').click(function() {
+	//
+	//			location.href = '<c:url value="/pd/pdList"/>';
+	//		});
+	//
+	//	});
 </script>
 <!-- Custom CSS -->
 <link href="${pageContext.request.contextPath}/css/styles.css"
@@ -60,318 +98,316 @@
 		<!-- ============================================================== -->
 
 		<!-- ============================ Page Title Start================================== -->
-<div class="page-title" style="background: #f4f4f4 url(${pageContext.request.contextPath}/img/pdWriteBd.jpg);"
-	data-overlay="5">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 col-md-12">
-							
-							<div class="breadcrumbs-wrap">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item active" aria-current="page"></li>
-								</ol>
-								<h2 class="breadcrumb-title"> </h2>
-							</div>
-							
+		<div class="page-title"
+			style="background: #f4f4f4 url(${pageContext.request.contextPath}/img/pdWriteBd.jpg);"
+			data-overlay="5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+
+						<div class="breadcrumbs-wrap">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item active" aria-current="page"></li>
+							</ol>
+							<h2 class="breadcrumb-title"></h2>
 						</div>
+
 					</div>
 				</div>
 			</div>
+		</div>
 		<!-- ============================ Page Title End ================================== -->
 
 		<!-- ============================ Submit Property Start ================================== -->
 		<section>
-		
+
 
 			<div class="container">
 				<div class="row">
-				
+
 
 					<!-- Submit Form -->
 					<div class="col-lg-12 col-md-12">
 
 						<div class="submit-page p-0">
-						
-								<form name="pdWriteFrm" method="post" 
-						action="<c:url value='/pd/pdWrite'/>"
-						enctype="multipart/form-data">
-							<!-- Basic Information -->
-							<div class="frm_submit_block">
-							
-								<h3>상품을 등록하세요!</h3>
-								
-								<div class="frm_submit_wrap">
-									<div class="form-row">
-										
-										<div class="form-group col-md-12">
-										<br>
-											<label>제목</label> <input type="text" class="form-control">
-										</div>
-											
-										<div class="form-group col-md-12">
-										<br>
-											<label>개발 언어</label>
-											<div class="o-features">
-												<ul class="no-ul-list third-row">
-													<c:forEach var="langVo" items="${langList }">
-														<li><input id="${langVo.langNo}" name="langchbox" class="checkbox-custom" 
-															type="checkbox"> 
-															<label for="${langVo.langNo}" class="checkbox-custom-label">${langVo.lang }</label>
-														</li>
-													</c:forEach>
-												</ul>
 
-											</div>
-										</div>
+							<form id="pdWriteFrm"  name="pdWriteFrm" method="post"
+								action="<c:url value='/pd/pdWrite'/>"
+								enctype="multipart/form-data">
+								<!-- Basic Information -->
+								<div class="frm_submit_block">
 
-										<div class="form-group col-md-12">
-										<br>
-											<label>프레임 워크</label>
-											<div class="o-features">
-												<ul class="no-ul-list third-row">
-													<c:forEach var="frameVo" items="${frameList }">
-														<li><input id="b-${frameVo.frameNo}" name="b-${frameVo.frameNo}" class="checkbox-custom" name="langchbox"
-															type="checkbox"> 
-															<label for="b-${frameVo.frameNo}" class="checkbox-custom-label">${frameVo.frame }</label>
-														</li>
-													</c:forEach>
-												</ul>
+									<h3>상품을 등록하세요!</h3>
 
-											</div>
-										</div>
+									<div class="frm_submit_wrap">
+										<div class="form-row">
 
-
-											 
-										<div class="col-lg-8 col-md-12 col-sm-12">
 											<div class="form-group col-md-12">
-											<br>
-													<a href="#" class="tip-topdata" data-tip="Property Title"><i class="ti-help"></i></a>
+												<br> <label>제목</label> <input type="text"
+													class="form-control" id="pdTitle" name="pdTitle">
+											</div>
+
+											<div class="form-group col-md-12">
+												<br> <label>개발 언어</label>
+												<div class="o-features">
+													<ul class="no-ul-list third-row">
+														<c:forEach var="langVo" items="${langList }">
+															<li><input id="${langVo.langNo}" name="langchbox"
+																class="checkbox-custom" type="checkbox" value="${langVo.lang}"> <label
+																for="${langVo.langNo}" class="checkbox-custom-label">${langVo.lang }</label>
+															</li>
+														</c:forEach>
+													</ul>
+
+												</div>
+											</div>
+
+											<div class="form-group col-md-12">
+												<br> <label>프레임 워크</label>
+												<div class="o-features">
+													<ul class="no-ul-list third-row">
+														<c:forEach var="frameVo" items="${frameList }">
+															<li><input id="b-${frameVo.frameNo}" name="framechbox"
+																class="checkbox-custom" type="checkbox" value="${frameVo.frame}"> <label
+																for="b-${frameVo.frameNo}" class="checkbox-custom-label">${frameVo.frame }</label>
+															</li>
+														</c:forEach>
+													</ul>
+
+												</div>
 											</div>
 
 
-											<!-- Single Block Wrap -->
-											<div class="property_block_wrap">
-												
-												<div class="property_block_wrap_header">
-													<ul class="nav nav-pills tabs_system" id="pill-tab"
-														role="tablist">
-														<li class="nav-item"><a class="nav-link active"
-															id="pills-walk-tab" data-toggle="pill" href="#pills-walk"
-															role="tab" aria-controls="pills-walk"
-															aria-selected="true">TYPE1</a></li>
-														<li class="nav-item"><a class="nav-link"
-															id="pills-nearby-tab" data-toggle="pill"
-															href="#pills-nearby" role="tab"
-															aria-controls="pills-nearby" aria-selected="false">TYPE2</a>
-														</li>
-													</ul>
+
+											<div class="col-lg-8 col-md-12 col-sm-12">
+												<div class="form-group col-md-12">
+													<br> <a href="#" class="tip-topdata"
+														data-tip="Property Title"><i class="ti-help"></i></a>
 												</div>
 
-												<div class="block-body">
-													<div class="sidetab-content">
-														<div class="tab-content" id="pill-tabContent">
-															<!-- Book Now Tab -->
-															<div class="tab-pane fade show active" id="pills-walk"
-																role="tabpanel" aria-labelledby="pills-walk-tab">
-																<div class="_walk_score_wrap">
 
-																	<!-- Single Item -->
+												<!-- Single Block Wrap -->
+												<div class="property_block_wrap">
 
-																	<div class="form-group col-md-6">
-																		<label>타입</label> <input type="text"
-																			class="form-control" value="STANDARD">
+													<div class="property_block_wrap_header">
+														<ul class="nav nav-pills tabs_system" id="pill-tab"
+															role="tablist">
+															<li class="nav-item"><a class="nav-link active"
+																id="pills-walk-tab" data-toggle="pill"
+																href="#pills-walk" role="tab" aria-controls="pills-walk"
+																aria-selected="true" >TYPE1</a></li>
+															<li class="nav-item"><a class="nav-link"
+																id="pills-nearby-tab" data-toggle="pill"
+																href="#pills-nearby" role="tab"
+																aria-controls="pills-nearby" aria-selected="false">TYPE2</a>
+															</li>
+														</ul>
+													</div>
+
+													<div class="block-body">
+														<div class="sidetab-content">
+															<div class="tab-content" id="pill-tabContent">
+																<!-- Book Now Tab -->
+																<div class="tab-pane fade show active" id="pills-walk"
+																	role="tabpanel" aria-labelledby="pills-walk-tab">
+																	<div class="_walk_score_wrap">
+
+																		<!-- Single Item -->
+
+																		<div class="form-group col-md-6">
+																			<label>타입</label> <input type="text"
+																				class="form-control" value="STANDARD">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>가격</label> <input type="TYPE"
+																				class="form-control" placeholder="KRW">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>기한</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>수정횟수</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-12">
+																			<label>상세설명</label>
+																			<textarea class="form-control h-120"></textarea>
+																		</div>
+
+
+
+
+																		<!-- Single Item -->
+
+
+																		<!-- Single Item -->
+
+
+
 																	</div>
+																</div>
 
-																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE"
-																			class="form-control" placeholder="KRW">
+																<!-- Appointment Now Tab -->
+																<div class="tab-pane fade" id="pills-nearby"
+																	role="tabpanel" aria-labelledby="pills-nearby-tab">
+																	<!-- Schools -->
+																	<div class="nearby-wrap">
+																		<!-- Single Item -->
+																		<br>
+																		<div class="form-group col-md-6">
+																			<label>타입</label> <input type="text"
+																				class="form-control" value="STANDARD">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>가격</label> <input type="TYPE"
+																				class="form-control" placeholder="KRW">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>기한</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>수정횟수</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-12">
+																			<label>상세설명</label>
+																			<textarea class="form-control h-120"></textarea>
+																		</div>
+																		<br>
+																		<hr>
+																		<br>
+																		<!-- Single Item -->
+
+																		<div class="form-group col-md-6">
+																			<label>타입</label> <input type="text"
+																				class="form-control" value="DELUXE">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>가격</label> <input type="TYPE"
+																				class="form-control" placeholder="KRW">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>기한</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>수정횟수</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-12">
+																			<label>상세설명</label>
+																			<textarea class="form-control h-120"></textarea>
+																		</div>
+
+
+																		<br>
+																		<hr>
+																		<br>
+																		<!-- Single Item -->
+
+																		<div class="form-group col-md-6">
+																			<label>타입</label> <input type="text"
+																				class="form-control" value="PREMIUM">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>가격</label> <input type="TYPE"
+																				class="form-control" placeholder="KRW">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>기한</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-6">
+																			<label>수정횟수</label> <input type="text"
+																				class="form-control">
+																		</div>
+
+																		<div class="form-group col-md-12">
+																			<label>상세설명</label>
+																			<textarea class="form-control h-120"></textarea>
+																		</div>
+
+
+
+
+
 																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-12">
-																		<label>상세설명</label>
-																		<textarea class="form-control h-120"></textarea>
-																	</div>
-
-
-
-
-																	<!-- Single Item -->
-
-
-																	<!-- Single Item -->
 
 
 
 																</div>
 															</div>
 
-															<!-- Appointment Now Tab -->
-															<div class="tab-pane fade" id="pills-nearby"
-																role="tabpanel" aria-labelledby="pills-nearby-tab">
-																<!-- Schools -->
-																<div class="nearby-wrap">
-																	<!-- Single Item -->
-																	<br>
-																	<div class="form-group col-md-6">
-																		<label>타입</label> <input type="text"
-																			class="form-control" value="STANDARD">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE"
-																			class="form-control" placeholder="KRW">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-12">
-																		<label>상세설명</label>
-																		<textarea class="form-control h-120"></textarea>
-																	</div>
-																	<br>
-																	<hr>
-																	<br>
-																	<!-- Single Item -->
-
-																	<div class="form-group col-md-6">
-																		<label>타입</label> <input type="text"
-																			class="form-control" value="DELUXE">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE"
-																			class="form-control" placeholder="KRW">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-12">
-																		<label>상세설명</label>
-																		<textarea class="form-control h-120"></textarea>
-																	</div>
-
-
-																	<br>
-																	<hr>
-																	<br>
-																	<!-- Single Item -->
-
-																	<div class="form-group col-md-6">
-																		<label>타입</label> <input type="text"
-																			class="form-control" value="PREMIUM">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE"
-																			class="form-control" placeholder="KRW">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text"
-																			class="form-control">
-																	</div>
-
-																	<div class="form-group col-md-12">
-																		<label>상세설명</label>
-																		<textarea class="form-control h-120"></textarea>
-																	</div>
-
-
-
-
-
-																</div>
-
-
-
-															</div>
 														</div>
 
 													</div>
-
 												</div>
+
+
+
 											</div>
 
 
 
+
+
+
+
+
+
 										</div>
-
-
-										
-
-
-
-
-
-
 									</div>
 								</div>
-							</div>
 
-							<!-- Gallery -->
-							<div class="frm_submit_block">
-								<h3>IMAGE</h3>
-								<div class="frm_submit_wrap">
-									<div class="form-row">
+								<!-- Gallery -->
+								<div class="frm_submit_block">
+									<h3>IMAGE</h3>
+									<div class="frm_submit_wrap">
+										<div class="form-row">
 
-										<div class="form-group col-md-12">
-											<label>사진을 첨부하세요</label>
-											<div 
-												class="dropzone dz-clickable primary-dropzone">
-												<div class="dz-default dz-message">
-													<i class="ti-gallery"></i> <span>원하는 파일을 드래그해주세요</span>
-												</div>
-											</div>
-										</div>
-										
 											<div class="form-group col-md-12">
-																<label>사진을 첨부하세요</label>
-																<form action="/upload-target" class="dropzone dz-clickable primary-dropzone">
-																	<div class="dz-default dz-message">
-																		<i class="ti-gallery"></i>
-																		<span>원하는 파일을 드래그해주세요</span>
-																	</div>
-																</form>
-															</div>
-										
-									
+												<label>사진을 첨부하세요</label>
+												<div class="dropzone dz-clickable primary-dropzone">
+													<div class="dz-default dz-message">
+														<i class="ti-gallery"></i> <span>원하는 파일을 드래그해주세요</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group col-md-12">
+												<label>사진을 첨부하세요</label>
+												<form action="/upload-target"
+													class="dropzone dz-clickable primary-dropzone">
+													<div class="dz-default dz-message">
+														<i class="ti-gallery"></i> <span>원하는 파일을 드래그해주세요</span>
+													</div>
+												</form>
+											</div>
+
+
+
+										</div>
+
 
 									</div>
-									
-									
 								</div>
-							</div>
 
 
 							</form>
@@ -381,12 +417,12 @@
 
 				<div class="form-group">
 					<div class="col-lg-12 col-md-12">
-						<button id="pd_reg" class="btn btn-theme" type="submit">상품 등록하기</button>
+						<button id="pd_reg" class="btn btn-theme" type="submit" onclick="button1_click();">상품
+							등록하기</button>
 					</div>
 				</div>
 
 			</div>
-		
 	</div>
 
 	</div>
@@ -508,8 +544,8 @@
 											</div>
 
 											<div class="form-group">
-												<button type="submit" class="btn btn-md full-width pop-login"
-													id="btWrite" >Register</button>
+												<button type="submit"
+													class="btn btn-md full-width pop-login" id="btWrite">Register</button>
 											</div>
 
 										</form>

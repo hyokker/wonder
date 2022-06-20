@@ -1,6 +1,9 @@
 package com.ez.wonder.pd.controller;
 
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,9 +50,22 @@ public class PdWriteController {
 	}
 	
 	@PostMapping("/pdWrite")
-	public void pd_Write_post(Model model) {
+	public void pd_Write_post(HttpServletRequest httpServletRequest, Model model) {
 		logger.info("상품 등록");
+		
+		String pdTitle = httpServletRequest.getParameter("pdTitle");
+		logger.info(pdTitle);
 
+		String delType = httpServletRequest.getParameter("delType");
+		logger.info(delType);
+
+		String[] langs = httpServletRequest.getParameterValues("langchbox");
+		for(String lang : langs)
+			logger.info("langchbox : " + lang);
+
+		String[] frames = httpServletRequest.getParameterValues("framechbox");
+		for(String frame : frames)
+			logger.info("framechbox : " + frame.toString());
 		
 	}
 	

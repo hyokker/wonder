@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.jsf.FacesContextUtils;
 
 import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.AdminVO;
@@ -126,19 +127,37 @@ public class AdminController {
 
 		return "/admin/createAdmin";
 	}
+	
+	@RequestMapping("/dupAdminId")
+	public String dupAdminId(@RequestParam String adminId, @RequestParam(required = false) String flag,
+			Model model) {
+		logger.info("아이디 중복확인, 파라미터 adminId={}, flag={}", adminId, flag);
+		
+		int result = 0;
+		if(adminId!=null && !adminId.isEmpty()) {
+			result = adminService.dupAdminId(adminId);
+			logger.info("부서별 관리자 아이디 중복확인 결과, result={}", result);	
+		}
+		
+		model.addAttribute("result", result);
+		model.addAttribute("USABLE_ID", AdminService.USABLE_ID);
+		model.addAttribute("UNUSABLE_ID", AdminService.UNUSABLE_ID);
+		
+		return "/admin/dupAdminId";
+	}
 
 	@PostMapping("/createAdmin")
-	public String post_createAdmin(@ModelAttribute AdminVO adminVo, Model model) {
+	public String post_createAdmin(@ModelAttribute AdminVO adminVo,  Model model) {
 		logger.info("부서별 관리자 생성, 파라미터 adminVo={}", adminVo);
-
+		
 		int cnt = adminService.insertAdmin(adminVo);
 		logger.info("부서별 관리자 생성 결과, cnt={}", cnt);
 
 		String msg = "", url = "/admin/createAdmin";
 		if (cnt > 0) {
-			msg = "등록 성공";
+			msg = "부서별 관리자 등록 성공";
 		}else {
-			msg = "등록 실패";
+			msg = "부서별 관리자 등록 실패";
 		}
 		
 		model.addAttribute("msg", msg);

@@ -12,6 +12,7 @@ public interface AdminDAO {
 	List<MemberVO> selectMember(SearchVO searchVo);
 	int getTotalRecord(SearchVO searchVo);
 	
+	int dupAdminId(String adminId);
 	AdminVO selectByAdminId(String adminId);
 	String selectPwd(String adminId);
 	

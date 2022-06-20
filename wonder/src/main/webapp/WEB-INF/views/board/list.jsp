@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%> 
 <%@ include file="../inc/top.jsp"%>
 <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 /*  
  * hover
  */
- 
+  
 //페이지 번호 클릭시 실행
  function pageProc(currentPage){
 	$('input[name=?]').val(currentPage);
