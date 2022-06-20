@@ -31,9 +31,9 @@ public class ProductController {
 		=LoggerFactory.getLogger(ProductController.class);
 	
 	private final ProductService productService;
-	private final ReviewService reviewService;
-	
-	//http://localhost:9095/wonder/pd/pdDetail?pdNo=1
+
+	/*
+
 	@GetMapping("/pdDetail")
 	public String pdDetail(@RequestParam(defaultValue = "0") int pdNo,
 			Model model) {
@@ -61,8 +61,8 @@ public class ProductController {
 		model.addAttribute("map", map);
 		
 		return "/pd/pdDetail";
+		
 	}
-	
 	@PostMapping("/review")
 	public String review(@ModelAttribute ReviewVO reviewVo,
 			HttpSession session, Model model) {
@@ -83,6 +83,6 @@ public class ProductController {
 		
 		return "/common/message";
 	}
-	
+	*/
 	
 }
