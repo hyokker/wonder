@@ -62,9 +62,9 @@
 		insert into admin(admin_no, admin_id, admin_pwd)
 		values(#{adminNo}, #{adminId}, #{adminPwd})
 	</insert>
-	
+
 	<select id="dupAdminId" parameterType="String" resultType="int">
-		selecr count(*) from admin
-		where ADMIN_ID = #{adminId}
+		select count(*) from admin
+		where admin_Id=#{adminId}
 	</select>
 </mapper>

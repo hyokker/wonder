@@ -179,11 +179,30 @@
 					<div class="form-group">
 						<button type="submit" class="btn btn-md full-width pop-login">로그인</button>
 					</div>
+					</form>
+					<!-- 카카오 로그인 api 어떻게 사용하징? -->
+			<!-- 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+					<script>
+					Kakao.init("e001f5b6437ab5c78a358d107808c37c");
+					
+					console.log(Kakao.isInitialized());
+					
+					$(function(){
+						$('#kakao').click(function(){
+							Kakao.Auth.authorize({
+							  redirectUri: 'http://localhost:9095/wonder/'
+							}); 
+						}); 
+					}); 
+
+					</script>
+					 -->
+					
 					<div class="form-group">
-						<button type="submit" class="btn btn-md full-width pop-login">카카오로 로그인</button>
+						<input id="kakao" type="button" onclick="">카카오로 로그인</button>
 					</div>
 
-				</form>
+				
 			</div>
 		</div>
 							
