@@ -56,6 +56,5 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.deleteMember(userid);
 	}
 	//public
-	
 
 }

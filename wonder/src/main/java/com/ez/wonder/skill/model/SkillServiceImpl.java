@@ -16,5 +16,9 @@ public class SkillServiceImpl implements SkillService{
 	public List<LanguageVO> allLanguage() {
 		return skillDao.allLanguage();
 	}
+	@Override
+	public List<FrameworkVO> allFrame() {
+		return skillDao.allFrame();
+	}
 
 }
