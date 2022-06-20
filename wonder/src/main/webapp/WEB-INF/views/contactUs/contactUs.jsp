@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <%@ include file="../inc/top.jsp" %>
    			<!-- ============================ Page Title Start================================== -->
 			<div class="page-title" style="background:#f4f4f4 url(https://via.placeholder.com/1920x980);" data-overlay="5">

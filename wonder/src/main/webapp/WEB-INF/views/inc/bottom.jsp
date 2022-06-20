@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%> 
 <!-- ============================ Call To Action ================================== -->
 <section class="theme-bg call_action_wrap-wrap">
 	<div class="container">

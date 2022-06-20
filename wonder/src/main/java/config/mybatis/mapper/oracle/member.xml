@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.wonder.member.model.MemberDAO">
+	<select id="selectByUserId" parameterType="string" resultType="expertVo">
+		select * from expertMemberView where user_id=#{userId}
+	</select>
+</mapper>
+
+<!-- 
+create or replace view expertMemberView
+as
+select m.mem_no, e.*,  m.name, m.pwd, m.nickname, m.email, m.tel, m.regdate
+from expert_info e join member m
+on e.user_id=m.user_id; 
+-->
