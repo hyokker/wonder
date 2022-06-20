@@ -6,7 +6,7 @@
 /*  
  * hover
  */
- 
+  
 //페이지 번호 클릭시 실행
  function pageProc(currentPage){
 	$('input[name=?]').val(currentPage);

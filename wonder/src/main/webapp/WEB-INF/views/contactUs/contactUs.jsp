@@ -3,7 +3,7 @@
 <%@ include file="../inc/top.jsp" %>
    			<!-- ============================ Page Title Start================================== -->
 			<div class="page-title" style="background:#f4f4f4 url(https://via.placeholder.com/1920x980);" data-overlay="5">
-				<div class="ht-80"></div>
+		 		<div class="ht-80"></div>
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12">

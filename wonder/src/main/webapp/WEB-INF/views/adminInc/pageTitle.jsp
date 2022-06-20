@@ -3,7 +3,7 @@
 <div class="page-title"
 	style="background: #f4f4f4 url(${pageContext.request.contextPath}/img/freelancer.jpg);"
 	data-overlay="5">
-	<div class="container">
+	<div class="container"> 
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
 
