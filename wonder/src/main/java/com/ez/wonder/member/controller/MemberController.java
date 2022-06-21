@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.wonder.member.model.MemberService;
 import com.ez.wonder.member.model.MemberVO;
@@ -112,4 +113,34 @@ public class MemberController {
 
 		return "/member/checkUserId";
 	}
+	
+	@RequestMapping("/member/kakaoLogin")
+	public String kakaoLogin(@RequestParam(required = false) String email, @RequestParam(required = false) String nick,
+			@RequestParam(required = false) String img, Model model) {
+		logger.info("카카오 로그인 처리, 파라미터 email={},nick={},img={}",email,nick,img);
+		
+		
+		return "/main/main";
+		
+		
+	}
+	
+	
+	@RequestMapping("/member/dupId")
+	@ResponseBody
+	public boolean dupId(@RequestParam String userId) {
+		logger.info("아이디 중복확인, 파라미터 userId={}", userId);
+
+	    int result=memberService.duplicateId(userId);
+
+	    logger.info("아이디 중복확인 결과, result={}", result);
+
+	    boolean bool=false;   
+	    if(result==MemberService.USABLE_ID) {
+	       bool=true;      //사용가능
+	    }else if(result==MemberService.UNUSABLE_ID) {
+	       bool=false;      //사용불가
+	    }
+	      return bool;
+	   }
 }	
