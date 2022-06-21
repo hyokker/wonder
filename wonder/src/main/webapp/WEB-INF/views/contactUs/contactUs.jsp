@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="../inc/top.jsp"%>
-<!-- ============================ Page Title Start================================== -->
-<div class="page-title"
-	style="background: #f4f4f4 url(https://via.placeholder.com/1920x980);"
-	data-overlay="5">
-	<div class="ht-80"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 col-md-12">
-				<div class="_page_tetio">
-					<div class="pledtio_wrap">
-						<span>Contact Us</span>
+    pageEncoding="UTF-8"%>
+<%@ include file="../inc/top.jsp" %>
+   			<!-- ============================ Page Title Start================================== -->
+			<div class="page-title" style="background:#f4f4f4 url(https://via.placeholder.com/1920x980);" data-overlay="5">
+				<div class="ht-80"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="_page_tetio">
+								<div class="pledtio_wrap"><span>Contact Us</span></div>
+								<h2 class="text-light mb-0">도움이 필요하신가요?</h2>
+								<p>도움과 지원이 필요하신가요? 언제든 문의 하세요. 24시간 기다리고 있습니다.</p>
+							</div>
+						</div>
 					</div>
 					<h2 class="text-light mb-0">도움이 필요하신가요?</h2>
 					<p>도움과 지원이 필요하신가요? 언제든 문의 하세요. 24시간 기다리고 있습니다.</p>

@@ -180,27 +180,52 @@
 						<button type="submit" class="btn btn-md full-width pop-login">로그인</button>
 					</div>
 					</form>
+					<!-- e001f5b6437ab5c78a358d107808c37c -->
 					<!-- 카카오 로그인 api 어떻게 사용하징? -->
-			<!-- 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+			 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 					<script>
-					Kakao.init("e001f5b6437ab5c78a358d107808c37c");
-					
-					console.log(Kakao.isInitialized());
-					
-					$(function(){
-						$('#kakao').click(function(){
-							Kakao.Auth.authorize({
-							  redirectUri: 'http://localhost:9095/wonder/'
-							}); 
-						}); 
-					}); 
-
+					function loginFormWithKakao(){
+						Kakao.init('e001f5b6437ab5c78a358d107808c37c');
+						Kakao.Auth.login({
+					        success: function(authObj) {
+					         
+					          //2. 로그인 성공시, API 호출
+					          Kakao.API.request({
+					            url: '/v2/user/me',
+					            success: function(res) {
+					              console.log(res);
+					              var id = res.id;
+					              var account = res.kakao_account;
+					              $('#form-kakao-login input[name=email]').val(account.email);
+					              $('#form-kakao-login input[name=nick]').val(account.profile.nickname);
+					              $('#form-kakao-login input[name=img]').val(account.profile.img);
+					              alert("이메일 왜안들어가");
+								  scope : 'account_email';
+								alert('로그인성공');
+								document.querySelector('#form-kakao-login').submit();
+							
+					              
+					        }
+					          })
+					          console.log(authObj);
+					          var token = authObj.access_token;
+					        },
+					        fail: function(err) {
+					          alert(JSON.stringify(err));
+					        }
+					      });
+					};
 					</script>
-					 -->
-					
-					<div class="form-group">
-						<input id="kakao" type="button" onclick="">카카오로 로그인</button>
-					</div>
+					<div class="kakao_login">
+					<a class="kakao" id="reauthenticate-popup-btn" href="javascript:loginFormWithKakao()">
+						<img width="100%" src="<c:url value='/img/kakao_login_large_wide.png'/>">
+					</a>
+   					</div>
+					<form id="form-kakao-login" method="post" action="<c:url value='/member/kakaoLogin'/>">
+					<input type="text" name="email"/>
+					<input type="text" name="nick"/>
+					<input type="text" name="img"/>
+					</form>
 
 				
 			</div>
@@ -232,12 +257,44 @@
 					alert("비밀번호가 일치하지 않습니다.");
 					$("#pwd2").focus();
 					event.preventDefault();
-				} /* else if ($('#chkId').val() != 'Y') {
+				}  else if ($('#chkId').val() != 'Y') {
 					alert("아이디 중복확인해야 합니다");
 					$("#btnChkId").focus();
 					event.preventDefault();  
-				} */
+				} 
 		});
+				
+				$('#userId').keyup(function() {
+			         var data = $(this).val();
+			         if (validate_userid(data) && data.length >= 2) {
+			            $.ajax({
+			               url : "<c:url value='/member/dupId'/>",
+			               type : 'GET',
+			               data : "userId=" + data,
+			               success : function(res) {
+
+			                  var output = "";
+			                  if (res) {
+			                     output = "사용가능한 아이디";
+			                     $('#chkId').val('Y');
+			                  } else {
+			                     output = "이미 등록된 아이디";
+			                     $('#chkId').val('N');
+			                  }
+			                  $('.error').text(output);
+			               },
+			               error : function(xhr, status, error) {
+			                  alert("error:" + error);
+			               }
+
+			            });
+			         } else {
+			            $('.error').text('아이디 규칙에 맞지 않습니다.');
+			            $('#chkId').val('N');
+			         }
+
+			      });
+
 
 });
 		</script>
@@ -256,9 +313,9 @@
 			<div class="input-with-icon">
 				<input type="text" class="form-control" name="userId" id="userId">
 				<i class="ti-user"></i>
-				
+		<!-- 		
 				<input type="button" value="중복확인" id="btnChkId" 
-						title="새창열림">
+						title="새창열림"> -->
 			</div>
 		</div>
 		<div class="form-group">
@@ -304,7 +361,7 @@
 				<i class="ti-user"></i>
 			</div>
 		</div>
-
+				<input type="text" name="chkId" id="chkId">
 		<!-- <div class="form-group">
 			<div class="eltio_ol9">
 				<div class="eltio_k1">

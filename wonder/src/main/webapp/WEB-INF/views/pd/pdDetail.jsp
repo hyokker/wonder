@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+ 
 <%@ include file="../inc/top.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/pdDetail.css">
 
@@ -27,15 +27,15 @@
 				<div class="property_dashboard_navbar" style="padding: 0;">
 					<div class="dash_user_avater">
 						<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA3MzBfMjUg%2FMDAxNTY0NDc0OTg4ODMy.ZqJOHVWgvIAFFRC0OX65wGbyV2jXpX3FKcBHW760XDYg.UII4II2u9MVQej__czZINBtV3pLo_Caxqf3MGjon2l8g.JPEG.thejoeunart%2F%25BF%25BB%25B7%25CE%25BF%25EC%25BE%25C6%25C0%25CC%25B5%25F0.jpg&type=sc960_832" class="img-fluid avater" alt="">
-						<h4>닉네임</h4>
+						<h4>${expertVo.nickname }</h4>
 					</div>
 					
 					<div class="dash_user_menues">
 						<ul>
-							<li><i class="fa fa-clock" style="font-size: large;margin-right: 10px;"></i>연락 가능 시간: </li>
-							<li><i class="fa fa-check" style="font-size: large;margin-right: 10px;"></i>총 작업개수: 개</li>
+							<li><i class="fa fa-clock" style="font-size: large;margin-right: 10px;"></i>연락 가능 시간: ${expertVo.servicableTime }</li>
+							<li><i class="fa fa-check" style="font-size: large;margin-right: 10px;"></i>총 작업개수: ${expertVo.workAmount }개</li>
 							<li><i class="fa fa-address-book" style="font-size: large;margin-right: 10px;"></i>소개</li>
-							<li style="padding: 0 25px">소개글</li>
+							<li style="padding: 0 25px">${expertVo.introduction }</li>
 						</ul>
 					</div>
 					
@@ -613,7 +613,7 @@
 	        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
 	      </div>
 	      <div class="modal-body">
-			<iframe src="<c:url value='/html/calendar.html'/>" width="790px" height="650px" style="border:none"></iframe>
+			<iframe src="<c:url value='/pd/calendar?userId=${expertVo.userId }'/>" width="790px" height="650px" style="border:none"></iframe>
 	      </div>
 	      <div class="modal-footer">
 	        <button class="btn theme-bg rounded" data-target="#exampleModalToggleB${status.index }" data-toggle="modal" name="modelButton1">의뢰서 작성하기</button>
@@ -627,53 +627,59 @@
 	<div class="modal fade modalB" id="exampleModalToggleB${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	  <div class="modal-dialog modal-lg modal-dialog-centered">
 	    <div class="modal-content">
-	      <div class="modal-header" style="margin-left: 15px">
-	        <div class="prt_price" style="margin: 5px 0 0 0">
-				<h3><span>${detailVo.pdType } : &nbsp;&nbsp;</span><fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원</h3>
-			</div>
-	        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
-	      </div>
-	      <div class="modal-body">
-	      	<div class="col-lg-12 col-md-12 col-sm-12">
-				<div class="form-group">
-					<label>title</label>
-					<input type="text" class="form-control">
+	    	<form name="frmB" method="post" action="<c:url value='/pd/form'/>">
+		      <div class="modal-header" style="margin-left: 15px">
+		        <div class="prt_price" style="margin: 5px 0 0 0">
+					<h3><span>${detailVo.pdType } : &nbsp;&nbsp;</span><fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원</h3>
 				</div>
-			</div>
-			
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<div class="form-group">
-					<label>Messages</label>
-					<textarea class="form-control ht-80"></textarea>
-				</div>
-			</div>
-			<div class="row" style="justify-content: space-evenly;text-align: center;">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-4">
+		        <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="form-group">
-						<label>시작일</label>
-						<div class="cld-box">
-							<i class="ti-calendar" style="left: 16px; top: 16px;"></i>
-							<input type="text" name="startDate" class="form-control start" style="padding-left: 65px;"/>
-							<input type="hidden" value="${detailVo.pdTerm }">
-						</div>
+						<label>제목</label>
+						<input type="text" class="form-control" name="formTitle">
 					</div>
 				</div>
-				<span style="margin-top: 40px;">+ <span>${detailVo.pdTerm }</span> days</span>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-4">
+				
+				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="form-group">
-						<label>종료일</label>
-						<div class="cld-box">
-							<i class="ti-calendar" style="left: 16px; top: 16px;"></i>
-							<input type="text" name="endDate" class="form-control" style="padding-left: 65px;" readonly="readonly"/>
-						</div>
+						<label>메세지</label>
+						<textarea class="form-control ht-80" name="formContent"></textarea>
 					</div>
 				</div>
-	     	</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;">제작자 일정보기</button>
-			<button class="btn theme-bg rounded" type="submit">Submit Review</button>
-	      </div>
+				<div class="row" style="justify-content: space-evenly;text-align: center;">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-4">
+						<div class="form-group">
+							<label>시작일</label>
+							<div class="cld-box">
+								<i class="ti-calendar" style="left: 16px; top: 16px;"></i>
+								<input type="text" name="orderstart" class="form-control start" style="padding-left: 65px;"/>
+								<input type="hidden" value="${detailVo.pdTerm }">
+							</div>
+						</div>
+					</div>
+					<span style="margin-top: 40px;">+ <span>${detailVo.pdTerm }</span> days</span>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-4">
+						<div class="form-group">
+							<label>종료일</label>
+							<div class="cld-box">
+								<i class="ti-calendar" style="left: 16px; top: 16px;"></i>
+								<input type="text" name="orderend" class="form-control" style="padding-left: 65px;" readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+		     	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <input type="button" class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;" value="제작자 일정보기">
+				<button class="btn theme-bg rounded" type="submit">Submit Review</button>
+				<input type="hidden" name="userId" value="hong">
+				<input type="hidden" value="${expertVo.userId }" name="pUserId">
+				<input type="hidden" value="${param.pdNo }" name="pdNo">
+				<input type="hidden" value="${detailVo.pdPrice }" name="price">
+		      </div>
+	      </form>
 	    </div>
 	  </div>
 	</div>
@@ -688,26 +694,32 @@
     	
      	date = new Date();
      	
-     	$('input[name="startDate"]').daterangepicker({
+     	$('input[name="orderstart"]').daterangepicker({
+     		locale: {
+     			    "format": 'YYYY/MM/DD',
+     			    "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+     			    "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+     			    },
       		singleDatePicker: true,
-      		minDate:date,
+      		minDate:date
       	});
+     	
      	//처음 날짜 자동 덧셈
      	$('.choose_package').click(function(){
      		date = new Date();
      		var today=getDate(date, 0);
-     		$('input[name="startDate"]').val(today);
+     		$('input[name="orderstart"]').val(today);
      		var term=Number($(this).next().val());
      		var endDate=getDate(date, term);
-        	$('input[name="endDate"]').val(endDate);
+        	$('input[name="orderend"]').val(endDate);
         });
      	
      	//날짜 변경하면 자동으로 종료일 변경
-     	$('input[name="startDate"]').blur(function(){
+     	$('input[name="orderstart"]').blur(function(){
      		var term=Number($(this).next().val());
      		var startDate = $(this).val();
          	var end=getDate(startDate, term);
-        	$('input[name="endDate"]').val(end);
+        	$('input[name="orderend"]').val(end);
      	});
      	
      	// 슬릭
@@ -721,7 +733,7 @@
         $('button[name=modelButton1]').click(function(){
         	$('.modalA').modal('hide');
         });
-        $('button[name=modelButton2]').click(function(){
+        $('input[name=modelButton2]').click(function(){
         	$('.modalB').modal('hide');
         });
         
@@ -739,6 +751,7 @@
         	}
         	bool=!bool;
         });
+        
     });
     
     function getDate(startDate, day){
