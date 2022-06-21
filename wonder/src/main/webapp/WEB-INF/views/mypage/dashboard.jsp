@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../inc/top.jsp" %>
 <%@ include file="incSide.jsp" %>
 <input type="hidden" id="pageCheck" value="dashboard">
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
