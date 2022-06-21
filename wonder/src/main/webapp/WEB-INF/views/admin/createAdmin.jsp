@@ -1,12 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-
+<script type="text/javascript" src="<c:url value='/js/admin.js'/>"></script>
 <style type="text/css">
- 
+.dupmessagef{
+	color: red;
+}
+
+.dupmessaget{
+	color: #25BC74;
+}
 </style>
 <script type="text/javascript">
+$(function() {
+	$('#adminId').keyup(function() {
+		var data = $(this).val();
 
+		if (validate_adminId(data) && data.length >= 2) {
+			$.ajax({
+				url : "<c:url value='/admin/ajax/dupAdminId'/>",
+				type : 'GET',
+				data : "adminId=" + data,
+				success : function(res) {
+					//alert(res);
+					var output = "";
+					if (res) {
+						output = "사용 가능한 아이디";
+						$('dupmessage').addClass('dupmessaget');
+						$('dupmessage').removeClass('dupmessagef');
+					} else {
+						output = "이미 등록된 아이디";
+						$('dupmessage').addClass('dupmessagef');
+						$('dupmessage').removeClass('dupmessaget');
+					}
+					$('.dupmessage').text(output);
+				},error : function(xhr, status, error) {
+					alert("dupmessage:" + dupmessage);
+				}
+			});
+		}else {
+			$('.dupmessage').text('아이디 생성규칙에 어긋남');
+		}
+	});
+});
 </script>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -70,24 +106,21 @@
 				<div class="dashboard-body">
 					<div class="dashboard-wraper">
 						<!-- Basic Information -->
-<%-- 						<form name="frmsubAdmin" method="post"
-							action="<c:url value='/admin/createAdmin'/>"> --%>
-							<form name="frmsubAdmin" method="post"
-                     action="<c:url value='/admin/createAdmin' />">
+						<form name="frmsubAdmin" method="post"
+							action="<c:url value='/admin/createAdmin' />">
 							<fieldset>
 								<div class="frm_submit_block">
 									<h4>부서별 관리자 생성</h4>
 									<div class="frm_submit_wrap">
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label>아이디</label> 
-												<input name="adminId" id="adminId" type="text"
-													class="form-control" placeholder="ID" required autofocus/>
-												<input type="hidden" id="adminIdDup">
+												<label>아이디</label> <input name="adminId" id="adminId"
+													type="text" class="form-control" placeholder="ID" required
+													autofocus /> 
 											</div>
 
-											<div class="form-group col-md-6" style="padding-top: 33px;">
-												<button class="btn btn-theme" type="submit" id="dupbtn">중복확인</button>
+											<div class="form-group col-md-6" style="padding-top: 46px;">
+												<span class="dupmessage"></span>
 											</div>
 
 											<div class="form-group col-md-6">
@@ -100,16 +133,6 @@
 											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="form-group col-lg-12 col-md-12">
-									<label>부서별 관리자 생성 약관 *</label>
-									<ul class="no-ul-list">
-										<li><input id="aj-1" class="checkbox-custom" name="aj-1"
-											type="checkbox"> <label for="aj-1"
-											class="checkbox-custom-label">부서별 관리자를 생성하시는 것에
-												동의하십니까?</label></li>
-									</ul>
 								</div>
 
 								<div class="form-group col-lg-12 col-md-12">

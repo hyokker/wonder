@@ -128,22 +128,22 @@ public class AdminController {
 		return "/admin/createAdmin";
 	}
 	
-	@RequestMapping("/dupAdminId")
-	public String dupAdminId(@RequestParam String adminId, @RequestParam(required = false) String flag,
-			Model model) {
-		logger.info("아이디 중복확인, 파라미터 adminId={}, flag={}", adminId, flag);
+	@ResponseBody
+	@RequestMapping("/ajax/dupAdminId")
+	public boolean dupAdminId(@RequestParam String adminId) {
+		logger.info("부서별 관리자 아이디 중복확인 adminId={}", adminId);
 		
-		int result = 0;
-		if(adminId!=null && !adminId.isEmpty()) {
-			result = adminService.dupAdminId(adminId);
-			logger.info("부서별 관리자 아이디 중복확인 결과, result={}", result);	
+		int result = adminService.dupAdminId(adminId);
+		logger.info("부서별 관리자 아이디 중복확인 결과 result={}", result);
+		
+		boolean bool = false;
+		if(result==AdminService.USABLE_ID) {
+			bool = true;
+		}else if (result==AdminService.UNUSABLE_ID) {
+			bool = false;
 		}
 		
-		model.addAttribute("result", result);
-		model.addAttribute("USABLE_ID", AdminService.USABLE_ID);
-		model.addAttribute("UNUSABLE_ID", AdminService.UNUSABLE_ID);
-		
-		return "/admin/dupAdminId";
+		return bool;
 	}
 
 	@PostMapping("/createAdmin")
@@ -167,7 +167,6 @@ public class AdminController {
 	}
 
 	// 아직 구현 안된 페이지 보기
-
 	@GetMapping("/pdList")
 	public String viewPdList() {
 		logger.info("대시보드 화면");

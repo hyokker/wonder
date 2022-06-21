@@ -38,20 +38,20 @@
 	<select id="selectByAdminId" parameterType="string"
 		resultType="adminVo">
 		select * from admin
-		where admin_Id=#{adminId}
+		where adminId=#{adminId}
 	</select>
 
 	<select id="selectPwd" parameterType="string"
 		resultType="string">
-		select admin_Pwd from admin
-		where admin_Id=#{adminId}
+		select adminPwd from admin
+		where adminId=#{adminId}
 	</select>
 
 	<update id="updateAdmin" parameterType="adminVo">
 		update admin
 		set
-		admin_Pwd=#{adminPwd}
-		where admin_Id=#{adminId}
+		adminPwd=#{adminPwd}
+		where adminId=#{adminId}
 	</update>
 
 	<insert id="insertAdmin" parameterType="adminVo">
@@ -59,7 +59,7 @@
 			select
 			ADMIN_SEQ.nextval from dual
 		</selectKey>
-		insert into admin(admin_no, admin_id, admin_pwd)
+		insert into admin(adminno, adminid, adminpwd)
 		values(#{adminNo}, #{adminId}, #{adminPwd})
 	</insert>
 
