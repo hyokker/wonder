@@ -20,7 +20,10 @@ import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.AdminVO;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.pd.model.ProductService;
+import com.ez.wonder.pd.model.ProductVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,7 +34,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	private final AdminService adminService;
-	
+
 	@RequestMapping("/dashboard")
 	public void dashboard() {
 		logger.info("관리자 페이지 메인 화면");
@@ -76,7 +79,7 @@ public class AdminController {
 	@GetMapping("/editAccount")
 	public String get_editAccount(HttpSession session, Model model) {
 		logger.info("관리자 정보 수정 페이지");
-		
+
 		String adimin_Id = "admin";
 		session.setAttribute("adminId", adimin_Id);
 
@@ -89,6 +92,28 @@ public class AdminController {
 		return "/admin/editAccount";
 	}
 
+	@ResponseBody
+	@RequestMapping("/confirmPrePwd")
+	public boolean confirmPrePwd(HttpSession session, @RequestParam String adminPwd) {
+		String adimin_Id = "admin";
+		session.setAttribute("adminId", adimin_Id);
+		String adminId = (String) session.getAttribute("adminId");
+
+		logger.info("관리자 비밀번호 중복확인 adminId={}, adminPwd={}", adminId, adminPwd);
+
+		int result = adminService.checkLogin(adminId, adminPwd);
+		logger.info("관리자 비밀번호 중복확인 결과 result={}", result);
+
+		boolean bool = false;
+		if (result == AdminService.LOGIN_OK) {
+			bool = true;
+		} else if (result == AdminService.DISAGREE_PWD) {
+			bool = false;
+		}
+
+		return bool;
+	}
+
 	// 3. 최고 관리자 정보 수정 처리
 	@PostMapping("/editAccount")
 	public String post_editAccount(@ModelAttribute AdminVO adminVo, HttpSession session, Model model) {
@@ -97,7 +122,7 @@ public class AdminController {
 		logger.info("관리자 정보 수정, adminVo={}", adminVo);
 
 		String msg = "", url = "/admin/editAccount";
-		
+
 		int result = adminService.checkLogin(adminVo.getAdminId(), adminVo.getAdminPwd());
 		logger.info("관리자 정보 수정 - 비밀번호 체크 결과, result={}", result);
 
@@ -127,58 +152,83 @@ public class AdminController {
 
 		return "/admin/createAdmin";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping("/ajax/dupAdminId")
+	@RequestMapping("/dupAdminId")
 	public boolean dupAdminId(@RequestParam String adminId) {
 		logger.info("부서별 관리자 아이디 중복확인 adminId={}", adminId);
-		
+
 		int result = adminService.dupAdminId(adminId);
 		logger.info("부서별 관리자 아이디 중복확인 결과 result={}", result);
-		
+
 		boolean bool = false;
-		if(result==AdminService.USABLE_ID) {
+		if (result == AdminService.USABLE_ID) {
 			bool = true;
-		}else if (result==AdminService.UNUSABLE_ID) {
+		} else if (result == AdminService.UNUSABLE_ID) {
 			bool = false;
 		}
-		
+
 		return bool;
 	}
 
 	@PostMapping("/createAdmin")
-	public String post_createAdmin(@ModelAttribute AdminVO adminVo,  Model model) {
+	public String post_createAdmin(@ModelAttribute AdminVO adminVo, Model model) {
 		logger.info("부서별 관리자 생성, 파라미터 adminVo={}", adminVo);
-		
+
 		int cnt = adminService.insertAdmin(adminVo);
 		logger.info("부서별 관리자 생성 결과, cnt={}", cnt);
 
 		String msg = "", url = "/admin/createAdmin";
 		if (cnt > 0) {
 			msg = "부서별 관리자 등록 성공";
-		}else {
+		} else {
 			msg = "부서별 관리자 등록 실패";
 		}
-		
+
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 
 		return "/common/message";
 	}
 
-	// 아직 구현 안된 페이지 보기
-	@GetMapping("/pdList")
-	public String viewPdList() {
-		logger.info("대시보드 화면");
+	@RequestMapping("/nonApprovalList")
+	public String get_NonApprovalList(@ModelAttribute SearchVO searchVo, Model model) {
+		logger.info("거래대기 목록, 파라미터 searchVo={}", searchVo);
 
-		return "/admin/pdList";
-	}
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(5);
+		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
-	@GetMapping("/nonApprovalList")
-	public String viewNonApprovalList() {
-		logger.info("대시보드 화면");
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(9);
+
+		List<ProductVO> list = adminService.selectNonApprovalList(searchVo);
+		logger.info("거래대기 목록 조회 결과, list.size={}", list.size());
+
+		int totalRecord = adminService.getTotalRecord(searchVo);
+		logger.info("거래대기 목록 totalRecord={}", totalRecord);
+
+		pagingInfo.setTotalRecord(totalRecord);
+
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 
 		return "/admin/nonApprovalList";
 	}
 
+	@GetMapping("/email")
+	public String get_email() {
+		logger.info("이메일 화면");
+
+		return "/admin/email";
+	}
+
+	// 아직 구현 안된 페이지 보기
+	@GetMapping("/pdList")
+	public String viewPdList() {
+		logger.info("상품리스트 화면");
+
+		return "/admin/pdList";
+	}
 }

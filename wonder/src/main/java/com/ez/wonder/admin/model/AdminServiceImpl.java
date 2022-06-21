@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.pd.model.ProductVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<MemberVO> selectMember(SearchVO searchVo){
 		return adminDao.selectMember(searchVo);
+	}
+	
+	@Override
+	public List<ProductVO> selectNonApprovalList(SearchVO searchVo) {
+		return adminDao.selectNonApprovalList(searchVo);
 	}
 	
 	@Override

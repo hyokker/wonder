@@ -317,6 +317,7 @@
 				<input type="button" value="중복확인" id="btnChkId" 
 						title="새창열림"> -->
 			</div>
+			<span class="error"></span>
 		</div>
 		<div class="form-group">
 			<label>이름</label>

@@ -1,22 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%> 
+	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
- 
+<style type="text/css">
+input#adminId {
+	background-color: #E9ECEF;
+}
+
+.dupmessagef {
+	color: red;
+}
+
+.dupmessaget {
+	color: #25BC74;
+}
+</style>
 <script type="text/javascript">
 	$(function() {
-		$('#editsave').click(function() {
-			$('form[name=frmAdminProfile]').submit(function() {
-				if ($("#pwd").val().length < 1) {
-					alert("비밀번호를 입력하세요");
-					$("#pwd").focus();
-					event.preventDefault();
-				} else if ($("#pwd").val() != $("#pwd2").val()) {
-					alert("비밀번호가 일치하지 않습니다.");
-					$("#pwd2").focus();
-					event.preventDefault();
+		$('form[name=frmAdminProfile]').submit(function() {
+			if ($('#adminPwd').val().length < 1) {
+				alert("현재 비밀번호를 입력하세요");
+				$('#adminPwd').focus();
+				event.preventDefault();
+			} else if ($('#newpwd').val().length < 1) {
+				alert("새 비밀번호를 입력하세요");
+				$('#newpwd').focus();
+				event.preventDefault();
+			} else if ($("#newpwd").val() != $("#newpwd2").val()) {
+				alert("비밀번호가 일치하지 않습니다");
+				$("#newpwd2").focus();
+				event.preventDefault();
+			}
+		});
+
+		$('#adminPwd').keyup(function() {
+			var data = $(this).val();
+
+			$.ajax({
+				url : "<c:url value='/admin/confirmPrePwd'/>",
+				type : 'GET',
+				data : "adminPwd=" + data,
+				success : function(response) {
+					var output = "";
+					if (response) {
+						output = "현재 비밀번호 일치";
+						$('.adminPwd').addClass('dupmessaget');
+						$('.adminPwd').removeClass('dupmessagef');
+					} else {
+						output = "현재 비밀번호 불일치";
+						$('.adminPwd').addClass('dupmessagef');
+						$('.adminPwd').removeClass('dupmessaget');
+					}
+					$('.adminPwd').text(output);
+				},
+				error : function(xhr, status, error) {
+					alert("adminPwd:" + adminPwd);
 				}
 			});
 		});
+
 	});
 </script>
 <!-- ============================================================== -->
@@ -55,10 +96,8 @@
 							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
 									class="fa fa-bookmark"></i>거래대기 목록<span
 									class="notti_coun style-2">7</span></a></li>
-							<li><a href="messages.html"><i class="fa fa-comment"></i>채팅
-									목록<span class="notti_coun style-3">3</span></a></li>
-							<li><a href="choose-package.html"><i class="fa fa-gift"></i>광고
-									목록 목록<span class="expiration">10 days left</span></a></li>
+							<li><a href="s<c:url value='/admin/subadminList'/>"><i class="fa fa-id-badge"></i>부서별 관리자 
+							관리<span class="notti_coun style-3">3</span></a></li>
 							<li class="active"><a
 								href="<c:url value='/admin/editAccount'/>"><i
 									class="fa fa-user-tie"></i>내 정보</a></li>
@@ -70,7 +109,7 @@
 					<div class="dash_user_footer">
 						<ul>
 							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
-							<li><a href="#"><i class="fa fa-envelope"></i></a></li>
+							<li><a href="<c:url value='/admin/email'/>"><i class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
 						</ul>
 					</div>
@@ -92,22 +131,34 @@
 
 											<div class="form-group col-md-6">
 												<label>아이디</label> <input type="text" class="form-control"
-													value="${adminVo.adminId }">
+													value="${adminVo.adminId }" disabled="disabled"
+													id="adminId">
 											</div>
-
 											<div class="form-group col-md-6" style="visibility: hidden;">
 											</div>
-
 											<div class="form-group col-md-6">
-												<label>비밀번호</label> <input type="password"
-													class="form-control" placeholder="PWD" id="pwd">
+												<label>현재 비밀번호</label> <input type="text"
+													class="form-control" placeholder="PRESENT PWD" id="adminPwd"
+													name="adminPwd" autofocus>
 											</div>
-
+											<div class="form-group col-md-6" style="padding-top: 46px;">
+												<span class="adminPwd"></span>
+											</div>
 											<div class="form-group col-md-6">
-												<label>비밀번호 확인</label> <input type="password"
-													class="form-control" placeholder="CONFIRM PWD" id="pwd2">
+												<label>새 비밀번호</label> <input type="password"
+													class="form-control" placeholder="NEW PWD" id="newpwd">
 											</div>
-
+											<div class="form-group col-md-6" style="padding-top: 46px;">
+												<span class="emptyPwd"></span>
+											</div>
+											<div class="form-group col-md-6">
+												<label>새 비밀번호 확인</label> <input type="password"
+													class="form-control" placeholder="CONFIRM NEW PWD"
+													id="newpwd2">
+											</div>
+											<div class="form-group col-md-6" style="padding-top: 46px;">
+												<span class="confirmPwd"></span>
+											</div>
 										</div>
 									</div>
 								</div>

@@ -28,6 +28,43 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+<!-- 	<select id="selectNonApprovalList" resultType="productVo" parameterType="searchVo">
+		select * 
+		from
+		(
+		select rownum as RNUM, B.*
+		from
+		(
+		select A.*
+		from product A
+		<include refid="searchWhere"></include>
+		order by regdate desc
+		)B                                                                                                                                                                                                
+		)
+		where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
+	</select> -->
+	
+	<select id="selectNonApprovalList" resultType="productVo" parameterType="searchVo">
+		select * 
+		from
+		(
+		select rownum as RNUM, B.*
+		from
+		(
+		select A.*
+		from productFormView A
+		<include refid="searchWhere"></include>
+<!-- 		and pay_flag='N'  -->
+		order by form_regdate desc
+		)B                                                                                                                                                                                                
+		)
+		where RNUM>#{firstRecordIndex}
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
+	</select>
 
 	<select id="getTotalRecord" parameterType="searchVo"
 		resultType="int">
@@ -38,20 +75,20 @@
 	<select id="selectByAdminId" parameterType="string"
 		resultType="adminVo">
 		select * from admin
-		where adminId=#{adminId}
+		where admin_Id=#{adminId}
 	</select>
 
 	<select id="selectPwd" parameterType="string"
 		resultType="string">
-		select adminPwd from admin
-		where adminId=#{adminId}
+		select admin_Pwd from admin
+		where admin_Id=#{adminId}
 	</select>
 
 	<update id="updateAdmin" parameterType="adminVo">
 		update admin
 		set
-		adminPwd=#{adminPwd}
-		where adminId=#{adminId}
+		admin_Pwd=#{adminPwd}
+		where admin_Id=#{adminId}
 	</update>
 
 	<insert id="insertAdmin" parameterType="adminVo">
@@ -59,7 +96,7 @@
 			select
 			ADMIN_SEQ.nextval from dual
 		</selectKey>
-		insert into admin(adminno, adminid, adminpwd)
+		insert into admin(admin_no, admin_id, admin_pwd)
 		values(#{adminNo}, #{adminId}, #{adminPwd})
 	</insert>
 
