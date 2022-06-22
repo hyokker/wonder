@@ -28,8 +28,9 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
-	<select id="selectProduct" resultType="productVo" parameterType="searchVo">
+
+	<select id="selectProduct" resultType="productVo"
+		parameterType="searchVo">
 		select *
 		from
 		(
@@ -46,9 +47,10 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
-	<select id="selectAdmin" resultType="adminVo" parameterType="searchVo">
-		select * 
+
+	<select id="selectAdmin" resultType="adminVo"
+		parameterType="searchVo">
+		select *
 		from
 		(
 		select rownum as RNUM, B.*
@@ -58,15 +60,16 @@
 		from admin A
 		<include refid="searchWhere"></include>
 		order by admin_No desc
-		)B 
+		)B
 		)
 		where RNUM>#{firstRecordIndex} 
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
 
-	<select id="selectNonApprovalList" resultType="productVo" parameterType="searchVo">
-		select * 
+	<select id="selectNonApprovalList" resultType="productVo"
+		parameterType="searchVo">
+		select *
 		from
 		(
 		select rownum as RNUM, B.*
@@ -75,15 +78,14 @@
 		select A.*
 		from productFormView A
 		<include refid="searchWhere"></include>
-		<if test="searchKeyword ==null or searchKeyword ==''">
-         where 
-      </if>
-      <if test="searchKeyword !=null and searchKeyword !=''">
-          and 
-      </if>
+		<if test="searchKeyword ==null or searchKeyword ==''"> where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			and
+		</if>
 		pay_flag='N'
 		order by form_regdate desc
-		)B                                                                                                                                                                                                
+		)B
 		)
 		where RNUM>#{firstRecordIndex}
 		<![CDATA[
@@ -109,16 +111,19 @@
 	</select>
 
 	<update id="updateAdmin" parameterType="adminVo">
-		update admin set admin_Pwd=#{adminPwd} where admin_Id=#{adminId}
+		update admin set
+		admin_Pwd=#{adminPwd} where admin_Id=#{adminId}
 	</update>
 
 	<insert id="insertAdmin" parameterType="adminVo">
-		<selectKey keyProperty="adminNo" resultType="int" order="BEFORE">
+		<selectKey keyProperty="adminNo" resultType="int"
+			order="BEFORE">
 			select
 			ADMIN_SEQ.nextval from dual
 		</selectKey>
 		insert into admin(admin_no, admin_id, admin_pwd)
-		values(#{adminNo}, #{adminId}, #{adminPwd})
+		values(#{adminNo},
+		#{adminId}, #{adminPwd})
 	</insert>
 
 	<select id="dupAdminId" parameterType="String" resultType="int">

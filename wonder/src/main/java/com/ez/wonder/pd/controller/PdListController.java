@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
+import com.ez.wonder.skill.model.FrameworkVO;
+import com.ez.wonder.skill.model.LanguageVO;
+import com.ez.wonder.skill.model.SkillService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,19 +25,26 @@ public class PdListController {
 	=LoggerFactory.getLogger(PdListController.class);
 
 	private final ProductService productService;
-	/*
+	private final SkillService skillService;
+	
 	@GetMapping("/pdList")
 	public void pdList(Model model) {
 		logger.info("상품 리스트화면");
 		
-		List<ProductVO> pdList= productService.selectAllPd();
-		logger.info("상품 목록 , pdList.size()={}", pdList.size());
+		List<LanguageVO> langList=skillService.allLanguage();
+		logger.info("언어 조회 결과, langList.size={}", langList.size());
 		
-		model.addAttribute("pdList", pdList);
+		List<FrameworkVO> frameList=skillService.allFrame();
+		logger.info("언어 조회 결과, langList.size={}", frameList.size());
+		
+		//3
+		model.addAttribute("langList", langList);
+		model.addAttribute("frameList", frameList);
+		
 		
 	}
 	
-*/
+
 	
 	
 	
