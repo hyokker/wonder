@@ -74,6 +74,32 @@ public class AdminController {
 
 		return "/admin/memberList";
 	}
+	
+	@RequestMapping("/pdList")
+	public String pdList(@ModelAttribute SearchVO searchVo, Model model) {
+		logger.info("게시글 목록 화면, 파라미터 searchVo={}", searchVo);
+		
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(5);
+		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(9);
+		
+		List<ProductVO> list = adminService.selectProduct(searchVo);
+		logger.info("게시글 목록 조회 결과, 파라미터 list.size={}", list.size());
+		
+		int totalRecord = adminService.getTotalRecord(searchVo);
+		logger.info("회원 목록 totalRecord={}", totalRecord);
+
+		pagingInfo.setTotalRecord(totalRecord);
+
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "/admin/pdList";
+	}
 
 	// 2. 최고 관리자 정보 수정 페이지 불러오기
 	@GetMapping("/editAccount")
@@ -116,16 +142,18 @@ public class AdminController {
 
 	// 3. 최고 관리자 정보 수정 처리
 	@PostMapping("/editAccount")
-	public String post_editAccount(@ModelAttribute AdminVO adminVo, HttpSession session, Model model) {
+	public String post_editAccount(@ModelAttribute AdminVO adminVo, @RequestParam String newPwd, HttpSession session, Model model) {
 		String adminId = (String) session.getAttribute("adminId");
-		adminVo.setAdminId(adminId);
-		logger.info("관리자 정보 수정, adminVo={}", adminVo);
-
-		String msg = "", url = "/admin/editAccount";
+		adminVo.setAdminId(adminId); 
+		logger.info("관리자 정보 수정, 파라미터 adminVo={}", adminVo);
+		
+		String msg = "비밀번호 체크 실패", url = "/admin/editAccount";
 
 		int result = adminService.checkLogin(adminVo.getAdminId(), adminVo.getAdminPwd());
 		logger.info("관리자 정보 수정 - 비밀번호 체크 결과, result={}", result);
 
+		adminVo.setAdminPwd(newPwd);
+		
 		if (result == AdminService.LOGIN_OK) {
 			int cnt = adminService.updateAdmin(adminVo);
 			logger.info("관리자 정보 수정 결과, cnt ={}", cnt);
@@ -144,8 +172,33 @@ public class AdminController {
 
 		return "/common/message";
 	}
+	
+	@GetMapping("/subadminList")
+	public String get_subadminList(@ModelAttribute SearchVO searchVo, Model model) {
+		logger.info("부서별 관리자 목록 화면, 파라미터 searchVo={}", searchVo);
+		
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(5);
+		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
-	// 부서별 관리자 화면(리스트를 만들어야 하나)
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(9);
+		
+		List<AdminVO> list = adminService.selectAdmin(searchVo);
+		logger.info("부서별 관리자 목록 결과, list.size={}", list.size());
+		
+		int totalRecord = adminService.getTotalRecord(searchVo);
+		logger.info("부서별 관리자 목록 totalRecord={}", totalRecord);
+
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("searchVo", searchVo);
+
+		return "/admin/subadminList";
+	}
+
 	@GetMapping("/createAdmin")
 	public String get_createAdmin() {
 		logger.info("부서별 관리자 생성 화면");
@@ -222,13 +275,5 @@ public class AdminController {
 		logger.info("이메일 화면");
 
 		return "/admin/email";
-	}
-
-	// 아직 구현 안된 페이지 보기
-	@GetMapping("/pdList")
-	public String viewPdList() {
-		logger.info("상품리스트 화면");
-
-		return "/admin/pdList";
 	}
 }

@@ -4,13 +4,22 @@
 .dash_prt_thumb {
 	padding-left: 10px;
 }
+
+#daysago {
+	padding-left: 40px;
+}
 </style>
-<script  type="text/javascript">
+<script type="text/javascript">
+//수정 필요!
+function typesort() {
+	const type = document.getElementById("type").innerHTML;
+	if (type == '일반회원') {
+		$('#type span').attr('class', 'active');
+	} else if (type == '프리랜서') {
+		$('#type span').attr('class', 'expire');
+	}
+}
 </script>
-<script type="text/javascript"
-	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
 <%@ include file="../inc/top.jsp"%>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -44,13 +53,16 @@
 							<li class="active"><a
 								href="<c:url value='/admin/memberList'/>"><i
 									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
+							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
+									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
 							<li><a href="<c:url value='/admin/pdList'/>"><i
 									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
 							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
 									class="fa fa-bookmark"></i>거래대기 목록<span
 									class="notti_coun style-2">7</span></a></li>
-							<li><a href="s<c:url value='/admin/subadminList'/>"><i class="fa fa-id-badge"></i>부서별 관리자 
-							관리<span class="notti_coun style-3">3</span></a></li>
+							<li><a href="<c:url value='/admin/subadminList'/>"><i
+									class="fa fa-id-badge"></i>부서별 관리자 관리<span
+									class="notti_coun style-3">3</span></a></li>
 							<li><a href="<c:url value='/admin/editAccount'/>"><i
 									class="fa fa-user-tie"></i>내 정보</a></li>
 							<li><a href="<c:url value='/admin/createAdmin'/>"><i
@@ -60,7 +72,8 @@
 					<div class="dash_user_footer">
 						<ul>
 							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
-							<li><a href="<c:url value='/admin/email'/>"><i class="fa fa-envelope"></i></a></li>
+							<li><a href="<c:url value='/admin/email'/>"><i
+									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
 						</ul>
 					</div>
@@ -87,14 +100,18 @@
 										</div>
 									</div>
 								</div>
-								<div class="_prt_filt_dash_last m2_hide">
-									<div class="_prt_filt_radius"></div>
-									<div class="_prt_filt_add_new">
-										<a href="submit-property-dashboard.html"
-											class="prt_submit_link"><i class="fas fa-plus-circle"></i><span
-											class="d-none d-lg-block d-md-block">부서별 관리자 생성</span></a>
+
+								<div class="col-lg-2 col-md-2 col-sm-2">
+									<div class="form-group">
+										<select id="recipient" class="form-control">
+											<option value="1">등록일순</option>
+											<option value="2">거래건순</option>
+											<option value="3">방문일순</option>
+											<option value="4">이름순(오름차순)</option>
+										</select>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
@@ -136,7 +153,7 @@
 																</div>
 															</div>
 														</td>
-														<td class="m2_hide">
+														<td class="m2_hide" id="daysago">
 															<div class="prt_leads">
 																<span>3일 전</span>
 																<%-- ${Utility.lastVisit } --%>
@@ -159,7 +176,7 @@
 															</div>
 														</td>
 														<td>
-															<div class="_leads_status">
+															<div class="_leads_status" id="type">
 																<span class="active">${memberVo.type }</span>
 															</div>
 														</td>
@@ -173,9 +190,9 @@
 												</c:forEach>
 											</c:if>
 											<!-- tr block -->
-
 										</tbody>
 									</table>
+
 								</div>
 							</div>
 						</div>

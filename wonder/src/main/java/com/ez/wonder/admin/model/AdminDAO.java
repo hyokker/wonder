@@ -11,6 +11,8 @@ import com.ez.wonder.pd.model.ProductVO;
 @Mapper
 public interface AdminDAO {
 	List<MemberVO> selectMember(SearchVO searchVo);
+	List<AdminVO> selectAdmin(SearchVO searchVo);
+	List<ProductVO> selectProduct(SearchVO searchVo);
 	List<ProductVO> selectNonApprovalList(SearchVO searchVo);
 	int getTotalRecord(SearchVO searchVo);
 	
