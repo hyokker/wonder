@@ -6,4 +6,9 @@ import java.util.Map;
 public interface ProductService {
 	ProductVO selcetProductByNo(int pdNo);
 	List<PdDetailVO> selcetPdDetail(int pdNo);
+	
+	//
+	List<ProductVO> selectAllPd();
+	int insertPd(ProductVO item);
+	int insertPdDetail(PdDetailVO item);
 }
