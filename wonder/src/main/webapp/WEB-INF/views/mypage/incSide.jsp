@@ -1,5 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+    <%@ include file="../inc/top.jsp" %>
+    
+<script type="text/javascript">
+	$(function(){
+		$('#genaral').click(function(){
+			location.href="<c:url value='/mypage/dashboard/general' />";
+		});
+		$('#free').click(function(){
+			location.href="<c:url value='/mypage/dashboard/free' />";
+		});
+
+		var page=$('#pageCheck').val();
+		
+		if(page=='dashboard'){
+			$('.dash_user_menues ul li:eq(0)').addClass("active");
+		}else if(page=='profile'){
+			$('.dash_user_menues ul li:eq(1)').addClass("active");
+		}else if(page=='bookmark'){
+			$('.dash_user_menues ul li:eq(2)').addClass("active");
+		}else if(page=='transaction'){
+			$('.dash_user_menues ul li:eq(3)').addClass("active");
+		}else if(page=='chatting'){
+			$('.dash_user_menues ul li:eq(4)').addClass("active");
+		}else if(page=='changePwd'){
+			$('.dash_user_menues ul li:eq(5)').addClass("active");
+		}
+	});
+</script>
+    
 			<!-- ============================================================== -->
 			<!-- Top header  --> 
 			<!-- ============================================================== -->
@@ -34,43 +63,14 @@
 								<div>
 									<input type="button" value="일반회원" id="genaral">
 									<input type="button" value="프리랜서" id="free">
-									<script type="text/javascript">
-										$(function(){
-											$('#genaral').click(function(){
-												location.href="<c:url value='/mypage/dashboard/general' />";
-											});
-											$('#free').click(function(){
-												location.href="<c:url value='/mypage/dashboard/free' />";
-											});
-										});
-									</script>
+
 								</div>
 								<div class="dash_user_avater">
 									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
 									<h4>${userId }</h4>
 									<span>${vo.email }</span>
 								</div>
-								<script type="text/javascript">
-									$(function(){
-										var page=$('#pageCheck').val();
-										
-										if(page=='dashboard'){
-											$('.dash_user_menues ul li:eq(0)').addClass("active");
-										}else if(page=='profile'){
-											$('.dash_user_menues ul li:eq(1)').addClass("active");
-										}else if(page=='bookmark'){
-											$('.dash_user_menues ul li:eq(2)').addClass("active");
-										}else if(page=='transaction'){
-											$('.dash_user_menues ul li:eq(3)').addClass("active");
-										}else if(page=='chatting'){
-											$('.dash_user_menues ul li:eq(4)').addClass("active");
-										}else if(page=='changePwd'){
-											$('.dash_user_menues ul li:eq(5)').addClass("active");
-										}
-										
-										
-									});
-								</script>
+
 								<div class="dash_user_menues">
 									<ul>
 										<li><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../inc/top.jsp" %>
 <%@ include file="incSide.jsp" %>
 <script type="text/javascript">
 	$(function(){  
@@ -47,6 +46,7 @@
 		        }
 		    });
 
+		   
 
 		$('#submitBt').click(function(){
 			if(!confirm('정보를 수정하시겠습니까?')){
@@ -65,7 +65,7 @@
 <input type="hidden" id="pageCheck" value="profile">
 
 <script src="<c:url value='/js/jquery.nice-select.js' />"></script>
-<link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
+<link href="<c:url value='/css/mypage.css'/>" rel="stylesheet">
 <link href="<c:url value='/css/nice-select.css' />" rel="stylesheet">
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-body">
@@ -128,7 +128,7 @@
 												</div> 
 												
 												<div class="form-group col-md-6">
-													<label>계좌번호</label>
+													<label>계좌번호 (하이픈" - "을 빼고 입력해주세요)</label>
 													<input type="text" class="form-control" value="395-111111-11111">
 												</div> 
 												
@@ -154,13 +154,48 @@
 													</select>
 												</div>
 												
+												<script type="text/javascript">
+													$(function(){ /* 체크한 언어이름 라벨에 넣는 제이쿼리 */
+														$('.usableLangCheck li input[type=checkbox]').each(function(idx, item){
+															$(this).change(function(){
+																var lang = $(this).next().text();
+																var text = $('#usableLanguage').val();
+																var first = text.substr(0,1); 
+																text = text.replace(", ,",",");
+																
+																
+																if(first==" " || first==","){
+																	var text=text.substr(1,text.length);
+																	console.warn(text);
+																	$('#usableLanguage').val(text);
+																}
+																
+																if($(this).prop("checked")){ /* 체크상태라면 다음라벨값을 인풋에 넣는다 */
+																	if(text==""){
+																		$('#usableLanguage').val(text+lang);
+																	}else{
+																		$('#usableLanguage').val(text+','+lang);
+																	}
+																}else if(!$(this).prop("checked")){ 
+																	/* 체크를 풀면 다음레발값을 인풋에서 지우고 남은 쉼표도 제거한다 */
+																	var afterText = text.replace(lang,"");
+																	var afterText = afterText.replace(",,",",");
+																	$('#usableLanguage').val(afterText);
+																}
+															});
+														});
+													});
+												
+												</script>
+												
+												
 												<div class="form-group col-md-12">
 													<label>개발 가능 언어</label>
 													<div class="o-features">
-														<ul class="no-ul-list third-row">
+														<ul class="no-ul-list third-row usableLangCheck">
 															<li>
 																<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
-																<label for="a-1" class="checkbox-custom-label">C</label>
+																<label for="a-1" class="checkbox-custom-label">C </label>
 															</li>
 															<li>
 																<input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
@@ -171,23 +206,23 @@
 																<label for="a-3" class="checkbox-custom-label">C++</label>
 															</li>
 															<li>
-																<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox" checked="checked">
+																<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox">
 																<label for="a-4" class="checkbox-custom-label">CSS</label>
 															</li>
 															<li>
-																<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox" checked="checked">
+																<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox">
 																<label for="a-5" class="checkbox-custom-label">HTML</label>
 															</li>
 															<li>
-																<input id="a-6" class="checkbox-custom" name="a-6" type="checkbox" checked="checked">
+																<input id="a-6" class="checkbox-custom" name="a-6" type="checkbox">
 																<label for="a-6" class="checkbox-custom-label">Java</label>
 															</li>
 															<li>
-																<input id="a-7" class="checkbox-custom" name="a-7" type="checkbox" checked="checked">
+																<input id="a-7" class="checkbox-custom" name="a-7" type="checkbox">
 																<label for="a-7" class="checkbox-custom-label">JavaScript</label>
 															</li>
 															<li>
-																<input id="a-8" class="checkbox-custom" name="a-8" type="checkbox" checked="checked">
+																<input id="a-8" class="checkbox-custom" name="a-8" type="checkbox">
 																<label for="a-8" class="checkbox-custom-label">JSP</label>
 															</li>
 															<li>
@@ -199,7 +234,7 @@
 																<label for="a-10" class="checkbox-custom-label">Node.js</label>
 															</li>
 															<li>
-																<input id="a-11" class="checkbox-custom" name="a-11" type="checkbox" checked="checked">
+																<input id="a-11" class="checkbox-custom" name="a-11" type="checkbox">
 																<label for="a-11" class="checkbox-custom-label">Spring</label>
 															</li>
 															<li>
@@ -208,6 +243,7 @@
 															</li>
 														</ul>
 													</div>
+													<input type="text" name="usableLanguage" id="usableLanguage"  style="width:100%">
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
