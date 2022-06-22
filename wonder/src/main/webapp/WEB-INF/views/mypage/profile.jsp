@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="incSide.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:import url="/mypage/incSide" />
+<%-- <%@ include file="incSide.jsp" %> --%>
 <script type="text/javascript">
 	$(function(){  
 		 var fileTarget = $('#profileUpload');
@@ -54,7 +57,7 @@
 			}
 		});
 		
-		if(${vo.type=='일반회원'}){
+		if(${memVo.type=='일반회원'}){
 			$('.form-row div').hide();
 			$('.generalMember').show();
 		}
@@ -71,7 +74,7 @@
 							<div class="dashboard-body">
 							
 								<div class="dashboard-wraper">
-									<form name="frmProfile" method="post" action="<c:url value='/mypage/profile' />">
+									<form name="frmProfile" method="post" enctype="multipart/form-data" action="<c:url value='/mypage/profile' />">
 								
 									<!-- Basic Information -->
 									<div class="frm_submit_block">	
@@ -81,76 +84,76 @@
 											
 												<div class="form-group col-md-6 generalMember">
 													<label>이름</label>
-													<input type="text" class="form-control profile_disabled" value="${vo.name }" disabled="disabled">
+													<input type="text" class="form-control profile_disabled" value="${memVo.name }" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>가입일</label>
 													<input type="text" class="form-control profile_disabled" 
-														value="<fmt:formatDate value="${vo.regdate }" pattern="yyyy년 MM월 dd일" />" disabled="disabled">
+														value="<fmt:formatDate value="${memVo.regdate }" pattern="yyyy년 MM월 dd일" />" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>회원분류</label>
-													<input type="text" class="form-control profile_disabled" value="${vo.type }" disabled="disabled">
+													<input type="text" class="form-control profile_disabled" value="${memVo.type }" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>이메일</label>
-													<input type="email" class="form-control" name="email" value="${vo.email }">
+													<input type="email" class="form-control" name="email" value="${memVo.email }">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>닉네임</label>
-													<input type="text" class="form-control" name="nickname" value="${vo.nickname }">
+													<input type="text" class="form-control" name="nickname" value="${memVo.nickname }">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>연락처</label>
-													<input type="text" class="form-control" name="tel" value="${vo.tel }">
+													<input type="text" class="form-control" name="tel" value="${memVo.tel }">
 												</div>
 												
 
 												
 												<div class="form-group col-md-6">
 													<label>전공</label>
-													<input type="text" class="form-control" value="컴퓨터공학과">
+													<input type="text" class="form-control" name="major" value="${expertVo.major }">
 												</div>
 												
 												<div class="form-group col-md-6">
 													<label>학력</label>
-													<input type="text" class="form-control" value="이젠대학교 공학석사">
+													<input type="text" class="form-control" name="grade" value="${expertVo.grade }">
 												</div> 
 												
 												<div class="form-group col-md-6">
 													<label>은행명</label>
-													<input type="text" class="form-control" value="하나은행">
+													<input type="text" class="form-control" name="bankName" value="${expertVo.bankName }">
 												</div> 
 												
 												<div class="form-group col-md-6">
 													<label>계좌번호 (하이픈" - "을 빼고 입력해주세요)</label>
-													<input type="text" class="form-control" value="395-111111-11111">
+													<input type="text" class="form-control" name="accountNo" value="${expertVo.accountNo }">
 												</div> 
 												
 												<div class="form-group col-md-12">
 													<label>보유 자격증</label>
-													<input type="text" class="form-control" value="정보처리기사">
+													<input type="text" class="form-control" name="certificate" value="${expertVo.certificate }">
 												</div> 
 												
 												<div class="form-group col-md-6">
 													<label>완료된 작업 건수</label>
-													<input type="text" class="form-control profile_disabled" value="13건" disabled="disabled">
+													<input type="text" class="form-control profile_disabled" value="${expertVo.workAmount }건" disabled="disabled">
 												</div> 
 												
 												<div class="form-group col-md-4">
 													<label>개발 경력</label>
-													<select id="bage" class="form-control">
+													<select id="bage" class="form-control" name="career">
 														<option value="">경력을 선택하세요</option>
-														<option value="1">0 - 1년</option>
-														<option value="2" selected="selected">1 - 3년</option>
-														<option value="3">3 - 5년</option>
-														<option value="4">5 - 10년</option>
-														<option value="5">10년+</option>
+														<option value="0,1">0 - 1년</option>
+														<option value="1,3" selected="selected">1 - 3년</option>
+														<option value="3,5">3 - 5년</option>
+														<option value="5,10">5 - 10년</option>
+														<option value="10,over">10년+</option>
 													</select>
 												</div>
 												
@@ -243,11 +246,17 @@
 															</li>
 														</ul>
 													</div>
-													<input type="text" name="usableLanguage" id="usableLanguage"  style="width:100%">
+													<input type="text" name="language" id="usableLanguage"  style="width:100%">
+													
+													
+													
+													
+													
+													<input type="text" name="framework" id="usableFramework"  style="width:100%">
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
-													<textarea class="form-control">무조건 남보다 나은 결과물과 서비스를 제공하는것이 저의 목표입니다.
+													<textarea class="form-control" name="introduction">무조건 남보다 나은 결과물과 서비스를 제공하는것이 저의 목표입니다.
 
 우수한 퀄리티와 다양한 기능을 개발하여 합리적인 금액으로 납품해드리고있습니다 
 사후 서비스까지 책임지는 저에게 맡겨주세요</textarea>
@@ -265,7 +274,7 @@
 	
 															<div class="uploadBox_innerRight  preview-image">
 																<input type="hidden" class="upload_name" value="" disabled="disabled">
-																<input type="file" id="profileUpload"> <!-- file -->
+																<input type="file" id="profileUpload" name="upfile"> <!-- file -->
 															</div>
 	
 														</div>

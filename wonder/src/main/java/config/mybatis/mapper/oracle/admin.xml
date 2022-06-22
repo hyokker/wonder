@@ -57,7 +57,13 @@
 		select A.*
 		from productFormView A
 		<include refid="searchWhere"></include>
-<!-- 		and pay_flag='N'  -->
+		<if test="searchKeyword ==null or searchKeyword ==''">
+			where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+ 			and 
+		</if>
+		pay_flag='N'
 		order by form_regdate desc
 		)B                                                                                                                                                                                                
 		)

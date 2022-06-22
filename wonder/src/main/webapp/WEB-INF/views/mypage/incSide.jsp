@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
-    <%@ include file="../inc/top.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="../inc/top.jsp" %>
     
 <script type="text/javascript">
 	$(function(){
@@ -66,7 +68,12 @@
 
 								</div>
 								<div class="dash_user_avater">
-									<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="">
+										<c:if test="${profileVo.fileName !=null && profileVo.fileName != ''}">
+											<img src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" class="img-fluid avater" alt="프로필이미지">
+										</c:if>
+										<c:if test="${profileVo.fileName ==null || profileVo.fileName == ''}">
+											<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="프로필이미지">
+										</c:if>
 									<h4>${userId }</h4>
 									<span>${vo.email }</span>
 								</div>
