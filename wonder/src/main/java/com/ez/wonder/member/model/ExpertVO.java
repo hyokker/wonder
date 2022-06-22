@@ -13,9 +13,13 @@ public class ExpertVO extends MemberVO{
 	private String certificate;
 	private String servicableTime;
 	private String introduction;
-	private String fileName;
-	private String originalFileName;
-	private long fileSize;
 	private String approval;
 	private int workAmount;
+	private String language;
+	private String framework;
+
+	
+	//private String fileName;
+	//private String originalFileName;
+	//private long fileSize;
 }

@@ -1,24 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style type="text/css">
-.dash_prt_thumb {
-	padding-left: 10px;
-}
-
-#daysago {
-	padding-left: 40px;
-}
 </style>
-<script type="text/javascript">
-//수정 필요!
-function typesort() {
-	const type = document.getElementById("type").innerHTML;
-	if (type == '일반회원') {
-		$('#type span').attr('class', 'active');
-	} else if (type == '프리랜서') {
-		$('#type span').attr('class', 'expire');
-	}
-}
+<script  type="text/javascript">
+	
 </script>
 <%@ include file="../inc/top.jsp"%>
 <!-- ============================================================== -->
@@ -50,8 +35,7 @@ function typesort() {
 						<ul>
 							<li><a href="<c:url value='/admin/dashboard'/>"><i
 									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li class="active"><a
-								href="<c:url value='/admin/memberList'/>"><i
+							<li><a href="<c:url value='/admin/memberList'/>"><i
 									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
 							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
 									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
@@ -60,7 +44,8 @@ function typesort() {
 							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
 									class="fa fa-bookmark"></i>거래대기 목록<span
 									class="notti_coun style-2">7</span></a></li>
-							<li><a href="<c:url value='/admin/subadminList'/>"><i
+							<li class="active"><a
+								href="s<c:url value='/admin/subadminList'/>"><i
 									class="fa fa-id-badge"></i>부서별 관리자 관리<span
 									class="notti_coun style-3">3</span></a></li>
 							<li><a href="<c:url value='/admin/editAccount'/>"><i
@@ -91,7 +76,7 @@ function typesort() {
 									<div class="foot-news-last">
 										<div class="input-group">
 											<input type="text" class="form-control"
-												placeholder="회원명, 아이디 등으로 조회" size="20">
+												placeholder="관리자 아이디로 조회" size="20">
 											<div class="input-group-append">
 												<span type="button"
 													class="input-group-text theme-bg b-0 text-light"><i
@@ -100,18 +85,14 @@ function typesort() {
 										</div>
 									</div>
 								</div>
-
-								<div class="col-lg-2 col-md-2 col-sm-2">
-									<div class="form-group">
-										<select id="recipient" class="form-control">
-											<option value="1">등록일순</option>
-											<option value="2">거래건순</option>
-											<option value="3">방문일순</option>
-											<option value="4">이름순(오름차순)</option>
-										</select>
+								<div class="_prt_filt_dash_last m2_hide">
+									<div class="_prt_filt_radius"></div>
+									<div class="_prt_filt_add_new">
+										<a href="<c:url value='/admin/createAdmin'/>"
+											class="prt_submit_link"><i class="fas fa-plus-circle"></i><span
+											class="d-none d-lg-block d-md-block">부서별 관리자 생성</span></a>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -123,19 +104,17 @@ function typesort() {
 									<table class="table" id="memList">
 										<thead class="thead-dark">
 											<tr>
-												<th scope="col">회원목록</th>
-												<th scope="col" class="m2_hide">최근 방문일</th>
-												<th scope="col" class="m2_hide">거래건수</th>
-												<th scope="col" class="m2_hide">가입일</th>
-												<th scope="col">회원분류</th>
-												<th scope="col">승인 / 삭제</th>
+												<th scope="col">부서별 관리자 목록(번호)</th>
+												<th scope="col" class="m2_hide">아이디</th>
+												<th scope="col" class="m2_hide">비밀번호</th>
+												<th scope="col">삭제</th>
 											</tr>
 										</thead>
 										<tbody>
 											<!-- tr block -->
 											<c:if test="${!empty list}">
 												<!--게시판 내용 반복문 시작  -->
-												<c:forEach var="memberVo" items="${list }">
+												<c:forEach var="adminVo" items="${list }">
 													<tr>
 														<td>
 															<div class="dash_prt_wrap">
@@ -145,51 +124,39 @@ function typesort() {
 																		class="img-fluid" alt="" />
 																</div>
 																<div class="dash_prt_caption">
-																	<h5>${memberVo.name}</h5>
-																	<div class="prt_dashb_lot">${memberVo.memNo }</div>
-																	<div class="prt_dash_rate">
-																		<span>${memberVo.email }</span>
-																	</div>
+																	<h5>
+																		&emsp;&emsp;<i class="fa fa-id-badge"></i>부서별 관리자
+																		${adminVo.adminNo}
+																	</h5>
 																</div>
-															</div>
-														</td>
-														<td class="m2_hide" id="daysago">
-															<div class="prt_leads">
-																<span>3일 전</span>
-																<%-- ${Utility.lastVisit } --%>
 															</div>
 														</td>
 														<td class="m2_hide">
 															<div class="_leads_view">
-																<h5>3회</h5>
+																<h5>${adminVo.adminId}</h5>
 															</div>
 															<div class="_leads_view_title">
-																<span>Number of deal</span>
+																<span>AdminId</span>
 															</div>
 														</td>
 														<td class="m2_hide">
 															<div class="_leads_posted">
-																<h5>16 Aug - 12:40</h5>
+																<h5>${adminVo.adminPwd}</h5>
 															</div>
 															<div class="_leads_view_title">
-																<span>16 Days ago</span>
-															</div>
-														</td>
-														<td>
-															<div class="_leads_status" id="type">
-																<span class="active">${memberVo.type }</span>
+																<span>AdminPwd</span>
 															</div>
 														</td>
 														<td>
 															<div class="_leads_action">
-																<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-																	class="fas fa-trash"></i></a>
+																<a href="#"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>
 												</c:forEach>
 											</c:if>
 											<!-- tr block -->
+
 										</tbody>
 									</table>
 

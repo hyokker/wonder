@@ -11,4 +11,23 @@
 		select * from pd_detail where pd_No=#{pdNo}
 	</select>
 	
+	<insert id="insertProduct" parameterType="productVo" useGeneratedKeys="true" keyProperty="PD_NO" >
+		INSERT INTO PRODUCT
+		(
+			PD_NO
+			, USER_ID
+			, CATE_TYPE
+			, PD_TITLE
+			, LANG
+			, FRAME
+		)VALUES(
+			PRODUCT_seq.nextval
+			, #{userId}
+			, #{cateType}
+			, #{pdTitle}
+			, NVL(#{lang:VARCHAR}, EMPTY_CLOB())
+			, NVL(#{frame:VARCHAR}, EMPTY_CLOB())
+		)
+	</insert>
+	
 </mapper>
