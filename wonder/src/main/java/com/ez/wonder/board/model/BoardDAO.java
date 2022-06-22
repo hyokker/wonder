@@ -16,7 +16,7 @@ public interface BoardDAO {
 	int updateDownCount(int boardNo);
 	String selectPwd(int boardNo);
 	public int updateBoard(BoardVO vo);
-	//public int deleteBoard(int boardNo);
+	public int deleteBoard(int boardNo);
 	
 }
 

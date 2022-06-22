@@ -173,7 +173,7 @@ public class BoardController {
 	@GetMapping("/edit")
 	public String edit_get(@RequestParam(defaultValue = "0") int boardNo,
 			Model model) {
-		logger.info("글 수정 페이지, 파라미터 no = {}", boardNo);
+		logger.info("글 수정 페이지, 파라미터 boardNo = {}", boardNo);
 
 		if(boardNo == 0) {
 			model.addAttribute("msg", "잘못된 접근입니다");
@@ -214,7 +214,7 @@ public class BoardController {
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-					e.printStackTrace();
+				e.printStackTrace();
 			}
 		
 			vo.setFileName(fileName);
@@ -228,7 +228,7 @@ public class BoardController {
 				msg="수정되었습니다.";
 				url="/board/detail?boardNo="+vo.getBoardNo();
 				
-				if(!fileList.isEmpty()) {	//새로 파일 첨부한 경우
+				if(!fileList.isEmpty()) {
 					if(oldFileName!=null && !oldFileName.isEmpty()) {
 						//기존 파일이 있는 경우
 						String uploadPath
@@ -236,15 +236,15 @@ public class BoardController {
 						File oldFile = new File(uploadPath, oldFileName);
 						if(oldFile.exists()) {
 							boolean bool=oldFile.delete();
-							logger.info("글수정-파일 삭제여부 : {}", bool);
+							logger.info("게시글 수정-파일 삭제여부 : {}", bool);
 						}
 					}
 				}
 			}else {
-				msg="글 수정 실패";
+				msg="게시글 수정 실패";
 			}
 		}else {
-			msg="비밀번호 불일치!";
+			msg="비밀번호가 틀렸습니다";
 		}
 		
 		model.addAttribute("msg", msg);
@@ -257,13 +257,65 @@ public class BoardController {
 	@GetMapping("/delete")
 	public String delete_get(@RequestParam(defaultValue = "0") int boardNo,
 			@ModelAttribute BoardVO vo, Model model) {
+		logger.info("삭제 처리 화면 보기, 파라미터 boardNo={}, vo={}",boardNo, vo);
+		
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			model.addAttribute("url", "/board/list");
+			return "/common/message";
+		}
+		
 		return "board/delete";
 	}
 	
 	@PostMapping("/delete")
-	public String delete_post(@RequestParam(defaultValue = "0")int boardNo,
-			@RequestParam String pwd, Model model) {
+	public String delete_post(@ModelAttribute BoardVO vo,
+			HttpServletRequest request, Model model) {
+		
+		logger.info("삭제 처리, 파라미터 vo={}",vo);
+
+		String msg="비밀번호 체크 실패",url="/board/delete?boardNo="+vo.getBoardNo()
+			+ "&fileName="+ vo.getFileName();
+		if(boardService.checkPwd(vo.getBoardNo(), vo.getPwd())) {
+			
+			int cnt=boardService.deleteBoard(vo.getBoardNo());
+			logger.info("글 삭제처리 결과 cnt={}",cnt);
+			
+			if(cnt>0) {
+				msg="게시글 삭제 완료";
+				url="/board/list";
+				
+				String uploadPath = fileUploadUtil.getUploadPath(request, 
+						ConstUtil.UPLOAD_FILE_FLAG);
+				File delFile = new File(uploadPath, vo.getFileName());
+				if(delFile.exists()) {
+					boolean bool=delFile.delete();
+					logger.info("파일 삭제 여부: {}", bool);
+				}
+			}else {
+				msg="삭제 실패";
+			}//안쪽
+		}else {
+			msg="비밀번호 불일치";
+		}//바깥쪽
+
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+
 		return "common/message";
+	}
+	
+	@GetMapping("/reply.do")
+	public String reply_get() {
+	
+		
+		return "";
+	}
+	
+	@PostMapping("/reply.do")
+	public String reply_post() {
+	
+		return "";
 	}
 }
 

@@ -13,6 +13,6 @@ public interface BoardService {
 	int updateDownCount(int boardNo);
 	public boolean checkPwd(int no, String pwd);
 	public int updateBoard(BoardVO vo);
-	//public int deleteBoard(int no);
+	public int deleteBoard(int boardNo);
 	
 }

@@ -57,13 +57,20 @@ public class BoardServiceImpl implements BoardService{
 			result=true;
 		}
 		
-		return false;
+		return result;
 	}
 
 	@Override
 	public int updateBoard(BoardVO vo) {
 		return boardDao.updateBoard(vo);
 	}
+
+	@Override
+	public int deleteBoard(int boardNo) {
+		return boardDao.deleteBoard(boardNo);
+	}
+	
+	
 	
 	
 	

@@ -31,7 +31,7 @@
 		        select B.*, (sysdate-regdate)*24 as dateTerm
 		        from board B
 		        <include refid="searchWhere"></include>
-		        order by board_no
+		        order by board_no desc
 		    )A
 		)
 		where RNUM>#{firstRecordIndex} 
@@ -62,8 +62,8 @@
 		update Board
 		set board_title=#{boardTitle}, board_content=#{boardContent}
 		<if test="fileName !=null and fileName != ''">
-			, fileName=#{fileName}, fileSize=#{fileSize},
-			originalFileName=#{originalFileName}
+			, file_name=#{fileName}, file_size=#{fileSize},
+			original_file_name=#{originalFileName}
 		</if>
 		where board_no=#{boardNo}
 	</update>
@@ -72,5 +72,9 @@
 		update board set down_count=down_count+1
 		where board_no=#{boardNo}
 	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete board where board_no=#{boardNo}
+	</delete>
 
 </mapper>
