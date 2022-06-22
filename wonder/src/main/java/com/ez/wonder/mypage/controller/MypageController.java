@@ -59,6 +59,13 @@ public class MypageController {
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
+		String type = vo.getType();
+
+		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
+
+		if(type.equals("프리랜서")) {
+
+		}
 		logger.info("프로필 페이지 vo={}",vo);
 		
 		model.addAttribute("vo",vo);

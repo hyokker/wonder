@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- 
+	
+
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -43,8 +44,8 @@
 	<div class="nav-toggle"></div>
 	<div class="mobile_nav">
 		<ul>
-			<li class="_my_prt_list"><a href="#"><span>2</span>My List</a></li>
-			<li><a href="#" data-toggle="modal" data-target="#login"><i class="fas fa-user-circle fa-lg"></i></a></li>
+			<!-- <li class="_my_prt_list"><a href="#"><span></span></a></li> -->
+			<!-- <li><a href="#" data-toggle="modal" data-target="#login"><i class="fas fa-user-circle fa-lg"></i></a></li> -->
 		</ul>
 	</div>
 </div>
@@ -52,16 +53,16 @@
 <ul class="nav-menu">
 
 	<li class="active"><a href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span class="submenu-indicator"></span></a>
-<ul class="nav-dropdown nav-submenu">
+<!-- <ul class="nav-dropdown nav-submenu">
 	<li><a href="index.html">서비스 소개</a></li>
-<!-- <li><a href="home-2.html">Home 2</a></li>
+<li><a href="home-2.html">Home 2</a></li>
 	<li><a href="home-3.html">Home 3</a></li>
 	<li><a href="home-4.html">Home 4</a></li>
 	<li><a href="home-5.html">Home 5</a></li>
 	<li><a href="home-6.html">Home 6</a></li>
 	<li><a href="home-7.html">Home 7</a></li>
-	<li><a href="map.html">Map Home</a></li> -->
-	</ul>
+	<li><a href="map.html">Map Home</a></li>
+	</ul> -->
 </li>
 
 <li><a href="<c:url value='/pd/pdList'/>">상품 목록<span class="submenu-indicator"></span></a>
@@ -162,10 +163,18 @@
 <li><a href="<c:url value='/member/logout'/>">로그아웃</a></li>
 	</li>
 	<li class="add-listing">
-		<a href="<c:url value='/pd/pdWrite'/>" class="theme-cl">
-			 <i class="fas fa-plus-circle mr-1"></i>상품 등록
+		<c:if test="${userId=='admin'}">
+		<a href="<c:url value='/admin/dashboard'/>" class="">
+			 <i class="fas fa-user-circle fa-lg"></i>
 		</a>
-	</li> 
+		</c:if>
+		
+		<c:if test="${userId!='admin' }">
+		<a href="<c:url value='/mypage/dashboard'/>" class="">
+			 <i class="fas fa-user-circle fa-lg"></i>
+		</a>
+		</c:if>
+	</li>
 </ul>
 </c:if>
 			</div>

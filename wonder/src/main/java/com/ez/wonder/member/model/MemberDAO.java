@@ -11,4 +11,5 @@ public interface MemberDAO {
 	public int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
 	//public
+	ExpertVO selectByUserId(String userid);
 }

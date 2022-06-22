@@ -28,6 +28,43 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+<!-- 	<select id="selectNonApprovalList" resultType="productVo" parameterType="searchVo">
+		select * 
+		from
+		(
+		select rownum as RNUM, B.*
+		from
+		(
+		select A.*
+		from product A
+		<include refid="searchWhere"></include>
+		order by regdate desc
+		)B                                                                                                                                                                                                
+		)
+		where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
+	</select> -->
+	
+	<select id="selectNonApprovalList" resultType="productVo" parameterType="searchVo">
+		select * 
+		from
+		(
+		select rownum as RNUM, B.*
+		from
+		(
+		select A.*
+		from productFormView A
+		<include refid="searchWhere"></include>
+<!-- 		and pay_flag='N'  -->
+		order by form_regdate desc
+		)B                                                                                                                                                                                                
+		)
+		where RNUM>#{firstRecordIndex}
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
+	</select>
 
 	<select id="getTotalRecord" parameterType="searchVo"
 		resultType="int">
@@ -62,9 +99,9 @@
 		insert into admin(admin_no, admin_id, admin_pwd)
 		values(#{adminNo}, #{adminId}, #{adminPwd})
 	</insert>
-	
+
 	<select id="dupAdminId" parameterType="String" resultType="int">
-		selecr count(*) from admin
-		where ADMIN_ID = #{adminId}
+		select count(*) from admin
+		where admin_Id=#{adminId}
 	</select>
 </mapper>

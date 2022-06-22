@@ -390,7 +390,7 @@ $(function() {
 	  ]
 	});
 
-	
+	/* select2 관련 오류가 나서 주석처리해봤습니다
 	// Select Bedrooms
 	$('#bedrooms').select2({
 		placeholder: "Bedrooms",
@@ -540,7 +540,7 @@ $(function() {
 		placeholder: "Properties Types",
 		allowClear: true
 	});
-	
+	*/
 	
 	
 	// Home Slider

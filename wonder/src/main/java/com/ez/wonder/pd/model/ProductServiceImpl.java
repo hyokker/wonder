@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.ez.wonder.member.model.ExpertVO;
+import com.ez.wonder.member.model.MemberDAO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -15,7 +18,8 @@ public class ProductServiceImpl implements ProductService{
 		=LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	private final ProductDAO productDao;
-
+	private final MemberDAO memberDao;
+	
 	@Override
 	public ProductVO selcetProductByNo(int pdNo) {
 		return productDao.selcetProductByNo(pdNo);
@@ -40,4 +44,11 @@ public class ProductServiceImpl implements ProductService{
 	public int insertPdDetail(PdDetailVO item) {
 		return productDao.insertPdDetail(item);
 	}
+	public ExpertVO getExpertInfo(int pdNo) {
+		ProductVO vo=productDao.selcetProductByNo(pdNo);
+		String userId=vo.getUserId();
+		
+		return memberDao.selectByUserId(userId);
+	}
+
 }
