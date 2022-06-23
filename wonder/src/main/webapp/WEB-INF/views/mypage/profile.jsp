@@ -5,8 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
+ 
 <script type="text/javascript">
-	$(function(){  
+	$(function(){
 		 var fileTarget = $('#profileUpload');
 		  fileTarget.on('change', function(){  // 값이 변경되면
 		    if(window.FileReader){  // modern browser
@@ -15,7 +16,6 @@
 		    else {  // old IE
 		      var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
 		    }
-		    console.log(filename);
 		    // 추출한 파일명 삽입
 		    $(this).siblings('.upload_name').val(filename);
 		  });
@@ -63,7 +63,44 @@
 		}
 		
 		/* $('select').niceSelect(); */
+	
+		
+		/* 체크한 언어이름 라벨에 넣는 제이쿼리 */
+		
+		
+
+			
+			
+		 $('.usableLangCheck li input[type=checkbox]').each(function(idx, item){ 
+			$(this).change(function(){
+				var lang = $(this).next().text();
+				var text = $('#usableLanguage').val();
+				var first = text.substr(0,1); 
+				text = text.replace(", ,",",");
+				
+				
+				if(first==" " || first==","){
+					var text=text.substr(1,text.length);
+					$('#usableLanguage').val(text);
+				}
+				
+				if($(this).prop("checked")){  // 체크상태라면 다음라벨값을 인풋에 넣는다 
+					if(text==""){
+						$('#usableLanguage').val(text+lang);
+					}else{
+						$('#usableLanguage').val(text+','+lang);
+					}
+				}else if(!$(this).prop("checked")){ 
+					// 체크를 풀면 다음레발값을 인풋에서 지우고 남은 쉼표도 제거한다 
+					var afterText = text.replace(lang,"");
+					var afterText = afterText.replace(",,",",");
+					$('#usableLanguage').val(afterText);
+				}
+			});
+		}); 
+		
 	});
+
 </script>
 <input type="hidden" id="pageCheck" value="profile">
 
@@ -157,47 +194,56 @@
 													</select>
 												</div>
 												
+
 												<script type="text/javascript">
-													$(function(){ /* 체크한 언어이름 라벨에 넣는 제이쿼리 */
-														$('.usableLangCheck li input[type=checkbox]').each(function(idx, item){
-															$(this).change(function(){
-																var lang = $(this).next().text();
-																var text = $('#usableLanguage').val();
-																var first = text.substr(0,1); 
-																text = text.replace(", ,",",");
-																
-																
-																if(first==" " || first==","){
-																	var text=text.substr(1,text.length);
-																	console.warn(text);
-																	$('#usableLanguage').val(text);
-																}
-																
-																if($(this).prop("checked")){ /* 체크상태라면 다음라벨값을 인풋에 넣는다 */
-																	if(text==""){
-																		$('#usableLanguage').val(text+lang);
-																	}else{
-																		$('#usableLanguage').val(text+','+lang);
-																	}
-																}else if(!$(this).prop("checked")){ 
-																	/* 체크를 풀면 다음레발값을 인풋에서 지우고 남은 쉼표도 제거한다 */
-																	var afterText = text.replace(lang,"");
-																	var afterText = afterText.replace(",,",",");
-																	$('#usableLanguage').val(afterText);
-																}
-															});
-														});
-													});
-												
+												$(function(){
+													$('#checked').click(function(){
+														$('#langArr').val("");
+														$('.langLi').each(function(idx,item){
+															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
+															console.warn(before);
+															var name = <c:out value='before' />;
+															if(name != null && name != ""){
+																var value=$('#langArr').val();
+																$('#langArr').val(value+name+",");
+															}
+														})
+													}); 
+												});
 												</script>
 												
-												
 												<div class="form-group col-md-12">
+													<br>
 													<label>개발 가능 언어</label>
 													<div class="o-features">
 														<ul class="no-ul-list third-row usableLangCheck">
-															<li>
-																<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
+															<c:forEach var="vo" items="${langList }">
+															<li class="langLi">
+																<c:set var="usableLang" value="N" />
+																<c:forEach var="list" items="${langArr }">
+																	<c:if test="${vo.lang == list}">
+																		<c:set var="usableLang" value="Y" />
+																	</c:if>
+																</c:forEach>
+																
+																<c:if test="${usableLang == 'Y' }">
+																	<input id="${vo.langNo }" class="checkbox-custom" name="${vo.lang }" type="checkbox" checked>
+																</c:if>
+																<c:if test="${usableLang == 'N' }">
+																	<input id="${vo.langNo }" class="checkbox-custom" name="${vo.lang }" type="checkbox">
+																</c:if>
+																<label for="${vo.langNo }" class="checkbox-custom-label">${vo.lang } </label>
+															</li>
+															</c:forEach>
+															
+
+															
+															
+
+														
+														
+															<!-- <li>
+																<input id="a-1" class="checkbox-custom" name="changename" type="checkbox">
 																<label for="a-1" class="checkbox-custom-label">C </label>
 															</li>
 															<li>
@@ -243,16 +289,34 @@
 															<li>
 																<input id="a-12" class="checkbox-custom" name="a-12" type="checkbox">
 																<label for="a-12" class="checkbox-custom-label">Vue.js</label>
-															</li>
+															</li> -->
 														</ul>
 													</div>
+													<div id="checked">
+														<input type="button" value="체크 테스트" class="checkBt">
+													</div>
+																
+													<!-- <script type="text/javascript">
+														$(function(){
+															$('#checked').click(function(){
+																$('.checkbox-custom').prop("checked",true);
+															});
+															$('#unchecked').click(function(){
+																$('.checkbox-custom').prop("checked",false);
+															});
+														});
+													</script>
+													<div class="checkBt" id="checked">
+														<p>모두 선택</p>
+													</div>
+													<div class="checkBt" id="unchecked">
+														<p>모두 취소</p>
+													</div>
+													 -->
 													<input type="text" name="language" id="usableLanguage"  style="width:100%">
-													
-													
-													
-													
-													
 													<input type="text" name="framework" id="usableFramework"  style="width:100%">
+													<input type="text" id="langArr" style="width:100%"">
+													
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
