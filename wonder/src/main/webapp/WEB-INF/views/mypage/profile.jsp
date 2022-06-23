@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="../inc/top.jsp" %>
-<%@ include file="incSide.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:import url="/mypage/incSide" />
+<%-- <%@ include file="incSide.jsp" %> --%>
 <script type="text/javascript">
 	$(function(){  
 		 var fileTarget = $('#profileUpload');
@@ -47,6 +49,7 @@
 		        }
 		    });
 
+		   
 
 		$('#submitBt').click(function(){
 			if(!confirm('정보를 수정하시겠습니까?')){
@@ -54,7 +57,7 @@
 			}
 		});
 		
-		if(${vo.type=='일반회원'}){
+		if(${memVo.type=='일반회원'}){
 			$('.form-row div').hide();
 			$('.generalMember').show();
 		}
@@ -65,13 +68,13 @@
 <input type="hidden" id="pageCheck" value="profile">
 
 <script src="<c:url value='/js/jquery.nice-select.js' />"></script>
-<link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
+<link href="<c:url value='/css/mypage.css'/>" rel="stylesheet">
 <link href="<c:url value='/css/nice-select.css' />" rel="stylesheet">
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-body">
 							
 								<div class="dashboard-wraper">
-									<form name="frmProfile" method="post" action="<c:url value='/mypage/profile' />">
+									<form name="frmProfile" method="post" enctype="multipart/form-data" action="<c:url value='/mypage/profile' />">
 								
 									<!-- Basic Information -->
 									<div class="frm_submit_block">	
@@ -81,86 +84,121 @@
 											
 												<div class="form-group col-md-6 generalMember">
 													<label>이름</label>
-													<input type="text" class="form-control profile_disabled" value="${vo.name }" disabled="disabled">
+													<input type="text" class="form-control profile_disabled" value="${memVo.name }" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>가입일</label>
 													<input type="text" class="form-control profile_disabled" 
-														value="<fmt:formatDate value="${vo.regdate }" pattern="yyyy년 MM월 dd일" />" disabled="disabled">
+														value="<fmt:formatDate value="${memVo.regdate }" pattern="yyyy년 MM월 dd일" />" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>회원분류</label>
-													<input type="text" class="form-control profile_disabled" value="${vo.type }" disabled="disabled">
+													<input type="text" class="form-control profile_disabled" value="${memVo.type }" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>이메일</label>
-													<input type="email" class="form-control" name="email" value="${vo.email }">
+													<input type="email" class="form-control" name="email" value="${memVo.email }">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>닉네임</label>
-													<input type="text" class="form-control" name="nickname" value="${vo.nickname }">
+													<input type="text" class="form-control" name="nickname" value="${memVo.nickname }">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">
 													<label>연락처</label>
-													<input type="text" class="form-control" name="tel" value="${vo.tel }">
+													<input type="text" class="form-control" name="tel" value="${memVo.tel }">
 												</div>
 												
 
 												
 												<div class="form-group col-md-6">
 													<label>전공</label>
-													<input type="text" class="form-control" value="컴퓨터공학과">
+													<input type="text" class="form-control" name="major" value="${expertVo.major }">
 												</div>
 												
 												<div class="form-group col-md-6">
 													<label>학력</label>
-													<input type="text" class="form-control" value="이젠대학교 공학석사">
+													<input type="text" class="form-control" name="grade" value="${expertVo.grade }">
 												</div> 
 												
 												<div class="form-group col-md-6">
 													<label>은행명</label>
-													<input type="text" class="form-control" value="하나은행">
+													<input type="text" class="form-control" name="bankName" value="${expertVo.bankName }">
 												</div> 
 												
 												<div class="form-group col-md-6">
-													<label>계좌번호</label>
-													<input type="text" class="form-control" value="395-111111-11111">
+													<label>계좌번호 (하이픈" - "을 빼고 입력해주세요)</label>
+													<input type="text" class="form-control" name="accountNo" value="${expertVo.accountNo }">
 												</div> 
 												
 												<div class="form-group col-md-12">
 													<label>보유 자격증</label>
-													<input type="text" class="form-control" value="정보처리기사">
+													<input type="text" class="form-control" name="certificate" value="${expertVo.certificate }">
 												</div> 
 												
 												<div class="form-group col-md-6">
 													<label>완료된 작업 건수</label>
-													<input type="text" class="form-control profile_disabled" value="13건" disabled="disabled">
+													<input type="text" class="form-control profile_disabled" value="${expertVo.workAmount }건" disabled="disabled">
 												</div> 
 												
 												<div class="form-group col-md-4">
 													<label>개발 경력</label>
-													<select id="bage" class="form-control">
+													<select id="bage" class="form-control" name="career">
 														<option value="">경력을 선택하세요</option>
-														<option value="1">0 - 1년</option>
-														<option value="2" selected="selected">1 - 3년</option>
-														<option value="3">3 - 5년</option>
-														<option value="4">5 - 10년</option>
-														<option value="5">10년+</option>
+														<option value="0,1">0 - 1년</option>
+														<option value="1,3" selected="selected">1 - 3년</option>
+														<option value="3,5">3 - 5년</option>
+														<option value="5,10">5 - 10년</option>
+														<option value="10,over">10년+</option>
 													</select>
 												</div>
+												
+												<script type="text/javascript">
+													$(function(){ /* 체크한 언어이름 라벨에 넣는 제이쿼리 */
+														$('.usableLangCheck li input[type=checkbox]').each(function(idx, item){
+															$(this).change(function(){
+																var lang = $(this).next().text();
+																var text = $('#usableLanguage').val();
+																var first = text.substr(0,1); 
+																text = text.replace(", ,",",");
+																
+																
+																if(first==" " || first==","){
+																	var text=text.substr(1,text.length);
+																	console.warn(text);
+																	$('#usableLanguage').val(text);
+																}
+																
+																if($(this).prop("checked")){ /* 체크상태라면 다음라벨값을 인풋에 넣는다 */
+																	if(text==""){
+																		$('#usableLanguage').val(text+lang);
+																	}else{
+																		$('#usableLanguage').val(text+','+lang);
+																	}
+																}else if(!$(this).prop("checked")){ 
+																	/* 체크를 풀면 다음레발값을 인풋에서 지우고 남은 쉼표도 제거한다 */
+																	var afterText = text.replace(lang,"");
+																	var afterText = afterText.replace(",,",",");
+																	$('#usableLanguage').val(afterText);
+																}
+															});
+														});
+													});
+												
+												</script>
+												
 												
 												<div class="form-group col-md-12">
 													<label>개발 가능 언어</label>
 													<div class="o-features">
-														<ul class="no-ul-list third-row">
+														<ul class="no-ul-list third-row usableLangCheck">
 															<li>
 																<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
-																<label for="a-1" class="checkbox-custom-label">C</label>
+																<label for="a-1" class="checkbox-custom-label">C </label>
 															</li>
 															<li>
 																<input id="a-2" class="checkbox-custom" name="a-2" type="checkbox">
@@ -171,23 +209,23 @@
 																<label for="a-3" class="checkbox-custom-label">C++</label>
 															</li>
 															<li>
-																<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox" checked="checked">
+																<input id="a-4" class="checkbox-custom" name="a-4" type="checkbox">
 																<label for="a-4" class="checkbox-custom-label">CSS</label>
 															</li>
 															<li>
-																<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox" checked="checked">
+																<input id="a-5" class="checkbox-custom" name="a-5" type="checkbox">
 																<label for="a-5" class="checkbox-custom-label">HTML</label>
 															</li>
 															<li>
-																<input id="a-6" class="checkbox-custom" name="a-6" type="checkbox" checked="checked">
+																<input id="a-6" class="checkbox-custom" name="a-6" type="checkbox">
 																<label for="a-6" class="checkbox-custom-label">Java</label>
 															</li>
 															<li>
-																<input id="a-7" class="checkbox-custom" name="a-7" type="checkbox" checked="checked">
+																<input id="a-7" class="checkbox-custom" name="a-7" type="checkbox">
 																<label for="a-7" class="checkbox-custom-label">JavaScript</label>
 															</li>
 															<li>
-																<input id="a-8" class="checkbox-custom" name="a-8" type="checkbox" checked="checked">
+																<input id="a-8" class="checkbox-custom" name="a-8" type="checkbox">
 																<label for="a-8" class="checkbox-custom-label">JSP</label>
 															</li>
 															<li>
@@ -199,7 +237,7 @@
 																<label for="a-10" class="checkbox-custom-label">Node.js</label>
 															</li>
 															<li>
-																<input id="a-11" class="checkbox-custom" name="a-11" type="checkbox" checked="checked">
+																<input id="a-11" class="checkbox-custom" name="a-11" type="checkbox">
 																<label for="a-11" class="checkbox-custom-label">Spring</label>
 															</li>
 															<li>
@@ -208,10 +246,17 @@
 															</li>
 														</ul>
 													</div>
+													<input type="text" name="language" id="usableLanguage"  style="width:100%">
+													
+													
+													
+													
+													
+													<input type="text" name="framework" id="usableFramework"  style="width:100%">
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
-													<textarea class="form-control">무조건 남보다 나은 결과물과 서비스를 제공하는것이 저의 목표입니다.
+													<textarea class="form-control" name="introduction">무조건 남보다 나은 결과물과 서비스를 제공하는것이 저의 목표입니다.
 
 우수한 퀄리티와 다양한 기능을 개발하여 합리적인 금액으로 납품해드리고있습니다 
 사후 서비스까지 책임지는 저에게 맡겨주세요</textarea>
@@ -229,7 +274,7 @@
 	
 															<div class="uploadBox_innerRight  preview-image">
 																<input type="hidden" class="upload_name" value="" disabled="disabled">
-																<input type="file" id="profileUpload"> <!-- file -->
+																<input type="file" id="profileUpload" name="upfile"> <!-- file -->
 															</div>
 	
 														</div>

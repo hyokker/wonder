@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ez.wonder.pd.model.PdDetailVO;
 import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
 import com.ez.wonder.skill.model.FrameworkVO;
@@ -29,6 +30,8 @@ public class PdWriteController {
 	=LoggerFactory.getLogger(PdWriteController.class);
 
 	private final SkillService skillService;
+	private final ProductService productService;
+	
 	
 
 	@GetMapping("/pdWrite")
@@ -53,23 +56,161 @@ public class PdWriteController {
 	public void pd_Write_post(HttpServletRequest httpServletRequest, Model model) {
 		logger.info("상품 등록");
 		
-		String pdTitle = httpServletRequest.getParameter("pdTitle");
-		logger.info(pdTitle);
+		ProductVO pd = new ProductVO();
+		pd.setUserId("test");
+		pd.setCateType("product");
+		
+		logger.info(httpServletRequest.getParameter("pdTitle").getClass().getName());
+		logger.info(httpServletRequest.getParameter("pdLang").getClass().getName());
+		logger.info(httpServletRequest.getParameter("pdFrame").getClass().getName());
 
-		String delType = httpServletRequest.getParameter("delType");
-		logger.info(delType);
+		
+		pd.setPdTitle(httpServletRequest.getParameter("pdTitle"));
+		pd.setLang(httpServletRequest.getParameter("pdLang"));
+		pd.setFrame(httpServletRequest.getParameter("pdFrame"));
+		productService.insertPd(pd);
+		
+		logger.info("PdNo : " + pd.getPdNo());
+		
+		
+		String priceType = httpServletRequest.getParameter("priceType");
 
-		String[] langs = httpServletRequest.getParameterValues("langchbox");
-		for(String lang : langs)
-			logger.info("langchbox : " + lang);
+		PdDetailVO pdDetail = null; 
 
-		String[] frames = httpServletRequest.getParameterValues("framechbox");
-		for(String frame : frames)
-			logger.info("framechbox : " + frame.toString());
+		if(priceType.equals("TYPE1")) {
+			pdDetail = new PdDetailVO();
+			pdDetail.setPdNo(pd.getPdNo());
+			pdDetail.setPdType(httpServletRequest.getParameter("pdType"));
+			pdDetail.setPdPrice(Integer.parseInt(httpServletRequest.getParameter("pdPrice")));
+			pdDetail.setPdTerm(Integer.parseInt(httpServletRequest.getParameter("pdTerm")));
+			pdDetail.setEditCount(Integer.parseInt(httpServletRequest.getParameter("editCount")));
+			pdDetail.setServiceExplanation(httpServletRequest.getParameter("serviceExplanation"));
+			pdDetail.setEditExplanation(httpServletRequest.getParameter("editExplanation"));
+			
+			if(httpServletRequest.getParameter("commercial").equals("true")) {
+				pdDetail.setCommercial("Y");
+			} else {
+				pdDetail.setCommercial("N");
+			}
+			if(httpServletRequest.getParameter("codeSupply").equals("true")) {
+				pdDetail.setCodeSupply("Y");
+			} else {
+				pdDetail.setCodeSupply("N");
+			}
+			if(httpServletRequest.getParameter("payment").equals("true")) {
+				pdDetail.setPayment("Y");
+			} else {
+				pdDetail.setPayment("N");
+			}
+			if(httpServletRequest.getParameter("customize").equals("true")) {
+				pdDetail.setCustomize("Y");
+			} else {
+				pdDetail.setCustomize("N");
+			}
+			logger.info(pdDetail.toString());
+			
+			productService.insertPdDetail(pdDetail);
+		} else {
+			pdDetail = new PdDetailVO();
+			pdDetail.setPdNo(pd.getPdNo());
+			pdDetail.setPdType(httpServletRequest.getParameter("pdType1"));
+			pdDetail.setPdPrice(Integer.parseInt(httpServletRequest.getParameter("pdPrice1")));
+			pdDetail.setPdTerm(Integer.parseInt(httpServletRequest.getParameter("pdTerm1")));
+			pdDetail.setEditCount(Integer.parseInt(httpServletRequest.getParameter("editCount1")));
+			pdDetail.setServiceExplanation(httpServletRequest.getParameter("serviceExplanation1"));
+			pdDetail.setEditExplanation(httpServletRequest.getParameter("editExplanation1"));
+			
+			if(httpServletRequest.getParameter("commercial1").equals("true")) {
+				pdDetail.setCommercial("Y");
+			} else {
+				pdDetail.setCommercial("N");
+			}
+			if(httpServletRequest.getParameter("codeSupply1").equals("true")) {
+				pdDetail.setCodeSupply("Y");
+			} else {
+				pdDetail.setCodeSupply("N");
+			}
+			if(httpServletRequest.getParameter("payment1").equals("true")) {
+				pdDetail.setPayment("Y");
+			} else {
+				pdDetail.setPayment("N");
+			}
+			if(httpServletRequest.getParameter("customize1").equals("true")) {
+				pdDetail.setCustomize("Y");
+			} else {
+				pdDetail.setCustomize("N");
+			}
+			logger.info(pdDetail.toString());
+			
+			productService.insertPdDetail(pdDetail);
+			
+			pdDetail = new PdDetailVO();
+			pdDetail.setPdNo(pd.getPdNo());
+			pdDetail.setPdType(httpServletRequest.getParameter("pdType2"));
+			pdDetail.setPdPrice(Integer.parseInt(httpServletRequest.getParameter("pdPrice2")));
+			pdDetail.setPdTerm(Integer.parseInt(httpServletRequest.getParameter("pdTerm2")));
+			pdDetail.setEditCount(Integer.parseInt(httpServletRequest.getParameter("editCount2")));
+			pdDetail.setServiceExplanation(httpServletRequest.getParameter("serviceExplanation2"));
+			pdDetail.setEditExplanation(httpServletRequest.getParameter("editExplanation2"));
+			
+			if(httpServletRequest.getParameter("commercial2").equals("true")) {
+				pdDetail.setCommercial("Y");
+			} else {
+				pdDetail.setCommercial("N");
+			}
+			if(httpServletRequest.getParameter("codeSupply2").equals("true")) {
+				pdDetail.setCodeSupply("Y");
+			} else {
+				pdDetail.setCodeSupply("N");
+			}
+			if(httpServletRequest.getParameter("payment2").equals("true")) {
+				pdDetail.setPayment("Y");
+			} else {
+				pdDetail.setPayment("N");
+			}
+			if(httpServletRequest.getParameter("customize2").equals("true")) {
+				pdDetail.setCustomize("Y");
+			} else {
+				pdDetail.setCustomize("N");
+			}
+			logger.info(pdDetail.toString());
+			
+			productService.insertPdDetail(pdDetail);
+
+			pdDetail = new PdDetailVO();
+			pdDetail.setPdNo(pd.getPdNo());
+			pdDetail.setPdType(httpServletRequest.getParameter("pdType3"));
+			pdDetail.setPdPrice(Integer.parseInt(httpServletRequest.getParameter("pdPrice3")));
+			pdDetail.setPdTerm(Integer.parseInt(httpServletRequest.getParameter("pdTerm3")));
+			pdDetail.setEditCount(Integer.parseInt(httpServletRequest.getParameter("editCount3")));
+			pdDetail.setServiceExplanation(httpServletRequest.getParameter("serviceExplanation3"));
+			pdDetail.setEditExplanation(httpServletRequest.getParameter("editExplanation3"));
+			
+			if(httpServletRequest.getParameter("commercial3").equals("true")) {
+				pdDetail.setCommercial("Y");
+			} else {
+				pdDetail.setCommercial("N");
+			}
+			if(httpServletRequest.getParameter("codeSupply3").equals("true")) {
+				pdDetail.setCodeSupply("Y");
+			} else {
+				pdDetail.setCodeSupply("N");
+			}
+			if(httpServletRequest.getParameter("payment3").equals("true")) {
+				pdDetail.setPayment("Y");
+			} else {
+				pdDetail.setPayment("N");
+			}
+			if(httpServletRequest.getParameter("customize3").equals("true")) {
+				pdDetail.setCustomize("Y");
+			} else {
+				pdDetail.setCustomize("N");
+			}
+			logger.info(pdDetail.toString());
+			
+			productService.insertPdDetail(pdDetail);
+
+		}
 		
 	}
-	
-	
-		
-		
 }
