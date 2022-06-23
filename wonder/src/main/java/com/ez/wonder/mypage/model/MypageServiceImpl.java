@@ -1,5 +1,7 @@
 package com.ez.wonder.mypage.model;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -7,6 +9,7 @@ import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberDAO;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.skill.model.LanguageVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,6 +71,11 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public ExpertImageVO selectExpertProfileById(String userId) {
 		return mypageDao.selectExpertProfileById(userId);
+	}
+
+	@Override
+	public List<LanguageVO> selectAllLanguage() {
+		return mypageDao.selectAllLanguage();
 	}
 
 

@@ -50,12 +50,12 @@ public class MemberController {
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", memVo.getName());
 			
-			msg=memVo.getUserId()+"님 로그인되었습니당.";
+			msg=memVo.getUserId()+"님 로그인되었습니다.";
 			url="/";
 		}else if(result==MemberService.DISAGREE_PWD) {	
-			msg="비밀번호가 일치하지 않습니당.";
+			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==MemberService.NONE_USERID) {
-			msg="해당 아이디가 존재하지 않습니당.";			
+			msg="해당 아이디가 존재하지 않습니다.";			
 		}
 		
 		model.addAttribute("msg", msg);
@@ -117,11 +117,24 @@ public class MemberController {
 	
 	@RequestMapping("/member/kakaoLogin")
 	public String kakaoLogin(@RequestParam(required = false) String email, @RequestParam(required = false) String nick,
-			@RequestParam(required = false) String img, Model model) {
+			@RequestParam(required = false) String img,
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Model model) {
 		logger.info("카카오 로그인 처리, 파라미터 email={},nick={},img={}",email,nick,img);
 		
+		String msg="로그인 처리 실패", url="/";
+		//[1] session에 저장
+		HttpSession session=request.getSession();
+		session.setAttribute("userId", nick);
+		session.setAttribute("userName", nick);
 		
-		return "/main/main";
+		msg=nick+"님 로그인되었습니당.";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
 		
 		
 	}
