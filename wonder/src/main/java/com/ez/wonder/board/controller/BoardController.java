@@ -165,7 +165,7 @@ public class BoardController {
 		File file = new File(uploadPath, fileName);
 		map.put("file", file);
 
-		ModelAndView mav = new ModelAndView("BoardDownloadView", map);
+		ModelAndView mav = new ModelAndView("boardDownloadView", map);
 
 		return mav;
 	}
