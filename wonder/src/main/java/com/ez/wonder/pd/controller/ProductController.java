@@ -82,17 +82,28 @@ public class ProductController {
 	@PostMapping("/review")
 	public String review(@ModelAttribute ReviewVO reviewVo,
 			HttpSession session, Model model) {
-		String userId=(String)session.getAttribute("userId");
-		logger.info("리뷰 등록 처리, 파라미터 reviewVo={}, userId={}", reviewVo, userId);
-		reviewVo.setUserId("hong");
+		logger.info("리뷰 등록 처리, 파라미터 reviewVo={}", reviewVo);
 		
-		int cnt=reviewService.writeReview(reviewVo);
-		logger.info("리뷰 등록 결과, cnt={}", cnt);
+		String result=formService.checkPayFlag(reviewVo);
+		logger.info("상품 구매여부 조회, result={}", result);
 		
 		String msg="리뷰 등록 실패했습니다.", url="/pd/pdDetail?pdNo="+reviewVo.getPdNo();
-		if(cnt>0) {
-			msg="리뷰가 등록되었습니다.";
+		if(result.equals("Y")) {
+			int reviewCount=reviewService.reviewCount(reviewVo);
+			if(reviewCount>0) {
+				msg="이미 리뷰를 등록하셨습니다.";
+			}else {
+				int cnt=reviewService.writeReview(reviewVo);
+				logger.info("리뷰 등록 결과, cnt={}", cnt);
+				
+				if(cnt>0) {
+					msg="리뷰가 등록되었습니다.";
+				}
+			}
+		}else {
+			msg="상품을 구매하시지 않았습니다.";
 		}
+		
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

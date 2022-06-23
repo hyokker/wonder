@@ -13,4 +13,8 @@
 	<select id="selectFormByUserId" parameterType="string" resultType="formVo">
 		select * from form where p_user_id=#{userId}
 	</select>
+	
+	<select id="selectCount" parameterType="reviewVo" resultType="int">
+		select count(*) from form where pd_no=#{pdNo} and user_id=#{userId} and pay_flag='Y'
+	</select>
 </mapper>

@@ -149,7 +149,7 @@
 <c:if test="${empty sessionScope.userId }">
 <ul class="nav-menu nav-menu-social align-to-right">
 	<li>
-		<a href="#" class="alio_green" data-toggle="modal" data-target="#login">
+		<a href="#" class="alio_green" data-toggle="modal" data-target="#login" id="topLogin">
 			<i class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">로그인 하세요</span>
 		</a>
 	</li>
