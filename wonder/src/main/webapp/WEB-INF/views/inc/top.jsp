@@ -130,7 +130,7 @@
 </ul> -->
 </li>
 
-<li><a href="#">Q&A게시판<span class="submenu-indicator"></span></a>
+<li><a href="<c:url value='/qna/qnaList'/>">Q&A게시판<span class="submenu-indicator"></span></a>
 <!-- 	<ul class="nav-dropdown nav-submenu">
 		<li><a href="blog.html">Blog Style</a></li>
 		<li><a href="about-us.html">About Us</a></li>
@@ -160,7 +160,29 @@
 <ul class="nav-menu nav-menu-social align-to-right">
 	<li>
 		${sessionScope.userId }님 환영합니다!
-<li><a href="<c:url value='/member/logout'/>">로그아웃</a></li>
+<li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li>
+	<button class="api-btn" onclick="unlinkApp()">앱 탈퇴하기</button>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script type="text/javascript">
+  		function unlinkApp() {
+			Kakao.init('e001f5b6437ab5c78a358d107808c37c');
+   			 Kakao.API.request({
+     		 url: '/v1/user/unlink',
+     		 success: function(res) {
+       		 alert('success: ' + JSON.stringify(res))
+      		},
+      		fail: function(err) {
+        		alert('fail: ' + JSON.stringify(err))
+      		},
+    		})
+ 		 }		
+	</script>
+	
+	
+	
+	
+	
+	
 	</li>
 	<li class="add-listing">
 		<c:if test="${userId=='admin'}">
