@@ -29,8 +29,21 @@ public class ProductServiceImpl implements ProductService{
 	public List<PdDetailVO> selcetPdDetail(int pdNo) {
 		return productDao.selcetPdDetail(pdNo);
 	}
+	
+	@Override
+	public List<ProductVO> selectAllPd() {
+		return productDao.selectAllPd();
+	}
 
 	@Override
+	public int insertPd(ProductVO item) {
+		return productDao.insertPd(item);
+	}
+
+	@Override
+	public int insertPdDetail(PdDetailVO item) {
+		return productDao.insertPdDetail(item);
+	}
 	public ExpertVO getExpertInfo(int pdNo) {
 		ProductVO vo=productDao.selcetProductByNo(pdNo);
 		String userId=vo.getUserId();

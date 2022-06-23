@@ -29,10 +29,11 @@ public class MemberController {
 	private final MemberService memberService;
 	
 	@PostMapping("/member/login")
-	public String login_post(@ModelAttribute MemberVO vo,
+	public String login_post(@ModelAttribute MemberVO vo, 
 			HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		logger.info("로그인 처리, 파라미터 vo={}", vo);
+		
 		
 		int result=memberService.checkLogin(vo.getUserId(), vo.getPwd());
 		logger.info("로그인 처리 결과 result={}", result);

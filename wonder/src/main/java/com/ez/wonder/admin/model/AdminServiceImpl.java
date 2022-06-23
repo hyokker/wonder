@@ -1,5 +1,6 @@
 package com.ez.wonder.admin.model;
 
+import java.io.Console;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.pd.model.ProductVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +24,21 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<MemberVO> selectMember(SearchVO searchVo){
 		return adminDao.selectMember(searchVo);
+	}
+	
+	@Override
+	public List<AdminVO> selectAdmin(SearchVO searchVo){
+		return adminDao.selectAdmin(searchVo);
+	}
+	
+	@Override
+	public List<ProductVO> selectProduct(SearchVO searchVo){
+		return adminDao.selectProduct(searchVo);
+	}
+	
+	@Override
+	public List<ProductVO> selectNonApprovalList(SearchVO searchVo) {
+		return adminDao.selectNonApprovalList(searchVo);
 	}
 	
 	@Override
@@ -48,9 +65,11 @@ public class AdminServiceImpl implements AdminService{
 			result=AdminService.NONE_USERID;
 		}
 		
+		logger.info("결과!!!!!!!!!!!!!!!!!!!!!!!!, 파라미터 result={}", result);
 		return result;
 	}
 	
+	@Override
 	public int updateAdmin(AdminVO adminVo) {
 		return adminDao.updateAdmin(adminVo);
 	}

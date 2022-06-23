@@ -1,4 +1,4 @@
-$(function () {
+/*$(function () {
     "use strict";
 
 
@@ -58,4 +58,4 @@ $(function () {
 				hideHover: 'auto'
 			
 		});
-}); 
+}); */
