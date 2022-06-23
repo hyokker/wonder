@@ -11,6 +11,7 @@
 }
 </style>
 <script type="text/javascript">
+	
 </script>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -41,10 +42,10 @@
 						<ul>
 							<li><a href="<c:url value='/admin/dashboard'/>"><i
 									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li class="active"><a
+							<li><a
 								href="<c:url value='/admin/memberList'/>"><i
 									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
-							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
+							<li class="active"><a href="<c:url value='/admin/nonApprovalEx'/>"><i
 									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
 							<li><a href="<c:url value='/admin/pdList'/>"><i
 									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
@@ -92,16 +93,6 @@
 									</div>
 								</div>
 
-								<div class="col-lg-2 col-md-2 col-sm-2">
-									<div class="form-group">
-										<select id="recipient" class="form-control">
-											<option value="1">등록일순</option>
-											<option value="2">거래건순</option>
-											<option value="3">방문일순</option>
-											<option value="4">이름순(오름차순)</option>
-										</select>
-									</div>
-								</div>
 
 							</div>
 						</div>
@@ -115,11 +106,11 @@
 										<thead class="thead-dark">
 											<tr>
 												<th scope="col">회원목록</th>
-												<th scope="col" class="m2_hide">최근 방문일</th>
-												<th scope="col" class="m2_hide">거래건수</th>
+												<th scope="col" class="m2_hide">회원번호</th>
+												<th scope="col" class="m2_hide">아이디</th>
 												<th scope="col" class="m2_hide">가입일</th>
 												<th scope="col">회원분류</th>
-												<th scope="col">삭제</th>
+												<th scope="col">승인 / 삭제</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -137,7 +128,6 @@
 																</div>
 																<div class="dash_prt_caption">
 																	<h5>${memberVo.name}</h5>
-																	<div class="prt_dashb_lot">${memberVo.memNo }</div>
 																	<div class="prt_dash_rate">
 																		<span>${memberVo.email }</span>
 																	</div>
@@ -146,16 +136,16 @@
 														</td>
 														<td class="m2_hide" id="daysago">
 															<div class="prt_leads">
-																<span>3일 전</span>
+																<span>${memberVo.memNo }</span>
 																<%-- ${Utility.lastVisit } --%>
 															</div>
 														</td>
 														<td class="m2_hide">
 															<div class="_leads_view">
-																<h5>3회</h5>
+																<h5>${memberVo.userId }</h5>
 															</div>
 															<div class="_leads_view_title">
-																<span>Number of deal</span>
+																<span>Id</span>
 															</div>
 														</td>
 														<td class="m2_hide">
@@ -174,12 +164,11 @@
 																<div class="_leads_status" id="type1">
 																	<span class="expire" id="type">프리랜서</span>
 																</div>
-															</c:if> <%-- 															<div class="_leads_status" id="type1">
-																<span class="active" id="type">${memberVo.type }</span>
-															</div> --%></td>
+															</c:if></td>
 														<td>
 															<div class="_leads_action">
-																<a href="#"><i class="fas fa-trash"></i></a>
+																<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
+																	class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>
@@ -195,7 +184,7 @@
 					</div>
 					<!-- row -->
 
-					<%@ include file="../adminInc/pagination.jsp"%>
+
 				</div>
 
 			</div>
