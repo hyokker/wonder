@@ -80,7 +80,7 @@
 										<div class="frm_submit_wrap">
 											<div class="form-row">
 												<div class="form-group col-md-12" id="content">
-													<label for="boardContent">내용</label>
+													<label for="qnaContent">내용</label>
 													<textarea class="form-control ht-120" rows="50"
 														cols="50" name="qnaContent" id="editor"></textarea>
 														<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>

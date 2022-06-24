@@ -86,7 +86,7 @@ function pageProc(currentPage) {
 									<span class="notice">공지</span>
 								</c:if>
 								<a
-									href="<c:url value='/qna/countUpdate?qnaNo='/>">
+									href="<c:url value='/qna/countUpdate?qnaNo=${vo.qnaNo }'/>">
 									<c:if test="${fn: length(vo.qnaTitle)>20}">
 					                  ${fn:substring(vo.qnaTitle,0,20) }...            
 					            </c:if> <c:if

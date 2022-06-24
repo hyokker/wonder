@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.wonder.board.model.BoardVO;
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.common.PaginationInfo;
@@ -42,7 +44,7 @@ public class QnaController {
 	public String qnaWrite_post(@ModelAttribute QnaVO vo,
 			HttpServletRequest request,
 			Model model) {
-logger.info("글쓰기 처리, 파라미터 vo={}",vo);
+		logger.info("글쓰기 처리, 파라미터 vo={}",vo);
 		
 		//파일 업로드 처리
 		String fileName="", oFileName="";
@@ -97,7 +99,46 @@ logger.info("글쓰기 처리, 파라미터 vo={}",vo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
+	}
+	
+	@RequestMapping("/qna/countUpdate")
+	public String countUpdate(@RequestParam(defaultValue = "0") int qnaNo, Model model) {
+		logger.info("조회수 증가, 파라미터 qnaNo={}", qnaNo);
 		
+		if(qnaNo==0) {
+			model.addAttribute("msg", "잘못된 url 접근입니다.");
+			model.addAttribute("url", "/board/list");
+			return "/common/message";
+		}
+		
+		int cnt=qnaService.updateCount(qnaNo);
+		logger.info("조회수 증가 결과, cnt={}", cnt);
+		
+		return "redirect:/qna/qnaDetail?qnaNo="+qnaNo;
+	}
+	
+	@RequestMapping("/qna/qnaDetail")
+	public String detail(@RequestParam(defaultValue = "0") int qnaNo,
+			HttpServletRequest request, Model model) {
+		logger.info("게시글 상세보기 파라미터 qnaNo={}", qnaNo);
+
+		if(qnaNo==0) {
+			model.addAttribute("msg", "잘못된 url 접근입니다");
+			model.addAttribute("url", "/qna/qnaList");
+			return "/common/message";
+		}
+
+		QnaVO vo=qnaService.selectByNo(qnaNo);
+		logger.info("상세보기결과, vo={}", vo);
+
+		String fileInfo
+		=fileUploadUtil.getFileInfo(vo.getOriginalFileName(), 
+				vo.getFileSize(), request);
+
+		model.addAttribute("vo", vo);
+		model.addAttribute("fileInfo", fileInfo);
+		
+		return "/qna/qnaDetail";
 		
 	}
 }
