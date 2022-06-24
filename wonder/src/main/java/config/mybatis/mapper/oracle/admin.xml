@@ -29,6 +29,30 @@
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
 
+	<select id="selectNonApprovalEx" resultType="memberVo"
+		parameterType="searchVo">
+		select *
+		from
+		(
+		select rownum as RNUM, B.*
+		from
+		(
+		select A.*
+		from memExGrantView A
+		<include refid="searchWhere"></include>
+		<if test="searchKeyword ==null or searchKeyword ==''"> where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			and
+		</if>
+		grant_flag = 'N'
+		)B
+		)
+		where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
+	</select>
+
 	<select id="selectProduct" resultType="productVo"
 		parameterType="searchVo">
 		select *
@@ -76,7 +100,8 @@
 		from
 		(
 		select A.*
-		from productFormView A
+		from
+		productFormView A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
 		</if>
@@ -87,7 +112,8 @@
 		order by form_regdate desc
 		)B
 		)
-		where RNUM>#{firstRecordIndex}
+		where
+		RNUM>#{firstRecordIndex}
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
