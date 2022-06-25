@@ -23,6 +23,7 @@ import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.mypage.model.MypageService;
+import com.ez.wonder.skill.model.LanguageVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -88,6 +89,18 @@ public class MypageController {
 		if(type.equals("프리랜서")) {
 			vo = mypageService.selectExpertById(userId);
 			logger.info("프로필 페이지 프리랜서 정보조회 expertVo={}", vo);
+			
+			
+			String language = vo.getLanguage();
+			String[] langArr = language.split(",");
+			logger.info("langArr.length={}",langArr.length);
+			
+			List<LanguageVO> langList = mypageService.selectAllLanguage();
+			logger.info("langList.size={}",langList.size());
+			
+			model.addAttribute("langArr",langArr); //전문가 사용가능 언어
+			model.addAttribute("langList",langList); //전체 언어
+			
 		}
 		logger.info("프로필 페이지 memVo={}",memVo);
 		
@@ -112,57 +125,59 @@ public class MypageController {
 		String fileName="", originFileName="";
 		long fileSize=0;
 		List<Map<String, Object>> fileList=null;
+		
 		if(check>0) {
 			expertVo.setUserId(userId);
 			freeCnt = mypageService.updateFree(expertVo);
-			logger.info("프리랜서 업데이트 결과, freeCnt={}", freeCnt);
+			logger.info("프리랜서 업데이트 결과, freeCnt={}, expertVo={}", freeCnt, expertVo);
 			
 			//파일 업로드
 			try {
 				fileList = fileUploadUtil.profileUpload(request, ConstUtil.EXPERT_PROFILE_IMAGE);
-				
-				for(Map<String, Object> fileMap : fileList) {
-					originFileName=(String) fileMap.get("originalFileName");
-					fileName=(String) fileMap.get("fileName");
-					fileSize=(long)fileMap.get("fileSize");
-					logger.info("파일 업로드 성공, fileName={}, fileSize={}",fileName, fileSize);
-				} //for
-				
+				logger.info("fileList 사이즈 ={}",fileList.size());
+				if(fileList.size()!=0 && !fileList.isEmpty()) {
+					
+					for(Map<String, Object> fileMap : fileList) {
+						originFileName=(String) fileMap.get("originalFileName");
+						fileName=(String) fileMap.get("fileName");
+						fileSize=(long)fileMap.get("fileSize");
+						logger.info("파일 업로드 성공, fileName={}, fileSize={}",fileName, fileSize);
+					
+						//프로필사진 올리는부분
+						profileVo.setUserId(userId);
+						profileVo.setFileName(fileName);
+						profileVo.setOriginalFileName(originFileName);
+						profileVo.setFileSize(fileSize);
+						profileVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
+						
+						int profileCnt = mypageService.insertExpertProfile(profileVo);
+						logger.info("전문가사진 vo, profileVo={}",profileVo);
+						logger.info("파일 업로드 완료 profileCnt={}", profileCnt);
+						
+						//이전파일이름
+						//메소드를 count(*)갯수로 바꾸고, (2이상이 나올경우 expert_img_no가 가장 작은값 삭제) 이걸 반복해서 2이하까지
+						int checkCountProfile = mypageService.checkExpertProfileById(userId);
+						logger.info("현재 프로필사진 갯수={}",checkCountProfile);
+						if(checkCountProfile>1) {
+							while(true) {
+								int deleteDupProfileCnt = mypageService.deleteDupExpertProfile(userId);
+								int checkCount = mypageService.checkExpertProfileById(userId);
+								logger.info("중복 프로필 사진 삭제 결과 cnt={}, 남은 프로필사진 갯수={}",deleteDupProfileCnt,checkCount);
+								if(checkCount==1) {
+									break;
+								}
+							}
+						}
+					} //for
+				}//if
+					
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			//프로필사진 올리는부분
-			profileVo.setUserId(userId);
-			profileVo.setFileName(fileName);
-			profileVo.setOriginalFileName(originFileName);
-			profileVo.setFileSize(fileSize);
-			profileVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
-			
-			int profileCnt = mypageService.insertExpertProfile(profileVo);
-			logger.info("전문가사진 vo, profileVo={}",profileVo);
-			logger.info("파일 업로드 완료 profileCnt={}", profileCnt);
 
-			//이전파일이름
-			//메소드를 count(*)갯수로 바꾸고, (2이상이 나올경우 expert_img_no가 가장 작은값 삭제) 이걸 반복해서 2이하까지
-			int checkCountProfile = mypageService.checkExpertProfileById(userId);
-			logger.info("현재 프로필사진 갯수={}",checkCountProfile);
-			if(checkCountProfile>1) {
-				while(true) {
-					int deleteDupProfileCnt = mypageService.deleteDupExpertProfile(userId);
-					int checkCount = mypageService.checkExpertProfileById(userId);
-					logger.info("중복 프로필 사진 삭제 결과 cnt={}, 남은 프로필사진 갯수={}",deleteDupProfileCnt,checkCount);
-					if(checkCount==1) {
-						break;
-					}
-				}
-			}
-			
-
-
-		}
+		} //전문가용 if종료
 		
 		
 		

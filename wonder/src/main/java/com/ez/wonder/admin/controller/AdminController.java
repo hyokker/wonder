@@ -14,15 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.jsf.FacesContextUtils;
 
 import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.AdminVO;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
-import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
-import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
 
 import lombok.RequiredArgsConstructor;
@@ -242,6 +239,32 @@ public class AdminController {
 		model.addAttribute("url", url);
 
 		return "/common/message";
+	}
+	
+	@RequestMapping("/nonApprovalEx")
+	public String get_NonApprovalEx(@ModelAttribute SearchVO searchVo, Model model) {
+		logger.info("전문가 승인 대기 목록, 파라미터 searchVo={}", searchVo);
+		
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(5);
+		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(9);
+		
+		List<MemberVO> list = adminService.selectNonApprovalEx(searchVo);
+		logger.info("전문가 승인 대기 목록 조회 결과, list.size={}", list.size());
+		
+		int totalRecord = adminService.getTotalRecord(searchVo);
+		logger.info("거래대기 목록 totalRecord={}", totalRecord);
+
+		pagingInfo.setTotalRecord(totalRecord);
+
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+
+		return "/admin/nonApprovalEx";
 	}
 
 	@RequestMapping("/nonApprovalList")

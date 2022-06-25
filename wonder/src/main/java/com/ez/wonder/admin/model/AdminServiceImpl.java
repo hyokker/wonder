@@ -37,6 +37,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public List<MemberVO> selectNonApprovalEx(SearchVO searchVo){
+		return adminDao.selectNonApprovalEx(searchVo);
+	}
+	
+	@Override
 	public List<ProductVO> selectNonApprovalList(SearchVO searchVo) {
 		return adminDao.selectNonApprovalList(searchVo);
 	}
@@ -64,8 +69,7 @@ public class AdminServiceImpl implements AdminService{
 		}else {
 			result=AdminService.NONE_USERID;
 		}
-		
-		logger.info("결과!!!!!!!!!!!!!!!!!!!!!!!!, 파라미터 result={}", result);
+	
 		return result;
 	}
 	
