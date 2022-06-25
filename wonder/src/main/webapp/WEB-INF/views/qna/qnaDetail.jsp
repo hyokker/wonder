@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/board.css'/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/css/board.css'/>" />
 <title>wonder - QNA게시판 상세보기</title>
 
 <section class="gray">
@@ -11,29 +12,28 @@
 			<div class="col-lg-8 col-md-12">
 				<div class="property_block_wrap">
 					<div class="property_block_wrap_header">
-					<!-- 제목 -->
+						<!-- 제목 -->
 						<div class="title">
 							<h3 class="property_block_title">
 								<c:choose>
 									<c:when test="${vo.cateType=='Q'}">
-										<em class="board_category notice">공지</em> 
+										<em class="board_category">질문</em>
 									</c:when>
 									<c:otherwise>
-										<em class="board_category">일반</em> 
+										<em class="board_category">일반</em>
 									</c:otherwise>
 								</c:choose>
 								${vo.qnaTitle}
 							</h3>
 						</div>
 						<div class="register_info right">
-							<span class=""><i class="ti-user theme-cl"> ${vo.userId}</i></span> |
-							<span class=""><i class="ti-calendar">
-							<fmt:formatDate value="${vo.qnaRegdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-								</i></span> |
-							<span><em class="ic ic_view"></em>${vo.readCount}</span> |
-							<span class=""><i class="fa fa-share"> 공유</i></span>
-							
-<em class="ic ic_more"></em>							
+							<span class=""><i class="ti-user theme-cl">
+									${vo.userId}</i></span> | <span class=""><i class="ti-calendar">
+									<fmt:formatDate value="${vo.qnaRegdate}"
+										pattern="yyyy-MM-dd HH:mm:ss" />
+							</i></span> | <span><em class="ic ic_view"></em>${vo.readCount}</span> | <span
+								class=""><i class="fa fa-share"> 공유</i></span> <em
+								class="ic ic_more"></em>
 						</div>
 						<hr>
 					</div>
@@ -41,16 +41,16 @@
 						<div class="right">
 							<span class="upfile">첨부파일</span>
 							<c:if test="${!empty vo.fileName }">
-								<span> 
-									<a href=
-"<c:url value='/qna/download?qnaNo=${param.qnaNo}&fileName=${vo.fileName}'/>">
-										${fileInfo}
-									</a></span>
-									<!-- 
+								<span> <a
+									href="<c:url value='/qna/download?qnaNo=${param.qnaNo}&fileName=${vo.fileName}'/>">
+										${fileInfo} </a></span>
+								<!-- 
 								 -->
 							</c:if>
 						</div>
-						<%pageContext.setAttribute("newLine", "\r\n");%>
+						<%
+						pageContext.setAttribute("newLine", "\r\n");
+						%>
 						<div class="lastDiv">
 							<p class="content">${fn:replace(vo.qnaContent, newLine, "<br>")}</p>
 						</div>

@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/board.css'/>" />
 
-<title>wonder - 자유게시판 수정하기</title>
+<title>wonder - QNA 게시판 수정하기</title>
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 
@@ -18,7 +18,7 @@
 	<div class="container">
 		<div class="row">
 			<form name="frmWrite" method="post" enctype="multipart/form-data"
-				action="<c:url value='/board/edit'/>">
+				action="<c:url value='/qna/qnaEdit'/>">
 				<input type="hidden" name="no" value="${param.no }" />
 				<fieldset>
 					<!-- Submit Form -->
@@ -37,7 +37,7 @@
 										<div class="form-group col-md-7" id="">
 											<label for="boardTitle">제목</label> <input type="text"
 												class="form-control" name="boardTitle" id="boardTitle"
-												value="${vo.boardTitle}" />
+												value="${vo.qnaTitle}" />
 										</div>
 										<div class="form-group col-md-4 box"></div>
 
@@ -77,7 +77,7 @@
 												<div class="form-group col-md-12" id="content">
 													<label for="boardContent">내용</label>
 													<textarea class="form-control ht-120" rows="50" cols="50"
-														id="boardContent">${vo.boardContent}</textarea>
+														id="boardContent">${vo.qnaContent}</textarea>
 												</div>
 											</div>
 										</div>
@@ -86,11 +86,11 @@
 									<div class="form-group" id="submitlist">
 										<div class="col-lg-12 col-md-12">
 											<button class="btn btn-theme" type="button" id=""
-												onclick="location.href='<c:url value='board/edit?boardNo=${param.boardNo}'/>'">
+												onclick="location.href='<c:url value='/qna/qnaEdit?qnaNo=${param.qnaNo}'/>'">
 												<i class="fa fa-pen-nib"></i> 수정
 											</button>
 											<button class="btn btn-theme" type="button" id="btlist"
-												onclick="location.href='<c:url value='board/list'/>'">
+												onclick="location.href='<c:url value='/qna/qnaList'/>'">
 												<span class="ti-view-list"></span> 목록
 											</button>
 

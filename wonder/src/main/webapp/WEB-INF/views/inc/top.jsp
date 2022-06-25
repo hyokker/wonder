@@ -160,9 +160,9 @@
 <ul class="nav-menu nav-menu-social align-to-right">
 	<li>
 		${sessionScope.userId }님 환영합니다!
-		<input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/>
+		<%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
 <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li>
-	<button class="api-btn" onclick="unlinkApp()">앱 탈퇴하기</button>
+	<button class="api-btn" onclick="unlinkApp()">카카오 로그아웃</button>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
   		function unlinkApp() {
