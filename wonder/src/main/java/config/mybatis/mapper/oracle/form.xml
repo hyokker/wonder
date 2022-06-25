@@ -11,7 +11,7 @@
 	</insert>
 	
 	<select id="selectFormByUserId" parameterType="string" resultType="formVo">
-		select * from form where p_user_id=#{userId}
+		select * from form where p_user_id=#{userId} and pay_flag='Y'
 	</select>
 	
 	<select id="selectCount" parameterType="reviewVo" resultType="int">

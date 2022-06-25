@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.form.model.FormService;
 import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertVO;
+import com.ez.wonder.noneDup.model.NoneDupService;
 import com.ez.wonder.noneDup.model.NoneDupVO;
 import com.ez.wonder.pd.model.PdDetailVO;
 import com.ez.wonder.pd.model.ProductService;
@@ -37,12 +39,15 @@ public class ProductController {
 	private final ProductService productService;
 	private final ReviewService reviewService;
 	private final FormService formService;
+	private final NoneDupService noneDupService;
 	
 	//http://localhost:9095/wonder/pd/pdDetail?pdNo=1
 	@GetMapping("/pdDetail")
 	public String pdDetail_get(@RequestParam(defaultValue = "0") int pdNo,
-			Model model) {
-		logger.info("상품 상세 화면, 파라미터 pdNo={}", pdNo);
+			HttpSession session, Model model) {
+		String userId=(String) session.getAttribute("userId");
+		userId="hong";	//test
+		logger.info("상품 상세 화면, 파라미터 pdNo={}, userId={}", pdNo, userId);
 		
 		if(pdNo == 0) {
 			model.addAttribute("msg","잘못된 접근입니다.");
@@ -61,22 +66,47 @@ public class ProductController {
 		logger.info("리뷰 평점 조회, map={}", map);
 		ExpertVO expertVo=productService.getExpertInfo(pdNo);
 		logger.info("판매자 정보 조회, expertVo={}", expertVo);
+		int heartCount=0;
+		if(userId != null && !userId.isEmpty()) {
+			NoneDupVO dupVo=new NoneDupVO();
+			dupVo.setUserId(userId);
+			dupVo.setPdNo(pdNo);
+			heartCount=noneDupService.checkUserId(dupVo);
+		}
+		logger.info("찜하기 정보 조회, heartCount={}", heartCount);
 		
 		model.addAttribute("pdVo", pdVo);
 		model.addAttribute("list", list);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("map", map);
 		model.addAttribute("expertVo", expertVo);
+		model.addAttribute("heartCount", heartCount);
 		
 		return "/pd/pdDetail";
 	}
 	
 	@PostMapping("/noneDup")
-	public String pdDetail_post(@ModelAttribute NoneDupVO vo,
+	public String noneDup_post(@ModelAttribute NoneDupVO vo,
 			Model model) {
 		logger.info("찜하기 처리, 파라미터 vo={}", vo);
+		vo.setUserId("hong");	//test
 		
-		return "";
+		int result=noneDupService.clickHeart(vo);
+		logger.info("찜하기 처리 결과, result={}", result);
+		
+		String msg="찜하기/찜해제 실패", url="/pd/pdDetail?pdNo="+vo.getPdNo();
+		if(result>0) {
+			if(result==ConstUtil.ADDHEART) {
+				msg="찜 등록";
+			}else if(result==ConstUtil.REMOVEHEART) {
+				msg="찜 해제";
+			}
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
 	}
 	
 	@PostMapping("/review")
@@ -115,6 +145,7 @@ public class ProductController {
 	public String form(@ModelAttribute FormVo formVo,
 			Model model) {
 		logger.info("의뢰서 등록 처리, 파라미터 formVo={}", formVo);
+		formVo.setUserId("kim");	//test
 		
 		int cnt=formService.insertForm(formVo);
 		logger.info("의뢰서 등롤 결과, cnt={}", cnt);

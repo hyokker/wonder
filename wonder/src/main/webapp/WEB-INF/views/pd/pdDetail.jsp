@@ -65,7 +65,11 @@
 								<div class="property_detail_section">
 									<div class="prt-sect-pric">
 										<ul class="_share_lists">
-											<li><a href="#"><i class="fa fa-heart" style="color: red"></i></a></li>
+											<li><a href="#"><i class="fa fa-heart" 
+											<c:if test="${heartCount > 0 }">
+												style="color: red"
+											</c:if>
+											id="heart"></i></a></li>
 											<li style="padding-left: 5px">찜하기</li>
 										</ul>
 									</div>
@@ -398,35 +402,37 @@
 								<!-- star percentage -->
 								<div class="block-body">
 									<div class="rating-overview">
-										<span class="avgScore">AvgScore</span>
-										<div class="rating-overview-box">
-											<div class="rating">
-											    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											    </span>
-											    <span class="rating-lower">
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											    </span>
-											</div>
-										</div>
-										<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
-										<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
+										<c:if test="${empty reviewList }">
+											<span style="margin: 0 auto;">등록된 리뷰가 없습니다.</span>
+										</c:if>
+										<c:if test="${!empty reviewList }">
+												<span class="avgScore">AvgScore</span>
+												<div class="rating-overview-box">
+													<div class="rating">
+													    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													    </span>
+													    <span class="rating-lower">
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													    </span>
+													</div>
+												</div>
+												<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
+												<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
+										</c:if>
 									</div>
 							
 									<div class="author-review">
 										<div class="comment-list">
 											<ul>
-												<c:if test="${empty reviewList }">
-													<li style="text-align: center;">등록된 리뷰가 없습니다.</li>
-												</c:if>
 												<c:if test="${!empty reviewList }">
 													<c:forEach var="reviewVo" items="${reviewList }" varStatus="status">
 														<li class="article_comments_wrap 
@@ -738,11 +744,11 @@
      	//처음 날짜 자동 덧셈
      	$('.choose_package').click(function(){
      		//로그인 체크
-     		if($('input[name=userId]').val().length<1){
+     		/* if($('input[name=userId]').val().length<1){
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
         		return false;
-        	}
+        	} */
      		date = new Date();
      		var today=getDate(date, 0);
      		$('input[name="orderstart"]').val(today);
@@ -790,12 +796,24 @@
         });
         
         //로그인 체크
-        $('form[name=frm]').submit(function(){
+        /* $('form[name=frm]').submit(function(){
         	if($('input[name=userId]').val().length<1){
         		event.preventDefault();
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
         	}
+        }); */
+        
+        //찜하기
+        $('#heart').click(function(){
+        	//로그인 체크
+     		/* if($('input[name=userId]').val().length<1){
+        		alert("먼저 로그인하세요");
+        		$('#topLogin').click();
+        		return false;
+        	} */
+        	$('form[name=frmB]').attr('action','<c:url value="/pd/noneDup"/>');
+        	$('form[name=frmB]').submit();
         });
         
     });

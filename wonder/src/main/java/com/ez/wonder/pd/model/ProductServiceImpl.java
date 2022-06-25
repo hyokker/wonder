@@ -44,6 +44,7 @@ public class ProductServiceImpl implements ProductService{
 	public int insertPdDetail(PdDetailVO item) {
 		return productDao.insertPdDetail(item);
 	}
+	
 	public ExpertVO getExpertInfo(int pdNo) {
 		ProductVO vo=productDao.selcetProductByNo(pdNo);
 		String userId=vo.getUserId();
