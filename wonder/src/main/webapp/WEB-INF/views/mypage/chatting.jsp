@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="../inc/top.jsp" %>
-<%@ include file="incSide.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:import url="/mypage/incSide" />
+<%-- <%@ include file="incSide.jsp" %> --%>
 <input type="hidden" id="pageCheck" value="chatting">
 
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
