@@ -82,11 +82,11 @@ function pageProc(currentPage) {
 							</c:if>
 							<c:if test="${vo.delType!='Y'}">
 								<!--공지인 경우  -->
-								<c:if test="${vo.cateType!='N' }">
-									<span class="notice">공지</span>
+								<c:if test="${vo.cateType=='Q' }">
+									<span class="notice">질문</span>
 								</c:if>
 								<a
-									href="<c:url value='/qna/countUpdate?qnaNo='/>">
+									href="<c:url value='/qna/countUpdate?qnaNo=${vo.qnaNo }'/>">
 									<c:if test="${fn: length(vo.qnaTitle)>20}">
 					                  ${fn:substring(vo.qnaTitle,0,20) }...            
 					            </c:if> <c:if
@@ -175,13 +175,42 @@ function pageProc(currentPage) {
 
 	</form>
 </div>
+
+<script type="text/javascript">
+$(function(){
+	$('.prt_submit_link').click(function(){
+		alert("이잉");
+		if($('input[name=qnaWrite]').val()==''){
+			alert('먼저 로그인 하세요');
+			event.preventDefault();
+		}
+	});
+});
+
+</script>
+
+<input type="hidden" name="qnaWrite" value="${sessionScope.userId }">
+
+
 <div class="_prt_filt_dash_last m2_hide">
 	<div class="_prt_filt_radius"></div>
-	<div class="_prt_filt_add_new">
-		<a href="<c:url value="/qna/qnaWrite"/>"
-				class="prt_submit_link"><i class="fas fa-edit"></i><span
-				class="d-non`e d-lg-block d-md-block">글쓰기</span></a>
+	<c:if test="${!empty sessionScope.userId }">
+	<div class="_prt_filt_add_new" style="margin-bottom: 12px;">
+		<a href="<c:url value="/qna/qnaWrite"/>" class="prt_submit_link">
+		<i class="fas fa-edit"></i>
+		<span class="d-non`e d-lg-block d-md-block" class="qnaWrite">글쓰기</span>
+		</a>
 		</div>
+	</c:if>
+
+	<c:if test="${empty sessionScope.userId }">
+	<div class="_prt_filt_add_new" style="margin-bottom: 12px;">
+		<a href="<c:url value="/qna/qnaWrite"/>" class="prt_submit_link">
+		<i class="fas fa-edit"></i>
+		<span class="d-non`e d-lg-block d-md-block" class="qnaWrite">로그인</span>
+		</a>
+		</div>
+	</c:if>
 	</div>
 </div>
 <!--페이지이동  -->

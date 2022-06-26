@@ -13013,6 +13013,7 @@ table.property-table-wrap .dashboard_propert_wrapper .title .table-property-pric
     color: #ffffff;
     background: #27ae60;
     border-radius: 0.2rem;
+    width: 110px;
 }
 ._prt_filt_add_new .prt_submit_link i {
     color:#3cd67d;

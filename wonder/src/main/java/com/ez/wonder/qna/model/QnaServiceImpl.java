@@ -32,4 +32,16 @@ public class QnaServiceImpl implements QnaService{
 		return qnaDao.getTotalRecord(searchVo);
 	}
 
+
+	@Override
+	public int updateCount(int qnaNo) {
+		return qnaDao.updateCount(qnaNo);
+	}
+
+
+	@Override
+	public QnaVO selectByNo(int qnaNo) {
+		return qnaDao.selectByNo(qnaNo);
+	}
+
 }

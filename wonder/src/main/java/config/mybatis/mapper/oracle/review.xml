@@ -18,4 +18,8 @@
 	<select id="getAvgScore" parameterType="int" resultType="map">
 		select sum(rating)/count(*) as avgScore, count(*) as total from review where pd_no=#{pdNo}
 	</select>
+	
+	<select id="reviewCount" parameterType="reviewVo" resultType="int">
+		select count(*)	from review where user_id=#{userId} and pd_no=#{pdNo}
+	</select>
 </mapper>
