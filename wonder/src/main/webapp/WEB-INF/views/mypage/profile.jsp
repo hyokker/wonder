@@ -216,7 +216,7 @@
 													<br>
 													<label>개발 가능 언어</label>
 													<div class="o-features">
-														<ul class="no-ul-list third-row usableLangCheck">
+														<ul class="no-ul-list third-row usableLangCheck" style="justify-content:start">
 															<c:forEach var="vo" items="${langList }">
 															<li class="langLi">
 																<c:set var="usableLang" value="N" />
