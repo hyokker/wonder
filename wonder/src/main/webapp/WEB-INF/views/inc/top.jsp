@@ -53,26 +53,23 @@
 <ul class="nav-menu">
 
 	<li class="active"><a href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span class="submenu-indicator"></span></a>
-<!-- <ul class="nav-dropdown nav-submenu">
-	<li><a href="index.html">서비스 소개</a></li>
-<li><a href="home-2.html">Home 2</a></li>
-	<li><a href="home-3.html">Home 3</a></li>
-	<li><a href="home-4.html">Home 4</a></li>
-	<li><a href="home-5.html">Home 5</a></li>
-	<li><a href="home-6.html">Home 6</a></li>
-	<li><a href="home-7.html">Home 7</a></li>
-	<li><a href="map.html">Map Home</a></li>
-	</ul> -->
+
 </li>
 
-<li><a href="<c:url value='/pd/pdList'/>">상품 목록<span class="submenu-indicator"></span></a>
+<li>
+	<a>상품 목록
+		<span class="submenu-indicator"></span>
+	</a>
 	<ul class="nav-dropdown nav-submenu">
-		 <li><a href="#">언어별 상품 목록<span class="submenu-indicator"></span></a>
-		 	<ul class="nav-dropdown nav-submenu">
-	<li><a href="grid-layout-with-sidebar.html">JAVA</a></li>
-	<li><a href="grid-layout-2.html">ORACLE</a></li>
-	<li><a href="grid-layout-3.html">SPRING</a></li>
-</ul>
+		 <li>
+		 	<a href="<c:url value='/pd/pdList'/>"">언어별 상품 목록<span class="submenu-indicator">
+		 		</span>
+		 		</a>
+<!-- 		 	<ul class="nav-dropdown nav-submenu">
+				<li><a href="grid-layout-with-sidebar.html">JAVA</a></li>
+				<li><a href="grid-layout-2.html">ORACLE</a></li>
+				<li><a href="grid-layout-3.html">SPRING</a></li>
+			</ul>  -->
 </li>
 <!-- <li><a href="#">가격별 상품 목록<span class="submenu-indicator"></span></a>
 	<ul class="nav-dropdown nav-submenu">
@@ -106,7 +103,7 @@
 	</ul>
 </li>
 
-<li><a href="#">자유게시판<span class="submenu-indicator"></span></a>
+<li><a href="<c:url value='/board/list'/>">자유게시판<span class="submenu-indicator"></span></a>
 	<!-- <ul class="nav-dropdown nav-submenu">
 	<li class=""><a href="#">User Admin<span class="submenu-indicator"></span></a>
 		<ul class="nav-dropdown nav-submenu">

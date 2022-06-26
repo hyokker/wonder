@@ -73,4 +73,9 @@
 		update qna set down_count=down_count+1
 		where qna_no=#{qnaNo}
 	</update>
+	
+	<delete id="deleteQna" parameterType="int">
+		delete qna 
+		where qna_no=#{qnaNo}
+	</delete>
 </mapper>

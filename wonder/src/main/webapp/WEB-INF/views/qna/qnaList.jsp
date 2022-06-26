@@ -194,23 +194,12 @@ $(function(){
 
 <div class="_prt_filt_dash_last m2_hide">
 	<div class="_prt_filt_radius"></div>
-	<c:if test="${!empty sessionScope.userId }">
 	<div class="_prt_filt_add_new" style="margin-bottom: 12px;">
 		<a href="<c:url value="/qna/qnaWrite"/>" class="prt_submit_link">
 		<i class="fas fa-edit"></i>
 		<span class="d-non`e d-lg-block d-md-block" class="qnaWrite">글쓰기</span>
 		</a>
 		</div>
-	</c:if>
-
-	<c:if test="${empty sessionScope.userId }">
-	<div class="_prt_filt_add_new" style="margin-bottom: 12px;">
-		<a href="<c:url value="/qna/qnaWrite"/>" class="prt_submit_link">
-		<i class="fas fa-edit"></i>
-		<span class="d-non`e d-lg-block d-md-block" class="qnaWrite">로그인</span>
-		</a>
-		</div>
-	</c:if>
 	</div>
 </div>
 <!--페이지이동  -->

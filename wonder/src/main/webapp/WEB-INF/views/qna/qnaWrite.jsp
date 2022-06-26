@@ -6,13 +6,10 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/board.css'/>" />
 
 <title>wonder - QNA게시판 글쓰기</title>
-<c:if test="${empty sessionScope.userId}">
 
-</c:if>
-<script type="text/javascript">
-
-
-</script>
+ <style>
+  .ck-editor__editable { height: 300px; }
+</style>
 
 <section>
 	<div class="container">
@@ -76,12 +73,11 @@
 				<label for="qnaContent">내용</label>
 				<textarea class="form-control ht-120" rows="50"
 					cols="50" name="qnaContent" id="editor"></textarea>
-					
-          										<script>
-           									ClassicEditor.create( document.querySelector( '#editor' ), {
-              										language: "ko"
-           									});
-     										 </script>
+			<script>
+			ClassicEditor.create( document.querySelector( '#editor' ), {
+							language: "ko"
+			});
+	 		</script>
 			</div>
 		</div>
 	</div>
