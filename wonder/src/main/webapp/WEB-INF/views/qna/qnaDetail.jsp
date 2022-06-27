@@ -70,11 +70,12 @@ pageContext.setAttribute("newLine", "\r\n");
 		});
 		
 		$('#btdelete').click(function(){
-			var con=confirm('삭제하시겠습니까?');
+			
 			if($('#sessionId').val()!=$('#userId').val()){
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
+				var con=confirm('삭제하시겠습니까?'); //변수에 집어넣어도 컨펌창은 뜬다.(if문 안에서 다시 선언해라)
 				if(con){
 					location.href="<c:url value='/qna/qnaDelete?qnaNo='/>"+$('#qnaNo').val();
 				}else if(!con){
