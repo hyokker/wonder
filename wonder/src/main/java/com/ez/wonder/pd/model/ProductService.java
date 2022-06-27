@@ -14,4 +14,5 @@ public interface ProductService {
 	int insertPd(ProductVO item);
 	int insertPdDetail(PdDetailVO item);
 	ExpertVO getExpertInfo(int pdNo);
+	int insertPdImage(PdImageVO item);
 }
