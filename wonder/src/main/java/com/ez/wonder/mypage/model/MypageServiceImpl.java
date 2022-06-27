@@ -9,6 +9,7 @@ import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberDAO;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
 
 import lombok.RequiredArgsConstructor;
@@ -76,6 +77,11 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<LanguageVO> selectAllLanguage() {
 		return mypageDao.selectAllLanguage();
+	}
+
+	@Override
+	public List<FrameworkVO> selectAllFramework() {
+		return mypageDao.selectAllFramework();
 	}
 
 
