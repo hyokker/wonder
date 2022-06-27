@@ -33,12 +33,14 @@
 									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
 							<li><a href="<c:url value='/admin/memberList'/>"><i
 									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
+							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
+									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
 							<li><a href="<c:url value='/admin/pdList'/>"><i
 									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
 							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
 									class="fa fa-bookmark"></i>거래대기 목록<span
 									class="notti_coun style-2">7</span></a></li>
-							<li><a href="s<c:url value='/admin/subadminList'/>"><i
+							<li><a href="<c:url value='/admin/subadminList'/>"><i
 									class="fa fa-id-badge"></i>부서별 관리자 관리<span
 									class="notti_coun style-3">3</span></a></li>
 							<li><a href="<c:url value='/admin/editAccount'/>"><i
@@ -76,9 +78,9 @@
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label>받는사람<i class="req">*</i></label> <!-- <input type="text" class="form-control" name="recipient"> -->
-												<select
-													id="recipient" class="form-control">
+												<label>받는사람<i class="req">*</i></label>
+												<!-- <input type="text" class="form-control" name="recipient"> -->
+												<select id="recipient" class="form-control">
 													<option value="">&nbsp;</option>
 													<option value="1">프리랜서@gmail.com</option>
 													<option value="2">일반사용자@gmail.com</option>

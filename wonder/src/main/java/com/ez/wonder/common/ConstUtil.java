@@ -17,7 +17,22 @@ public interface ConstUtil {
 	String IMAGE_FILE_UPLOAD_PATH="pd_images";
 	String IMAGE_FILE_UPLOAD_PATH_TEST="C:\\Users\\seo\\Desktop\\lecture\\workspace_list\\sps_ws\\springherb\\src\\main\\resources\\static\\pd_images";
 	
+	//전문가 페이지 - 프로필사진 업로드
+	String EXPERT_PROFILE_IMAGE_PATH="img\\mypage\\expert_profile";
+	String EXPERT_PROFILE_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_profile";
+
+	//전문가 페이지 - 포트폴리오사진 업로드
+	String EXPERT_PORTFOLIO_IMAGE_PATH="img\\mypage\\expert_portfolio";
+	String EXPERT_PORTFOLIO_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_portfolio";
+	
 	//게시판 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_FILE_FLAG=1;  //게시판 업로드
 	int UPLOAD_IMAGE_FLAG=2; //상품 등록시 이미지 업로드
+	
+	int EXPERT_PROFILE_IMAGE=3; //전문가 프로필사진 이미지 업로드
+	int EXPERT_PORTFOLIO_IMAGE=4; //전문가 포트폴리오 사진 이미지 업로드
+	
+	//찜하기 관련 상수
+	int ADDHEART=1;	//찜 하기
+	int REMOVEHEART=2; //찜 해체
 }

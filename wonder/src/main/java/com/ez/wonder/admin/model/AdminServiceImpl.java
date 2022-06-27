@@ -1,5 +1,6 @@
 package com.ez.wonder.admin.model;
 
+import java.io.Console;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,6 +24,21 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<MemberVO> selectMember(SearchVO searchVo){
 		return adminDao.selectMember(searchVo);
+	}
+	
+	@Override
+	public List<AdminVO> selectAdmin(SearchVO searchVo){
+		return adminDao.selectAdmin(searchVo);
+	}
+	
+	@Override
+	public List<ProductVO> selectProduct(SearchVO searchVo){
+		return adminDao.selectProduct(searchVo);
+	}
+	
+	@Override
+	public List<MemberVO> selectNonApprovalEx(SearchVO searchVo){
+		return adminDao.selectNonApprovalEx(searchVo);
 	}
 	
 	@Override
@@ -53,10 +69,11 @@ public class AdminServiceImpl implements AdminService{
 		}else {
 			result=AdminService.NONE_USERID;
 		}
-		
+	
 		return result;
 	}
 	
+	@Override
 	public int updateAdmin(AdminVO adminVo) {
 		return adminDao.updateAdmin(adminVo);
 	}

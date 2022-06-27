@@ -65,7 +65,11 @@
 								<div class="property_detail_section">
 									<div class="prt-sect-pric">
 										<ul class="_share_lists">
-											<li><a href="#"><i class="fa fa-heart" style="color: red"></i></a></li>
+											<li><a href="#"><i class="fa fa-heart" 
+											<c:if test="${heartCount > 0 }">
+												style="color: red"
+											</c:if>
+											id="heart"></i></a></li>
 											<li style="padding-left: 5px">찜하기</li>
 										</ul>
 									</div>
@@ -120,7 +124,10 @@
 											<!-- tab 1 -->
 											<div class="table-responsive">
 												<h5>서비스설명</h5>
-												<c:forEach var="detailVo" items="${list }">
+												<c:forEach var="detailVo" items="${list }" varStatus="status">
+													<c:if test="${status.index == 0 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Standard</p></c:if>
+													<c:if test="${status.index == 1 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Deluxe</p></c:if>
+													<c:if test="${status.index == 2 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">premium</p></c:if>
 													<p>${detailVo.serviceExplanation }</p>
 												</c:forEach>
 											</div>
@@ -166,7 +173,9 @@
 																	<span class="show-mb"></span>
 																</li>
 																<li>
-																	<fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원
+																	<c:if test="${detailVo.pdPrice > 1 }">
+																		<fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원
+																	</c:if>
 																</li>
 																<li>
 																	<c:if test="${detailVo.commercial == 'Y' }">
@@ -201,10 +210,14 @@
 																	</c:if>
 																</li>
 																<li>
-																	${detailVo.editCount }회
+																	<c:if test="${detailVo.pdPrice > 1 }">
+																		${detailVo.editCount }회
+																	</c:if>
 																</li>
 																<li>
-																	${detailVo.pdPrice }일
+																	<c:if test="${detailVo.pdPrice > 1 }">
+																		${detailVo.pdTerm }일
+																	</c:if>
 																</li>
 															</ul>
 														</div>
@@ -217,7 +230,10 @@
 											<!-- tab 3 -->
 											<div class="table-responsive">
 												<h5>수정 및 재진행</h5>
-												<c:forEach var="detailVo" items="${list }">
+												<c:forEach var="detailVo" items="${list }" varStatus="status">
+												 	<c:if test="${status.index == 0 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Standard</p></c:if>
+													<c:if test="${status.index == 1 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Deluxe</p></c:if>
+													<c:if test="${status.index == 2 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">premium</p></c:if>
 													<p>${detailVo.editExplanation}</p>
 												</c:forEach>
 											</div>
@@ -245,7 +261,10 @@
 										<!-- tabs 1 -->
 										<div class="tab-pane fade" id="0bed" role="tabpanel" aria-labelledby="0bed-tab">
 											<h5>서비스설명</h5>
-											<c:forEach var="detailVo" items="${list }">
+											<c:forEach var="detailVo" items="${list }" varStatus="status">
+												<c:if test="${status.index == 0 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Standard</p></c:if>
+												<c:if test="${status.index == 1 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Deluxe</p></c:if>
+												<c:if test="${status.index == 2 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">premium</p></c:if>
 												<p>${detailVo.serviceExplanation }</p>
 											</c:forEach>
 										</div>
@@ -290,7 +309,9 @@
 																	<span class="show-mb"></span>
 																</li>
 																<li>
-																	<fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원
+																	<c:if test="${detailVo.pdPrice > 1 }">
+																		<fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원
+																	</c:if>
 																</li>
 																<li>
 																	<c:if test="${detailVo.commercial == 'Y' }">
@@ -325,10 +346,14 @@
 																	</c:if>
 																</li>
 																<li>
-																	${detailVo.editCount }회
+																	<c:if test="${detailVo.pdPrice > 1 }">
+																		${detailVo.editCount }회
+																	</c:if>
 																</li>
 																<li>
-																	${detailVo.pdPrice }일
+																	<c:if test="${detailVo.pdPrice > 1 }">
+																		${detailVo.pdTerm }일
+																	</c:if>
 																</li>
 															</ul>
 														</div>
@@ -340,7 +365,10 @@
 										<!-- tabs 3 -->
 										<div class="tab-pane fade" id="2bed" role="tabpanel" aria-labelledby="2bed-tab">
 											<h5>수정 및 재진행</h5>
-											<c:forEach var="detailVo" items="${list }">
+											<c:forEach var="detailVo" items="${list }" varStatus="status">
+											 	<c:if test="${status.index == 0 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Standard</p></c:if>
+												<c:if test="${status.index == 1 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">Deluxe</p></c:if>
+												<c:if test="${status.index == 2 && detailVo.pdPrice > 0 }"><p style="font-weight: bold">premium</p></c:if>
 												<p>${detailVo.editExplanation}</p>
 											</c:forEach>
 										</div>
@@ -374,76 +402,83 @@
 								<!-- star percentage -->
 								<div class="block-body">
 									<div class="rating-overview">
-										<span class="avgScore">AvgScore</span>
-										<div class="rating-overview-box">
-											<div class="rating">
-											    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											    </span>
-											    <span class="rating-lower">
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											        <span>★</span>
-											    </span>
-											</div>
-										</div>
-										<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
-										<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
+										<c:if test="${empty reviewList }">
+											<span style="margin: 0 auto;">등록된 리뷰가 없습니다.</span>
+										</c:if>
+										<c:if test="${!empty reviewList }">
+												<span class="avgScore">AvgScore</span>
+												<div class="rating-overview-box">
+													<div class="rating">
+													    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													    </span>
+													    <span class="rating-lower">
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													        <span>★</span>
+													    </span>
+													</div>
+												</div>
+												<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
+												<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
+										</c:if>
 									</div>
 							
 									<div class="author-review">
 										<div class="comment-list">
 											<ul>
-												<c:forEach var="reviewVo" items="${reviewList }" varStatus="status">
-													<li class="article_comments_wrap 
-													<c:if test="${status.index > 2 }">
-														more_review
-													</c:if>
-													">
-														<article>
-															<div class="comment-details">
-																<div class="comment-meta">
-																	<div class="comment-left-meta">
-																		<h4 class="author-name">${reviewVo.userId }</h4>
-																		<div class="comment-date">${reviewVo.regdate }</div>
-																		<div class="rating" style="font-size: 15px;top: -5px">
-																			<span class="rating-upper" style="width: ${reviewVo.rating * 20 }%">
-																		        <span>★</span>
-																		        <span>★</span>
-																		        <span>★</span>
-																		        <span>★</span>
-																		        <span>★</span>
-																		    </span>
-																		    <span class="rating-lower">
-																		        <span>★</span>
-																		        <span>★</span>
-																		        <span>★</span>
-																		        <span>★</span>
-																		        <span>★</span>
-																		    </span>
+												<c:if test="${!empty reviewList }">
+													<c:forEach var="reviewVo" items="${reviewList }" varStatus="status">
+														<li class="article_comments_wrap 
+														<c:if test="${status.index > 2 }">
+															more_review
+														</c:if>
+														">
+															<article>
+																<div class="comment-details">
+																	<div class="comment-meta">
+																		<div class="comment-left-meta">
+																			<h4 class="author-name">${reviewVo.userId } <span class="regdate"><fmt:formatDate value="${reviewVo.regdate}" pattern="yyyy-MM-dd HH:mm" /></span></h4>
+																			<span class="rating" style="font-size: 15px;top: -2px">
+																				<span class="rating-upper" style="width: ${reviewVo.rating * 20 }%">
+																			        <span>★</span>
+																			        <span>★</span>
+																			        <span>★</span>
+																			        <span>★</span>
+																			        <span>★</span>
+																			    </span>
+																			    <span class="rating-lower">
+																			        <span>★</span>
+																			        <span>★</span>
+																			        <span>★</span>
+																			        <span>★</span>
+																			        <span>★</span>
+																			    </span>
+																			</span>
+																			<span>${reviewVo.rating }</span>
 																		</div>
-																		<span>${reviewVo.rating }</span>
+																	</div>
+																	<div class="comment-text" style="margin: 0">
+																		<p>${reviewVo.reviewTitle }</p>
+																		<p>${reviewVo.reviewContent }</p>
 																	</div>
 																</div>
-																<div class="comment-text" style="margin: 0">
-																	<p>${reviewVo.reviewTitle }</p>
-																	<p>${reviewVo.reviewContent }</p>
-																</div>
-															</div>
-														</article>
-													</li>
-												</c:forEach>
-												<!-- 나머지 리뷰 -->
+															</article>
+														</li>
+													</c:forEach>
+												</c:if>
 											</ul>
 										</div>
 									</div>
-									<a href="#more" class="reviews-checked">리뷰 더 보기</a>
+									<c:if test="${reviewList.size() > 3 }">
+										<a href="#more" class="reviews-checked">리뷰 더 보기</a>
+									</c:if>
 								</div>
 							</div>
 							<!-- write review -->
@@ -504,6 +539,7 @@
 											<div class="form-group">
 												<button class="btn theme-bg rounded" type="submit">등록</button>
 												<input type="hidden" value="${param.pdNo }" name="pdNo">
+												<input type="hidden" value="${sessionScope.userId }" name="userId">
 											</div>
 										</div>
 									</div>
@@ -524,73 +560,75 @@
 											<div class="faq_wrap_body mb-5">
 												<div class="accordion" id="generalac">
 													<c:forEach var="detailVo" items="${list }" varStatus="status">
-														<div class="card">
-															<div class="card-header" 
-															<c:if test="${status.index == 0}">id="headingOne"</c:if>
-															<c:if test="${status.index == 1}">id="headingTwo"</c:if>
-															<c:if test="${status.index == 2}">id="headingThree"</c:if>
-															>
-															  <h2 class="mb-0">
-															  	<c:if test="${status.index == 0}">
-																	<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+														<c:if test="${detailVo.pdPrice > 0}">
+															<div class="card">
+																<div class="card-header" 
+																<c:if test="${status.index == 0}">id="headingOne"</c:if>
+																<c:if test="${status.index == 1}">id="headingTwo"</c:if>
+																<c:if test="${status.index == 2}">id="headingThree"</c:if>
+																>
+																  <h2 class="mb-0">
+																  	<c:if test="${status.index == 0}">
+																		<button class="btn btn-link pdType" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+																	</c:if>
+																  	<c:if test="${status.index == 1}">
+																		<button class="btn btn-link collapsed pdType" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+																	</c:if>
+																  	<c:if test="${status.index == 2}">
+																		<button class="btn btn-link collapsed pdType" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+																	</c:if>
+																		${detailVo.pdType }
+																	</button>
+																  </h2>
+																</div>
+																<c:if test="${status.index == 0}">
+																	<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#generalac">
 																</c:if>
-															  	<c:if test="${status.index == 1}">
-																	<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+																<c:if test="${status.index == 1}">
+																	<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#generalac">
 																</c:if>
-															  	<c:if test="${status.index == 2}">
-																	<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+																<c:if test="${status.index == 2}">
+																	<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#generalac">
 																</c:if>
-																	${detailVo.pdType }
-																</button>
-															  </h2>
-															</div>
-															<c:if test="${status.index == 0}">
-																<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#generalac">
-															</c:if>
-															<c:if test="${status.index == 1}">
-																<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#generalac">
-															</c:if>
-															<c:if test="${status.index == 2}">
-																<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#generalac">
-															</c:if>
-																<div class="pricing_wrap" style="margin-bottom: 0">
-																	<div class="prt_price">
-																		<h2 style="font-size: 45px">
-																			<fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원
-																		</h2>
-																	</div>
-																	<div class="prt_body">
-																		<ul>
-																			<li
-																			<c:if test="${detailVo.commercial == 'N' }">
-																				class="none" 
-																			</c:if> 
-																			>상업적 이용</li>
-																			<li
-																			<c:if test="${detailVo.customize == 'N' }">
-																				class="none" 
-																			</c:if> 
-																			>맞춤 디자인 제공</li>
-																			<li
-																			<c:if test="${detailVo.codeSupply == 'N' }">
-																				class="none" 
-																			</c:if> 
-																			>소스 코드 제공</li>
-																			<li
-																			<c:if test="${detailVo.payment == 'N' }">
-																				class="none" 
-																			</c:if> 
-																			>결제 기능</li>
-																			<li>작업일/ 수정 횟수	&nbsp;:&nbsp; ${detailVo.pdTerm }일/ ${detailVo.editCount }회</li>
-																		</ul>
-																	</div>
-																	<div class="prt_footer">
-																		<a href="#" class="btn choose_package active" data-toggle="modal" data-target="#exampleModalToggleA${status.index }">Buy ${detailVo.pdType }</a>
-																		<input type="hidden" value="${detailVo.pdTerm }">
+																	<div class="pricing_wrap" style="margin-bottom: 0">
+																		<div class="prt_price">
+																			<h2 style="font-size: 45px">
+																				<fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원
+																			</h2>
+																		</div>
+																		<div class="prt_body">
+																			<ul>
+																				<li
+																				<c:if test="${detailVo.commercial == 'N' }">
+																					class="none" 
+																				</c:if> 
+																				>상업적 이용</li>
+																				<li
+																				<c:if test="${detailVo.customize == 'N' }">
+																					class="none" 
+																				</c:if> 
+																				>맞춤 디자인 제공</li>
+																				<li
+																				<c:if test="${detailVo.codeSupply == 'N' }">
+																					class="none" 
+																				</c:if> 
+																				>소스 코드 제공</li>
+																				<li
+																				<c:if test="${detailVo.payment == 'N' }">
+																					class="none" 
+																				</c:if> 
+																				>결제 기능</li>
+																				<li>작업일/ 수정 횟수	&nbsp;:&nbsp; ${detailVo.pdTerm }일/ ${detailVo.editCount }회</li>
+																			</ul>
+																		</div>
+																		<div class="prt_footer">
+																			<a href="#" class="btn choose_package active" data-toggle="modal" data-target="#exampleModalToggleA${status.index }">Buy ${detailVo.pdType }</a>
+																			<input type="hidden" value="${detailVo.pdTerm }">
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
+														</c:if>
 													</c:forEach>
 												</div>
 											</div>
@@ -674,7 +712,7 @@
 		      <div class="modal-footer">
 		        <input type="button" class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;" value="제작자 일정보기">
 				<button class="btn theme-bg rounded" type="submit">Submit Review</button>
-				<input type="hidden" name="userId" value="hong">
+				<input type="hidden" name="userId" value="${sessionScope.userId }">
 				<input type="hidden" value="${expertVo.userId }" name="pUserId">
 				<input type="hidden" value="${param.pdNo }" name="pdNo">
 				<input type="hidden" value="${detailVo.pdPrice }" name="price">
@@ -691,7 +729,6 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(function(){
-    	
      	date = new Date();
      	
      	$('input[name="orderstart"]').daterangepicker({
@@ -706,6 +743,12 @@
      	
      	//처음 날짜 자동 덧셈
      	$('.choose_package').click(function(){
+     		//로그인 체크
+     		/* if($('input[name=userId]').val().length<1){
+        		alert("먼저 로그인하세요");
+        		$('#topLogin').click();
+        		return false;
+        	} */
      		date = new Date();
      		var today=getDate(date, 0);
      		$('input[name="orderstart"]').val(today);
@@ -750,6 +793,27 @@
 	        	$('.reviews-checked').text('리뷰 더 보기');
         	}
         	bool=!bool;
+        });
+        
+        //로그인 체크
+        /* $('form[name=frm]').submit(function(){
+        	if($('input[name=userId]').val().length<1){
+        		event.preventDefault();
+        		alert("먼저 로그인하세요");
+        		$('#topLogin').click();
+        	}
+        }); */
+        
+        //찜하기
+        $('#heart').click(function(){
+        	//로그인 체크
+     		/* if($('input[name=userId]').val().length<1){
+        		alert("먼저 로그인하세요");
+        		$('#topLogin').click();
+        		return false;
+        	} */
+        	$('form[name=frmB]').attr('action','<c:url value="/pd/noneDup"/>');
+        	$('form[name=frmB]').submit();
         });
         
     });

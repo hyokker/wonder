@@ -17,4 +17,59 @@
 	where user_id=#{userId}
 </update>
 
+<!-- 프리랜서 아이디로 vo조회 -->
+<select id="selectExpertById" parameterType="String" resultType="expertVo">
+	select * from expert_info where user_id=#{userId}
+</select>
+<!-- 프리랜서 체크 -->
+<select id="checkFree" parameterType="String" resultType="int">
+	select count(*) from member
+	where type='프리랜서' and user_id=#{userId}
+</select>
+
+<!-- 프리랜서 정보 업데이트 -->
+<update id="updateFree" parameterType="expertVo">
+	update expert_info
+	set major=#{userId}, career=#{career},grade=#{grade},bank_name=#{bankName},account_no=#{accountNo},certificate=#{certificate},introduction=#{introduction},language=#{language},framework=#{framework}
+	where user_id=#{userId}
+</update>
+
+<!-- 전문가 사진 업로드 -->
+<insert id="insertExpertProfile" parameterType="expertImageVo">
+	<selectKey resultType="int" keyProperty="expertImgNo" order="BEFORE">
+		select EXPERT_IMAGE_SEQ.nextval from dual
+	</selectKey>
+	insert into expert_image
+	values (#{expertImgNo},#{userId},#{fileName},#{originalFileName},#{fileSize},'PROFILE')
+</insert>
+
+<!-- 전문가 아이디로 프로필사진 vo찾기 -->
+<select id="selectExpertProfileById" parameterType="String" resultType="expertImageVo">
+	select * from expert_image
+	where user_id=#{userid} and file_type='PROFILE'
+</select>
+
+
+<!-- 전문가 아이디로 프로필사진 count찾기 -->
+<select id="checkExpertProfileById" parameterType="String" resultType="int">
+	select count(*) from expert_image
+	where user_id=#{userid} and file_type='PROFILE'
+</select>
+
+<!-- 전문가 프로필 사진 중복삭제 -->
+<delete id="deleteDupExpertProfile" parameterType="String">
+	delete from expert_image
+	where expert_img_no=(select min(expert_img_no) from expert_image where user_id=#{userId}) 
+</delete>
+
+<!-- 전체 언어 select해서 리스트에 담기 -->
+<select id="selectAllLanguage" resultType="languageVo">
+	select * from language
+</select>
+
+<!-- 전체 프레임워크 select해서 리스트에 담기 -->
+<select id="selectAllFramework" resultType="frameworkVo">
+	select * from framework
+</select>
+
 </mapper>
