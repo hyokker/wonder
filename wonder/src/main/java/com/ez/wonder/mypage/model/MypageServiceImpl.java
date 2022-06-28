@@ -84,6 +84,22 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDao.selectAllFramework();
 	}
 
+	@Override
+	public int insertExpertPorfolio(ExpertImageVO expertVo) {
+		return mypageDao.insertExpertPorfolio(expertVo);
+	}
+
+	@Override
+	public List<ExpertImageVO> selectExpertPortfolioById(String userId) {
+		return mypageDao.selectExpertPortfolioById(userId);
+	}
+
+	@Override
+	public int deletePortfolio() {
+		return mypageDao.deletePortfolio();
+	}
+
+
 
 
 
