@@ -75,7 +75,8 @@
 	</update>
 	
 	<delete id="deleteQna" parameterType="int">
-		delete qna 
+		update qna
+		set del_type='Y'
 		where qna_no=#{qnaNo}
 	</delete>
 </mapper>

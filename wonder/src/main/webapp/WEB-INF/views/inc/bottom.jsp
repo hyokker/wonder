@@ -64,9 +64,9 @@
 							<div class="footer_widget">
 								<h4 class="widget_title">Provision</h4>
 								<ul class="footer-menu">
-									<li><a href="#">이용약관</a></li>
-									<li><a href="#">개인정보처리방침</a></li>
-									<li><a href="#">위치기반서비스 이용약관</a></li>
+									<li><a href="<c:url value='/provision/terms'/>">이용약관</a></li>
+									<li><a href="<c:url value='/provision/provision'/>">개인정보처리방침</a></li>
+									<!-- <li><a href="#">위치기반서비스 이용약관</a></li> -->
 								</ul>
 							</div>
 						</div>
