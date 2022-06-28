@@ -51,5 +51,10 @@ public class ProductServiceImpl implements ProductService{
 		
 		return memberDao.selectByUserId(userId);
 	}
+	
+	@Override
+	public int insertPdImage(PdImageVO item) {
+		return productDao.insertPdImage(item);
+	}
 
 }
