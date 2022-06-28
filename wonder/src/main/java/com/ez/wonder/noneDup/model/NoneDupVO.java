@@ -1,5 +1,11 @@
 package com.ez.wonder.noneDup.model;
 
-public class NoneDupVO {
+import lombok.Data;
 
+@Data
+public class NoneDupVO {
+	private int dupNo;
+	private String userId;
+	private int pdNo;
+	private String dupFlag;
 }

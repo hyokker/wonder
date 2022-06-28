@@ -951,10 +951,10 @@ div[data-overlay] p{
     animation: spinner-border .75s linear infinite;
 }
 
-.spinner-border-sm {
-  width: $spinner-width-sm;
+.spinner-border-sm { /* 오류나서 주석처리함 */
+/*   width: $spinner-width-sm;
   height: $spinner-height-sm;
-  border-width: $spinner-border-width-sm;
+  border-width: $spinner-border-width-sm; */
 }
 .sr-only {
     position: absolute;
@@ -4848,12 +4848,12 @@ span.rating-count {
     margin-right: 6px;
 }
 
-span.like-listing {
+span.like-listing { /* 오류나서 주석처리함 */
     position: absolute;
     right: 20px;
     bottom: 20px;
     display: table;
-    #2d3248
+    /* #2d3248 */
 }
 .single-top {
     padding: 0 10px;
@@ -13013,6 +13013,7 @@ table.property-table-wrap .dashboard_propert_wrapper .title .table-property-pric
     color: #ffffff;
     background: #27ae60;
     border-radius: 0.2rem;
+    width: 110px;
 }
 ._prt_filt_add_new .prt_submit_link i {
     color:#3cd67d;

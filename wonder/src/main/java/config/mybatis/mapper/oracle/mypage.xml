@@ -62,6 +62,14 @@
 	where expert_img_no=(select min(expert_img_no) from expert_image where user_id=#{userId}) 
 </delete>
 
+<!-- 전체 언어 select해서 리스트에 담기 -->
+<select id="selectAllLanguage" resultType="languageVo">
+	select * from language
+</select>
 
+<!-- 전체 프레임워크 select해서 리스트에 담기 -->
+<select id="selectAllFramework" resultType="frameworkVo">
+	select * from framework
+</select>
 
 </mapper>

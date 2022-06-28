@@ -1,19 +1,27 @@
 package com.ez.wonder.pd.controller;
 
-import java.util.Iterator;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ez.wonder.pd.model.PdDetailVO;
+import com.ez.wonder.pd.model.PdImageVO;
 import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
 import com.ez.wonder.skill.model.FrameworkVO;
@@ -28,6 +36,9 @@ import lombok.RequiredArgsConstructor;
 public class PdWriteController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(PdWriteController.class);
+
+	@Autowired
+	ServletContext servletContext;
 
 	private final SkillService skillService;
 	private final ProductService productService;
@@ -53,11 +64,14 @@ public class PdWriteController {
 	}
 	
 	@PostMapping("/pdWrite")
-	public void pd_Write_post(HttpServletRequest httpServletRequest, Model model) {
+	public void pd_Write_post(@RequestParam("files") MultipartFile[] files, HttpServletRequest httpServletRequest, Model model,
+			HttpSession session) {
 		logger.info("상품 등록");
 		
+		
 		ProductVO pd = new ProductVO();
-		pd.setUserId("test");
+		String userid= (String)session.getAttribute("userId");
+		pd.setUserId(userid);
 		pd.setCateType("product");
 		
 		logger.info(httpServletRequest.getParameter("pdTitle").getClass().getName());
@@ -212,5 +226,31 @@ public class PdWriteController {
 
 		}
 		
+		// 파일 처리
+		String saveFolder = servletContext.getRealPath("/upload");
+		File folder = new File(saveFolder);
+		if (!folder.exists())
+			folder.mkdirs();
+
+		for(MultipartFile file : files) {
+			try {
+				PdImageVO fileInfo = new PdImageVO();
+				String originalFileName = file.getOriginalFilename();
+				if (!originalFileName.isEmpty()) {
+					String saveFileName = UUID.randomUUID().toString() + originalFileName.substring(originalFileName.lastIndexOf('.'));
+					fileInfo.setPdNo(pd.getPdNo());
+					fileInfo.setFileName(saveFileName);
+					fileInfo.setOriginalFileName(originalFileName);
+					fileInfo.setFileSize(file.getSize());
+					fileInfo.setFileType(FilenameUtils.getExtension(originalFileName));
+					System.out.println(file.getOriginalFilename() + "   " + saveFileName);
+					file.transferTo(new File(folder, saveFileName));
+				}
+
+				productService.insertPdImage(fileInfo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

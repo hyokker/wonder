@@ -5,8 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
+ 
 <script type="text/javascript">
-	$(function(){  
+	$(function(){
 		 var fileTarget = $('#profileUpload');
 		  fileTarget.on('change', function(){  // 값이 변경되면
 		    if(window.FileReader){  // modern browser
@@ -15,7 +16,6 @@
 		    else {  // old IE
 		      var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
 		    }
-		    console.log(filename);
 		    // 추출한 파일명 삽입
 		    $(this).siblings('.upload_name').val(filename);
 		  });
@@ -26,6 +26,107 @@
 		        var parent = $(this).parent();
 		        parent.children('.upload-display').remove();
 		        $('.upload-display').remove();
+		        var html="";
+		        var preview="";
+
+		        if(window.FileReader){
+		            //image 파일만
+		            if (!$(this)[0].files[0].type.match(/image\//)) return;
+		            
+		            var reader = new FileReader();
+		            reader.onload = function(e){
+		                var src = e.target.result;
+		                html += '<div class="upload-display">';
+   			            html += '<div class="upload-thumb-wrap">'
+   			            html += '<img src="'+src+'" class="upload-thumb">';
+   			            html += '</div>';
+   			            html += '</div>';
+   			
+						preview += '<div class="upload-display">';
+   			            preview += '<div class="upload-thumb-wrap">'
+   			            preview += '<img src="'+src+'" class="upload-thumb" style="border-radius: 75px">';
+   			            preview += '</div>';
+   			     	    preview += '</div>';
+   		                
+   		                parent.append(html);
+		                $('#profile_preview').append(preview);
+		            }
+		            reader.readAsDataURL($(this)[0].files[0]);
+		        }else{
+		            $(this)[0].select();
+		            $(this)[0].blur();
+		            var imgSrc = document.selection.createRange().text;
+		            html += '<div class="upload-display">';
+					html += '<div class="upload-thumb-wrap">'
+					html += '<img class="upload-thumb">';
+					html += '</div>';
+					html += '</div>';
+					
+					preview += '<div class="upload-display">';
+					preview += '<div class="upload-thumb-wrap">'
+					preview += '<img src="'+src+'" class="upload-thumb" style="border-radius: 75px">';
+					preview += '</div>';
+					preview += '</div>';
+					
+					parent.append(html);
+		            $('#profile_preview').append(html);
+		            var img = $(this).siblings('.upload-display').find('img');
+		            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+		        }
+		    });
+		    
+		    
+		    
+		    $("#portfolioUpload").on('change', function () {
+
+		        //등록한 사진 갯수
+		        var countFiles = $(this)[0].files.length;
+
+		        var imgPath = $(this)[0].value;
+		        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+		        var image_holder = $("#image-holder");
+		        image_holder.empty();
+                $('#reviewProtfolioName').val(""); //파일 업로드 이름 미리보기칸 리셋
+
+
+		        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg" || extn == "") {
+		            if (typeof (FileReader) != "undefined") {
+						if(countFiles <=5){
+			                //사진갯수만큼 for문
+			                for (var i = 0; i < countFiles; i++) {
+								var name = $(this)[0].files[i].name;
+								var before = $('#reviewProtfolioName').val();
+			                    var reader = new FileReader();
+			                    reader.onload = function (e) {
+			                        $("<img />", {
+			                            "src": e.target.result,
+			                                "class": "thumb-image"
+			                        }).appendTo(image_holder);
+			                    }
+	
+			                    image_holder.show();
+			                    reader.readAsDataURL($(this)[0].files[i]);
+			                    $('#reviewProtfolioName').val(before + ", " + name);
+			                }
+						}else{
+			                alert("이미지는 최대 5개까지 올릴 수 있습니다.");
+						}
+
+		            } else {
+		                alert("해당 브라우저에서 FileReader를 지원하지 않습니다.");
+		            }
+		        } else {
+		            alert("이미지 파일만 등록할 수 있습니다.");
+		        }
+		    });
+		    
+		    
+		    
+			/* $('#portfolioUpload').change(function(){
+				var parent = $(this).parent();
+		        parent.children('.upload-portfolio').remove();
+		        $('.upload-portfolio').remove();
+		        var html="";
 		        
 		        if(window.FileReader){
 		            //image 파일만
@@ -34,20 +135,53 @@
 		            var reader = new FileReader();
 		            reader.onload = function(e){
 		                var src = e.target.result;
-		                parent.append('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-		                $('#profile_preview').append('<div class="upload-display"><div class="upload-thumb-wrap" id="profile_preview_img"><img src="'+src+'" class="upload-thumb"></div></div>');
+		                html += '<div class="upload-portfolio">';
+			            html += '<div class="upload-thumb-wrap">'
+			            html += '<img src="'+src+'" class="upload-thumb">';
+			            html += '</div>';
+			            html += '</div>';
+		                
+		                parent.append(html);
 		            }
 		            reader.readAsDataURL($(this)[0].files[0]);
 		        }else{
 		            $(this)[0].select();
 		            $(this)[0].blur();
 		            var imgSrc = document.selection.createRange().text;
-		            parent.append('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-		            $('#profile_preview').append('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-		            var img = $(this).siblings('.upload-display').find('img');
+					html += '<div class="upload-portfolio">';
+					html += '<div class="upload-thumb-wrap">'
+					html += '<img class="upload-thumb">';
+					html += '</div>';
+					html += '</div>';
+		            parent.append(html);
+		            var img = $(this).siblings('.upload-portfolio').find('img');
 		            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
 		        }
-		    });
+				 */
+				
+				
+				
+				
+				        /* const target = document.getElementsByName('portfolioFile[]');
+				        
+				        var html = '';
+				        $.each(target[0].files, function(index, file){
+				            const fileName = file.name;
+				            html += '<div class="file">';
+				            html += '<img src="'+URL.createObjectURL(file)+'">'
+				            html += '<span>'+fileName+'</span>';
+				            html += '<span>기간 '+'<input type="text" style="width:250px" /></span>';
+				            html += '<a href="#" id="removeImg">╳</a>';
+				            html += '</div>';
+				            const fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
+				            if(fileEx != "jpg" && fileEx != "png" &&  fileEx != "gif" &&  fileEx != "bmp" && fileEx != "wmv" && fileEx != "mp4" && fileEx != "avi"){
+				                alert("파일은 (jpg, png, gif, bmp, wmv, mp4, avi) 형식만 등록 가능합니다.");
+				                resetFile();
+				                return false;
+				            }
+				            $('.preview-image').html(html);
+				        }); 
+				    });*/
 
 		   
 
@@ -63,7 +197,39 @@
 		}
 		
 		/* $('select').niceSelect(); */
+	
+		
+		/* 체크한 언어이름 인풋에 넣는 제이쿼리 */
+		/*  $('.usableLangCheck li input[type=checkbox]').each(function(idx, item){ 
+			$(this).change(function(){
+				var lang = $(this).next().text();
+				var text = $('#usableLanguage').val();
+				var first = text.substr(0,1); 
+				text = text.replace(", ,",",");
+				
+				
+				if(first==" " || first==","){
+					var text=text.substr(1,text.length);
+					$('#usableLanguage').val(text);
+				}
+				
+				if($(this).prop("checked")){  // 체크상태라면 다음라벨값을 인풋에 넣는다 
+					if(text==""){
+						$('#usableLanguage').val(text+lang);
+					}else{
+						$('#usableLanguage').val(text+','+lang);
+					}
+				}else if(!$(this).prop("checked")){ 
+					// 체크를 풀면 다음레발값을 인풋에서 지우고 남은 쉼표도 제거한다 
+					var afterText = text.replace(lang,"");
+					var afterText = afterText.replace(",,",",");
+					$('#usableLanguage').val(afterText);
+				}
+			});
+		});  */
+		
 	});
+
 </script>
 <input type="hidden" id="pageCheck" value="profile">
 
@@ -157,47 +323,110 @@
 													</select>
 												</div>
 												
+
 												<script type="text/javascript">
-													$(function(){ /* 체크한 언어이름 라벨에 넣는 제이쿼리 */
-														$('.usableLangCheck li input[type=checkbox]').each(function(idx, item){
-															$(this).change(function(){
-																var lang = $(this).next().text();
-																var text = $('#usableLanguage').val();
-																var first = text.substr(0,1); 
-																text = text.replace(", ,",",");
-																
-																
-																if(first==" " || first==","){
-																	var text=text.substr(1,text.length);
-																	console.warn(text);
-																	$('#usableLanguage').val(text);
-																}
-																
-																if($(this).prop("checked")){ /* 체크상태라면 다음라벨값을 인풋에 넣는다 */
-																	if(text==""){
-																		$('#usableLanguage').val(text+lang);
-																	}else{
-																		$('#usableLanguage').val(text+','+lang);
-																	}
-																}else if(!$(this).prop("checked")){ 
-																	/* 체크를 풀면 다음레발값을 인풋에서 지우고 남은 쉼표도 제거한다 */
-																	var afterText = text.replace(lang,"");
-																	var afterText = afterText.replace(",,",",");
-																	$('#usableLanguage').val(afterText);
-																}
-															});
-														});
+												$(function(){
+													/* 실제 제출용 */
+													$('#submitBt').click(function(){
+														$('#usableLanguage').val("");
+														$('#usableFramework').val("");
+
+														$('.langLi').each(function(idx,item){
+															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
+															console.warn(before);
+															var name = <c:out value='before' />;
+															if(name != null && name != ""){
+																var value=$('#usableLanguage').val();
+																$('#usableLanguage').val(value+name+",");
+															}
+														})
+														$('.frameLi').each(function(idx,item){
+															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
+															console.warn(before);
+															var name = <c:out value='before' />;
+															if(name != null && name != ""){
+																var value=$('#usableFramework').val();
+																$('#usableFramework').val(value+name+",");
+															}
+														})
+													}); 
+													
+													
+													/* 테스트용 */
+													 $('#checked').click(function(){
+														$('#usableLanguage').val("");
+														$('#usableFramework').val("");
+
+														$('.langLi').each(function(idx,item){
+															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
+															console.warn(before);
+															var name = <c:out value='before' />;
+															if(name != null && name != ""){
+																var value=$('#usableLanguage').val();
+																$('#usableLanguage').val(value+name+",");
+															}
+														})
+														$('.frameLi').each(function(idx,item){
+															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
+															console.warn(before);
+															var name = <c:out value='before' />;
+															if(name != null && name != ""){
+																var value=$('#usableFramework').val();
+																$('#usableFramework').val(value+name+",");
+															}
+														})
 													});
-												
+													
+													
+													/* 제출시 히든시켜둔 언어/프레임워크 필드값 넘기기 */
+													$('form[name=frmProfile]').submit(function(){
+														var checkedLang = $('#usableLanguage').val();
+														var checkedFrame = $('#usableFramework').val();
+														
+														if(checkedLang == null || checkedLang ==""){
+															$('#usableLanguage').val("없음");
+														}
+														if(checkedFrame == null || checkedFrame ==""){
+															$('#usableFramework').val("없음");
+														}
+													});
+													
+													
+												});
 												</script>
 												
-												
 												<div class="form-group col-md-12">
+													<br>
 													<label>개발 가능 언어</label>
 													<div class="o-features">
-														<ul class="no-ul-list third-row usableLangCheck">
-															<li>
-																<input id="a-1" class="checkbox-custom" name="a-1" type="checkbox">
+														<ul class="no-ul-list third-row usableLangCheck" style="justify-content:start">
+															<c:forEach var="listVo" items="${langList }">
+															<li class="langLi">
+																<c:set var="usableLang" value="N" />
+																<c:forEach var="langList" items="${langArr }">
+																	<c:if test="${listVo.lang == langList}">
+																		<c:set var="usableLang" value="Y" />
+																	</c:if>
+																</c:forEach>
+																
+																<c:if test="${usableLang == 'Y' }">
+																	<input id="lang_${listVo.langNo }" class="checkbox-custom" name="${listVo.lang }" type="checkbox" checked>
+																</c:if>
+																<c:if test="${usableLang == 'N' }">
+																	<input id="lang_${listVo.langNo }" class="checkbox-custom" name="${listVo.lang }" type="checkbox">
+																</c:if>
+																<label for="lang_${listVo.langNo }" class="checkbox-custom-label">${listVo.lang }</label>
+															</li>
+															</c:forEach>
+															
+
+															
+															
+
+														
+														
+															<!-- <li>
+																<input id="a-1" class="checkbox-custom" name="changename" type="checkbox">
 																<label for="a-1" class="checkbox-custom-label">C </label>
 															</li>
 															<li>
@@ -243,23 +472,66 @@
 															<li>
 																<input id="a-12" class="checkbox-custom" name="a-12" type="checkbox">
 																<label for="a-12" class="checkbox-custom-label">Vue.js</label>
-															</li>
+															</li> -->
 														</ul>
 													</div>
+													<br>
+													<label>개발 가능 프레임워크</label>
+													<div class="o-features">
+														<ul class="no-ul-list third-row usableFrameCheck" style="justify-content:start">
+															<c:forEach var="frameVo" items="${frameList }">
+															<li class="frameLi">
+																<c:set var="usableFrame" value="N" />
+																<c:forEach var="frameList" items="${frameArr }">
+																	<c:if test="${frameVo.frame == frameList}">
+																		<c:set var="usableFrame" value="Y" />
+																	</c:if>
+																</c:forEach>
+																
+																<c:if test="${usableFrame == 'Y' }">
+																	<input id="frame_${frameVo.frameNo }" class="checkbox-custom" name="${frameVo.frame }" type="checkbox" checked>
+																</c:if>
+																<c:if test="${usableFrame == 'N' }">
+																	<input id="frame_${frameVo.frameNo }" class="checkbox-custom" name="${frameVo.frame }" type="checkbox">
+																</c:if>
+																<label for="frame_${frameVo.frameNo }" class="checkbox-custom-label">${frameVo.frame }</label>
+															</li>
+															</c:forEach>
+															
+
+														
+								
+														</ul>
+													</div>
+													<div id="checked">
+														<input type="button" value="체크 테스트" class="checkBt">
+													</div>
+																
+													<!-- <script type="text/javascript">
+														$(function(){
+															$('#checked').click(function(){
+																$('.checkbox-custom').prop("checked",true);
+															});
+															$('#unchecked').click(function(){
+																$('.checkbox-custom').prop("checked",false);
+															});
+														});
+													</script>
+													<div class="checkBt" id="checked">
+														<p>모두 선택</p>
+													</div>
+													<div class="checkBt" id="unchecked">
+														<p>모두 취소</p>
+													</div>
+													 -->
 													<input type="text" name="language" id="usableLanguage"  style="width:100%">
-													
-													
-													
-													
-													
 													<input type="text" name="framework" id="usableFramework"  style="width:100%">
+													<input type="text" id="langArr" style="width:100%"">
+													
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
-													<textarea class="form-control" name="introduction">무조건 남보다 나은 결과물과 서비스를 제공하는것이 저의 목표입니다.
-
-우수한 퀄리티와 다양한 기능을 개발하여 합리적인 금액으로 납품해드리고있습니다 
-사후 서비스까지 책임지는 저에게 맡겨주세요</textarea>
+													<textarea class="form-control" name="introduction">${expertVo.introduction }</textarea>
 												</div>	
 												
 												
@@ -279,7 +551,7 @@
 	
 														</div>
 														
-														<div class="uploadBox" id="uploadBox2">
+														<div class="uploadBox uploadBox2">
 															<div class="uploadBox_inner">
 																<label class="uploadBox_inner_v">프로필 사진<br>미리보기</label>
 															</div>
@@ -289,6 +561,29 @@
 															</div>
 	
 														</div>
+													</div>
+												</div>	
+												
+												
+												<div class="form-group col-md-12">
+												<br>
+												<div class="uploadBoxWrap">
+													<label>포트폴리오 사진 (최대 5개의 이미지파일만 업로드할 수 있습니다)</label><br>
+														<div class="uploadBox" style="width:100%">
+															<div class="uploadBox_inner">
+																<label class="uploadBox_inner_p" for="portfolioUpload">포트폴리오 사진<br>업로드</label>
+															</div>
+	
+															<div class="uploadBox_innerRight  preview-image">
+																<input type="hidden" class="upload_name" value="" disabled="disabled">
+																<input type="file" id="portfolioUpload" name="portfolioFile[]" multiple="multiple"> <!-- file -->
+															</div>
+															<div id="image-holder">
+															
+															</div>
+														</div>
+														<br>
+														<input type="text" id="reviewProtfolioName" style="width:100%">
 													</div>
 												</div>	
 
@@ -330,6 +625,8 @@
 										</div>
 									</div>
 									</form>
+									
+									
 								</div>
 							
 							</div>
