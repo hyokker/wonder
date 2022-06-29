@@ -15,6 +15,7 @@ public interface AdminService {
 	public static final int UNUSABLE_ID=1; //존재하는 아이디
 
 	List<MemberVO> selectMember(SearchVO searchVo);
+	void deleteMember(int memNo);
 	List<AdminVO> selectAdmin(SearchVO searchVo);
 	List<ProductVO> selectProduct(SearchVO searchVo);
 	List<MemberVO> selectNonApprovalEx(SearchVO searchVo);
@@ -27,4 +28,6 @@ public interface AdminService {
 	
 	int updateAdmin(AdminVO adminVo);
 	int insertAdmin(AdminVO adminVo);
+	
+
 }

@@ -141,6 +141,48 @@ public class FileUploadUtil {
 		return list;
 	}
 	
+	public List<Map<String, Object>> portfolioUpload(HttpServletRequest request, int uploadFlag) throws IllegalStateException, IOException {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+		//Map<String, MultipartFile> fileMap=multiRequest.getFileMap();
+		
+		
+		//업로드 파일 정보 저장할 List 선언
+		List<Map<String, Object>> list = new ArrayList<>();
+		List<MultipartFile> fileList = new ArrayList<>();
+		logger.info("list구하기 1={}",list.size());
+
+		int index=0;
+		for(MultipartFile mf : fileList) {
+			String oName = mf.getOriginalFilename();
+			long fileSize = mf.getSize();
+				
+				//변경된 파일이름 구하기
+				String fileName = getPortfolioImageName(oName, index);
+				index++;
+				
+				//파일 업로드 처리
+				//업로드할 폴더 구하기
+				String uploadPath = getUploadPath(request, uploadFlag);
+				File file = new File(uploadPath, fileName);
+				
+				mf.transferTo(file);
+				
+				//업로드된 파일 정보 저장
+				//[1] Map에 저장
+				Map<String, Object> resultMap = new HashMap<>(); 
+				resultMap.put("fileName", fileName);
+				resultMap.put("fileSize", fileSize);
+				resultMap.put("originalFileName", oName);
+				
+				//[2] 여러개의 Map을 List에 저장
+				list.add(resultMap);
+			
+		}//for
+		
+		return list;
+
+	}
+	
 	public String getProfileImageName(String fileName) {
 		//파일명에 전문가 프로필사진 이미지라는 정보 넣기
 		//파일명에 현재시간(년월일시분초밀리초)을 붙여서 변경된 파일이름 구하기
@@ -159,6 +201,30 @@ public class FileUploadUtil {
 		String today=sdf.format(d);
 		
 		String result="PROFILE"+fileNm + "_" + today + ext;
+		logger.info("변경된 파일명 : {} ",   result);
+		
+		return result;
+	}
+	
+	public String getPortfolioImageName(String fileName, int index) {
+		//파일명에 전문가 프로필사진 이미지라는 정보 넣기
+		//파일명에 현재시간(년월일시분초밀리초)을 붙여서 변경된 파일이름 구하기
+		//a.txt => a_20220602113820123.txt
+		
+		//순수 파일명만 구하기 => a
+		int idx = fileName.lastIndexOf(".");
+		String fileNm=fileName.substring(0,idx); //a
+		
+		//확장자 구하기
+		String ext = fileName.substring(idx); //.txt
+		
+		//변경된 파일이름
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String today=sdf.format(d);
+		
+		String result="PORTFOLIO_"+index+"_"+fileNm + "_" + today + ext;
+		
 		logger.info("변경된 파일명 : {} ",   result);
 		
 		return result;
