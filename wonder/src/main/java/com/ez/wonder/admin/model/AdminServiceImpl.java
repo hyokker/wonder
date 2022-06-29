@@ -27,6 +27,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public void deleteMember(int memNo) {
+		adminDao.deleteMember(memNo);
+	}
+	
+	@Override
 	public List<AdminVO> selectAdmin(SearchVO searchVo){
 		return adminDao.selectAdmin(searchVo);
 	}
@@ -96,6 +101,8 @@ public class AdminServiceImpl implements AdminService{
 		
 		return result;
 	}
+	
+
 }
 
 

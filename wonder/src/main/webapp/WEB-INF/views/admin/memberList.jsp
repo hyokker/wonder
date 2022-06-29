@@ -11,6 +11,7 @@
 }
 </style>
 <script type="text/javascript">
+	
 </script>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -92,6 +93,9 @@
 									</div>
 								</div>
 
+								<input type="submit" class="btn btn-outline-theme" value="excel 저장"></input>
+								</br>
+								</br>
 								<div class="col-lg-2 col-md-2 col-sm-2">
 									<div class="form-group">
 										<select id="recipient" class="form-control">
@@ -179,7 +183,7 @@
 															</div> --%></td>
 														<td>
 															<div class="_leads_action">
-																<a href="#"><i class="fas fa-trash"></i></a>
+																<a href="delMember?memNo=${memberVO.memNo}"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

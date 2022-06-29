@@ -28,6 +28,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+	<delete id="deleteMember" parameterType="int">
+		delete 
+		from
+		member
+		where mem_No=#{memNO}
+	</delete>
 
 	<select id="selectNonApprovalEx" resultType="memberVo"
 		parameterType="searchVo">
@@ -38,7 +45,8 @@
 		from
 		(
 		select A.*
-		from memExGrantView A
+		from
+		memExGrantView A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
 		</if>
@@ -156,4 +164,6 @@
 		select count(*) from admin
 		where admin_Id=#{adminId}
 	</select>
+
+	
 </mapper>
