@@ -1,5 +1,7 @@
 package com.ez.wonder.member.model;
 
+import com.ez.wonder.admin.model.AdminVO;
+
 public interface MemberService {
 	//아이디 중복확인에서 사용하는 상수
 	public static final int USABLE_ID=1;  //사용가능한 아이디
@@ -18,4 +20,9 @@ public interface MemberService {
 	int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
 	//public
+	
+	
+	//관리자 로그인 메서드
+	AdminVO selectByAdminId(String adminId);
+	public int checkAmdinLogin(String userid, String pwd);
 }
