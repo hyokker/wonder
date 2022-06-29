@@ -13,4 +13,5 @@ public interface ProductDAO {
 	List<ProductVO> selectAllPd();
 	int insertPd(ProductVO pd);
 	int insertPdDetail(PdDetailVO item);
+	int insertPdImage(PdImageVO item);
 }

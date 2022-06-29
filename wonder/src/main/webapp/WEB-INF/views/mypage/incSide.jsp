@@ -16,17 +16,19 @@
 		var page=$('#pageCheck').val();
 		
 		if(page=='dashboard'){
-			$('.dash_user_menues ul li:eq(0)').addClass("active");
+			$('#li_00').addClass("active");
 		}else if(page=='profile'){
-			$('.dash_user_menues ul li:eq(1)').addClass("active");
+			$('#li_01').addClass("active");
+		}else if(page=='portfolio'){
+			$('#li_02').addClass("active");
 		}else if(page=='bookmark'){
-			$('.dash_user_menues ul li:eq(2)').addClass("active");
+			$('#li_03').addClass("active");
 		}else if(page=='transaction'){
-			$('.dash_user_menues ul li:eq(3)').addClass("active");
+			$('#li_04').addClass("active");
 		}else if(page=='chatting'){
-			$('.dash_user_menues ul li:eq(4)').addClass("active");
+			$('#li_05').addClass("active");
 		}else if(page=='changePwd'){
-			$('.dash_user_menues ul li:eq(5)').addClass("active");
+			$('#li_06').addClass("active");
 		}
 	});
 </script>
@@ -80,12 +82,15 @@
 
 								<div class="dash_user_menues">
 									<ul>
-										<li><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
-										<li><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
-										<li><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
-										<li><a href="<c:url value='/mypage/transaction' />"><i class="fa fa-tasks"></i>거래내역</a></li>
-										<li><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
-										<li><a href="<c:url value='/mypage/changePwd' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
+										<li id="li_00"><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
+										<li id="li_01"><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
+										<c:if test="${memVo.type=='프리랜서' }">
+											<li id="li_02"><a href="<c:url value='/mypage/portfolio' />">　└ 포트폴리오 관리</a></li>
+										</c:if>
+										<li id="li_03"><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
+										<li id="li_04"><a href="<c:url value='/mypage/transaction' />"><i class="fa fa-tasks"></i>거래내역</a></li>
+										<li id="li_05"><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
+										<li id="li_06"><a href="<c:url value='/mypage/changePwd' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
 									</ul>
 								</div>
 								

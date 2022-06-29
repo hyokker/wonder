@@ -2,14 +2,124 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/select2.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/slick.js"></script>
+<script src="${pageContext.request.contextPath}/js/slider-bg.js"></script>
+<script src="${pageContext.request.contextPath}/js/lightbox.js"></script>
+<script src="${pageContext.request.contextPath}/js/imagesloaded.js"></script>
+<script src="${pageContext.request.contextPath}/js/daterangepicker.js"></script>
+<script src="${pageContext.request.contextPath}/js/custom.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/dropzone.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
+
+<!--  -->
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+<!-- New Js -->
+
+<!--  -->
+<!-- Date Booking Script -->
+<script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/daterangepicker.js"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
 <head>
 <meta charset="utf-8" />
 <meta name="author" content="Themezhub" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <title>RentUP - Residence & Real Estate Template</title>
 <script type="text/javascript">
+	var arr_PdImgNo = new Array();
+    Dropzone.autoDiscover = false;
+    var addedFiles = [];
+
 	$(function() {
+
+		const dropzone = new Dropzone('form#pdImage', {
+			url:'/wonder/image/write',	// 파일을 업로드할 서버 주소 url.
+			method: 'post', // 기본 post로 request 감. put으로도 할수있음
+			headers: {},
+			autoProcessQueue: false, // 자동으로 보내기. true : 파일 업로드 되자마자 서버로 요청, false : 서버에는 올라가지 않은 상태. 따로 this.processQueue() 호출시 전송
+			clickable: true, // 클릭 가능 여부
+			autoQueue: false, // 드래그 드랍 후 바로 서버로 전송
+			createImageThumbnails: true, //파일 업로드 썸네일 생성
+			
+			thumbnailHeight: 120, // Upload icon size
+			thumbnailWidth: 120, // Upload icon size
+			
+			maxFiles: 10, // 업로드 파일수
+			maxFilesize: 100, // 최대업로드용량 : 100MB
+			paramName: 'file', // 서버에서 사용할 formdata 이름 설정 (default는 file)
+			parallelUploads: 2, // 동시파일업로드 수(이걸 지정한 수 만큼 여러파일을 한번에 넘긴다.)
+			uploadMultiple: false, // 다중업로드 기능
+			timeout: 300000, //커넥션 타임아웃 설정 -> 데이터가 클 경우 꼭 넉넉히 설정해주자
+			
+			addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
+			dictRemoveFile: '삭제', // 삭제버튼 표시 텍스트
+			acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 이미지 파일 포맷만 허용
+			
+			init: function () {
+				// 최초 dropzone 설정시 init을 통해 호출
+				console.log('최초 실행');
+				let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
+				
+				// 파일이 업로드되면 실행
+				this.on('addedfile', function (file) {
+					// 중복된 파일의 제거
+					console.log(this.files.length);
+					if (this.files.length) {
+						// -1 to exclude current file
+						var hasFile = false;
+						for (var i = 0; i < this.files.length - 1; i++) {
+							if (	this.files[i].name === file.name &&
+									this.files[i].size === file.size &&
+									this.files[i].lastModifiedDate.toString() === file.lastModifiedDate.toString())
+							{
+								hasFile = true;
+								this.removeFile(file);
+							}
+						}
+						
+						if (!hasFile) {
+							addedFiles.push(file);
+						}
+					} else {
+						addedFiles.push(file);
+					}
+				});
+				
+				// 업로드한 파일을 서버에 요청하는 동안 호출 실행
+				this.on('sending', function (file, xhr, formData) {
+					console.log('보내는중');
+				});
+				
+				// 서버로 파일이 성공적으로 전송되면 실행
+				this.on('success', function (file, responseText) {
+					console.log('성공');
+				});
+				
+				// 업로드 에러 처리
+				this.on('error', function (file, errorMessage) {
+					alert(errorMessage);
+				});
+			},
+		});
+
 		// 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
 		$(".property_block_wrap_header li:first-of-type, .tab-pane:first-of-type").find("a").attr("aria-expanded","true");
   		$(".property_block_wrap_header li:first-of-type").find("a").attr("aria-selected","true");
@@ -222,6 +332,10 @@
 				alert("가격 정책이 잘못 입력 되었습니다.");
 			}
 
+			for (let i = 0; i < addedFiles.length; i++) {
+				pdWrite.append('files', addedFiles[i]);
+			}
+			
 			var request = new XMLHttpRequest();
 			request.open("POST", "/wonder/pd/pdWrite");
 			request.send(pdWrite);
@@ -670,8 +784,8 @@
 
 										<div class="form-group col-md-12">
 											<label>사진을 첨부하세요</label>
-											<form action="/wonder/image/write"
-												class="dropzone dz-clickable primary-dropzone" enctype="multipart/form-data" autocomplete="off" >
+											<form id="pdImage" name="pdImage" action="/wonder/image/write"
+												class="dropzone dz-clickable primary-dropzone" enctype="multipart/form-data"  >
 												<div class="dz-default dz-message">
 													<i class="ti-gallery"></i> <span>원하는 파일을 드래그해주세요</span>
 												</div>
@@ -837,42 +951,6 @@
 	</div>
 	<!-- ============================================================== -->
 	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-
-	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/select2.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/slick.js"></script>
-	<script src="${pageContext.request.contextPath}/js/slider-bg.js"></script>
-	<script src="${pageContext.request.contextPath}/js/lightbox.js"></script>
-	<script src="${pageContext.request.contextPath}/js/imagesloaded.js"></script>
-	<script src="${pageContext.request.contextPath}/js/daterangepicker.js"></script>
-	<script src="${pageContext.request.contextPath}/js/custom.js"></script>
-
-	<script src="${pageContext.request.contextPath}/js/dropzone.js"></script>
-
-	<script
-		src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
-
-	<!--  -->
-	<!-- ============================================================== -->
-	<!-- This page plugins -->
-	<!-- ============================================================== -->
-
-	<!-- New Js -->
-
-	<!--  -->
-	<!-- Date Booking Script -->
-	<script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/daterangepicker.js"></script>
-	<!-- ============================================================== -->
-	<!-- This page plugins -->
 	<!-- ============================================================== -->
 
 </body>

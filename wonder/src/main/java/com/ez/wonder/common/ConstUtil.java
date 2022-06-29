@@ -30,6 +30,9 @@ public interface ConstUtil {
 	int UPLOAD_IMAGE_FLAG=2; //상품 등록시 이미지 업로드
 	
 	int EXPERT_PROFILE_IMAGE=3; //전문가 프로필사진 이미지 업로드
-	int EXPERT_PORTFOLIO_IMAGE=4; //전문가 포트	폴리오 사진 이미지 업로드
+	int EXPERT_PORTFOLIO_IMAGE=4; //전문가 포트폴리오 사진 이미지 업로드
+	
+	//찜하기 관련 상수
+	int ADDHEART=1;	//찜 하기
+	int REMOVEHEART=2; //찜 해체
 }
-

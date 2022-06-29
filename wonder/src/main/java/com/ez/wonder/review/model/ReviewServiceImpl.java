@@ -31,5 +31,10 @@ public class ReviewServiceImpl implements ReviewService{
 	public Map<String, Object> getAvgScore(int pdNo) {
 		return reviewDao.getAvgScore(pdNo);
 	}
+
+	@Override
+	public int reviewCount(ReviewVO vo) {
+		return reviewDao.reviewCount(vo);
+	}
 	
 }

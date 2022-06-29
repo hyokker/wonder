@@ -53,26 +53,23 @@
 <ul class="nav-menu">
 
 	<li class="active"><a href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span class="submenu-indicator"></span></a>
-<!-- <ul class="nav-dropdown nav-submenu">
-	<li><a href="index.html">서비스 소개</a></li>
-<li><a href="home-2.html">Home 2</a></li>
-	<li><a href="home-3.html">Home 3</a></li>
-	<li><a href="home-4.html">Home 4</a></li>
-	<li><a href="home-5.html">Home 5</a></li>
-	<li><a href="home-6.html">Home 6</a></li>
-	<li><a href="home-7.html">Home 7</a></li>
-	<li><a href="map.html">Map Home</a></li>
-	</ul> -->
+
 </li>
 
-<li><a href="<c:url value='/pd/pdList'/>">상품 목록<span class="submenu-indicator"></span></a>
+<li>
+	<a>상품 목록
+		<span class="submenu-indicator"></span>
+	</a>
 	<ul class="nav-dropdown nav-submenu">
-		 <li><a href="#">언어별 상품 목록<span class="submenu-indicator"></span></a>
-		 	<ul class="nav-dropdown nav-submenu">
-	<li><a href="grid-layout-with-sidebar.html">JAVA</a></li>
-	<li><a href="grid-layout-2.html">ORACLE</a></li>
-	<li><a href="grid-layout-3.html">SPRING</a></li>
-</ul>
+		 <li>
+		 	<a href="<c:url value='/pd/pdList'/>"">언어별 상품 목록<span class="submenu-indicator">
+		 		</span>
+		 		</a>
+<!-- 		 	<ul class="nav-dropdown nav-submenu">
+				<li><a href="grid-layout-with-sidebar.html">JAVA</a></li>
+				<li><a href="grid-layout-2.html">ORACLE</a></li>
+				<li><a href="grid-layout-3.html">SPRING</a></li>
+			</ul>  -->
 </li>
 <!-- <li><a href="#">가격별 상품 목록<span class="submenu-indicator"></span></a>
 	<ul class="nav-dropdown nav-submenu">
@@ -106,7 +103,7 @@
 	</ul>
 </li>
 
-<li><a href="#">자유게시판<span class="submenu-indicator"></span></a>
+<li><a href="<c:url value='/board/list'/>">자유게시판<span class="submenu-indicator"></span></a>
 	<!-- <ul class="nav-dropdown nav-submenu">
 	<li class=""><a href="#">User Admin<span class="submenu-indicator"></span></a>
 		<ul class="nav-dropdown nav-submenu">
@@ -149,7 +146,7 @@
 <c:if test="${empty sessionScope.userId }">
 <ul class="nav-menu nav-menu-social align-to-right">
 	<li>
-		<a href="#" class="alio_green" data-toggle="modal" data-target="#login">
+		<a href="#" class="alio_green" data-toggle="modal" data-target="#login" id="topLogin">
 			<i class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">로그인 하세요</span>
 		</a>
 	</li>
@@ -160,8 +157,9 @@
 <ul class="nav-menu nav-menu-social align-to-right">
 	<li>
 		${sessionScope.userId }님 환영합니다!
+		<%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
 <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li>
-	<button class="api-btn" onclick="unlinkApp()">앱 탈퇴하기</button>
+	<button class="api-btn" onclick="unlinkApp()">카카오 로그아웃</button>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
   		function unlinkApp() {
@@ -175,10 +173,11 @@
         		alert('fail: ' + JSON.stringify(err))
       		},
     		})
+   			window.location = "/wonder/member/logout";
  		 }		
 	</script>
 	
-	
+	<input type="hidden" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/>
 	
 	
 	

@@ -9,6 +9,7 @@ import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberDAO;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
 
 import lombok.RequiredArgsConstructor;
@@ -77,6 +78,27 @@ public class MypageServiceImpl implements MypageService{
 	public List<LanguageVO> selectAllLanguage() {
 		return mypageDao.selectAllLanguage();
 	}
+
+	@Override
+	public List<FrameworkVO> selectAllFramework() {
+		return mypageDao.selectAllFramework();
+	}
+
+	@Override
+	public int insertExpertPorfolio(ExpertImageVO expertVo) {
+		return mypageDao.insertExpertPorfolio(expertVo);
+	}
+
+	@Override
+	public List<ExpertImageVO> selectExpertPortfolioById(String userId) {
+		return mypageDao.selectExpertPortfolioById(userId);
+	}
+
+	@Override
+	public int deletePortfolio() {
+		return mypageDao.deletePortfolio();
+	}
+
 
 
 

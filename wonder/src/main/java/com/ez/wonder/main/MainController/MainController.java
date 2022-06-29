@@ -17,4 +17,14 @@ public class MainController {
 	public String get_main() {
 		return "/main/main";
 	}
+	
+	@RequestMapping("/provision/provision")
+	public String provision() {
+		return "/provision/provision";
+	}
+	
+	@RequestMapping("/provision/terms")
+	public String terms() {
+		return "/provision/terms";
+	}
 }

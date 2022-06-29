@@ -44,11 +44,17 @@ public class ProductServiceImpl implements ProductService{
 	public int insertPdDetail(PdDetailVO item) {
 		return productDao.insertPdDetail(item);
 	}
+	
 	public ExpertVO getExpertInfo(int pdNo) {
 		ProductVO vo=productDao.selcetProductByNo(pdNo);
 		String userId=vo.getUserId();
 		
 		return memberDao.selectByUserId(userId);
+	}
+	
+	@Override
+	public int insertPdImage(PdImageVO item) {
+		return productDao.insertPdImage(item);
 	}
 
 }
