@@ -45,7 +45,7 @@
 									class="fa fa-bookmark"></i>거래대기 목록<span
 									class="notti_coun style-2">7</span></a></li>
 							<li class="active"><a
-								href="s<c:url value='/admin/subadminList'/>"><i
+								href="<c:url value='/admin/subadminList'/>"><i
 									class="fa fa-id-badge"></i>부서별 관리자 관리<span
 									class="notti_coun style-3">3</span></a></li>
 							<li><a href="<c:url value='/admin/editAccount'/>"><i
@@ -149,7 +149,7 @@
 														</td>
 														<td>
 															<div class="_leads_action">
-																<a href="#"><i class="fas fa-trash"></i></a>
+																<a href="delSubAdmin?adminNo=${adminVo.adminNo }"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

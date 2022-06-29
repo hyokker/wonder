@@ -54,13 +54,29 @@
 			and
 		</if>
 		grant_flag = 'N'
+		order by mem_No desc
 		)B
 		)
 		where RNUM>#{firstRecordIndex} 
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-
+	
+	<update id="grantExpert">
+		update
+		memExGrantView
+		set
+		type = '프리랜서', grant_flag ='Y'
+		where user_Id=#{userId}
+	</update>
+	
+	<delete id="deleteExpert" parameterType="int">
+		delete
+		from
+		member
+		where mem_No=#{memNo}
+	</delete>
+		
 	<select id="selectProduct" resultType="productVo"
 		parameterType="searchVo">
 		select *
@@ -79,6 +95,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+	<delete id="deleteProduct" parameterType="int">
+		delete
+		from
+		product
+		where pd_No=#{pdNo}
+	</delete>
 
 	<select id="selectAdmin" resultType="adminVo"
 		parameterType="searchVo">
@@ -98,6 +121,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+	<delete id="deleteSubAdmin" parameterType="int">
+		delete
+		from
+		admin
+		where admin_No=#{adminNo}
+	</delete>
 
 	<select id="selectNonApprovalList" resultType="productVo"
 		parameterType="searchVo">
@@ -125,6 +155,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+	<delete id="deleteForm" parameterType="int">
+		delete
+		from
+		form
+		where form_no-#{formNo}
+	</delete>
 
 	<select id="getTotalRecord" parameterType="searchVo"
 		resultType="int">

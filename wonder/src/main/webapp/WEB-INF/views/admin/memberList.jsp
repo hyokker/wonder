@@ -183,7 +183,7 @@
 															</div> --%></td>
 														<td>
 															<div class="_leads_action">
-																<a href="delMember?memNo=${memberVO.memNo}"><i class="fas fa-trash"></i></a>
+																<a href="delMember?memNo=${memberVo.memNo }"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

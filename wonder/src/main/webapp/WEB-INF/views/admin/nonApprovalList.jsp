@@ -92,7 +92,7 @@
 													<span>${productVo.userId }</span> <span
 														class="table-property-price">900000만원</span>
 												</div></td>
-											<td class="action"><a href="#" class="delete"><i
+											<td class="action"><a href="delnonApList?formNo=${formVo.formNo }" class="delete"><i
 													class="ti-close"></i> Delete</a></td>
 										</tr>
 									</c:forEach>
