@@ -27,5 +27,7 @@ public interface MypageDAO {
 	List<LanguageVO> selectAllLanguage();
 	List<FrameworkVO> selectAllFramework();
 	int deletePortfolio();
+	String selectPwd(String userId);
+	int updatePwd(MemberVO memVo);
 	
 }

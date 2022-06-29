@@ -93,4 +93,18 @@
 	where file_type='PORTFOLIO'
 </delete>
 
+<!-- 비밀번호 체크시 필요한 기존 비밀번호 조회 -->
+<select id="selectPwd" parameterType="string" resultType="string">
+	select pwd from member
+	where user_id=#{userId}
+</select>
+
+<!-- 멤버 비밀번호 변경 -->
+<update id="updatePwd" parameterType="memberVo">
+	update member
+	set pwd=#{pwd}
+	where user_id=#{userId}
+</update>
+
+
 </mapper>
