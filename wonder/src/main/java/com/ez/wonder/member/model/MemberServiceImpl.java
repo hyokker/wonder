@@ -2,6 +2,8 @@ package com.ez.wonder.member.model;
 
 import org.springframework.stereotype.Service;
 
+import com.ez.wonder.admin.model.AdminVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -55,6 +57,29 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteMember(String userid){
 		return memberDao.deleteMember(userid);
 	}
+
+	@Override 	//관리자 로그인
+	public AdminVO selectByAdminId(String adminId) {
+		return memberDao.selectByAdminId(adminId);
+	}
+	
+	public int checkAmdinLogin(String userid, String pwd){
+		String dbPwd = memberDao.selectAdminPwd(userid);
+		
+		int result=0;
+		if(dbPwd!=null && !dbPwd.isEmpty()) {
+			if(dbPwd.equals(pwd)) {
+				result=MemberService.LOGIN_OK;
+			}else {
+				result=MemberService.DISAGREE_PWD;
+			}
+		}else {
+			result=MemberService.NONE_USERID;
+		}
+		
+		return result;
+	}
+	
 	//public
 
 }
