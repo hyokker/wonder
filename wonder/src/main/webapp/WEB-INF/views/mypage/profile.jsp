@@ -564,28 +564,7 @@
 													</div>
 												</div>	
 												
-												
-												<div class="form-group col-md-12">
-												<br>
-												<div class="uploadBoxWrap">
-													<label>포트폴리오 사진 (최대 5개의 이미지파일만 업로드할 수 있습니다)</label><br>
-														<div class="uploadBox" style="width:100%">
-															<div class="uploadBox_inner">
-																<label class="uploadBox_inner_p" for="portfolioUpload">포트폴리오 사진<br>업로드</label>
-															</div>
-	
-															<div class="uploadBox_innerRight  preview-image">
-																<input type="hidden" class="upload_name" value="" disabled="disabled">
-																<input type="file" id="portfolioUpload" name="portfolioFile[]" multiple="multiple"> <!-- file -->
-															</div>
-															<div id="image-holder">
-															
-															</div>
-														</div>
-														<br>
-														<input type="text" id="reviewProtfolioName" style="width:100%">
-													</div>
-												</div>	
+
 
 												
 											</div>

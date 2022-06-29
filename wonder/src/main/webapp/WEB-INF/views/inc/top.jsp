@@ -53,7 +53,24 @@
 <ul class="nav-menu">
 
 	<li class="active"><a href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span class="submenu-indicator"></span></a>
-
+	
+	
+	
+	<!-- 관리자 로그인 창 이동 버튼  -->
+	<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#dblclick").dblclick(function() {
+					location.href="/wonder/admin/login";					
+			
+		      });
+		});
+	
+	</script>
+	
+	<button id="dblclick" type="button">doubleClick</button>
+	
+	
 </li>
 
 <li>
@@ -184,6 +201,7 @@
 	
 	</li>
 	<li class="add-listing">
+		
 		<c:if test="${userId=='admin'}">
 		<a href="<c:url value='/admin/dashboard'/>" class="">
 			 <i class="fas fa-user-circle fa-lg"></i>
