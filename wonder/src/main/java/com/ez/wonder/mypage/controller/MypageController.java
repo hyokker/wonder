@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
@@ -57,8 +58,21 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/dashboard")
-	public void mypage_dashboard(HttpServletRequest request,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
+	public String mypage_dashboard(HttpServletRequest request,HttpSession session,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
 		logger.info("대시보드 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
+		
+		return "/mypage/dashboard";
 		
 	}
 	
@@ -423,6 +437,13 @@ public class MypageController {
 		return "/common/message";
 		
 		
+	}
+	
+	@RequestMapping("/testChat")
+	public String testChat(Model model) {
+		logger.info("채팅테스트화면");
+		
+		return "/mypage/testChat"; 
 	}
 	
 }
