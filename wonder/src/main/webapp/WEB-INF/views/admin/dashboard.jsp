@@ -5,7 +5,7 @@
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
-
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <!-- ============================ Page Title Start================================== -->
 <%@ include file="../adminInc/pageTitle.jsp"%>
 <!-- ============================ Page Title End ================================== -->
@@ -311,6 +311,8 @@
 
 				</div>
 			</div>
+
+			<div id="container" style="width: 500px; height: 400px;"></div>
 
 		</div>
 	</div>

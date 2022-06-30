@@ -27,8 +27,18 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public int deleteMember(int memNo) {
+		return adminDao.deleteMember(memNo);
+	}
+	
+	@Override
 	public List<AdminVO> selectAdmin(SearchVO searchVo){
 		return adminDao.selectAdmin(searchVo);
+	}
+	
+	@Override
+	public 	int deleteSubAdmin(int adminNo) {
+		return adminDao.deleteSubAdmin(adminNo);
 	}
 	
 	@Override
@@ -37,13 +47,33 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public 	int deleteProduct(int pdNo) {
+		return adminDao.deleteProduct(pdNo);
+	}
+	
+	@Override
 	public List<MemberVO> selectNonApprovalEx(SearchVO searchVo){
 		return adminDao.selectNonApprovalEx(searchVo);
 	}
 	
 	@Override
+	public 	int grantExpert(String  userId) {
+		return adminDao.grantExpert(userId);
+	}
+	
+	@Override
+	public int deleteExpert(int memNo) {
+		return adminDao.deleteExpert(memNo);
+	}
+	
+	@Override
 	public List<ProductVO> selectNonApprovalList(SearchVO searchVo) {
 		return adminDao.selectNonApprovalList(searchVo);
+	}
+	
+	@Override
+	public int deleteForm(int FormNo) {
+		return adminDao.deleteForm(FormNo);
 	}
 	
 	@Override
@@ -96,6 +126,8 @@ public class AdminServiceImpl implements AdminService{
 		
 		return result;
 	}
+	
+
 }
 
 

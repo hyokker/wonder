@@ -23,7 +23,6 @@
    <select id="selectByUserid" parameterType="string" resultType="memberVo">
       select * from member where user_id=#{userId}
    </select>
-   
       <update id="deleteMember">
       update member set outdate=sysdate 
       where user_id=#{userId}
@@ -32,6 +31,18 @@
    <select id="selectByUserId" parameterType="string" resultType="expertVo">
 		select * from expertMemberView where user_id=#{userId}
 	</select>
+
+
+	<!-- 관리자(admin) 시작  -->
+   <select id="selectAdminPwd" parameterType="string" resultType="String">
+      select admin_pwd from admin
+      where admin_id=#{adminId}
+   </select>
+
+   <select id="selectByAdminId" parameterType="string" resultType="adminVo">
+      select * from admin where admin_id=#{adminId}
+   </select>
+    <!-- 관리자(admin) 끝 -->
 </mapper>
 
 <!-- 

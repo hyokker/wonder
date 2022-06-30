@@ -165,8 +165,7 @@
 														</td>
 														<td>
 															<div class="_leads_action">
-																<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
-																	class="fas fa-trash"></i></a>
+																<a href="delProduct?pdNo=${productVo.pdNo }"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

@@ -2,6 +2,8 @@ package com.ez.wonder.member.model;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ez.wonder.admin.model.AdminVO;
+
 @Mapper
 public interface MemberDAO {
 	int insertMember(MemberVO vo);
@@ -12,4 +14,9 @@ public interface MemberDAO {
 	public int deleteMember(String userid);
 	//public
 	ExpertVO selectByUserId(String userid);
+	
+	
+	//관리자 로그인 메서드
+	String selectAdminPwd(String adminId);
+	AdminVO selectByAdminId(String adminId);
 }
