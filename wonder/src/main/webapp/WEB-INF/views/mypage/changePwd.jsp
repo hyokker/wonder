@@ -123,7 +123,7 @@
 						<div class="col-lg-9 col-md-8">
 							<div class="dashboard-body">
 							
-								<div class="dashboard-wraper">
+								<div class="dashboard-wraper" >
 								
 									<!-- Basic Information -->
 									<form name="frmChangePwd" method="post" action="<c:url value='/mypage/changePwd'/>">
