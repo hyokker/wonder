@@ -66,23 +66,23 @@ public class AdminController {
 
 		return "/admin/memberList";
 	}
-	
+
 	@RequestMapping("/delMember")
 	public String deleteMember(@RequestParam(defaultValue = "0") int memNo, Model model) {
 		logger.info("회원 삭제 처리, 파라미터 memNo={}", memNo);
-		
+
 		int cnt = adminService.deleteMember(memNo);
 		logger.info("회원 삭제 처리 결과, cnt={}", cnt);
-		String msg = "삭제 실패하였습니다.", url="/admin/memberList";
-		
-		if(cnt>0) {
+		String msg = "삭제 실패하였습니다.", url = "/admin/memberList";
+
+		if (cnt > 0) {
 			msg = "삭제되었습니다.";
 			url = "/admin/memberList";
 		}
-		
+
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
+
 		return "/common/message";
 	}
 
@@ -111,23 +111,23 @@ public class AdminController {
 
 		return "/admin/pdList";
 	}
-	
+
 	@RequestMapping("/delProduct")
 	public String deleteProduct(@RequestParam int pdNo, Model model) {
 		logger.info("게시글 삭제 처리, 파라미터 pdNo={}", pdNo);
-		
+
 		int cnt = adminService.deleteProduct(pdNo);
 		logger.info("게시글 삭제 처리 결과, cnt={}", cnt);
-		String msg = "삭제 실패하였습니다.", url="/admin/pdList";
-		
-		if(cnt>0) {
-			msg="삭제되었습니다";
+		String msg = "삭제 실패하였습니다.", url = "/admin/pdList";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다";
 			url = "/admin/pdList";
 		}
-		
+
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
+
 		return "/common/message";
 	}
 
@@ -229,25 +229,25 @@ public class AdminController {
 
 		return "/admin/subadminList";
 	}
-	
+
 	@RequestMapping("/delSubAdmin")
 	public String deleteSubAdmin(@RequestParam(defaultValue = "0") int adminNo, Model model) {
-			logger.info("부서별 관리자  삭제 처리, 파라미터 adminNo={}", adminNo);
-			
-			int cnt = adminService.deleteSubAdmin(adminNo);
-			logger.info("부서별 관리자  삭제 처리 결과, cnt={}", cnt);
-			String msg = "삭제 실패하였습니다.", url="/admin/subadminList";
-			
-			if(cnt>0) {
-				msg = "삭제되었습니다.";
-				url = "/admin/subadminList";
-			}
-			
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			
-			return "/common/message";
-		
+		logger.info("부서별 관리자  삭제 처리, 파라미터 adminNo={}", adminNo);
+
+		int cnt = adminService.deleteSubAdmin(adminNo);
+		logger.info("부서별 관리자  삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/subadminList";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다.";
+			url = "/admin/subadminList";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
 	}
 
 	@GetMapping("/createAdmin")
@@ -320,42 +320,43 @@ public class AdminController {
 
 		return "/admin/nonApprovalEx";
 	}
-	
+
 	@RequestMapping("/grantEx")
 	public String grantExpert(@RequestParam(defaultValue = "0") String userId, Model model) {
 		logger.info("전문가 승인 처리, 파라미터 adminId={}", userId);
-		
+
 		int cnt = adminService.grantExpert(userId);
 		logger.info("전문가 승인 처리 결과, cnt={}", cnt);
-		String msg = "전문가 승인 실패하였습니다.", url ="/admin/nonApprovalEx";
-		
-		if(cnt>0) {
+		String msg = "전문가 승인 실패하였습니다.", url = "/admin/nonApprovalEx";
+
+		if (cnt > 0) {
 			msg = "승인되었습니다.";
 			url = "/admin/nonApprovalEx";
 		}
-		
+
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
+
 		return "/common/message";
 	}
+
 	@RequestMapping("/delnonApEx")
 	public String deleteExpert(@RequestParam(defaultValue = "0") int memNo, Model model) {
-			logger.info("전문가 승인 삭제 처리, 파라미터 memNo={}", memNo);
-			
-			int cnt = adminService.deleteExpert(memNo);
-			logger.info("전문가 승인 삭제 처리 결과, cnt={}", cnt);
-			String msg = "삭제 실패하였습니다.", url="/admin/nonApprovalEx";
-			
-			if(cnt>0) {
-				msg = "삭제되었습니다.";
-				url = "/admin/nonApprovalEx";
-			}
-			
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			
-			return "/common/message";
+		logger.info("전문가 승인 삭제 처리, 파라미터 memNo={}", memNo);
+
+		int cnt = adminService.deleteExpert(memNo);
+		logger.info("전문가 승인 삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/nonApprovalEx";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다.";
+			url = "/admin/nonApprovalEx";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
 	}
 
 	@RequestMapping("/nonApprovalList")
@@ -383,23 +384,23 @@ public class AdminController {
 
 		return "/admin/nonApprovalList";
 	}
-	
+
 	@RequestMapping("/delNonApprovalList")
 	public String deleteForm(@RequestParam(defaultValue = "0") int formNo, Model model) {
 		logger.info("거래대기 목록 삭제 처리, 파라미터 formNo={}", formNo);
-		
+
 		int cnt = adminService.deleteForm(formNo);
 		logger.info("거래대기 목록 삭제 처리 결과, cnt={}", cnt);
-		String msg = "삭제 실패하였습니다.", url="/admin/nonApprovalList";
-		
-		if(cnt>0) {
+		String msg = "삭제 실패하였습니다.", url = "/admin/nonApprovalList";
+
+		if (cnt > 0) {
 			msg = "삭제되었습니다.";
 			url = "/admin/nonApprovalList";
 		}
-		
+
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
+
 		return "/common/message";
 	}
 
@@ -409,12 +410,22 @@ public class AdminController {
 
 		return "/admin/email";
 	}
-	
+
 	@GetMapping("/dashboard")
 	public String get_dashboard() {
 		logger.info("대시보드 화면");
 
 		return "/admin/dashboard";
 	}
-	
+
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		logger.info("로그아웃 처리 ");
+
+		// session.invalidate();
+		session.removeAttribute("adminId");
+		
+		return "redirect:/";
+	}
+
 }

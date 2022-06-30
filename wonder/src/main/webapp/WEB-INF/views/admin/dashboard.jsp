@@ -52,7 +52,7 @@
 					</div>
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i class="fa fa-power-off"></i></a></li>
 							<li><a href="<c:url value='/admin/email'/>"><i
 									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
