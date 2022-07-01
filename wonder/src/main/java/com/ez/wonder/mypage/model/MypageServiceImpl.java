@@ -99,6 +99,30 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDao.deletePortfolio();
 	}
 
+	@Override
+	public int checkPwd(String userId, String pwd) {
+		String userPwd = mypageDao.selectPwd(userId);
+		
+		int result=0;
+		if(userPwd!=null && !userPwd.isEmpty()) {
+			if(userPwd.equals(pwd)) {
+				result=MypageService.LOGIN_SUCCESS;
+			}else {
+				result=MypageService.DISAGREE_PWD;
+			}
+		}else {
+			result=MypageService.NONE_USERID;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updatePwd(MemberVO memVo) {
+		return mypageDao.updatePwd(memVo);
+	}
+
+
 
 
 

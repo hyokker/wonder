@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
@@ -56,8 +58,21 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/dashboard")
-	public void mypage_dashboard(HttpServletRequest request,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
+	public String mypage_dashboard(HttpServletRequest request,HttpSession session,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
 		logger.info("대시보드 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
+		
+		return "/mypage/dashboard";
 		
 	}
 	
@@ -327,7 +342,6 @@ public class MypageController {
 		}
 		
 		
-		
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
@@ -369,8 +383,8 @@ public class MypageController {
 		model.addAttribute("vo",vo);
 	}
 	
-	@RequestMapping("/changePwd")
-	public void mypage_changePwd(HttpSession session,Model model) {
+	@GetMapping("/changePwd")
+	public void mypage_changePwd_get(HttpSession session,Model model) {
 		logger.info("암호 변경 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
@@ -379,4 +393,57 @@ public class MypageController {
 		
 		model.addAttribute("vo",vo);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/checkBefore")
+	public boolean mypage_checkPwd_ajax(HttpSession session,@RequestParam String beforePwd) {
+		String userId=(String) session.getAttribute("userId");
+		logger.info("암호체크, 유저아이디={}, 입력한 기존 암호={}",userId, beforePwd);
+		
+		int result = mypageService.checkPwd(userId, beforePwd);
+		logger.info("비밀번호 중복체크 결과 1성공, 2실패, 3없음 result={}",result);
+		
+		boolean bool = false;
+		if(result==MypageService.LOGIN_SUCCESS) {
+			bool=true;
+		}else if(result==MypageService.DISAGREE_PWD) {
+			bool=false;
+		}
+		
+		return bool;
+	}
+	
+	@PostMapping("/changePwd")
+	public String mypage_changePwd_post(@RequestParam String newPwd,HttpSession session,Model model) {
+		logger.info("암호 변경 처리, 파라미터 newPwd={}",newPwd);
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("현재 로그인중인 아이디 vo={}",vo);
+		
+		
+		String msg="비밀번호 수정 실패", url="/mypage/changePwd";
+		vo.setPwd(newPwd);
+		logger.info("수정예정 비밀번호 vo.pwd={}",vo.getPwd());
+		int pwdCnt = mypageService.updatePwd(vo);
+		logger.info("삭제처리 완료 cnt={}",pwdCnt);
+		if(pwdCnt>0) {
+			msg="비밀번호 수정 성공!";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		
+		return "/common/message";
+		
+		
+	}
+	
+	@RequestMapping("/testChat")
+	public String testChat(Model model) {
+		logger.info("채팅테스트화면");
+		
+		return "/mypage/testChat"; 
+	}
+	
 }

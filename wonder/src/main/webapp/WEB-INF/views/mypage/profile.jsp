@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
- 
+
 <script type="text/javascript">
 	$(function(){
 		 var fileTarget = $('#profileUpload');
