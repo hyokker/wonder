@@ -80,4 +80,8 @@ public class MainController {
 	public String terms() {
 		return "/provision/terms";
 	}
+
+	@RequestMapping("/faq/faq")
+	public void faq() {
+	}
 }

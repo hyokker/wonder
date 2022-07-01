@@ -19,4 +19,7 @@ public interface QnaDAO {
 	int updateQna(QnaVO vo);
 	int deleteQna(int qnaNo);
 	
+	int updateSortNo(QnaVO vo);
+	int reply(QnaVO vo);
+	
 }

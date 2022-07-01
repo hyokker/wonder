@@ -73,10 +73,16 @@ public class QnaController {
 		vo.setOriginalFileName(oFileName);
 		vo.setFileSize(fileSize);
 		
+		String msg="질문 등록 실패!",url="/qna/qnaList";
 		int cnt=qnaService.insertQna(vo);
 		logger.info("글쓰기 처리 결과, cnt={}", cnt);
+		if(cnt>0) {
+			msg="질문 등록 성공!";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
-		return "redirect:/qna/qnaList";
+		return "common/message";
 	}
 	
 	@RequestMapping("/qna/qnaList")
@@ -244,5 +250,41 @@ public class QnaController {
 		return "/common/message";
 	}
 	
+	@GetMapping("/qna/qnaReply")
+	public String reply_get(@RequestParam(value = "qnaNo") int qnaNo, Model model) {
+	   logger.info("답변 페이지, 파라미터 qnaNo={}", qnaNo);
+	   
+	   if(qnaNo == 0) {
+	      model.addAttribute("msg", "잘못된 URL입니다");
+	      model.addAttribute("url", "/reBoard/list.do");
+	      
+	      return "/common/message";
+	   }
+	   
+	   QnaVO qnaVo = qnaService.selectByNo(qnaNo);
+	   logger.info("답변 조회 결과 reboardVO={}", qnaVo);
+	   
+	   model.addAttribute("vo", qnaVo);
+	   return "/qna/qnaReply";
+	}
 	
+	@PostMapping("/qna/qnaReply")
+	public String reply_post(@ModelAttribute QnaVO vo,Model model) {
+		logger.info("답변처리, 파라미터 vo={}",vo);
+		
+		int cnt=qnaService.reply(vo);
+		logger.info("답변처리 결과, cnt={}",cnt);
+		
+		String msg="답변 등록 실패", url="/qna/qnaReply?qnaNo="+vo.getQnaNo();
+		
+		if(cnt>0) {
+			msg="답변 등록 성공";
+			url="/qna/qnaList";
+		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		return "/common/message";
+		
+		
+	}
 }
