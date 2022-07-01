@@ -17,10 +17,10 @@
 	<h3 class="property_block_title">
 		<c:choose>
 			<c:when test="${vo.cateType=='Q'}">
-				<em class="board_category">질문</em>
+				<em class="board_category">질문 - </em>
 			</c:when>
 			<c:otherwise>
-				<em class="board_category">일반</em>
+				<em class="board_category">답변 -</em>
 			</c:otherwise>
 		</c:choose>
 		${vo.qnaTitle}
@@ -64,8 +64,16 @@ pageContext.setAttribute("newLine", "\r\n");
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
-				alert("이게맞는데");
 				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
+			}
+		});
+
+		$('#btreply').click(function(){
+			if($('#sessionId').val()!=$('#userId').val()){
+				alert('권한이 없습니다.');
+				event.preventDefault();
+			}else{
+				location.href="<c:url value='/qna/qnaReply?qnaNo='/>"+$('#qnaNo').val();
 			}
 		});
 		
@@ -86,9 +94,9 @@ pageContext.setAttribute("newLine", "\r\n");
 	});
 </script>
 
-	<input type="text" id="sessionId" value="${sessionScope.userId }">
-	<input type="text" id="userId" value="${vo.userId }">
-	<input type="text" id="qnaNo" value="${vo.qnaNo }">
+	<button class="btn btn-theme" type="button" id="btreply">
+	<i class="fa fa-pen-nib"></i> 답변
+</button>
 	<button class="btn btn-theme" type="button" id="btedit">
 	<i class="fa fa-pen-nib"></i> 수정
 </button>
@@ -99,7 +107,12 @@ pageContext.setAttribute("newLine", "\r\n");
 	onclick="location.href='<c:url value='/qna/qnaList'/>'">
 					<span class="ti-view-list"></span> 목록
 				</button>
+				
 			</div>
+				<input type="text" id="sessionAdmin" value="${sessionScope.adminId }">
+	<input type="text" id="sessionId" value="${sessionScope.userId }">
+	<input type="text" id="userId" value="${vo.userId }">
+	<input type="text" id="qnaNo" value="${vo.qnaNo }">
 		</div>
 
 	</div>

@@ -56,7 +56,7 @@
 	
 	
 	
-	<!-- 관리자 로그인 창 이동 버튼  -->
+<%-- 	<!-- 관리자 로그인 창 이동 버튼  -->
 	<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -69,7 +69,7 @@
 	</script>
 	
 	<button id="dblclick" type="button">doubleClick</button>
-	
+	 --%>
 	
 </li>
 

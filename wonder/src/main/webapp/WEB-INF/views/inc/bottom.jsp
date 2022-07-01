@@ -81,7 +81,9 @@
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-lg-12 col-md-12 text-center">
-					<p class="mb-0">© WONDER Corp</p>
+					<a href="<c:url value='/admin/login'/>">
+						<p class="mb-0">© WONDER Corp</p>
+					</a>
 				</div>
 			</div>
 		</div>
