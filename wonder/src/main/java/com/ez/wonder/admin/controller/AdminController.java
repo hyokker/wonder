@@ -411,13 +411,6 @@ public class AdminController {
 		return "/admin/email";
 	}
 
-	@GetMapping("/dashboard")
-	public String get_dashboard() {
-		logger.info("대시보드 화면");
-
-		return "/admin/dashboard";
-	}
-
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		logger.info("로그아웃 처리 ");

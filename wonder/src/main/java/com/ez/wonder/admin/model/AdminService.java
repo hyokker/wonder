@@ -1,5 +1,6 @@
 package com.ez.wonder.admin.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ez.wonder.common.SearchVO;
@@ -34,5 +35,11 @@ public interface AdminService {
 	int updateAdmin(AdminVO adminVo);
 	int insertAdmin(AdminVO adminVo);
 	
-
+	int sumAllSales();
+	int monthlySales();
+	int countMembers();
+	int countExperts();
+	int countProduct();
+	
+	ArrayList<SaleVO> countPaymethod();
 }

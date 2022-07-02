@@ -1,5 +1,6 @@
 package com.ez.wonder.admin.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -30,5 +31,11 @@ public interface AdminDAO {
 	int updateAdmin(AdminVO adminVo);
 	int insertAdmin(AdminVO adminVo);
 	
+	int sumAllSales();
+	int monthlySales();
+	int countMembers();
+	int countExperts();
+	int countProduct();
 
+	ArrayList<SaleVO> countPaymethod();
 }
