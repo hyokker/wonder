@@ -16,17 +16,61 @@ class="item">
 
 				<!-- Slide Title -->
 	<div class="home-slider-desc">
-		<div class="home-slider-title">
+		
+		
+	<div class="home-slider-title">
+		<c:if test='${("일반회원") eq (sessionScope.type) }'>
 			<h5 class="offers_tags">작업물 의뢰를 원하시나요?</h5>
 			<h3>
 				원더에서 의뢰하세요!<br> <span class="trans_text">WONDER</span>
 			</h3>
-		</div>
+			<%-- <input type="text" value="${sessionScope.type }"> --%>
+		</c:if>
+		
+		<c:if test='${("프리랜서") eq (sessionScope.type) }'>
+			<h5 class="offers_tags">상품 등록을 원하시나요?</h5>
+			<h3>
+				원더에서 등록하세요!<br> <span class="trans_text">WONDER</span>
+			</h3>
+			<%-- <input type="text" value="${sessionScope.type }"> --%>
+		</c:if>
+		
+		<c:if test='${("프리랜서") ne (sessionScope.type) && ("일반회원") ne (sessionScope.type)}'>
+			<h5 class="offers_tags">작업물 의뢰를 원하시나요?</h5>
+			<h3>
+				원더에서 의뢰하세요!<br> <span class="trans_text">WONDER</span>
+			</h3>
+			<%-- <input type="text" value="${sessionScope.type }"> --%>
+		</c:if>
+		
 
+
+
+	</div>
+		
+		
+		
+		
+		
+		
+		<c:if test='${("일반회원") eq (sessionScope.type) }'>
+ 		<a href="<c:url value='/aboutUs/aboutUs'/>"
+			class="read-more theme-bg"> 상품목록<i
+			class="fa fa-arrow-right ml-2"></i>
+		</a>
+		</c:if>
+		<c:if test='${("프리랜서") eq (sessionScope.type) }'>
 		<a href="<c:url value='/aboutUs/aboutUs'/>"
+			class="read-more theme-bg"> 상품등록<i
+			class="fa fa-arrow-right ml-2"></i>
+		</a>
+		</c:if>
+		<c:if test='${empty sessionScope.type }'>
+ 		<a href="<c:url value='/aboutUs/aboutUs'/>"
 			class="read-more theme-bg"> 원더가 뭐에요?<i
 			class="fa fa-arrow-right ml-2"></i>
 		</a>
+		</c:if>
 	</div>
 	<!-- Slide Title / End -->
 
