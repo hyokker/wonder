@@ -72,20 +72,13 @@ public class PdWriteController {
 		ProductVO pd = new ProductVO();
 		String userid= (String)session.getAttribute("userId");
 		pd.setUserId(userid);
-		pd.setCateType("product");
-		
-		logger.info(httpServletRequest.getParameter("pdTitle").getClass().getName());
-		logger.info(httpServletRequest.getParameter("pdLang").getClass().getName());
-		logger.info(httpServletRequest.getParameter("pdFrame").getClass().getName());
-
-		
+		pd.setCateType("p");
+logger.info("login session :" + userid);
 		pd.setPdTitle(httpServletRequest.getParameter("pdTitle"));
 		pd.setLang(httpServletRequest.getParameter("pdLang"));
 		pd.setFrame(httpServletRequest.getParameter("pdFrame"));
+
 		productService.insertPd(pd);
-		
-		logger.info("PdNo : " + pd.getPdNo());
-		
 		
 		String priceType = httpServletRequest.getParameter("priceType");
 
@@ -124,6 +117,37 @@ public class PdWriteController {
 			logger.info(pdDetail.toString());
 			
 			productService.insertPdDetail(pdDetail);
+			
+			pdDetail = new PdDetailVO();
+			pdDetail.setPdNo(pd.getPdNo());
+			pdDetail.setPdType("DELUXE");
+			pdDetail.setPdPrice(0);
+			pdDetail.setPdTerm(0);
+			pdDetail.setEditCount(0);
+			pdDetail.setServiceExplanation("");
+			pdDetail.setEditExplanation("");
+			pdDetail.setCommercial("N");
+			pdDetail.setCodeSupply("N");
+			pdDetail.setPayment("N");
+			pdDetail.setCustomize("N");
+			logger.info(pdDetail.toString());
+			productService.insertPdDetail(pdDetail);
+
+			pdDetail = new PdDetailVO();
+			pdDetail.setPdNo(pd.getPdNo());
+			pdDetail.setPdType("PREMIUM");
+			pdDetail.setPdPrice(0);
+			pdDetail.setPdTerm(0);
+			pdDetail.setEditCount(0);
+			pdDetail.setServiceExplanation("");
+			pdDetail.setEditExplanation("");
+			pdDetail.setCommercial("N");
+			pdDetail.setCodeSupply("N");
+			pdDetail.setPayment("N");
+			pdDetail.setCustomize("N");
+			logger.info(pdDetail.toString());
+			productService.insertPdDetail(pdDetail);
+
 		} else {
 			pdDetail = new PdDetailVO();
 			pdDetail.setPdNo(pd.getPdNo());
@@ -243,7 +267,6 @@ public class PdWriteController {
 					fileInfo.setOriginalFileName(originalFileName);
 					fileInfo.setFileSize(file.getSize());
 					fileInfo.setFileType(FilenameUtils.getExtension(originalFileName));
-					System.out.println(file.getOriginalFilename() + "   " + saveFileName);
 					file.transferTo(new File(folder, saveFileName));
 				}
 
