@@ -9,35 +9,6 @@
 <%@ include file="../adminInc/pageTitle.jsp"%>
 <!-- ============================ Page Title End ================================== -->
 
-<script type="text/javascript">
-	let payMethodL = [];
-	let payMethodD = [];
-
-	$(document).ready(
-			function() {
-				getTimeStamp();
-
-				$.ajax({
-					url : "<c:url value='/admin/dashboard'/>",
-					type : 'POST',
-					dataType : 'json',
-					contentType : 'application/json;charset=utf-8',
-					success : function(map) {
-						console.log(map);
-						if (map.countMembers != null
-								|| map.countExperts != null) {
-							var count = "<tr><td>총 회원수</td><td>"
-									+ map.countMembers + "</td></tr>"
-							count = "<tr><td>프리랜서수</td><td>" + map.countExperts
-									+ "</td></tr>"
-
-							$('.countMembers').append(count);
-						}//if
-
-					}
-				});
-			});
-</script>
 
 <!-- ============================ User Dashboard ================================== -->
 <section class="gray pt-5 pb-5">
@@ -97,8 +68,8 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<h4>
-								Wonder 현황 통계: <span class="pc-title theme-cl">Wonder Status
-									Statistics</span>
+								Wonder 현황 통계: <span class="pc-title theme-cl">Wonder
+									Status Statistics</span>
 							</h4>
 						</div>
 					</div>
@@ -179,119 +150,61 @@
 							</div>
 						</div>
 
+
 					</div>
 					<!--  row -->
 
 					<div class="row">
-						<div class="col-lg-8 col-md-7 col-sm-12">
+						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="card">
 								<div class="card-header">
 									<h4 class="mb-0">년도별 매출 비교</h4>
 								</div>
 								<!-- 대시보드 -->
-								<div class="chartjs">
-									<div class="linechart">
-										<canvas id="linechart" height="250" width="250"></canvas>
-									</div>
-									<div class="barchart">
-										<canvas id="barchart" height="250" width="250"></canvas>
-									</div>
-									<div class="donutchart">
-										<canvas id="donutchart" height="250" width="250"></canvas>
-									</div>
-								</div>
+								
+								<canvas id="line-chart" width="100" height="30"></canvas>
+								<script>
+								new Chart(document.getElementById("line-chart"), {
+								  type: 'line',
+								  data: {
+								    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+								    datasets: [{ 
+								        data: [86,114,106,106,107,111,133,221,783,2478],
+								        label: "Africa",
+								        borderColor: "#3e95cd",
+								        fill: false
+								      }, { 
+								        data: [282,350,411,502,635,809,947,1402,3700,5267],
+								        label: "Asia",
+								        borderColor: "#8e5ea2",
+								        fill: false
+								      }, { 
+								        data: [168,170,178,190,203,276,408,547,675,734],
+								        label: "Europe",
+								        borderColor: "#3cba9f",
+								        fill: false
+								      }, { 
+								        data: [40,20,10,16,24,38,74,167,508,784],
+								        label: "Latin America",
+								        borderColor: "#e8c3b9",
+								        fill: false
+								      }, { 
+								        data: [6,3,2,2,7,26,82,172,312,433],
+								        label: "North America",
+								        borderColor: "#c45850",
+								        fill: false
+								      }
+								    ]
+								  },
+								  options: {
+								    title: {
+								      display: true,
+								      text: 'World population per region (in millions)'
+								    }
+								  }
+								});
+								</script>
 
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-5 col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h6>알림</h6>
-								</div>
-								<div class="ground-list ground-list-hove">
-									<div class="ground ground-single-list">
-										<a href="#">
-											<div class="btn-circle-40 theme-cl theme-bg-light">
-												<i class="ti-home"></i>
-											</div>
-										</a>
-
-										<div class="ground-content">
-											<h6>
-												<a href="#">Your listing <strong>Azreal Modern</strong>
-													has been approved!.
-												</a>
-											</h6>
-											<span class="small">Just Now</span>
-										</div>
-									</div>
-
-									<div class="ground ground-single-list">
-										<a href="#">
-											<div class="btn-circle-40 theme-cl theme-bg-light">
-												<i class="ti-comment-alt"></i>
-											</div>
-										</a>
-
-										<div class="ground-content">
-											<h6>
-												<a href="#">Litha Lynes left a review on <strong>Renovated
-														Apartment</strong></a>
-											</h6>
-											<span class="small">20 min ago</span>
-										</div>
-									</div>
-
-									<div class="ground ground-single-list">
-										<a href="#">
-											<div class="btn-circle-40 theme-cl theme-bg-light">
-												<i class="ti-heart"></i>
-											</div>
-										</a>
-
-										<div class="ground-content">
-											<h6>
-												<a href="#">Someone bookmark your View listing!<strong>Sargun
-														Villa Bay</strong></a>
-											</h6>
-											<span class="small">1 day ago</span>
-										</div>
-									</div>
-
-									<div class="ground ground-single-list">
-										<a href="#">
-											<div class="btn-circle-40 theme-cl theme-bg-light">
-												<i class="ti-home"></i>
-											</div>
-										</a>
-
-										<div class="ground-content">
-											<h6>
-												<a href="#">Your listing <strong>Modern Family
-														Home</strong> has been approved!.
-												</a>
-											</h6>
-											<span class="small">10 days ago</span>
-										</div>
-									</div>
-
-									<div class="ground ground-single-list">
-										<a href="#">
-											<div class="btn-circle-40 theme-cl theme-bg-light">
-												<i class="ti-comment-alt"></i>
-											</div>
-										</a>
-
-										<div class="ground-content">
-											<h6>
-												<a href="#">Adam Brown left a review on <strong>Renovated
-														Apartment</strong></a>
-											</h6>
-											<span class="small">Just Now</span>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>

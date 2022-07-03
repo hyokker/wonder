@@ -28,11 +28,125 @@
 		, PAYMENT
 		, CUSTOMIZE
 	</sql>
+
+	<sql id="ImageColsRaw">
+		PDIMG_NO
+		, PD_NO
+		, FILE_NAME
+		, ORIGINAL_FILE_NAME
+		, FILE_SIZE
+		, FILE_TYPE
+	</sql>
+
 	
 	<select id="selectAllPd" resultType="productVo">
 		select
 			<include refid="PdColsRaw" />
 		from product
+	</select>
+	
+	<select id="selectAllPdByUserId" resultType="pdListVo">
+		SELECT
+			T1.PD_NO AS pdNo
+			, T1.USER_ID AS userId
+			, CATE_TYPE
+			, PD_TITLE
+			, REGDATE
+			, DEL_TYPE
+			, READ_COUNT
+			, LANG
+			, FRAME
+			, T2.DUP_FLAG AS dupFlag
+		FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
+			ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+	</select>
+	
+	
+	<select id="searchPd" parameterType="string" resultType="pdListVo">
+		SELECT
+			T1.PD_NO AS PD_NO
+			, T1.USER_ID AS USER_ID
+			, CATE_TYPE
+			, PD_TITLE
+			, REGDATE
+			, DEL_TYPE
+			, READ_COUNT
+			, LANG
+			, FRAME
+			, T2.DUP_FLAG AS DUP_FLAG
+		FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
+			ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+		<where>
+			<if test="pdTitle != null and pdTitle != ''">
+				AND PD_TITLE LIKE '%' || #{pdTitle} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="searchPdDetail" resultType="PdDetailVO">
+      select
+      <include refid="DetailColsRaw" />
+      from PD_DETAIL
+      <where>
+         AND PD_TYPE = 'STANDARD'
+         <if test="pdNo != 0">
+            AND PD_NO = #{pdNo}
+         </if>
+         <if test="editCount != 0">
+            AND EDIT_COUNT = #{editCount}
+         </if>
+         <if test="pdTermMin != 0">
+            AND PD_TERM <![CDATA[>=]]>
+            #{pdTermMin}
+         </if>
+         <if test="pdTermMax != 0">
+            AND PD_TERM <![CDATA[<=]]>
+            #{pdTermMax}
+         </if>
+         <if test="pdPriceMin != 0">
+            AND PD_PRICE <![CDATA[>=]]>
+            #{pdPriceMin}
+         </if>
+         <if test="pdPriceMax != 0">
+            AND PD_PRICE <![CDATA[<=]]>
+            #{pdPriceMax}
+         </if>
+      </where>
+   </select>
+	
+	<select id="selectPdDetail" parameterType="int" resultType="PdDetailVO">
+		select
+			<include refid="DetailColsRaw" />
+		from PD_DETAIL
+		<where>
+			AND PD_TYPE = 'STANDARD'
+			<if test="pdNo != 0">
+				AND PD_NO = #{pdNo}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectPdDetailS" parameterType="int" resultType="PdDetailVO">
+		select
+			<include refid="DetailColsRaw" />
+		from PD_DETAIL
+		<where>
+			AND PD_TYPE = 'STANDARD'
+			<if test="pdNo != 0">
+				AND PD_NO = #{pdNo}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectPdImage" parameterType="int" resultType="PdImageVO">
+		select
+			<include refid="ImageColsRaw" />
+		from PD_IMAGE
+		<where>
+			<if test="pdNo != 0">
+				AND PD_NO = #{pdNo}
+			</if>
+		</where>
 	</select>
 
 	<insert id="insertPd" parameterType="productVo" >
@@ -81,7 +195,7 @@
 	</insert>
 	
 	<insert id="insertPdImage" parameterType="PdImageVO" >
-		<selectKey resultType="int" keyProperty="PdImgNo" order="BEFORE">
+		<selectKey resultType="int" keyProperty="pdImgNo" order="BEFORE">
 			select PD_IMAGE_seq.nextval from dual
 		</selectKey>
 		INSERT INTO PD_IMAGE
@@ -93,14 +207,48 @@
 			, FILE_SIZE
 			, FILE_TYPE
 		)VALUES(
-			#{PdImgNo}
-			, #{PdNo}
-			, #{FileName}
-			, #{OriginalFileName}
-			, #{FileSize}
-			, #{FileType}
+			#{pdImgNo}
+			, #{pdNo}
+			, #{fileName}
+			, #{originalFileName}
+			, #{fileSize}
+			, #{fileType}
 		)
 	</insert>
+	
+	
+<!-- 
+	<insert id="insertDupFlag" parameterType="NoneDupVO">
+		<selectKey resultType="int" keyProperty="dupNo" order="BEFORE">
+			select NONE_DUP_seq.nextval from dual
+		</selectKey>
+			INSERT INTO NONE_DUP
+			(
+				DUP_NO
+				, PD_NO
+				, USER_ID
+				, DUP_FLAG
+			)VALUES(
+				#{dupNo}
+				, #{pdNo}
+				, #{userId}
+				, #{dupFlag}
+			)
+	</insert>
+	
+	<delete id="deleteDupFlag" parameterType="NoneDupVO">
+		DELETE FROM NONE_DUP
+		<where>
+			<if test="pdNo != 0">
+				AND PD_NO = #{pdNo}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND USER_ID = #{userId}
+			</if>
+		</where>
+	</delete>
+-->
+	
 	
 	
 </mapper>

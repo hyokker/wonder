@@ -43,6 +43,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <title>RentUP - Residence & Real Estate Template</title>
+
 <script type="text/javascript">
 	var arr_PdImgNo = new Array();
     Dropzone.autoDiscover = false;
