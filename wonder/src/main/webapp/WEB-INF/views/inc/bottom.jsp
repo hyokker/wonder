@@ -103,7 +103,7 @@
 			<div class="modal-body p-0">
 				<div class="resp_log_wrap">
 					<div class="resp_log_thumb"
-						style="background:url(${pageContext.request.contextPath}/img/log.jpg)no-repeat;"></div>
+						style="background:url(${pageContext.request.contextPath}/img/coding.jpg)no-repeat;"></div>
 					<div class="resp_log_caption">
 						<span class="mod-close" data-dismiss="modal" aria-hidden="true"><i
 							class="ti-close"></i></span>

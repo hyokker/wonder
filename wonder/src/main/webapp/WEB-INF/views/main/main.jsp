@@ -7,7 +7,7 @@
 
 	<!-- Slide -->
 <%-- <div data-background-image="<c:url value='/img/main.jpg'/>" --%>
-<div data-background-image=""  style="background:url(<c:url value='/img/main.jpg' />);"
+<div data-background-image="<c:url value='/img/coding.jpg'/>"  style="background:url(<c:url value='/img/coding.jpg' />);"
 class="item">
 <div class="container">
 	<div class="row">
@@ -42,7 +42,7 @@ class="item">
 
 <!-- ============================ Hero Search Start ================================== -->
 <section class="p-0 top_overlio">
-	<div class="container">
+<!-- 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-xl-11 col-lg-11 col-md-12">
 				<div
@@ -59,9 +59,9 @@ class="item">
 											<option value="1">Java</option>
 											<option value="2">Python</option>
 											<option value="3">Spring</option>
-											<!-- <option value="4">New Orleans</option>
+											<option value="4">New Orleans</option>
 								<option value="5">Washington</option>
-								<option value="6">Charleston</option> -->
+								<option value="6">Charleston</option>
 					</select>
 				</div>
 			</div>
@@ -76,9 +76,9 @@ class="item">
 						<option value="1">5년 이내</option>
 						<option value="2">10년 이내</option>
 						<option value="3">10년 이상</option>
-						<!-- <option value="4">Commercial</option>
+						<option value="4">Commercial</option>
 								<option value="5">Offices</option>
-								<option value="6">Garage</option> -->
+								<option value="6">Garage</option>
 					</select>
 				</div>
 			</div>
@@ -93,8 +93,8 @@ class="item">
 						<option value="1">STANDARD</option>
 						<option value="2">DELUXE</option>
 						<option value="3">PREMIUM</option>
-						<!-- <option value="3">From 80,000 To 40m</option>
-								<option value="3">From 90,000 To 50m</option> -->
+						<option value="3">From 80,000 To 40m</option>
+								<option value="3">From 90,000 To 50m</option>
 										</select>
 									</div>
 								</div>
@@ -112,7 +112,7 @@ class="item">
 
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
 <!-- ============================ Hero Search End ================================== -->
 
