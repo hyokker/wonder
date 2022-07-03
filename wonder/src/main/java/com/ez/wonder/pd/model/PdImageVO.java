@@ -3,10 +3,10 @@ import lombok.Data;
 
 @Data
 public class PdImageVO {
-	private int PdImgNo;
-	private int PdNo;
-	private String FileName;
-	private String OriginalFileName;
-	private long FileSize;
-	private String FileType;
+   private int pdImgNo;
+   private int pdNo;
+   private String fileName;
+   private String originalFileName;
+   private long fileSize;
+   private String fileType;
 }

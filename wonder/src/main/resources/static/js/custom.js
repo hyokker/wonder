@@ -215,14 +215,14 @@ $(function() {
 	
 	
 	// Range Slider Script
-	$(".js-range-slider").ionRangeSlider({
-		type: "double",
-		min: 0,
-		max: 1000,
-		from: 200,
-		to: 500,
-		grid: true
-	});
+	 $(".js-range-slider").ionRangeSlider({
+      type: "double",
+      min: 0,
+      max: 200000,
+      from: 10000,
+      to: 50000,
+      grid: true
+   });
 	
 	// Bottom To Top Scroll Script
 	$(window).on('scroll', function() {
