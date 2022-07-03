@@ -31,9 +31,6 @@ build/
 
 ### Common ###
 application.properties
-css/
-js/
-img/
 
 ### VS Code ###
 .vscode/

@@ -32,11 +32,6 @@ public class AdminController {
 
 	private final AdminService adminService;
 
-	@RequestMapping("/dashboard")
-	public void dashboard() {
-		logger.info("관리자 페이지 메인 화면");
-	}
-
 	// 1. 회원 목록 조회
 	@RequestMapping("/memberList")
 	public String memberList(@ModelAttribute SearchVO searchVo, Model model, HttpSession session) {
@@ -71,11 +66,30 @@ public class AdminController {
 
 		return "/admin/memberList";
 	}
-	
+
+	@RequestMapping("/delMember")
+	public String deleteMember(@RequestParam(defaultValue = "0") int memNo, Model model) {
+		logger.info("회원 삭제 처리, 파라미터 memNo={}", memNo);
+
+		int cnt = adminService.deleteMember(memNo);
+		logger.info("회원 삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/memberList";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다.";
+			url = "/admin/memberList";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+	}
+
 	@RequestMapping("/pdList")
 	public String pdList(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("게시글 목록 화면, 파라미터 searchVo={}", searchVo);
-		
+
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
 		pagingInfo.setRecordCountPerPage(9);
@@ -83,19 +97,38 @@ public class AdminController {
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setRecordCountPerPage(9);
-		
+
 		List<ProductVO> list = adminService.selectProduct(searchVo);
 		logger.info("게시글 목록 조회 결과, 파라미터 list.size={}", list.size());
-		
+
 		int totalRecord = adminService.getTotalRecord(searchVo);
-		logger.info("회원 목록 totalRecord={}", totalRecord);
+		logger.info("게시글 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
 
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
-		
+
 		return "/admin/pdList";
+	}
+
+	@RequestMapping("/delProduct")
+	public String deleteProduct(@RequestParam int pdNo, Model model) {
+		logger.info("게시글 삭제 처리, 파라미터 pdNo={}", pdNo);
+
+		int cnt = adminService.deleteProduct(pdNo);
+		logger.info("게시글 삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/pdList";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다";
+			url = "/admin/pdList";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
 	}
 
 	// 2. 최고 관리자 정보 수정 페이지 불러오기
@@ -139,18 +172,19 @@ public class AdminController {
 
 	// 3. 최고 관리자 정보 수정 처리
 	@PostMapping("/editAccount")
-	public String post_editAccount(@ModelAttribute AdminVO adminVo, @RequestParam String newPwd, HttpSession session, Model model) {
+	public String post_editAccount(@ModelAttribute AdminVO adminVo, @RequestParam String newPwd, HttpSession session,
+			Model model) {
 		String adminId = (String) session.getAttribute("adminId");
-		adminVo.setAdminId(adminId); 
+		adminVo.setAdminId(adminId);
 		logger.info("관리자 정보 수정, 파라미터 adminVo={}", adminVo);
-		
+
 		String msg = "비밀번호 체크 실패", url = "/admin/editAccount";
 
 		int result = adminService.checkLogin(adminVo.getAdminId(), adminVo.getAdminPwd());
 		logger.info("관리자 정보 수정 - 비밀번호 체크 결과, result={}", result);
 
 		adminVo.setAdminPwd(newPwd);
-		
+
 		if (result == AdminService.LOGIN_OK) {
 			int cnt = adminService.updateAdmin(adminVo);
 			logger.info("관리자 정보 수정 결과, cnt ={}", cnt);
@@ -169,11 +203,11 @@ public class AdminController {
 
 		return "/common/message";
 	}
-	
+
 	@GetMapping("/subadminList")
 	public String get_subadminList(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("부서별 관리자 목록 화면, 파라미터 searchVo={}", searchVo);
-		
+
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
 		pagingInfo.setRecordCountPerPage(9);
@@ -181,19 +215,39 @@ public class AdminController {
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setRecordCountPerPage(9);
-		
+
 		List<AdminVO> list = adminService.selectAdmin(searchVo);
 		logger.info("부서별 관리자 목록 결과, list.size={}", list.size());
-		
+
 		int totalRecord = adminService.getTotalRecord(searchVo);
 		logger.info("부서별 관리자 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("searchVo", searchVo);
 
 		return "/admin/subadminList";
+	}
+
+	@RequestMapping("/delSubAdmin")
+	public String deleteSubAdmin(@RequestParam(defaultValue = "0") int adminNo, Model model) {
+		logger.info("부서별 관리자  삭제 처리, 파라미터 adminNo={}", adminNo);
+
+		int cnt = adminService.deleteSubAdmin(adminNo);
+		logger.info("부서별 관리자  삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/subadminList";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다.";
+			url = "/admin/subadminList";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+
 	}
 
 	@GetMapping("/createAdmin")
@@ -240,22 +294,22 @@ public class AdminController {
 
 		return "/common/message";
 	}
-	
+
 	@RequestMapping("/nonApprovalEx")
 	public String get_NonApprovalEx(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("전문가 승인 대기 목록, 파라미터 searchVo={}", searchVo);
-		
+
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
 		pagingInfo.setRecordCountPerPage(9);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-		
+
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setRecordCountPerPage(9);
-		
+
 		List<MemberVO> list = adminService.selectNonApprovalEx(searchVo);
 		logger.info("전문가 승인 대기 목록 조회 결과, list.size={}", list.size());
-		
+
 		int totalRecord = adminService.getTotalRecord(searchVo);
 		logger.info("거래대기 목록 totalRecord={}", totalRecord);
 
@@ -265,6 +319,44 @@ public class AdminController {
 		model.addAttribute("pagingInfo", pagingInfo);
 
 		return "/admin/nonApprovalEx";
+	}
+
+	@RequestMapping("/grantEx")
+	public String grantExpert(@RequestParam(defaultValue = "0") String userId, Model model) {
+		logger.info("전문가 승인 처리, 파라미터 adminId={}", userId);
+
+		int cnt = adminService.grantExpert(userId);
+		logger.info("전문가 승인 처리 결과, cnt={}", cnt);
+		String msg = "전문가 승인 실패하였습니다.", url = "/admin/nonApprovalEx";
+
+		if (cnt > 0) {
+			msg = "승인되었습니다.";
+			url = "/admin/nonApprovalEx";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+	}
+
+	@RequestMapping("/delnonApEx")
+	public String deleteExpert(@RequestParam(defaultValue = "0") int memNo, Model model) {
+		logger.info("전문가 승인 삭제 처리, 파라미터 memNo={}", memNo);
+
+		int cnt = adminService.deleteExpert(memNo);
+		logger.info("전문가 승인 삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/nonApprovalEx";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다.";
+			url = "/admin/nonApprovalEx";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
 	}
 
 	@RequestMapping("/nonApprovalList")
@@ -293,10 +385,40 @@ public class AdminController {
 		return "/admin/nonApprovalList";
 	}
 
+	@RequestMapping("/delNonApprovalList")
+	public String deleteForm(@RequestParam(defaultValue = "0") int formNo, Model model) {
+		logger.info("거래대기 목록 삭제 처리, 파라미터 formNo={}", formNo);
+
+		int cnt = adminService.deleteForm(formNo);
+		logger.info("거래대기 목록 삭제 처리 결과, cnt={}", cnt);
+		String msg = "삭제 실패하였습니다.", url = "/admin/nonApprovalList";
+
+		if (cnt > 0) {
+			msg = "삭제되었습니다.";
+			url = "/admin/nonApprovalList";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "/common/message";
+	}
+
 	@GetMapping("/email")
 	public String get_email() {
 		logger.info("이메일 화면");
 
 		return "/admin/email";
 	}
+
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		logger.info("로그아웃 처리 ");
+
+		// session.invalidate();
+		session.removeAttribute("adminId");
+		
+		return "redirect:/";
+	}
+
 }

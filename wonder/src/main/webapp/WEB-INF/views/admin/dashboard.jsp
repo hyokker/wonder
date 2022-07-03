@@ -5,10 +5,39 @@
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
-
 <!-- ============================ Page Title Start================================== -->
 <%@ include file="../adminInc/pageTitle.jsp"%>
 <!-- ============================ Page Title End ================================== -->
+
+<script type="text/javascript">
+	let payMethodL = [];
+	let payMethodD = [];
+
+	$(document).ready(
+			function() {
+				getTimeStamp();
+
+				$.ajax({
+					url : "<c:url value='/admin/dashboard'/>",
+					type : 'POST',
+					dataType : 'json',
+					contentType : 'application/json;charset=utf-8',
+					success : function(map) {
+						console.log(map);
+						if (map.countMembers != null
+								|| map.countExperts != null) {
+							var count = "<tr><td>총 회원수</td><td>"
+									+ map.countMembers + "</td></tr>"
+							count = "<tr><td>프리랜서수</td><td>" + map.countExperts
+									+ "</td></tr>"
+
+							$('.countMembers').append(count);
+						}//if
+
+					}
+				});
+			});
+</script>
 
 <!-- ============================ User Dashboard ================================== -->
 <section class="gray pt-5 pb-5">
@@ -52,7 +81,8 @@
 					</div>
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i
+									class="fa fa-power-off"></i></a></li>
 							<li><a href="<c:url value='/admin/email'/>"><i
 									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
@@ -67,19 +97,33 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<h4>
-								매출 현황 통계: <span class="pc-title theme-cl">Sales Status
+								Wonder 현황 통계: <span class="pc-title theme-cl">Wonder Status
 									Statistics</span>
 							</h4>
 						</div>
 					</div>
+
+					<div class="countMembers"></div>
 
 					<div class="row">
 
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="dashboard_stats_wrap widget-1">
 								<div class="dashboard_stats_wrap_content">
-									<h4>1,222,000 원</h4>
-									<span>매출</span>
+									<h4>${sumAllSales}원</h4>
+									<span>누적매출</span>
+								</div>
+								<div class="dashboard_stats_wrap-icon">
+									<i class="ti-money"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="dashboard_stats_wrap widget-1">
+								<div class="dashboard_stats_wrap_content">
+									<h4>${monthlySales}원</h4>
+									<span>월매출</span>
 								</div>
 								<div class="dashboard_stats_wrap-icon">
 									<i class="ti-money"></i>
@@ -90,8 +134,8 @@
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="dashboard_stats_wrap widget-3">
 								<div class="dashboard_stats_wrap_content">
-									<h4>221 건</h4>
-									<span>거래건수</span>
+									<h4>${countProduct}건</h4>
+									<span>상품수</span>
 								</div>
 								<div class="dashboard_stats_wrap-icon">
 									<i class="ti-receipt"></i>
@@ -102,11 +146,35 @@
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="dashboard_stats_wrap widget-2">
 								<div class="dashboard_stats_wrap_content">
-									<h4>127 명</h4>
-									<span>가입자수</span>
+									<h4>${countMembers}명</h4>
+									<span>누적가입자수</span>
 								</div>
 								<div class="dashboard_stats_wrap-icon">
 									<i class="ti-stats-up"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="dashboard_stats_wrap widget-2">
+								<div class="dashboard_stats_wrap_content">
+									<h4>${countExperts}명</h4>
+									<span>누적프리랜서수</span>
+								</div>
+								<div class="dashboard_stats_wrap-icon">
+									<i class="ti-stats-up"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="dashboard_stats_wrap widget-3">
+								<div class="dashboard_stats_wrap_content">
+									<h4>${countPayment}건</h4>
+									<span>누적거래건수</span>
+								</div>
+								<div class="dashboard_stats_wrap-icon">
+									<i class="ti-receipt"></i>
 								</div>
 							</div>
 						</div>
@@ -120,26 +188,19 @@
 								<div class="card-header">
 									<h4 class="mb-0">년도별 매출 비교</h4>
 								</div>
-								<div class="card-body">
-									<ul class="list-inline text-center m-t-40">
-										<li>
-											<h5>
-												<i class="fa fa-circle m-r-5 text-warning"></i>2020
-											</h5>
-										</li>
-										<li>
-											<h5>
-												<i class="fa fa-circle m-r-5 text-danger"></i>2021
-											</h5>
-										</li>
-										<li>
-											<h5>
-												<i class="fa fa-circle m-r-5 text-success"></i>2022
-											</h5>
-										</li>
-									</ul>
-									<div class="chart" id="extra-area-chart" style="height: 300px;"></div>
+								<!-- 대시보드 -->
+								<div class="chartjs">
+									<div class="linechart">
+										<canvas id="linechart" height="250" width="250"></canvas>
+									</div>
+									<div class="barchart">
+										<canvas id="barchart" height="250" width="250"></canvas>
+									</div>
+									<div class="donutchart">
+										<canvas id="donutchart" height="250" width="250"></canvas>
+									</div>
 								</div>
+
 							</div>
 						</div>
 
@@ -311,6 +372,8 @@
 
 				</div>
 			</div>
+
+			<div id="container" style="width: 500px; height: 400px;"></div>
 
 		</div>
 	</div>

@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
@@ -55,8 +58,21 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/dashboard")
-	public void mypage_dashboard(HttpServletRequest request,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
+	public String mypage_dashboard(HttpServletRequest request,HttpSession session,Model model) { //효건님이 로그인으로 세션넘기는거 만드시면 바꿔야함!!! @@@@@@@@@@@@@@@@@@@@@
 		logger.info("대시보드 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
+		
+		return "/mypage/dashboard";
 		
 	}
 	
@@ -164,7 +180,7 @@ public class MypageController {
 						fileSize=(long)fileMap.get("fileSize");
 						logger.info("파일 업로드 성공, fileName={}, fileSize={}",fileName, fileSize);
 					
-						//프로필사진 올리는부분
+						//프로필사진 DB로 넣는부분
 						profileVo.setUserId(userId);
 						profileVo.setFileName(fileName);
 						profileVo.setOriginalFileName(originFileName);
@@ -244,14 +260,94 @@ public class MypageController {
 			
 		}
 		
+		//포트폴리오 이미지 list
+		List<ExpertImageVO> list = mypageService.selectExpertPortfolioById(userId);
+
+		logger.info("포트폴리오 리스트사이즈={}",list.size());
 		logger.info("프로필 페이지 memVo={}",memVo);
 		
+		model.addAttribute("list", list);
 		model.addAttribute("expertVo", vo);
 		model.addAttribute("memVo",memVo);
 		
 		return "/mypage/portfolio";
 	}
 	
+	@PostMapping("/portfolio")
+	public String mypage_portfolio_post(@RequestParam(required = false) String reviewProtfolioName,
+			HttpServletRequest request,	HttpSession session, Model model) {
+		
+		MultipartHttpServletRequest mtfRequest = (MultipartHttpServletRequest)request;
+		String userId = (String)session.getAttribute("userId");
+		List<MultipartFile> fileList = mtfRequest.getFiles("portfolioFile");
+		logger.info("포트폴리오 등록 처리 fileList.size={}, 접속중인 유저 아이디 ={}",fileList.size(),userId);
+		logger.info("테스트={}",reviewProtfolioName);
+		
+		String uploadPath = fileUploadUtil.getUploadPath(mtfRequest, ConstUtil.EXPERT_PORTFOLIO_IMAGE);
+
+		int index=0;
+		int profileCnt=0;
+		
+		String msg="멤버프로필 수정 실패", url="/mypage/portfolio";
+		//기존포트폴리오 삭제처리
+		if(!reviewProtfolioName.equals("") && !reviewProtfolioName.isEmpty()) { //파일업로드를 했을경우 (1이상)
+			int delCnt = mypageService.deletePortfolio();
+				logger.info("기존 포트폴리오 삭제 성공, cnt={}",delCnt);
+		
+				//포트폴리오 업로드처리
+				for(MultipartFile mf : fileList) {
+					String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+		            long fileSize = mf.getSize(); // 파일 사이즈
+		
+		            logger.info("originFileName={} ", originFileName);
+		            logger.info("fileSize={}", fileSize);
+		            
+		            //순수 파일명만 구하기 => a
+		    		int idx = originFileName.lastIndexOf(".");
+		    		String fileNm=originFileName.substring(0,idx); //a
+		    		
+		    		//확장자 구하기
+		    		String ext = originFileName.substring(idx); //.txt
+		            String safeFile = "PORTFOLIO_"+index+"_" + originFileName+ System.currentTimeMillis()+ext;
+		            index++;
+		            try {
+		                mf.transferTo(new File(uploadPath,safeFile));
+		            } catch (IllegalStateException e) {
+		                e.printStackTrace();
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            }
+		            
+		            
+		            ExpertImageVO portfolioVo = new ExpertImageVO();
+		            //프로필사진 DB로 넣는부분
+		            portfolioVo.setUserId(userId);
+		            portfolioVo.setFileName(safeFile);
+		            portfolioVo.setOriginalFileName(originFileName);
+		            portfolioVo.setFileSize(fileSize);
+		            portfolioVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
+					
+					profileCnt = mypageService.insertExpertPorfolio(portfolioVo);
+					logger.info("전문가사진 vo, profileVo={}",portfolioVo);
+					logger.info("파일 업로드 완료 profileCnt={}", profileCnt);
+					
+					if(profileCnt>0) {
+						msg="포트폴리오 수정 성공";
+					}else {
+						msg="포트폴리오 수정 성공";
+					}
+		        }
+		}else {
+			msg="파일을 선택해야합니다";
+		}
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		
+		return "/common/message";
+	}
 	
 
 	@RequestMapping("/bookmark")
@@ -287,8 +383,8 @@ public class MypageController {
 		model.addAttribute("vo",vo);
 	}
 	
-	@RequestMapping("/changePwd")
-	public void mypage_changePwd(HttpSession session,Model model) {
+	@GetMapping("/changePwd")
+	public void mypage_changePwd_get(HttpSession session,Model model) {
 		logger.info("암호 변경 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
@@ -297,4 +393,57 @@ public class MypageController {
 		
 		model.addAttribute("vo",vo);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/checkBefore")
+	public boolean mypage_checkPwd_ajax(HttpSession session,@RequestParam String beforePwd) {
+		String userId=(String) session.getAttribute("userId");
+		logger.info("암호체크, 유저아이디={}, 입력한 기존 암호={}",userId, beforePwd);
+		
+		int result = mypageService.checkPwd(userId, beforePwd);
+		logger.info("비밀번호 중복체크 결과 1성공, 2실패, 3없음 result={}",result);
+		
+		boolean bool = false;
+		if(result==MypageService.LOGIN_SUCCESS) {
+			bool=true;
+		}else if(result==MypageService.DISAGREE_PWD) {
+			bool=false;
+		}
+		
+		return bool;
+	}
+	
+	@PostMapping("/changePwd")
+	public String mypage_changePwd_post(@RequestParam String newPwd,HttpSession session,Model model) {
+		logger.info("암호 변경 처리, 파라미터 newPwd={}",newPwd);
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("현재 로그인중인 아이디 vo={}",vo);
+		
+		
+		String msg="비밀번호 수정 실패", url="/mypage/changePwd";
+		vo.setPwd(newPwd);
+		logger.info("수정예정 비밀번호 vo.pwd={}",vo.getPwd());
+		int pwdCnt = mypageService.updatePwd(vo);
+		logger.info("삭제처리 완료 cnt={}",pwdCnt);
+		if(pwdCnt>0) {
+			msg="비밀번호 수정 성공!";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		
+		return "/common/message";
+		
+		
+	}
+	
+	@RequestMapping("/testChat")
+	public String testChat(Model model) {
+		logger.info("채팅테스트화면");
+		
+		return "/mypage/testChat"; 
+	}
+	
 }

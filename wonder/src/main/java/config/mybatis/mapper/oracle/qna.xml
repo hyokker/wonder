@@ -16,9 +16,9 @@
 			select qna_seq.nextval from dual
 		</selectKey>
 		insert into qna(qna_no, cate_type, user_id, qna_title, qna_content,
-		file_name, original_file_name, file_size)
+		group_no,file_name, original_file_name, file_size)
 		values(#{qnaNo}, #{cateType},#{userId}, #{qnaTitle}, #{qnaContent},
-		#{fileName}, #{originalFileName}, #{fileSize})
+			#{qnaNo},#{fileName}, #{originalFileName}, #{fileSize})
 	</insert>
 
 		<select id="selectAll" parameterType="searchVo" resultType="qnaVo">
@@ -31,7 +31,7 @@
 		        select B.*, (sysdate-qna_regdate)*24 as dateTerm
 		        from qna B
 		        <include refid="searchWhere"></include>
-		        order by qna_no
+		        order by group_no desc, sort_no
 		    )A
 		)
 		where RNUM>#{firstRecordIndex} 
@@ -75,7 +75,26 @@
 	</update>
 	
 	<delete id="deleteQna" parameterType="int">
-		delete qna 
+		update qna
+		set del_type='Y'
 		where qna_no=#{qnaNo}
 	</delete>
+	
+	<update id="updateSortNo" parameterType="qnaVo">
+		update qna
+		set sort_no=sort_no+1
+		where group_no=#{groupNo} and sort_No> #{sortNo}
+	</update>
+	
+		<insert id="reply" parameterType="qnaVo">
+		<selectKey resultType="int" keyProperty="qnaNo" order="BEFORE">
+			select qna_seq.nextval from dual
+		</selectKey>
+		
+		insert into qna(qna_no, cate_type, user_id, qna_title, qna_content,
+		group_no, step, sort_no)
+		values(#{qnaNo}, #{cateType},#{userId}, #{qnaTitle}, #{qnaContent},
+		#{groupNo},#{step}+1,#{sortNo}+1)
+	</insert>
+	
 </mapper>

@@ -9,6 +9,11 @@ import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
 
 public interface MypageService {
+	public static final int LOGIN_SUCCESS=1;
+	public static final int DISAGREE_PWD=2;
+	public static final int NONE_USERID=3;
+	
+	
 	MemberVO selectMemberByNo(int no);
 	MemberVO selectMemberById(String userId);
 	ExpertVO selectExpertById(String userId);
@@ -16,10 +21,17 @@ public interface MypageService {
 	int checkFree(String userId);
 	int updateFree(ExpertVO vo);
 	int insertExpertProfile(ExpertImageVO expertVo);
+	int insertExpertPorfolio(ExpertImageVO expertVo);
 	int checkExpertProfileById(String userId);
 	int deleteDupExpertProfile(String userId);
 	ExpertImageVO selectExpertProfileById(String userId);
+	List<ExpertImageVO> selectExpertPortfolioById(String userId);
 	List<LanguageVO> selectAllLanguage();
 	List<FrameworkVO> selectAllFramework();
+	int deletePortfolio();
+	int checkPwd(String userId, String pwd);
+	int updatePwd(MemberVO memVo);
+
+
 
 }

@@ -19,10 +19,15 @@ public interface MypageDAO {
 	int checkFree(String userId);
 	int updateFree(ExpertVO vo);
 	int insertExpertProfile(ExpertImageVO expertVo);
+	int insertExpertPorfolio(ExpertImageVO expertVo);
 	int checkExpertProfileById(String userId);
 	int deleteDupExpertProfile(String userId);
 	ExpertImageVO selectExpertProfileById(String userId);
+	List<ExpertImageVO> selectExpertPortfolioById(String userId);
 	List<LanguageVO> selectAllLanguage();
 	List<FrameworkVO> selectAllFramework();
+	int deletePortfolio();
+	String selectPwd(String userId);
+	int updatePwd(MemberVO memVo);
 	
 }

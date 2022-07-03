@@ -14,4 +14,7 @@ public interface QnaService {
 	boolean checkPwd(int no, String pwd);
 	int updateQna(QnaVO vo);
 	int deleteQna(int qnaNo);
+	
+	int reply(QnaVO vo);
 }	
+

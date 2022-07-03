@@ -52,7 +52,7 @@
 
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i class="fa fa-power-off"></i></a></li>
 							<li><a href="<c:url value='/admin/email'/>"><i
 									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
@@ -92,7 +92,7 @@
 													<span>${productVo.userId }</span> <span
 														class="table-property-price">900000만원</span>
 												</div></td>
-											<td class="action"><a href="#" class="delete"><i
+											<td class="action"><a href="delnonApList?formNo=${formVo.formNo }" class="delete"><i
 													class="ti-close"></i> Delete</a></td>
 										</tr>
 									</c:forEach>

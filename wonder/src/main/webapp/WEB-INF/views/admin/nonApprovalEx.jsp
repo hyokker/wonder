@@ -63,7 +63,7 @@
 					</div>
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="#"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i class="fa fa-power-off"></i></a></li>
 							<li><a href="<c:url value='/admin/email'/>"><i
 									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
@@ -167,7 +167,7 @@
 															</c:if></td>
 														<td>
 															<div class="_leads_action">
-																<a href="#"><i class="fas fa-edit"></i></a> <a href="#"><i
+																<a href="grantEx?memNo=${memberVo.userId }"><i class="fas fa-edit"></i></a> <a href="delnonApEx?memNo=${memberVo.memNo }"><i
 																	class="fas fa-trash"></i></a>
 															</div>
 														</td>
