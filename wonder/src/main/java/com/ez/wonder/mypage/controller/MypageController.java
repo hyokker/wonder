@@ -378,6 +378,7 @@ public class MypageController {
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		
 		model.addAttribute("vo",vo);
 	}
 	
