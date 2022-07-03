@@ -6,7 +6,16 @@
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
 <input type="hidden" id="pageCheck" value="chatting">
-
+<script type="text/javascript">
+	$(function(){
+		$('.dash-msg-inbox li').each(function(item,idx){
+			$(this).click(function(){
+				var name = $(this).find('.message-by-headline h5').text();
+				alert(name);
+			});
+		});
+	});
+</script>
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
 
 
