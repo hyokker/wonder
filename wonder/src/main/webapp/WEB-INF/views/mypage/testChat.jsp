@@ -4,7 +4,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<link rel="icon" type="image/png" href="http://example.com/myicon.png"> 
 <meta charset="UTF-8">
 	<title>Chating</title>
 	<style>
@@ -48,12 +48,13 @@
 	var ws;
 
 	function wsOpen(){
-		ws = new WebSocket("ws://" + location.host + "/wonder/mypage/testChat/websocket");
+		ws = new WebSocket("ws://localhost:9095/wonder/testChat/websocket");
 		console.log(ws);
 		wsEvt();
 	}
 		
 	function wsEvt() {
+		console.log(ws);
 		ws.onopen = function(data){
 			//소켓이 열리면 초기화 세팅하기
 			console.log("웹소켓 오픈");

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ez.wonder.admin.model.AdminDAO">
+	<select id="sumAllSales" resultType="int">
+		select sum(price) from
+		payment
+	</select>
+	<select id="monthlySales" resultType="int">
+		select sum(price) from
+		payment
+		where sysdate >= TO_CHAR(add_months(sysdate,-1))
+	</select>
+	<select id="countMembers" resultType="int">
+		select count(*) from member
+	</select>
+	<select id="countExperts" resultType="int">
+		select count(*) from member
+		where type ='프리랜서'
+	</select>
+	<select id="countPaymethod" resultType="saleVo">
+		select pay_method,
+		count(*) from payment
+		group by pay_method order by count(*) desc
+	</select>
+	<select id="countProduct" resultType="int">
+		select count(*) from product
+	</select>
+</mapper>

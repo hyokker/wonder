@@ -1,6 +1,6 @@
 package com.ez.wonder.admin.model;
 
-import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -127,6 +127,35 @@ public class AdminServiceImpl implements AdminService{
 		return result;
 	}
 	
+	@Override
+	public int sumAllSales() {
+		return adminDao.sumAllSales();
+	}
+	
+	@Override
+	public int monthlySales(){
+		return adminDao.monthlySales();
+	}
+	
+	@Override
+	public int countMembers(){
+		return adminDao.countMembers();
+	}
+	
+	@Override
+	public int countExperts(){
+		return adminDao.countExperts();
+	}
+	
+	@Override
+	public 	int countProduct() {
+		return adminDao.countProduct();
+	}
+	
+	@Override
+	public 	ArrayList<SaleVO> countPaymethod(){
+		return adminDao.countPaymethod();
+	}
 
 }
 
