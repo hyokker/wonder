@@ -7,6 +7,58 @@
 <%-- <%@ include file="incSide.jsp" %> --%>
 <input type="hidden" id="pageCheck" value="chatting">
 
+<script type="text/javascript">
+	$(function(){
+		$('.dash-msg-inbox li').each(function(item,idx){
+			$(this).click(function(){
+				var name = $(this).find('.message-by-headline h5').text();
+				alert(name);
+			});
+		});
+		
+		
+		
+		/* createTest createZess */
+		/* dash-msg-inbox */
+		
+		$('.createTest').click(function(){
+			var userId = $(this).text();
+			
+			$.ajax({
+				url : "<c:url value='/chat/createTestChat'/>",
+				type : 'GET',
+				data : "userId="+userId,
+				success : function(response) {
+					console.log(response);
+					var html ='';
+					html += '<li>';
+					html += '<a href="#">';
+					html += '	<div class="dash-msg-avatar"><img src="/wonder/img/mypage/default_profile.png" alt=""><span class="_user_status online"></span></div>'
+					html += '	<div class="message-by">';
+					html += '		<div class="message-by-headline">';
+					html += '			<h5>'+response.userId+'</h5>';
+					html += '			<span>'+response.timestamp+'</span>';
+					html += '		</div>';
+					html += '		<p>안녕하세요, 의뢰글 보고 연락드립니다 </p>';
+					html += '	</div>';
+					html += '</a>';
+					html += '</li>';
+					
+					$('.dash-msg-inbox ul').append(html);
+					
+					alert("test채팅 생성 성공, userId = "+response.chatNo);
+				},
+				error : function(xhr, status, error) {
+					alert("test채팅 생성 실패, userId = "+userId);
+				}
+			});
+		});
+		
+		
+		
+		
+	});
+</script>
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
 
 
@@ -38,7 +90,9 @@
 												</a>
 											</li>
 
-											<li class="active-message">
+
+
+											<%-- <li class="active-message">
 												<a href="#">
 													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status offline"></span></div>
 
@@ -191,7 +245,7 @@
 													</div>
 												</a>
 											</li>
-
+														 --%>
 										</ul>
 									</div>
 									<!-- Messages / End -->
@@ -248,6 +302,13 @@
 
 							</div>
 						</div>
+						
+						
+						<div>
+							<button class="createTest">test</button>
+							<button class="createTest">highzess</button>
+						</div>
+						
 						
 					</div>
 				</div>
