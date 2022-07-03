@@ -73,6 +73,11 @@ public class MemberController {
 		session.removeAttribute("userId");
 		session.removeAttribute("type");
 		session.removeAttribute("userName");
+		
+		//임시
+		session.removeAttribute("adminId");
+		
+		
 		return "redirect:/";
 	}
 	

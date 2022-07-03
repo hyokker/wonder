@@ -48,9 +48,17 @@
 				<div class="form-group col-md-4 box"></div>
 
 				<div class="form-group col-md-4" id="">
-					<label for="nickname">작성자</label> <input type="text"
+					<label for="nickname">작성자</label> 
+					
+					
+					
+					<input type="text"
+						class="form-control" readonly="readonly" value="관리자"> 	
+					
+					<input type="hidden"
 						class="form-control" readonly="readonly" name="userId"
-						id="userId" value="${sessionScope.userId }">
+						id="userId" value="${vo.userId }"> 	
+					
 	</div>
 	<div class="form-group col-md-7 box"></div>
 
