@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.pd.model.ProductVO;
 
@@ -39,4 +40,7 @@ public interface AdminDAO {
 	int countPayment();
 
 	ArrayList<SaleVO> countPaymethod();
+	ArrayList<SaleVO> salesPerMonth();
+	
+	List<FormVo> selectForm();
 }

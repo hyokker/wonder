@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.pd.model.ProductVO;
 
@@ -43,4 +44,7 @@ public interface AdminService {
 	int countPayment();
 	
 	ArrayList<SaleVO> countPaymethod();
+	ArrayList<SaleVO> salesPerMonth();
+	
+	List<FormVo> selectForm();
 }

@@ -18,15 +18,26 @@
 		select count(*) from member
 		where type ='프리랜서'
 	</select>
-	<select id="countPaymethod" resultType="saleVo">
-		select pay_method,
-		count(*) from payment
-		group by pay_method order by count(*) desc
-	</select>
 	<select id="countProduct" resultType="int">
 		select count(*) from product
 	</select>
 	<select id="countPayment" resultType="int">
 	select count(*) from payment
+	</select>
+	<select id="countPaymethod" resultType="saleVo">
+		select pay_method,
+		count(*) from payment
+		group by pay_method order by count(*) desc
+	</select>
+	<select id="salesPerMonth" resultType="saleVo">
+		select to_char(regdate,'yy/mm') as 월, sum(price) as 매출 
+		from payment 
+		group by to_char(regdate,'yy/mm') 
+		order by to_char(regdate,'yy/mm')
+	</select>
+	<select id="selectForm" resultType="formVo">
+		select * 
+		from (select * from form order by form_regdate desc)
+		where rownum between 1 and 5
 	</select>
 </mapper>
