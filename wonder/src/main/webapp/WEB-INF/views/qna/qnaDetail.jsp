@@ -27,13 +27,27 @@
 	</h3>
 </div>
 <div class="register_info right">
-	<span class=""><i class="ti-user theme-cl">
-			${vo.userId}</i></span> | <span class=""><i class="ti-calendar">
-			<fmt:formatDate value="${vo.qnaRegdate}"
-				pattern="yyyy-MM-dd HH:mm:ss" />
-	</i></span> | <span><em class="ic ic_view"></em>${vo.readCount}</span> | <span
-			class=""><i class="fa fa-share"> 공유</i></span> <em
-			class="ic ic_more"></em>
+	<span class="">
+		<c:if test="${vo.sortNo==0 }">
+		<i class="ti-user theme-cl">	${vo.userId}</i>
+		</c:if>
+		
+		<c:if test="${vo.sortNo>0 }">
+		<i class="ti-user theme-cl">	관리자</i>
+		</c:if>
+			</span> |
+			<span class="">
+				<i class="ti-calendar">
+					<fmt:formatDate value="${vo.qnaRegdate}" pattern="yyyy-MM-dd HH:mm:ss" />
+				</i>
+			</span> | 
+			<span>
+				<em class="ic ic_view"></em>${vo.readCount}
+			</span> | 
+			<span class="">
+				<i class="fa fa-share"> 공유</i>
+			</span>
+			<em class="ic ic_more"></em>
 	</div>
 	<hr>
 </div>
@@ -94,25 +108,31 @@ pageContext.setAttribute("newLine", "\r\n");
 	});
 </script>
 
-	<button class="btn btn-theme" type="button" id="btreply">
-	<i class="fa fa-pen-nib"></i> 답변
-</button>
-	<button class="btn btn-theme" type="button" id="btedit">
-	<i class="fa fa-pen-nib"></i> 수정
-</button>
-<button class="btn btn-theme" type="button" id="btdelete">
-	<i class="fas fa-trash"></i> 삭제
-</button>
-<button class="btn btn-theme" type="button" id="btlist"
-	onclick="location.href='<c:url value='/qna/qnaList'/>'">
-					<span class="ti-view-list"></span> 목록
-				</button>
-				
+	<c:if test="${!empty sessionScope.adminId }">
+			
+			<c:if test="${vo.sortNo==0 }">
+			<button class="btn btn-theme" type="button" id="btreply">
+			<i class="fa fa-pen-nib"></i> 답변
+			</button>
+			</c:if>
+			
+			<button class="btn btn-theme" type="button" id="btedit">
+			<i class="fa fa-pen-nib"></i> 수정
+			</button>
+			<button class="btn btn-theme" type="button" id="btdelete">
+			<i class="fas fa-trash"></i> 삭제
+			</button>
+			<button class="btn btn-theme" type="button" id="btlist"
+				onclick="location.href='<c:url value='/qna/qnaList'/>'">
+			<span class="ti-view-list"></span> 목록
+			</button>
+	</c:if>			
 			</div>
-				<input type="text" id="sessionAdmin" value="${sessionScope.adminId }">
-	<input type="text" id="sessionId" value="${sessionScope.userId }">
-	<input type="text" id="userId" value="${vo.userId }">
-	<input type="text" id="qnaNo" value="${vo.qnaNo }">
+	<input type="hidden" id="sessionAdmin" value="${sessionScope.adminId }">
+	<input type="hidden" id="sessionId" value="${sessionScope.userId }">
+	<input type="hidden" id="userId" value="${vo.userId }">
+	<input type="hidden" id="qnaNo" value="${vo.qnaNo }">
+	<input type="hidden" id="qnaNo" value="${sessionScope.qnaNo }">
 		</div>
 
 	</div>

@@ -1,4 +1,4 @@
-package com.ez.wonder.chatting;
+package com.ez.wonder.chatting.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;

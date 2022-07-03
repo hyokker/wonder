@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -251,7 +252,9 @@ public class QnaController {
 	}
 	
 	@GetMapping("/qna/qnaReply")
-	public String reply_get(@RequestParam(value = "qnaNo") int qnaNo, Model model) {
+	public String reply_get(@RequestParam(value = "qnaNo") int qnaNo,
+			HttpSession session,
+			Model model) {
 	   logger.info("답변 페이지, 파라미터 qnaNo={}", qnaNo);
 	   
 	   if(qnaNo == 0) {
@@ -261,10 +264,12 @@ public class QnaController {
 	      return "/common/message";
 	   }
 	   
+	   String adminId=(String)session.getAttribute("adminId");
 	   QnaVO qnaVo = qnaService.selectByNo(qnaNo);
 	   logger.info("답변 조회 결과 reboardVO={}", qnaVo);
 	   
-	   model.addAttribute("vo", qnaVo);
+	   model.addAttribute("adminId", adminId);
+	   model.addAttribute("vo", qnaVo); 	
 	   return "/qna/qnaReply";
 	}
 	

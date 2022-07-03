@@ -123,7 +123,13 @@ function pageProc(currentPage) {
 
 			<td class="m2_hide">
 				<div class="_leads_view">
+					<c:if test="${vo.sortNo>0 }">
+					<h5 class="up">관리자</h5>
+					</c:if>
+					
+					<c:if test="${vo.sortNo==0 }">
 					<h5 class="up">${vo.userId }</h5>
+					</c:if>
 				</div>
 			</td>
 

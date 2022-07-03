@@ -57,6 +57,7 @@
 			<!-- <label for="pwd">비밀번호</label> -->
 			<input type="hidden" maxlength="4" class="form-control" id="pwd" name="pwd" value="">
 		</div>
+		
 		<div class="form-group col-md-4"></div>
 
 		<div class="form-group col-md-5">

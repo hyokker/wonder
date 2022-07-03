@@ -145,12 +145,10 @@ public class MypageController {
 	
 	@PostMapping("/profile")
 	public String mypage_profile_post(@ModelAttribute ExpertImageVO profileVo ,@ModelAttribute MemberVO memberVo, 
-			@ModelAttribute ExpertVO expertVo, @RequestParam("portfolioFile[]") MultipartFile portfolio, HttpServletRequest request, HttpSession session,Model model) {
+			@ModelAttribute ExpertVO expertVo,  HttpServletRequest request, HttpSession session,Model model) {
 		String userId = (String) session.getAttribute("userId");
 		memberVo.setUserId(userId);
 		logger.info("멤버프로필 수정 처리, memberVo={}",memberVo);
-		logger.info("멤버프로필 수정 처리, portfolio={}",portfolio.getOriginalFilename());
-		
 		int cnt=mypageService.updateMember(memberVo);
 		logger.info("멤버프로필 업데이트 결과, cnt={}",cnt);
 		
@@ -379,6 +377,7 @@ public class MypageController {
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
+		
 		
 		model.addAttribute("vo",vo);
 	}
