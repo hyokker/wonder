@@ -40,6 +40,7 @@ public interface AdminService {
 	int countMembers();
 	int countExperts();
 	int countProduct();
+	int countPayment();
 	
 	ArrayList<SaleVO> countPaymethod();
 }

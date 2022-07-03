@@ -26,4 +26,7 @@
 	<select id="countProduct" resultType="int">
 		select count(*) from product
 	</select>
+	<select id="countPayment" resultType="int">
+	select count(*) from payment
+	</select>
 </mapper>

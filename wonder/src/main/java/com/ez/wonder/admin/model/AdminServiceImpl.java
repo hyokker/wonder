@@ -153,10 +153,14 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public 	int countPayment() {
+		return adminDao.countPayment();
+	}
+	
+	@Override
 	public 	ArrayList<SaleVO> countPaymethod(){
 		return adminDao.countPaymethod();
 	}
-
 }
 
 

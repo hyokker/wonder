@@ -33,6 +33,7 @@ public class DashboardController {
 		int countMembers = adminService.countMembers();
 		int countExperts = adminService.countExperts();
 		int countProduct = adminService.countProduct();
+		int countPayment = adminService.countPayment();
 		
 		logger.info("누적매출 sumAllSales={}, 월매출 monthlySales={}, 누적회원수 countMembers={}, 전문가수 countExperts={}", sumAllSales, monthlySales, countMembers, countExperts);
 		
@@ -41,6 +42,7 @@ public class DashboardController {
 		model.addAttribute("countMembers", countMembers);
 		model.addAttribute("countExperts", countExperts);
 		model.addAttribute("countProduct", countProduct);
+		model.addAttribute("countPayment", countPayment);
 		
 		return "/admin/dashboard";
 	}
