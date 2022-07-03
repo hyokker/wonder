@@ -31,7 +31,8 @@
 										<!-- 제목 -->
 										<div class="form-group">
 											<div class="input-with-icon">
-												<input type="text" class="form-control" placeholder="Neighborhood">
+												<input type="text" class="form-control" placeholder="제목을 입력하세요"
+													name="pdTitle">
 													<i class="ti-search"></i>
 											</div>
 										</div>
@@ -39,8 +40,9 @@
 										<!-- 수정횟수 -->
 										<div class="form-group">
 											<div class="simple-input">
-												<select id="bedrooms" class="form-control">
-													<option value="">&nbsp;</option>
+												<select id="editCount" class="form-control"
+												name="editCount">
+													<option value="">수정횟수</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
@@ -61,7 +63,8 @@
 											<div class="col-lg-6 col-md-6 col-sm-6">
 												<div class="form-group">
 													<div class="simple-input">
-														<input type="text" class="form-control" placeholder="최소 기한 (일)">
+														<input type="text" class="form-control" placeholder="최소 기한 (일)"
+															name="pdTermMin">
 													</div>
 												</div>
 											</div>
@@ -69,7 +72,8 @@
 											<div class="col-lg-6 col-md-6 col-sm-6">
 												<div class="form-group">
 													<div class="simple-input">
-														<input type="text" class="form-control" placeholder="최대 기한 (일)">
+														<input type="text" class="form-control" placeholder="최대 기한 (일)"
+															name="pdTermMax">
 													</div>
 												</div>
 											</div>
@@ -80,7 +84,8 @@
 											<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 												<h6>Choose Price</h6>
 												<div class="rg-slider">
-													 <input type="text" class="js-range-slider" name="my_range" value="" />
+													 <input type="text" class="js-range-slider" name="my_range" value="" 
+													 	name="pdPrice"/>
 												</div>
 											</div>
 										</div>									
@@ -104,7 +109,8 @@
 										
 										<div class="row">
 											<div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-												<button class="btn theme-bg rounded full-width">Find New Home</button>
+												<button class="btn theme-bg rounded full-width"
+													id="searchPd">상품 검색</button>
 											</div>
 										</div>
 									
@@ -138,20 +144,20 @@
 												<div class="listing-short-detail-wrap">
 													<div class="_card_list_flex mb-2">
 														<div class="_card_flex_01">
-															<span class="_list_blickes _netork">8 Network</span>
-															<span class="_list_blickes types">Apartment</span>
+															<span class="_list_blickes _netork" id="pdTerm">.</span>
+															<span class="_list_blickes types" id="editCount">.</span>
 															
 														</div>
 														<div class="_card_flex_last">
 														<div class="prt_saveed_12lk">
-															<label class="toggler toggler-danger"><input type="checkbox"><i class="fas fa-heart"></i></label>
+															<label class="toggler toggler-danger"><input type="checkbox" id="pdDibs"><i class="fas fa-heart"></i></label>
 														</div>
 													</div>
 													
 													</div>
 													<div class="_card_list_flex">
 														<div class="_card_flex_01">
-															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail">8512 Red Reveals Market, Montreal Canada, SHQT45O</a></h4>
+															<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail" id="pdTitle">8512 Red Reveals Market, Montreal Canada, SHQT45O</a></h4>
 														</div>
 													</div>
 												</div>
@@ -160,20 +166,18 @@
 											<div class="price-features-wrapper">
 												<div class="list-fx-features">
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bed.svg" width="13" alt="" /></div>5 Beds
+														<div class="inc-fleat-icon"></div>lang,framework
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/bathtub.svg" width="13" alt="" /></div>2 Bath
+														<div class="inc-fleat-icon"></div>lang,framework
 													</div>
-													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon"><img src="assets/img/move.svg" width="13" alt="" /></div>900 sqft
-													</div>
+													
 												</div>
 											</div>
 												<div class="listing-detail-footer">
 											<div class="footer-first">
 												<div class="foot-location">
-															<h6 class="listing-card-info-price mb-0">$8,700</h6>/sqft</div>
+															<h6 class="listing-card-info-price mb-0" id="pdPrice">8,700</h6>/standard</div>
 											</div>
 											<div class="footer-flex">
 													<a href="property-detail.html" class="prt-view">View Detail</a>
@@ -184,7 +188,9 @@
 									</div>
 								</div>
 								<!-- End Single Property -->
+								 
 								<!-- Single Property -->
+								<!--  
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									<div class="property-listing list_view">
 										
@@ -250,12 +256,14 @@
 										
 									</div>
 								</div>
+								-->
 								<!-- End Single Property -->
 								
 								
 								
 								
 								<!-- Single Property -->
+								<!--  
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									<div class="property-listing list_view">
 										
@@ -321,8 +329,10 @@
 										
 									</div>
 								</div>
+								-->
 								<!-- End Single Property -->
 								<!-- Single Property -->
+								<!--  
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 									<div class="property-listing list_view">
 										
@@ -388,6 +398,7 @@
 										
 									</div>
 								</div>
+								-->
 								<!-- End Single Property -->
 								
 							</div>

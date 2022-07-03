@@ -73,17 +73,32 @@ function pageProc(currentPage) {
 				</div>
 			</td>
 			<!--제목  -->
-			<td>
+			<td style="text-align: left">
 				<div class="dash_prt_wrap">
 					<div class="dash_prt_caption">
 						<div class="prt_dash_rate">
 							<c:if test="${vo.delType=='Y'}">
 								<strong style="color: red">삭제된 게시글입니다.</strong>
 							</c:if>
+							
+							
 							<c:if test="${vo.delType!='Y'}">
-								<!--공지인 경우  -->
+								<!--질문인 경우  -->
 								<c:if test="${vo.cateType=='Q' }">
 									<span class="notice">질문</span>
+								</c:if>
+								
+								<!--답변인 경우  -->
+								<c:if test="${vo.cateType=='A' }">
+									<span class="answer">답변</span>
+								</c:if>
+								
+								<!-- 답변 글인 경우 단계별로 화살표 이미지 보여주기 -->
+								<c:if test="${vo.step >0 }">
+									<c:forEach var="i" begin="1" end="${vo.step }">
+										&nbsp;
+									</c:forEach>
+									<img src="<c:url value='/img/re.gif'/>">
 								</c:if>
 								<a
 									href="<c:url value='/qna/countUpdate?qnaNo=${vo.qnaNo }'/>">
@@ -194,23 +209,12 @@ $(function(){
 
 <div class="_prt_filt_dash_last m2_hide">
 	<div class="_prt_filt_radius"></div>
-	<c:if test="${!empty sessionScope.userId }">
 	<div class="_prt_filt_add_new" style="margin-bottom: 12px;">
 		<a href="<c:url value="/qna/qnaWrite"/>" class="prt_submit_link">
 		<i class="fas fa-edit"></i>
 		<span class="d-non`e d-lg-block d-md-block" class="qnaWrite">글쓰기</span>
 		</a>
 		</div>
-	</c:if>
-
-	<c:if test="${empty sessionScope.userId }">
-	<div class="_prt_filt_add_new" style="margin-bottom: 12px;">
-		<a href="<c:url value="/qna/qnaWrite"/>" class="prt_submit_link">
-		<i class="fas fa-edit"></i>
-		<span class="d-non`e d-lg-block d-md-block" class="qnaWrite">로그인</span>
-		</a>
-		</div>
-	</c:if>
 	</div>
 </div>
 <!--페이지이동  -->

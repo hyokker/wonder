@@ -1,5 +1,7 @@
 package com.ez.wonder.qna.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -71,10 +73,16 @@ public class QnaController {
 		vo.setOriginalFileName(oFileName);
 		vo.setFileSize(fileSize);
 		
+		String msg="질문 등록 실패!",url="/qna/qnaList";
 		int cnt=qnaService.insertQna(vo);
 		logger.info("글쓰기 처리 결과, cnt={}", cnt);
+		if(cnt>0) {
+			msg="질문 등록 성공!";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
-		return "redirect:/qna/qnaList";
+		return "common/message";
 	}
 	
 	@RequestMapping("/qna/qnaList")
@@ -139,6 +147,144 @@ public class QnaController {
 		model.addAttribute("fileInfo", fileInfo);
 		
 		return "/qna/qnaDetail";
+	}
+	
+	
+	@GetMapping("/qna/qnaEdit")
+	public String edit_get(@RequestParam(defaultValue = "0") int qnaNo,
+			Model model) {
+		logger.info("글 수정 페이지, 파라미터 no = {}", qnaNo);
+
+		if(qnaNo == 0) {
+			model.addAttribute("msg", "잘못된 접근입니다");
+			model.addAttribute("url", "/qna/qnaList");
+			return "/common/message";
+		}
+
+		QnaVO vo = qnaService.selectByNo(qnaNo);
+		logger.info("수정할 글 상세보기 vo={}", vo);
+
+		model.addAttribute("vo", vo);
+
+		return "qna/qnaEdit";
+	}
+	
+	@PostMapping("/qna/qnaEdit")
+	public String edit_post(@ModelAttribute QnaVO vo,
+			@RequestParam(required = false) String oldFileName,
+			HttpServletRequest request, Model model) {
+		logger.info("수정 처리, 파라미터 vo={}", vo);
+		
+		String msg="비밀번호 체크 실패!", url="/qna/qnaEdit?qnaNo="+vo.getQnaNo();
+			//
+			String fileName="", originalFileName="";
+			long fileSize=0;
+			List<Map<String, Object>> fileList=null;
+			try {
+				fileList
+				=fileUploadUtil.fileUpload(request, QnaConstUtil.UPLOAD_FILE_FLAG);
+				for(Map<String, Object> fileMap: fileList) {
+					fileName=(String) fileMap.get("fileName");
+					originalFileName=(String) fileMap.get("originalFileName");
+					fileSize=(long) fileMap.get("fileSize");
+				}//for
+				
+				logger.info("수정 처리-파일 업로드 성공!");
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+					e.printStackTrace();
+			}
+		
+			vo.setFileName(fileName);
+			vo.setOriginalFileName(originalFileName);
+			vo.setFileSize(fileSize);
+			//
+			int cnt=qnaService.updateQna(vo);
+			logger.info("글 수정 처리 결과, cnt={}", cnt);
+
+			if(cnt>0) {
+				msg="수정되었습니다.";
+				url="/qna/qnaDetail?qnaNo="+vo.getQnaNo();
+				
+				if(!fileList.isEmpty()) {	//새로 파일 첨부한 경우
+					if(oldFileName!=null && !oldFileName.isEmpty()) {
+						//기존 파일이 있는 경우
+						String uploadPath
+						=fileUploadUtil.getUploadPath(request, QnaConstUtil.UPLOAD_FILE_FLAG);
+						File oldFile = new File(uploadPath, oldFileName);
+						if(oldFile.exists()) {
+							boolean bool=oldFile.delete();
+							logger.info("글수정-파일 삭제여부 : {}", bool);
+						}
+					}
+				}
+			}else {
+				msg="글 수정 실패";
+			}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/qna/qnaDelete")
+	public String qnaDelete(@RequestParam(defaultValue = "0") int qnaNo,
+			Model model) {
+		logger.info("QNA 삭제 처리, 파라미터 qnaNo={}",qnaNo);
+		
+		
+		int cnt=qnaService.deleteQna(qnaNo);
+		logger.info("QNA 삭제 결과, cnt={}",cnt);
+		String msg="삭제 실패하였습니다.", url="/qna/qnaList";
+		
+		if(cnt>0) {
+			msg="삭제 되었습니다.";
+			url="/qna/qnaList";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
+	
+	@GetMapping("/qna/qnaReply")
+	public String reply_get(@RequestParam(value = "qnaNo") int qnaNo, Model model) {
+	   logger.info("답변 페이지, 파라미터 qnaNo={}", qnaNo);
+	   
+	   if(qnaNo == 0) {
+	      model.addAttribute("msg", "잘못된 URL입니다");
+	      model.addAttribute("url", "/reBoard/list.do");
+	      
+	      return "/common/message";
+	   }
+	   
+	   QnaVO qnaVo = qnaService.selectByNo(qnaNo);
+	   logger.info("답변 조회 결과 reboardVO={}", qnaVo);
+	   
+	   model.addAttribute("vo", qnaVo);
+	   return "/qna/qnaReply";
+	}
+	
+	@PostMapping("/qna/qnaReply")
+	public String reply_post(@ModelAttribute QnaVO vo,Model model) {
+		logger.info("답변처리, 파라미터 vo={}",vo);
+		
+		int cnt=qnaService.reply(vo);
+		logger.info("답변처리 결과, cnt={}",cnt);
+		
+		String msg="답변 등록 실패", url="/qna/qnaReply?qnaNo="+vo.getQnaNo();
+		
+		if(cnt>0) {
+			msg="답변 등록 성공";
+			url="/qna/qnaList";
+		}
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		return "/common/message";
+		
 		
 	}
 }
