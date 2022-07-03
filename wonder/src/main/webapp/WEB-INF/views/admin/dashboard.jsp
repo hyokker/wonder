@@ -134,42 +134,6 @@
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="dashboard_stats_wrap widget-3">
 								<div class="dashboard_stats_wrap_content">
-									<h4>221 건</h4>
-									<span>거래건수</span>
-								</div>
-								<div class="dashboard_stats_wrap-icon">
-									<i class="ti-receipt"></i>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="dashboard_stats_wrap widget-2">
-								<div class="dashboard_stats_wrap_content">
-									<h4>${countMembers}명</h4>
-									<span>가입자수</span>
-								</div>
-								<div class="dashboard_stats_wrap-icon">
-									<i class="ti-stats-up"></i>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="dashboard_stats_wrap widget-2">
-								<div class="dashboard_stats_wrap_content">
-									<h4>${countExperts}명</h4>
-									<span>프리랜서수</span>
-								</div>
-								<div class="dashboard_stats_wrap-icon">
-									<i class="ti-stats-up"></i>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="dashboard_stats_wrap widget-3">
-								<div class="dashboard_stats_wrap_content">
 									<h4>${countProduct}건</h4>
 									<span>상품수</span>
 								</div>
@@ -178,12 +142,36 @@
 								</div>
 							</div>
 						</div>
-						
-						<div class="col-lg-3 col-md-6 col-sm-12">
+
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="dashboard_stats_wrap widget-2">
+								<div class="dashboard_stats_wrap_content">
+									<h4>${countMembers}명</h4>
+									<span>누적가입자수</span>
+								</div>
+								<div class="dashboard_stats_wrap-icon">
+									<i class="ti-stats-up"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<div class="dashboard_stats_wrap widget-2">
+								<div class="dashboard_stats_wrap_content">
+									<h4>${countExperts}명</h4>
+									<span>누적프리랜서수</span>
+								</div>
+								<div class="dashboard_stats_wrap-icon">
+									<i class="ti-stats-up"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 col-sm-12">
 							<div class="dashboard_stats_wrap widget-3">
 								<div class="dashboard_stats_wrap_content">
-									<h4>221 건</h4>
-									<span>거래건수</span>
+									<h4>${countPayment}건</h4>
+									<span>누적거래건수</span>
 								</div>
 								<div class="dashboard_stats_wrap-icon">
 									<i class="ti-receipt"></i>

@@ -36,6 +36,7 @@ public interface AdminDAO {
 	int countMembers();
 	int countExperts();
 	int countProduct();
+	int countPayment();
 
 	ArrayList<SaleVO> countPaymethod();
 }
