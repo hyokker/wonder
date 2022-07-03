@@ -711,7 +711,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <input type="button" class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;" value="제작자 일정보기">
-				<button class="btn theme-bg rounded" type="submit">Submit Review</button>
+				<button class="btn theme-bg rounded" type="submit">의뢰서 전송</button>
 				<input type="hidden" name="userId" value="${sessionScope.userId }">
 				<input type="hidden" value="${expertVo.userId }" name="pUserId">
 				<input type="hidden" value="${param.pdNo }" name="pdNo">
