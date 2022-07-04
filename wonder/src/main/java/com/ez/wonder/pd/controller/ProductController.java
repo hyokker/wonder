@@ -46,7 +46,7 @@ public class ProductController {
 	public String pdDetail_get(@RequestParam(defaultValue = "0") int pdNo,
 			HttpSession session, Model model) {
 		String userId=(String) session.getAttribute("userId");
-		userId="hong";	//test
+		//userId="hong";	//test
 		logger.info("상품 상세 화면, 파라미터 pdNo={}, userId={}", pdNo, userId);
 		
 		if(pdNo == 0) {

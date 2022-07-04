@@ -6,13 +6,50 @@
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
 <input type="hidden" id="pageCheck" value="chatting">
+<link href="<c:url value='/css/mypage.css'/>" rel="stylesheet">
 
 <script type="text/javascript">
 	$(function(){
 		$('.dash-msg-inbox li').each(function(item,idx){
 			$(this).click(function(){
-				var name = $(this).find('.message-by-headline h5').text();
-				alert(name);
+				var rUserId = $(this).find('.message-by-headline input').val();
+				
+				$.ajax({
+					url : "<c:url value='/chat/chatDetail'/>",
+					type : 'GET',
+					data : "rUserId="+rUserId,
+					success : function(response) {
+						console.log(response);
+						
+						/*
+						html += '<div class="message-plunch me">';
+						html += '	<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>';
+						html += '	<div class="dash-msg-text"><p>안녕하세요! 의뢰주신 내용이 헬스장 스케쥴 관리 반응형 사이트 맞으실까요?</p></div>';
+						html += '</div>';
+						
+						
+						html += '<li>';
+						html += '<a href="#">';
+						html += '	<div class="dash-msg-avatar"><img src="/wonder/img/mypage/default_profile.png" alt=""><span class="_user_status online"></span></div>'
+						html += '	<div class="message-by">';
+						html += '		<div class="message-by-headline">';
+						html += '			<h5>'+response.ruserNick+'</h5>';
+						html += '			<span>'+response.timestamp+'</span>';
+						html += '		</div>';
+						html += '		<p>'+response.content+'</p>';
+						html += '	</div>';
+						html += '</a>';
+						html += '</li>';
+						 */
+						$('.dash-msg-content').empty();
+						$('.dash-msg-content').append(response);
+					},
+					error : function(xhr, status, error) {
+						alert("test채팅 생성 실패, userId = "+userId);
+					}
+				});
+				$('#chatCommentContainer').scrollTop($('#chatCommentContainer').height());
+				
 			});
 		});
 		
@@ -22,24 +59,24 @@
 		/* dash-msg-inbox */
 		
 		$('.createTest').click(function(){
-			var userId = $(this).text();
+			var rUserId = $(this).text();
 			
 			$.ajax({
 				url : "<c:url value='/chat/createTestChat'/>",
 				type : 'GET',
-				data : "userId="+userId,
+				data : "rUserId="+rUserId,
 				success : function(response) {
 					console.log(response);
 					var html ='';
 					html += '<li>';
-					html += '<a href="#">';
+					html += '<a>';
 					html += '	<div class="dash-msg-avatar"><img src="/wonder/img/mypage/default_profile.png" alt=""><span class="_user_status online"></span></div>'
 					html += '	<div class="message-by">';
 					html += '		<div class="message-by-headline">';
-					html += '			<h5>'+response.userId+'</h5>';
+					html += '			<h5>'+response.ruserNick+'</h5>';
 					html += '			<span>'+response.timestamp+'</span>';
 					html += '		</div>';
-					html += '		<p>안녕하세요, 의뢰글 보고 연락드립니다 </p>';
+					html += '		<p>'+response.content+'</p>';
 					html += '	</div>';
 					html += '</a>';
 					html += '</li>';
@@ -53,6 +90,8 @@
 				}
 			});
 		});
+		
+		
 		
 		
 		
@@ -76,20 +115,22 @@
 									<!-- Messages -->
 									<div class="dash-msg-inbox">
 										<ul>
-											<li>
-												<a href="#">
+											<c:forEach var="map" items="${list }">
+											<li style="cursor: pointer;">
+												<a>
 													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""><span class="_user_status online"></span></div>
 
 													<div class="message-by">
 														<div class="message-by-headline">
-															<h5>이정진</h5>
+															<h5>${map.R_NICKNAME }</h5>
 															<span>36 min ago</span>
+															<input type="text" value="${map.R_USER_ID }"/>
 														</div>
-														<p>안녕하세요, 의뢰글 보고 연락드립니다 </p>
+														<p>${map.CONTENT }</p>
 													</div>
 												</a>
 											</li>
-
+											</c:forEach>
 
 
 											<%-- <li class="active-message">
@@ -251,52 +292,58 @@
 									<!-- Messages / End -->
 
 									<!-- Message Content -->
-									<div class="dash-msg-content">
-
-										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
-											<div class="dash-msg-text"><p>안녕하세요!</p></div>
+									<div id="chatCommentBox">
+										<div id="chatCommentContainer">
+											<div class="dash-msg-content">
+		
+												<%-- <div class="message-plunch">
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+													<div class="dash-msg-text"><p>안녕하세요!</p></div>
+												</div>
+		
+												<div class="message-plunch me">
+													<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
+													<div class="dash-msg-text"><p>안녕하세요! 의뢰주신 내용이 헬스장 스케쥴 관리 반응형 사이트 맞으실까요?</p></div>
+												</div>
+		
+												<div class="message-plunch">
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+													<div class="dash-msg-text"><p>네! 기간은 30일이내로 생각중이고, 원하는 스타일의 사이트를 메일로 보내드릴게요.</p></div>
+												</div>
+		
+												<div class="message-plunch me">
+													<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
+													<div class="dash-msg-text"><p>감사합니다, 보내주신내용 확인해봤는데요, 이야기하신 기간내에 완료 가능할것같습니다.</p></div>
+												</div>
+		
+												<div class="message-plunch">
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+													<div class="dash-msg-text"><p>다행이네요 혹시 메인페이지에 제가 원하는 애니메이션 효과를 넣으려면 추가요금이 필요할까요?</p></div>
+												</div>
+		
+												<div class="message-plunch me">
+													<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
+													<div class="dash-msg-text"><p>그 애니메이션은 그냥 추가해드리겠습니다! 작업 진행내용은 3일마다 간단하게 보고드릴게요.</p></div>
+												</div>
+		
+												<div class="message-plunch">
+													<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
+													<div class="dash-msg-text"><p>네 알겠습니다 그럼 수고해주세요!</p></div>
+												</div>
+												--%>
+												<!-- Reply Area -->
+												
+											</div>
 										</div>
-
-										<div class="message-plunch me">
-											<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
-											<div class="dash-msg-text"><p>안녕하세요! 의뢰주신 내용이 헬스장 스케쥴 관리 반응형 사이트 맞으실까요?</p></div>
-										</div>
-
-										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
-											<div class="dash-msg-text"><p>네! 기간은 30일이내로 생각중이고, 원하는 스타일의 사이트를 메일로 보내드릴게요.</p></div>
-										</div>
-
-										<div class="message-plunch me">
-											<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
-											<div class="dash-msg-text"><p>감사합니다, 보내주신내용 확인해봤는데요, 이야기하신 기간내에 완료 가능할것같습니다.</p></div>
-										</div>
-
-										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
-											<div class="dash-msg-text"><p>다행이네요 혹시 메인페이지에 제가 원하는 애니메이션 효과를 넣으려면 추가요금이 필요할까요?</p></div>
-										</div>
-
-										<div class="message-plunch me">
-											<div class="dash-msg-avatar margin-top-10"><i class="fa fa-user" style="font-size: 3em"></i></div>
-											<div class="dash-msg-text"><p>그 애니메이션은 그냥 추가해드리겠습니다! 작업 진행내용은 3일마다 간단하게 보고드릴게요.</p></div>
-										</div>
-
-										<div class="message-plunch">
-											<div class="dash-msg-avatar"><img src="<c:url value='/img/mypage/default_profile.png' />" alt=""></div>
-											<div class="dash-msg-text"><p>네 알겠습니다 그럼 수고해주세요!</p></div>
-										</div>
-										
-										<!-- Reply Area -->
-										<div class="clearfix"></div>
-										<div class="message-reply">
-											<textarea cols="40" rows="3" class="form-control with-light" placeholder="내용을 입력해주세요"></textarea>
-											<button type="submit" class="btn theme-bg">전송</button>
-										</div>
-										
-									</div>
+										<div id="chatMessageTextArea">
+											<div class="clearfix"></div>
+											<div class="message-reply">
+												<textarea cols="40" rows="3" class="form-control with-light" placeholder="내용을 입력해주세요"></textarea>
+												<button type="submit" class="btn theme-bg">전송</button>
+											</div>
+										</div> 
 									<!-- Message Content -->
+									</div>
 
 								</div>
 

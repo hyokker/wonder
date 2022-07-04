@@ -1,5 +1,8 @@
 package com.ez.wonder.chatting.model;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,8 +23,14 @@ public class ChatServiceImpl implements ChatService{
 		return chatDao.checkChat(userId);
 	}
 
+
 	@Override
-	public ChatVO selectChatById(String userId) {
-		return chatDao.selectChatById(userId);
+	public List<HashMap<String, Object>> selectMyChat(String userId) {
+		return chatDao.selectMyChat(userId);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectChatById(HashMap<String, Object> map) {
+		return chatDao.selectChatById(map);
 	}
 }
