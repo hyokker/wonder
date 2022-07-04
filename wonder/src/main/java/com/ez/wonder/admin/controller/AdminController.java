@@ -322,10 +322,10 @@ public class AdminController {
 	}
 
 	@RequestMapping("/grantEx")
-	public String grantExpert(@RequestParam(defaultValue = "0") String userId, Model model) {
-		logger.info("전문가 승인 처리, 파라미터 adminId={}", userId);
+	public String grantExpert(@RequestParam(defaultValue = "0") int memNo, Model model) {
+		logger.info("전문가 승인 처리, 파라미터 memNo={}", memNo);
 
-		int cnt = adminService.grantExpert(userId);
+		int cnt = adminService.grantExpert(memNo);
 		logger.info("전문가 승인 처리 결과, cnt={}", cnt);
 		String msg = "전문가 승인 실패하였습니다.", url = "/admin/nonApprovalEx";
 

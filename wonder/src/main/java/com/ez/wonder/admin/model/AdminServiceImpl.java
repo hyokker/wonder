@@ -58,8 +58,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public 	int grantExpert(String  userId) {
-		return adminDao.grantExpert(userId);
+	public 	int grantExpert(int memNo) {
+		return adminDao.grantExpert(memNo);
 	}
 	
 	@Override

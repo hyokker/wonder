@@ -1,6 +1,6 @@
 package com.ez.wonder.admin.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import lombok.Data;
 

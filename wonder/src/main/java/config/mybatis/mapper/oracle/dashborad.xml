@@ -29,11 +29,14 @@
 		count(*) from payment
 		group by pay_method order by count(*) desc
 	</select>
-	<select id="salesPerMonth" resultType="saleVo">
-		select to_char(regdate,'yy/mm') as 월, sum(price) as 매출 
+	<select id="salesPerMonth" resultType="saleVo" parameterType="saleVo">
+		select TO_CHAR(REGDATE, 'YYYY-MM-DD'), sum(price) from payment
+		group by TO_CHAR(REGDATE, 'YYYY-MM-DD')
+		
+<!-- 		select to_char(regdate,'yy/mm'), sum(price)
 		from payment 
 		group by to_char(regdate,'yy/mm') 
-		order by to_char(regdate,'yy/mm')
+		order by to_char(regdate,'yy/mm') -->
 	</select>
 	<select id="selectForm" resultType="formVo">
 		select * 
