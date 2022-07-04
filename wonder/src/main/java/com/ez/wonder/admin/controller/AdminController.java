@@ -404,13 +404,6 @@ public class AdminController {
 		return "/common/message";
 	}
 
-	@GetMapping("/email")
-	public String get_email() {
-		logger.info("이메일 화면");
-
-		return "/admin/email";
-	}
-
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		logger.info("로그아웃 처리 ");

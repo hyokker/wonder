@@ -286,7 +286,7 @@
 															<td><a href="#"><img
 																	src="https://via.placeholder.com/800x500"
 																	class="avatar avatar-30 mr-2" alt="Avatar">${formVo.formTitle }</a></td>
-															<td>${formVo.userId}</td>
+															<td>${formVo.PUserId}</td>
 															<td><c:if test="${formVo.payFlag eq 'Y'}">
 																	<div class="label text-success bg-success-light">결제완료</div>
 																</c:if> <c:if test="${formVo.payFlag eq 'N'}">
