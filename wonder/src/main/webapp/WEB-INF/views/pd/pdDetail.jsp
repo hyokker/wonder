@@ -65,12 +65,17 @@
 								<div class="property_detail_section">
 									<div class="prt-sect-pric">
 										<ul class="_share_lists">
+											<c:if test="${userId != expertVo.userId}">
 											<li><a href="#"><i class="fa fa-heart" 
 											<c:if test="${heartCount > 0 }">
 												style="color: red"
 											</c:if>
 											id="heart"></i></a></li>
 											<li style="padding-left: 5px">찜하기</li>
+											</c:if>
+											<c:if test="${userId == expertVo.userId}">
+											<li><a href="#" style="color: #2a2f3a;" id="pdDelete"><i class="fa fa-trash" style="font-size: 18px; color: #d72121;"></i>&nbsp;삭제하기</a></li>
+											</c:if>
 										</ul>
 									</div>
 								</div>
@@ -539,7 +544,7 @@
 											<div class="form-group">
 												<button class="btn theme-bg rounded" type="submit">등록</button>
 												<input type="hidden" value="${param.pdNo }" name="pdNo">
-												<input type="hidden" value="${sessionScope.userId }" name="userId">
+												<input type="hidden" value="${userId }" name="userId">
 											</div>
 										</div>
 									</div>
@@ -711,8 +716,8 @@
 		      </div>
 		      <div class="modal-footer">
 		        <input type="button" class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;" value="제작자 일정보기">
-				<button class="btn theme-bg rounded" type="submit">Submit Review</button>
-				<input type="hidden" name="userId" value="${sessionScope.userId }">
+				<button class="btn theme-bg rounded" type="submit">의뢰서 전송</button>
+				<input type="hidden" name="userId" value="${userId }">
 				<input type="hidden" value="${expertVo.userId }" name="pUserId">
 				<input type="hidden" value="${param.pdNo }" name="pdNo">
 				<input type="hidden" value="${detailVo.pdPrice }" name="price">
@@ -722,6 +727,26 @@
 	  </div>
 	</div>
 </c:forEach>
+<!-- Modal C -->
+	<div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+	  <div class="modal-dialog modal-lg modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
+	        <h5 class="modal-title" id="exampleModalToggleLabel">의뢰서</h5>
+	        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+	      </div>
+	      <div class="modal-body">
+	      	<c:import url="/pd/formConfirm">
+	      		<c:param name="userId" value="${userId }"></c:param>
+	      		<c:param name="pdNo" value="${pdVo.pdNo }"></c:param>
+	      	</c:import>
+	      </div>
+	      <div class="modal-footer d-flex justify-content-center">
+	      	<button type="button" class="btn theme-bg rounded" data-dismiss="modal">확인</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 <!-- slick -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -815,6 +840,19 @@
         	$('form[name=frmB]').attr('action','<c:url value="/pd/noneDup"/>');
         	$('form[name=frmB]').submit();
         });
+        
+        //상품 삭제
+        $('#pdDelete').click(function(){
+        	if(confirm("정말 삭제하시겠습니까?")){
+        		location.href='<c:url value="/pd/delete?pdNo=${pdVo.pdNo}"/>';
+        	}
+        });
+        
+        //의뢰서 confirm 모달
+        if('${confirm}'){
+        	alert('의뢰서가 전달되었습니다.');
+        	$('.modalC').modal('show');
+        }
         
     });
     

@@ -11,6 +11,8 @@ import com.ez.wonder.noneDup.model.NoneDupVO;
 public interface ProductDAO {
 	ProductVO selcetProductByNo(int pdNo);
 	List<PdDetailVO> selcetPdDetail(int pdNo);
+	int deleteProduct(int pdNo);
+	
 	//
 	List<ProductVO> selectAllPd();
 	int insertPd(ProductVO pd);

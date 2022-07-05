@@ -30,4 +30,8 @@
 		)
 	</insert>
 	
+	<delete id="deleteProduct" parameterType="int">
+		delete from product where pd_No=#{pdNo}
+	</delete>
+	
 </mapper>

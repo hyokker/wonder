@@ -1,6 +1,7 @@
 package com.ez.wonder.form.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,4 +41,15 @@ public class FormServiceImpl implements FormService{
 		
 		return result;
 	}
+
+	@Override
+	public Map<String, Object> formConfirm(FormVo vo) {
+		return formDao.formConfirm(vo);
+	}
+
+	@Override
+	public int checkForm(int pdNo) {
+		return formDao.checkForm(pdNo);
+	}
+	
 }
