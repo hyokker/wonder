@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.pd.model.ProductVO;
 
@@ -57,8 +58,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public 	int grantExpert(String  userId) {
-		return adminDao.grantExpert(userId);
+	public 	int grantExpert(int memNo) {
+		return adminDao.grantExpert(memNo);
 	}
 	
 	@Override
@@ -160,6 +161,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public 	ArrayList<SaleVO> countPaymethod(){
 		return adminDao.countPaymethod();
+	}
+	
+	@Override
+	public 	ArrayList<SaleVO> salesPerMonth(){
+		return adminDao.salesPerMonth();
+	}
+	
+	@Override
+	public List<FormVo> selectForm(){
+		return adminDao.selectForm();
 	}
 }
 

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberDAO;
+import com.ez.wonder.noneDup.model.NoneDupDAO;
+import com.ez.wonder.noneDup.model.NoneDupVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,18 +19,9 @@ public class ProductServiceImpl implements ProductService{
 	private static final Logger logger
 		=LoggerFactory.getLogger(ProductServiceImpl.class);
 	
+	private final NoneDupDAO noneDupDao;
 	private final ProductDAO productDao;
 	private final MemberDAO memberDao;
-	
-	@Override
-	public ProductVO selcetProductByNo(int pdNo) {
-		return productDao.selcetProductByNo(pdNo);
-	}
-
-	@Override
-	public List<PdDetailVO> selcetPdDetail(int pdNo) {
-		return productDao.selcetPdDetail(pdNo);
-	}
 	
 	@Override
 	public List<ProductVO> selectAllPd() {
@@ -55,6 +48,54 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int insertPdImage(PdImageVO item) {
 		return productDao.insertPdImage(item);
+	}
+	
+
+	@Override
+	public List<PdImageVO> selectPdImage(int pdNo) {
+		return productDao.selectPdImage(pdNo);
+	}
+
+	
+	
+	@Override
+	public List<PdDetailVO> searchPdDetail(int pdNo, int editCount, int pdTermMin, int pdTermMax, int pdPriceMin, int pdPriceMax) {
+		return productDao.searchPdDetail(pdNo, editCount, pdTermMin, pdTermMax, pdPriceMin, pdPriceMax);
+	}
+
+	@Override
+	public ProductVO selcetProductByNo(int pdNo) {
+		return productDao.selcetProductByNo(pdNo);
+	}
+
+	@Override
+	public List<PdDetailVO> selcetPdDetail(int pdNo) {
+		return productDao.selcetPdDetail(pdNo);
+	}
+	
+
+	@Override
+	public List<PdDetailVO> selectPdDetail(int pdNo) {
+		return productDao.selectPdDetail(pdNo);
+	}
+	
+	@Override
+	public int insertDupFlag(NoneDupVO item) {
+		return noneDupDao.insertHeartDup(item);
+	}
+
+	@Override
+	public int deleteDupFlag(NoneDupVO item) {
+		return noneDupDao.deleteHeartDup(item);		
+	}
+	@Override
+	public List<PdListVO> searchPd(String pdTitle) {
+		return productDao.searchPd(pdTitle);
+	}
+	
+	@Override
+	public List<PdListVO> selectAllPdByUserId(String userId) {
+		return productDao.selectAllPdByUserId(userId);
 	}
 
 	@Override
