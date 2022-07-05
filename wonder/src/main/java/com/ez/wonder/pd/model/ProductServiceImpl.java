@@ -98,4 +98,9 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.selectAllPdByUserId(userId);
 	}
 
+	@Override
+	public int deleteProduct(int pdNo) {
+		return productDao.deleteProduct(pdNo);
+	}
+
 }

@@ -6,7 +6,7 @@
 
 
    			<!-- ============================ Page Title Start================================== -->
-			<div class="page-title" style="background:#f4f4f4 url(https://via.placeholder.com/1920x980);" data-overlay="5">
+			<div data-background-image="<c:url value='/img/coding.jpg'/>"  style="background:url(<c:url value='/img/coding.jpg' />);" data-overlay="5">
 				<div class="ht-80"></div>
 				<div class="container">
 					<div class="row">

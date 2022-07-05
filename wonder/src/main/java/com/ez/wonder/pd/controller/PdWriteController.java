@@ -73,7 +73,7 @@ public class PdWriteController {
 		String userid= (String)session.getAttribute("userId");
 		pd.setUserId(userid);
 		pd.setCateType("p");
-logger.info("login session :" + userid);
+		logger.info("login session :" + userid);
 		pd.setPdTitle(httpServletRequest.getParameter("pdTitle"));
 		pd.setLang(httpServletRequest.getParameter("pdLang"));
 		pd.setFrame(httpServletRequest.getParameter("pdFrame"));
