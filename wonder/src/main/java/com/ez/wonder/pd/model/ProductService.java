@@ -8,6 +8,7 @@ import com.ez.wonder.member.model.ExpertVO;
 public interface ProductService {
 	ProductVO selcetProductByNo(int pdNo);
 	List<PdDetailVO> selcetPdDetail(int pdNo);
+	int deleteProduct(int pdNo);
 	
 	//
 	List<ProductVO> selectAllPd();

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ProductDAO {
 	ProductVO selcetProductByNo(int pdNo);
 	List<PdDetailVO> selcetPdDetail(int pdNo);
+	int deleteProduct(int pdNo);
 	
 	//
 	List<ProductVO> selectAllPd();

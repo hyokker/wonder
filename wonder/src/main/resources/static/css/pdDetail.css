@@ -157,6 +157,10 @@
 	top: -80px;
 }
 
+.modalC{
+	top: -80px;
+}
+
 /* datePicker */
 .daterangepicker td.active, .daterangepicker td.active:hover {
     background-color: #27ae60;
