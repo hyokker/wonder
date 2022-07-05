@@ -183,14 +183,17 @@ public class ProductController {
 		
 		Map<String, Object> map=formService.formConfirm(vo);
 		logger.info("의뢰서 조회, 파라미터 map={}", map);
-		//value = StringUtil.clobToString(((java.sql.Clob)row.get("CONTENTS")));
+		
 		String content="";
-		try {
-			content = CLOBToStringConvert.convert(map.get("FORM_CONTENT"));
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(map != null) {
+			try {
+				content = CLOBToStringConvert.convert(map.get("FORM_CONTENT"));
+				logger.info("FORM_CONTENT={}", content);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		logger.info("FORM_CONTENT={}", content);
+		
 		ExpertVO expertVo=productService.getExpertInfo(vo.getPdNo());
 		logger.info("판매자 정보 조회, expertVo={}", expertVo);
 		
