@@ -62,12 +62,12 @@
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
 	
-	<update id="grantExpert">
+	<update id="grantExpert" parameterType="int">
 		update
-		memExGrantView
+		member
 		set
-		type = '프리랜서', grant_flag ='Y'
-		where user_Id=#{userId}
+		type = '프리랜서'
+		where mem_NO=#{memNO}
 	</update>
 	
 	<delete id="deleteExpert" parameterType="int">

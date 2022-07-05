@@ -17,4 +17,20 @@
 	<select id="selectCount" parameterType="reviewVo" resultType="int">
 		select count(*) from form where pd_no=#{pdNo} and user_id=#{userId} and pay_flag='Y'
 	</select>
+	
+	<select id="formConfirm" parameterType="formVo" resultType="map">
+		select * from formConfirmView where pd_no=#{pdNo} and user_id=#{userId} and pay_flag in ('Y','N')
+	</select>
+	
+	<select id="checkForm" parameterType="int" resultType="int">
+		select count(*) from form where pd_no=#{pdNo} and pay_flag in ('Y','N')
+	</select>
 </mapper>
+
+<!-- 
+create or replace view formConfirmView
+as
+select f.*, p.pd_type, p.pd_term, p.edit_count
+from form f join pd_detail p
+on f.pd_no=p.pd_no and f.price=p.pd_price; 
+-->
