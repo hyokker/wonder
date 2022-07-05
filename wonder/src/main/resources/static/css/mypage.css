@@ -165,10 +165,34 @@
 }
 
 .dash-msg-content{
-	height: 530px;
+	min-height: 530px;
 }
 
 #chatCommentContainer{
 	overflow-x: hidden;
 	overflow-y: scroll; 
+	max-height: 76%;
+}
+
+/* 채팅 메세지 디테일칸 */
+.dash-msg-text{
+	width: auto;	
+	max-width: 70%;
+	
+}
+
+.message-plunch{
+	height: 50px;
+}
+
+.right{
+	display: inline-block;
+	float: right;
+	text-align: right;
+}
+
+.left{
+	display: inline-block;
+	float: left;
+	text-align: left;
 }

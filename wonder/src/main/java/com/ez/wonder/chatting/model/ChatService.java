@@ -8,5 +8,7 @@ public interface ChatService {
 	int checkChat(String userId);
 	List<HashMap<String, Object>> selectMyChat(String userId);
 	List<HashMap<String, Object>> selectChatById(HashMap<String, Object> map);
+	String selectNickById(String rUserId);
+	int insertChat(ChatVO vo);
 
 }
