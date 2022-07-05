@@ -1,12 +1,12 @@
 package com.ez.wonder.admin.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -51,25 +51,24 @@ public class DashboardController {
 	}
 	
 	@RequestMapping("/chart")
-	@ResponseBody
-	public  ArrayList<SaleVO> salesPerMonth(Model model){
-		ArrayList<SaleVO> chart = adminService.salesPerMonth();
-		
-		logger.info("차트 결과 chart={}", chart);
-		
-		model.addAttribute("chart", chart);
-		return chart;
+	public  @ResponseBody List<SaleVO> salesPerMonth (@ModelAttribute SaleVO saleVo, Model model){
+		List<SaleVO> chart1 = adminService.salesPerMonth();
+		model.addAttribute("chart1", chart1);
+		return chart1;
 	}
 }
 
-/*
- * Map<String, Object> map = new HashMap<String, Object>(); 
- * ArrayList<SaleVO> saleVo = new ArrayList<SaleVO>();
- * 
- * //payMethod donut 
- * ArrayList<SaleVO> countPaymethod = adminService.countPaymethod();
- * 
- * map.put("countPaymethod", countPaymethod);
- */
 
+/*
+ * Map<String, Object> map = new HashMap<String, Object>(); ArrayList<SaleVO>
+ * saleVo = new ArrayList<SaleVO>();
+ * 
+ * ArrayList<SaleVO> chart1 = adminService.salesPerMonth();
+ * 
+ * map.put("chart1", chart1);
+ * 
+ * logger.info("차트 결과 chart1={}", chart1);
+ * 
+ * return map;
+ */
 
