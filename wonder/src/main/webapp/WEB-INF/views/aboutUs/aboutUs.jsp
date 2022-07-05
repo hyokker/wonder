@@ -7,14 +7,14 @@
 
 <!-- ============================ Page Title Start================================== -->
 <div class="page-title"
-	style="background: #f4f4f4 url(<c:url value='/img/main.jpg' />);" data-overlay="5">
+	style="background: #f4f4f4 url(<c:url value='/img/sliderss-1-1920x980.jpg' />);" data-overlay="1">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-md-12">
 
 				<div class="breadcrumbs-wrap">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active" aria-current="page">-</li>
+						<li class="breadcrumb-item active" aria-current="page"></li>
 					</ol>
 					<h2 class="breadcrumb-title">원더(wonder) 가 궁금하신가요?</h2>
 				</div>

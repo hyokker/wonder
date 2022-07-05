@@ -86,77 +86,7 @@ class="item">
 
 <!-- ============================ Hero Search Start ================================== -->
 <section class="p-0 top_overlio">
-<!-- 	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-xl-11 col-lg-11 col-md-12">
-				<div
-					class="full_search_box nexio_search lightanic_search hero_search-radius modern">
-					<div class="search_hero_wrapping">
 
-						<div class="row">
-							<div class="col-lg-4 col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>개발 언어</label>
-									<div class="input-with-icon">
-										<select id="location" class="form-control">
-											<option value="">&nbsp;</option>
-											<option value="1">Java</option>
-											<option value="2">Python</option>
-											<option value="3">Spring</option>
-											<option value="4">New Orleans</option>
-								<option value="5">Washington</option>
-								<option value="6">Charleston</option>
-					</select>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-3 col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>전문가 경력</label>
-				<div class="input-with-icon">
-					<select id="ptypes" class="form-control">
-						<option value="">&nbsp;</option>
-						<option value="1">5년 이내</option>
-						<option value="2">10년 이내</option>
-						<option value="3">10년 이상</option>
-						<option value="4">Commercial</option>
-								<option value="5">Offices</option>
-								<option value="6">Garage</option>
-					</select>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-4 col-md-4 col-sm-12">
-			<div class="form-group none">
-				<label>상품 종류</label>
-				<div class="input-with-icon">
-					<select id="price" class="form-control">
-						<option value="">&nbsp;</option>
-						<option value="1">STANDARD</option>
-						<option value="2">DELUXE</option>
-						<option value="3">PREMIUM</option>
-						<option value="3">From 80,000 To 40m</option>
-								<option value="3">From 90,000 To 50m</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-lg-1 col-md-2 col-sm-12 small-padd m_space">
-								<div class="form-group none">
-									<a href="#" class="btn search-btn"><i class="fa fa-search"></i></a>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div> -->
 </section>
 <!-- ============================ Hero Search End ================================== -->
 
