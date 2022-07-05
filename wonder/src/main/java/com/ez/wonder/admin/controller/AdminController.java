@@ -39,11 +39,11 @@ public class AdminController {
 
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
-		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setRecordCountPerPage(7);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(9);
+		searchVo.setRecordCountPerPage(7);
 
 		List<MemberVO> list = adminService.selectMember(searchVo);
 		logger.info("회원 목록 조회 결과, list.size={}", list.size());
@@ -410,7 +410,7 @@ public class AdminController {
 
 		// session.invalidate();
 		session.removeAttribute("adminId");
-		
+
 		return "redirect:/";
 	}
 
