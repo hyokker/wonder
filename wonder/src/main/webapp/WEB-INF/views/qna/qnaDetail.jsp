@@ -127,6 +127,25 @@ pageContext.setAttribute("newLine", "\r\n");
 			<span class="ti-view-list"></span> 목록
 			</button>
 	</c:if>			
+	<c:if test="${empty sessionScope.adminId }">
+			
+			<c:if test="${vo.sortNo==0 }">
+			<button class="btn btn-theme" type="button" id="btreply">
+			<i class="fa fa-pen-nib"></i> 답변
+			</button>
+			</c:if>
+			
+			<button class="btn btn-theme" type="button" id="btedit">
+			<i class="fa fa-pen-nib"></i> 수정
+			</button>
+			<button class="btn btn-theme" type="button" id="btdelete">
+			<i class="fas fa-trash"></i> 삭제
+			</button>
+			<button class="btn btn-theme" type="button" id="btlist"
+				onclick="location.href='<c:url value='/qna/qnaList'/>'">
+			<span class="ti-view-list"></span> 목록
+			</button>
+	</c:if>			
 			</div>
 	<input type="hidden" id="sessionAdmin" value="${sessionScope.adminId }">
 	<input type="hidden" id="sessionId" value="${sessionScope.userId }">
