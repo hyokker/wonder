@@ -142,161 +142,181 @@
 			}
 		});
 	});
+</script>
 
-	
-	</script>
-				<form name="loginForm" action="<c:url value='/member/login'/>" method="post">
-					<div class="form-group">
-						<label>회원 아이디</label>
-						<div class="input-with-icon">
-							<input type="text" class="form-control"
-							name="userId" id="loginId">
-							<i class="ti-user">	</i>
-						</div>
-					</div>
 
-					<div class="form-group">
-						<label>비밀 번호</label>
-						<div class="input-with-icon">
-							<input type="password" class="form-control"
-							 name="pwd" id="loingPwd">
-							 <i class="ti-unlock">	</i>
-						</div>
-					</div>
+<form name="loginForm" action="<c:url value='/member/login'/>" method="post">
+	<div class="form-group">
+		<label>회원 아이디</label>
+		<div class="input-with-icon">
+			<input type="text" class="form-control"
+			name="userId" id="loginId">
+			<i class="ti-user">	</i>
+		</div>
+	</div>
 
-					<div class="form-group">
-						<div class="eltio_ol9">
-							<div class="eltio_k1">
-								<input id="dd" class="checkbox-custom"
-									type="checkbox"> <label for="dd"
-									class="checkbox-custom-label">아이디 기억</label>
-							</div>
-							<div class="eltio_k2">
-								<a href="#">비밀번호를 잊어버리셨나요?</a>
-							</div>
-						</div>
-					</div>
+	<div class="form-group">
+		<label>비밀 번호</label>
+		<div class="input-with-icon">
+			<input type="password" class="form-control"
+			 name="pwd" id="loingPwd">
+			 <i class="ti-unlock">	</i>
+		</div>
+	</div>
+	<div class="form-group">
+		<button type="button" id="CallLogin" class="btn btn-md full-width pop-login">로그인</button>
+	</div>
+</form>
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-md full-width pop-login">로그인</button>
-					</div>
-					</form>
-					<!-- e001f5b6437ab5c78a358d107808c37c -->
-					<!-- 카카오 로그인 api 어떻게 사용하징? -->
-			 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-					<script>
-					function loginFormWithKakao(){
-						Kakao.init('e001f5b6437ab5c78a358d107808c37c');
-						Kakao.Auth.login({
-					        success: function(authObj) {
-					          //2. 로그인 성공시, API 호출
-					          Kakao.API.request({
-					            url: '/v2/user/me',
-					            success: function(res) {
-					              console.log(res);
-					              var id = res.id;
-					              var account = res.kakao_account;
-					              $('#form-kakao-login input[name=email]').val(account.email);
-					              $('#form-kakao-login input[name=nick]').val(account.profile.nickname);
-					              $('#form-kakao-login input[name=img]').val(account.profile.img);
-								  scope : 'account_email';
-								alert('로그인성공');
-								document.querySelector('#form-kakao-login').submit();
-					        }
-					          })
-					          console.log(authObj);
-					          var token = authObj.access_token;
-					        },
-					        fail: function(err) {
-					          alert(JSON.stringify(err));
-					        }
-					      });
-					};
-					</script>
-					<div class="kakao_login">
-					<a class="kakao" id="reauthenticate-popup-btn" href="javascript:loginFormWithKakao()">
-						<img width="100%" src="<c:url value='/img/kakao_login_large_wide.png'/>">
-					</a>
-   					</div>
-					<form id="form-kakao-login" method="post" action="<c:url value='/member/kakaoLogin'/>">
-					<input type="hidden" name="email"/>
-					<input type="hidden" name="nick"/>
-					<input type="hidden" name="img"/>
-					</form>
-
-				
+<script type="text/javascript">
+	$(function(){
+		$('#CallLogin').click(function(){
+			var userId = $("#loginId").val();
+			var userPwd = $("#loingPwd").val();
+			
+			$.ajax({
+				type: "post",
+				url : "/wonder/member/ajaxLogin",
+				dataType : "json",
+				data : {"userId":userId, "pwd":userPwd},
+				success : function(data){
+					console.log(data);
+					if (data == 1){
+						location.reload();
+						return false;
+					} else {
+						alert('아이디 비밀번호를 확인하세요');
+					}
+				}
+			});
+		});
+	});
+</script>
+<!-- 
+	<div class="form-group">
+		<div class="eltio_ol9">
+			<div class="eltio_k1">
+				<input id="dd" class="checkbox-custom"
+					type="checkbox"> <label for="dd"
+					class="checkbox-custom-label">아이디 기억</label>
+			</div>
+			<div class="eltio_k2">
+				<a href="#">비밀번호를 잊어버리셨나요?</a>
 			</div>
 		</div>
-							
-		<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
-		<script type="text/javascript" src="<c:url value='/js/member.js'/>"></script>
-		<script type="text/javascript">
-			$(function() {
-				$('form[name=registerForm]').submit(function() {
+	</div> -->
+
+	<!-- e001f5b6437ab5c78a358d107808c37c -->
+	<!-- 카카오 로그인 api 어떻게 사용하징? -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script>
+	function loginFormWithKakao(){
+		Kakao.init('e001f5b6437ab5c78a358d107808c37c');
+		Kakao.Auth.login({
+	        success: function(authObj) {
+	          //2. 로그인 성공시, API 호출
+	          Kakao.API.request({
+	            url: '/v2/user/me',
+	            success: function(res) {
+	              console.log(res);
+	              var id = res.id;
+	              var account = res.kakao_account;
+	              $('#form-kakao-login input[name=email]').val(account.email);
+	              $('#form-kakao-login input[name=nick]').val(account.profile.nickname);
+	              $('#form-kakao-login input[name=img]').val(account.profile.img);
+				  scope : 'account_email';
+				alert('로그인성공');
+				document.querySelector('#form-kakao-login').submit();
+	        }
+	          })
+	          console.log(authObj);
+	          var token = authObj.access_token;
+	        },
+	        fail: function(err) {
+	          alert(JSON.stringify(err));
+	        }
+	      });
+	};
+	</script>
+	<div class="kakao_login">
+	<a class="kakao" id="reauthenticate-popup-btn" href="javascript:loginFormWithKakao()">
+		<img width="100%" src="<c:url value='/img/kakao_login_large_wide.png'/>">
+	</a>
+				</div>
+	<form id="form-kakao-login" method="post" action="<c:url value='/member/kakaoLogin'/>">
+			<input type="hidden" name="email"/>
+			<input type="hidden" name="nick"/>
+			<input type="hidden" name="img"/>
+			</form>
+
 		
-				if(!validate_userid($("#userId").val())) {
-					alert("아이디는 영문, 숫자, _(밑줄문자)만 가능합니다");
-					$("#userId").focus();
-					event.preventDefault();	
-				}else if ($.trim($('#name').val()) == "") {
-					alert("이름을 입력해주세요.");
-					$('#name').focus();
-					event.preventDefault();
-				} else if ($.trim($('#nickname').val()) == "") {
-					alert("닉네임을 입력해주세요.");
-					$('#nickname').focus();
-					event.preventDefault();
-				} else if ($("#pwd").val().length < 1) {
-					alert("비밀번호를 입력하세요");
-					$("#pwd").focus();
-					event.preventDefault();
-				} else if ($("#pwd").val() != $("#pwd2").val()) {
-					alert("비밀번호가 일치하지 않습니다.");
-					$("#pwd2").focus();
-					event.preventDefault();
-				}  else if ($('#chkId').val() != 'Y') {
-					alert("아이디 중복확인해야 합니다");
-					$("#btnChkId").focus();
-					event.preventDefault();  
-				} 
-		});
-				
-				$('#userId').keyup(function() {
-			         var data = $(this).val();
-			         if (validate_userid(data) && data.length >= 2) {
-			            $.ajax({
-			               url : "<c:url value='/member/dupId'/>",
-			               type : 'GET',
-			               data : "userId=" + data,
-			               success : function(res) {
+	</div>
+</div>
+					
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/member.js'/>"></script>
+<script type="text/javascript">
+	$(function() {
+		$('form[name=registerForm]').submit(function() {
 
-			                  var output = "";
-			                  if (res) {
-			                     output = "사용가능한 아이디";
-			                     $('#chkId').val('Y');
-			                  } else {
-			                     output = "이미 등록된 아이디";
-			                     $('#chkId').val('N');
-			                  }
-			                  $('.error').text(output);
-			               },
-			               error : function(xhr, status, error) {
-			                  alert("error:" + error);
-			               }
-
-			            });
-			         } else {
-			            $('.error').text('아이디 규칙에 맞지 않습니다.');
-			            $('#chkId').val('N');
-			         }
-
-			      });
-
-
+		if(!validate_userid($("#userId").val())) {
+			alert("아이디는 영문, 숫자, _(밑줄문자)만 가능합니다");
+			$("#userId").focus();
+			event.preventDefault();	
+		}else if ($.trim($('#name').val()) == "") {
+			alert("이름을 입력해주세요.");
+			$('#name').focus();
+			event.preventDefault();
+		} else if ($.trim($('#nickname').val()) == "") {
+			alert("닉네임을 입력해주세요.");
+			$('#nickname').focus();
+			event.preventDefault();
+		} else if ($("#pwd").val().length < 1) {
+			alert("비밀번호를 입력하세요");
+			$("#pwd").focus();
+			event.preventDefault();
+		} else if ($("#pwd").val() != $("#pwd2").val()) {
+			alert("비밀번호가 일치하지 않습니다.");
+			$("#pwd2").focus();
+			event.preventDefault();
+		}  else if ($('#chkId').val() != 'Y') {
+			alert("아이디 중복확인해야 합니다");
+			$("#btnChkId").focus();
+			event.preventDefault();  
+		} 
 });
-		</script>
+		
+		$('#userId').keyup(function() {
+	         var data = $(this).val();
+	         if (validate_userid(data) && data.length >= 2) {
+	            $.ajax({
+	               url : "<c:url value='/member/dupId'/>",
+	               type : 'GET',
+	               data : "userId=" + data,
+	               success : function(res) {
 
+	                  var output = "";
+	                  if (res) {
+	                     output = "사용가능한 아이디";
+	                     $('#chkId').val('Y');
+	                  } else {
+	                     output = "이미 등록된 아이디";
+	                     $('#chkId').val('N');
+	                  }
+	                  $('.error').text(output);
+	               },
+	               error : function(xhr, status, error) {
+	                  alert("error:" + error);
+	               }
 
+	            });
+	         } else {
+	            $('.error').text('아이디 규칙에 맞지 않습니다.');
+	            $('#chkId').val('N');
+	         }
+	      });
+		});
+</script>
 
 
 <div class="tab-pane fade" id="pills-signup" role="tabpanel"
@@ -315,7 +335,6 @@
 				<input type="button" value="중복확인" id="btnChkId" 
 						title="새창열림"> -->
 			</div>
-			<span class="error"></span>
 		</div>
 		<div class="form-group">
 			<label>이름</label>

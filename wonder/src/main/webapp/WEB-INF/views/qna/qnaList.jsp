@@ -200,7 +200,6 @@ function pageProc(currentPage) {
 <script type="text/javascript">
 $(function(){
 	$('.prt_submit_link').click(function(){
-		alert("이잉");
 		if($('input[name=qnaWrite]').val()==''){
 			alert('먼저 로그인 하세요');
 			event.preventDefault();

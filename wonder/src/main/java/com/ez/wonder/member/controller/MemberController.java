@@ -51,6 +51,7 @@ public class MemberController {
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", memVo.getName());
 			session.setAttribute("type", memVo.getType());
+			session.setAttribute("LoginType", "normal");
 			
 			msg=memVo.getUserId()+"님 로그인되었습니다.";
 			url="/";
@@ -170,6 +171,8 @@ public class MemberController {
 		HttpSession session=request.getSession();
 		session.setAttribute("userId", email);
 		session.setAttribute("userName", nick);
+		session.setAttribute("LoginType", "kakao");
+		
 		logger.info("회원 가입 후 패스 후 로그인 세션 email={},nick={}",email,nick);
 		
 		msg=nick+"님 로그인되었습니다.";
@@ -199,4 +202,36 @@ public class MemberController {
 	    }
 	      return bool;
 	   }
-}	
+	
+	@RequestMapping("/member/ajaxLogin")
+	@ResponseBody
+	public int ajaxLogin(@RequestParam String userId,@RequestParam String pwd,
+			HttpServletRequest request, Model model) {
+		logger.info("로그인 처리, 파라미터 userId={},pwd={}", userId,pwd);
+		
+		int result=memberService.checkLogin(userId, pwd);
+		logger.info("로그인 처리 결과 result={}", result);
+		//public
+		
+		String msg="로그인 처리 실패", url="/";
+		if(result==MemberService.LOGIN_OK) {
+			//회원정보 조회
+			MemberVO memVo=memberService.selectByUserid(userId);
+			logger.info("로그인 처리-회원정보 조회결과 memVo={}", memVo);
+			
+			//[1] session에 저장
+			HttpSession session=request.getSession();
+			session.setAttribute("userId", userId);
+			session.setAttribute("userName", memVo.getName());
+			session.setAttribute("type", memVo.getType());
+			session.setAttribute("LoginType", "normal");
+
+			
+			msg=memVo.getUserId()+"님 로그인되었습니다.";
+			url="/";
+
+		return 1;
+	   }
+		return 2;
+	}	
+}
