@@ -43,7 +43,7 @@
 								<h4 class="widget_title">Service</h4>
 								<ul class="footer-menu">
 									<li><a href="<c:url value='/aboutUs/aboutUs'/>">서비스소개</a></li>
-									<li><a href="#">FAQ</a></li>
+									<li><a href="<c:url value='/faq/faq'/>"">FAQ</a></li>
 									<li><a href="<c:url value='/contactUs/contactUs'/>">고객센터</a></li>
 								</ul>
 							</div>
@@ -54,7 +54,6 @@
 								<h4 class="widget_title">Company</h4>
 								<ul class="footer-menu">
 									<li><a href="#">회사소개</a></li>
-									<li><a href="#">채용정보</a></li>
 									<li><a href="<c:url value='/contactUs/contactUs'/>">제휴제안</a></li>
 								</ul>
 							</div>
@@ -190,7 +189,6 @@
 						Kakao.init('e001f5b6437ab5c78a358d107808c37c');
 						Kakao.Auth.login({
 					        success: function(authObj) {
-					         
 					          //2. 로그인 성공시, API 호출
 					          Kakao.API.request({
 					            url: '/v2/user/me',
@@ -201,12 +199,9 @@
 					              $('#form-kakao-login input[name=email]').val(account.email);
 					              $('#form-kakao-login input[name=nick]').val(account.profile.nickname);
 					              $('#form-kakao-login input[name=img]').val(account.profile.img);
-					              alert("이메일 왜안들어가");
 								  scope : 'account_email';
 								alert('로그인성공');
 								document.querySelector('#form-kakao-login').submit();
-							
-					              
 					        }
 					          })
 					          console.log(authObj);
@@ -224,9 +219,9 @@
 					</a>
    					</div>
 					<form id="form-kakao-login" method="post" action="<c:url value='/member/kakaoLogin'/>">
-					<input type="text" name="email"/>
-					<input type="text" name="nick"/>
-					<input type="text" name="img"/>
+					<input type="hidden" name="email"/>
+					<input type="hidden" name="nick"/>
+					<input type="hidden" name="img"/>
 					</form>
 
 				

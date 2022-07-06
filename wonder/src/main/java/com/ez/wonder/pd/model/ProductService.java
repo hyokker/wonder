@@ -9,6 +9,8 @@ import com.ez.wonder.noneDup.model.NoneDupVO;
 public interface ProductService {
 	ProductVO selcetProductByNo(int pdNo);
 	List<PdDetailVO> selcetPdDetail(int pdNo);
+	int deleteProduct(int pdNo);
+	
 	//
 	List<ProductVO> selectAllPd();
 	List<PdListVO> selectAllPdByUserId(String userId);

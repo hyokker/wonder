@@ -1,8 +1,6 @@
 package com.ez.wonder.admin.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.SaleVO;
+import com.ez.wonder.form.model.FormVo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,31 +36,39 @@ public class DashboardController {
 		
 		logger.info("누적매출 sumAllSales={}, 월매출 monthlySales={}, 누적회원수 countMembers={}, 전문가수 countExperts={}", sumAllSales, monthlySales, countMembers, countExperts);
 		
+		List<FormVo> list = adminService.selectForm();
+		logger.info("의뢰서 목록 조회 결과 list.size={}", list.size());
+		
 		model.addAttribute("sumAllSales", sumAllSales);
 		model.addAttribute("monthlySales", monthlySales);
 		model.addAttribute("countMembers", countMembers);
 		model.addAttribute("countExperts", countExperts);
 		model.addAttribute("countProduct", countProduct);
 		model.addAttribute("countPayment", countPayment);
+		model.addAttribute("list", list);
 		
 		return "/admin/dashboard";
 	}
+	
+	@RequestMapping("/chart")
+	public  @ResponseBody List<SaleVO> salesPerMonth (@ModelAttribute SaleVO saleVo, Model model){
+		List<SaleVO> chart1 = adminService.salesPerMonth();
+		model.addAttribute("chart1", chart1);
+		return chart1;
+	}
 }
+
 
 /*
  * Map<String, Object> map = new HashMap<String, Object>(); ArrayList<SaleVO>
  * saleVo = new ArrayList<SaleVO>();
  * 
- * int sumAllSales = adminService.sumAllSales(); int monthlySales =
- * adminService.monthlySales(); int countMembers = adminService.countMembers();
- * int countExperts = adminService.countExperts();
+ * ArrayList<SaleVO> chart1 = adminService.salesPerMonth();
  * 
- * //payMethod donut ArrayList<SaleVO> countPaymethod =
- * adminService.countPaymethod();
+ * map.put("chart1", chart1);
  * 
- * map.put("sumAllSales", sumAllSales); map.put("monthlySales", monthlySales);
- * map.put("countMembers", countMembers); map.put("countExperts", countExperts);
- * map.put("countPaymethod", countPaymethod);
+ * logger.info("차트 결과 chart1={}", chart1);
+ * 
+ * return map;
  */
-
 

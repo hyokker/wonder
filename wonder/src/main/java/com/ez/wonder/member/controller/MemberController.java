@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class MemberController {
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", memVo.getName());
 			session.setAttribute("userType", memVo.getType());
+			session.setAttribute("type", memVo.getType());
 			
 			msg=memVo.getUserId()+"님 로그인되었습니다.";
 			url="/";
@@ -71,7 +73,13 @@ public class MemberController {
 		
 		//session.invalidate();
 		session.removeAttribute("userId");
+		session.removeAttribute("type");
 		session.removeAttribute("userName");
+		
+		//임시
+		session.removeAttribute("adminId");
+		
+		
 		return "redirect:/";
 	}
 	
@@ -118,25 +126,59 @@ public class MemberController {
 	
 	@RequestMapping("/member/kakaoLogin")
 	public String kakaoLogin(@RequestParam(required = false) String email, @RequestParam(required = false) String nick,
-			@RequestParam(required = false) String img,
 			HttpServletRequest request,
 			HttpServletResponse response,
 			Model model) {
-		logger.info("카카오 로그인 처리, 파라미터 email={},nick={},img={}",email,nick,img);
+		logger.info("카카오 로그인 or 회원가입 처리, 파라미터 email={},nick={}",email,nick);
 		
-		String msg="로그인 처리 실패", url="/";
+		MemberVO vo = new MemberVO();
+		int result=0;
+		
+		String userId=email.substring(0,email.indexOf("@"));
+		logger.info("db에 넣을 이메일 짜른것 userId={}",userId);
+		
+		
+		result=memberService.duplicateId(email);
+		logger.info("중복확인 resutl={}",result);
+		String msg="로그인 실패", url="/";
+		if(result==MemberService.USABLE_ID) {
+			
+			vo.setUserId(email);
+			vo.setEmail(email);
+			vo.setName(nick);
+			vo.setNickname(nick);
+			vo.setPwd("1234");
+			vo.setTel("010-1234-1234");
+			
+			int cnt=memberService.insertMember(vo);
+			logger.info("회원가입 결과 cnt={}",cnt);
+				if(cnt>0) {
+					//[1] session에 저장
+					HttpSession session=request.getSession();
+					session.setAttribute("userId", email);
+					session.setAttribute("userName", nick);
+					logger.info("회원 가입 후 로그인 세션 email={},nick={}",email,nick);
+					
+					msg=nick+"님 로그인되었습니다.";
+					url="/";
+					
+					model.addAttribute("msg", msg);
+					model.addAttribute("url", url);
+				}
+				return "/common/message";
+			}
 		//[1] session에 저장
 		HttpSession session=request.getSession();
-		session.setAttribute("userId", nick);
+		session.setAttribute("userId", email);
 		session.setAttribute("userName", nick);
+		logger.info("회원 가입 후 패스 후 로그인 세션 email={},nick={}",email,nick);
 		
-		msg=nick+"님 로그인되었습니당.";
+		msg=nick+"님 로그인되었습니다.";
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
 		return "/common/message";
-		
 		
 	}
 	

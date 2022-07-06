@@ -2,10 +2,10 @@ package com.ez.wonder.mypage.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.ez.wonder.chatting.model.ChatService;
+import com.ez.wonder.chatting.model.ChatVO;
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.member.model.ExpertImageVO;
@@ -40,6 +41,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	private final MypageService mypageService;
+	private final ChatService chatService ;
 	private final FileUploadUtil fileUploadUtil;
 	
 	@RequestMapping("/incSide")
@@ -145,12 +147,10 @@ public class MypageController {
 	
 	@PostMapping("/profile")
 	public String mypage_profile_post(@ModelAttribute ExpertImageVO profileVo ,@ModelAttribute MemberVO memberVo, 
-			@ModelAttribute ExpertVO expertVo, @RequestParam("portfolioFile[]") MultipartFile portfolio, HttpServletRequest request, HttpSession session,Model model) {
+			@ModelAttribute ExpertVO expertVo,  HttpServletRequest request, HttpSession session,Model model) {
 		String userId = (String) session.getAttribute("userId");
 		memberVo.setUserId(userId);
 		logger.info("멤버프로필 수정 처리, memberVo={}",memberVo);
-		logger.info("멤버프로필 수정 처리, portfolio={}",portfolio.getOriginalFilename());
-		
 		int cnt=mypageService.updateMember(memberVo);
 		logger.info("멤버프로필 업데이트 결과, cnt={}",cnt);
 		
@@ -372,14 +372,19 @@ public class MypageController {
 		model.addAttribute("vo",vo);
 	}
 	
-	@RequestMapping("/chatting")
-	public void mypage_chatting(HttpSession session,Model model) {
+	@GetMapping("/chatting")
+	public void mypage_chatting_get(HttpSession session,Model model) {
 		logger.info("채팅 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		List<HashMap<String, Object>> list = chatService.selectMyChat(userId);
+		logger.info("현재 채팅중인 채팅방 list={}", list);
+		
+		
+		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
 	}
 	

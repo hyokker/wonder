@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ez.wonder.common.CLOBToStringConvert;
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.form.model.FormService;
 import com.ez.wonder.form.model.FormVo;
@@ -42,11 +43,11 @@ public class ProductController {
 	private final NoneDupService noneDupService;
 	
 	//http://localhost:9095/wonder/pd/pdDetail?pdNo=1
-	@GetMapping("/pdDetail")
+	@RequestMapping("/pdDetail")
 	public String pdDetail_get(@RequestParam(defaultValue = "0") int pdNo,
 			HttpSession session, Model model) {
 		String userId=(String) session.getAttribute("userId");
-		userId="hong";	//test
+		//userId="hong";	//test
 		logger.info("상품 상세 화면, 파라미터 pdNo={}, userId={}", pdNo, userId);
 		
 		if(pdNo == 0) {
@@ -57,7 +58,7 @@ public class ProductController {
 		}
 		
 		ProductVO pdVo=productService.selcetProductByNo(pdNo);
-		logger.info("상품 조회 결과, vo={}", pdVo);
+		logger.info("상품 조회 결과, pdVo={}", pdVo);
 		List<PdDetailVO> list=productService.selcetPdDetail(pdNo);
 		logger.info("상품 상세 조회 결과, list.size={}", list.size());
 		List<ReviewVO> reviewList=reviewService.selectReviewByPdNo(pdNo);
@@ -75,6 +76,7 @@ public class ProductController {
 		}
 		logger.info("찜하기 정보 조회, heartCount={}", heartCount);
 		
+		model.addAttribute("userId", userId);
 		model.addAttribute("pdVo", pdVo);
 		model.addAttribute("list", list);
 		model.addAttribute("reviewList", reviewList);
@@ -89,7 +91,7 @@ public class ProductController {
 	public String noneDup_post(@ModelAttribute NoneDupVO vo,
 			Model model) {
 		logger.info("찜하기 처리, 파라미터 vo={}", vo);
-		vo.setUserId("hong");	//test
+		vo.setUserId("kim");	//test
 		
 		int result=noneDupService.clickHeart(vo);
 		logger.info("찜하기 처리 결과, result={}", result);
@@ -147,18 +149,57 @@ public class ProductController {
 		logger.info("의뢰서 등록 처리, 파라미터 formVo={}", formVo);
 		formVo.setUserId("kim");	//test
 		
+		Map<String, Object> map=formService.formConfirm(formVo);
+		logger.info("의뢰서 조회 결과, formConfirm={}", map);
+		if(map != null) {
+			String msg="현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.", url="/pd/pdDetail?pdNo="+formVo.getPdNo();
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "/common/message";
+		}
+		
 		int cnt=formService.insertForm(formVo);
 		logger.info("의뢰서 등롤 결과, cnt={}", cnt);
 		
-		String msg="의뢰서를 전송을 실패하였습니다.", url="/pd/pdDetail?pdNo="+formVo.getPdNo();
-		if(cnt>0) {
-			msg="판매자에게 의뢰서를 전송하였습니다.";
+		boolean confirm=true;
+		if(cnt==0) {
+			String msg="의뢰서를 전송을 실패하였습니다.", url="/pd/pdDetail?pdNo="+formVo.getPdNo();
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "/common/message";
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+		model.addAttribute("confirm", confirm);
 		
-		return "/common/message";
+		return "forward:/pd/pdDetail";
+	}
+	
+	@GetMapping("/formConfirm")
+	public void formConfirm(@ModelAttribute FormVo vo,
+			Model model) {
+		logger.info("의뢰 확인서, 파라미터 vo={}", vo);
+		
+		Map<String, Object> map=formService.formConfirm(vo);
+		logger.info("의뢰서 조회, 파라미터 map={}", map);
+		
+		String content="";
+		if(map != null) {
+			try {
+				content = CLOBToStringConvert.convert(map.get("FORM_CONTENT"));
+				logger.info("FORM_CONTENT={}", content);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		ExpertVO expertVo=productService.getExpertInfo(vo.getPdNo());
+		logger.info("판매자 정보 조회, expertVo={}", expertVo);
+		
+		model.addAttribute("map", map);
+		model.addAttribute("content", content);
+		model.addAttribute("expertVo", expertVo);
 	}
 	
 	@GetMapping("/calendar")
@@ -170,5 +211,32 @@ public class ProductController {
 		logger.info("판매자 일정 조회 결과, list.size={}", list.size());
 		
 		model.addAttribute("list", list);
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam int pdNo,
+			Model model) {
+		logger.info("상품 삭제 처리, 파라미터 pdNo={}", pdNo);
+		
+		String msg="", url="/pd/pdDetail?pdNo="+pdNo;
+		int count=formService.checkForm(pdNo);
+		if(count > 0) {
+			msg="완료되지 않은 의뢰서가 "+count+"개 남았습니다.";
+		}else {
+			int cnt=productService.deleteProduct(pdNo);
+			logger.info("상품 삭제 결과, cnt={}", cnt);
+			if(cnt>0) {
+				msg="상품이 삭제되었습니다.";
+				url="/pd/pdList";
+			}else {
+				msg="상품 삭제를 실패하였습니다.";
+			}
+			
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
 	}
 }

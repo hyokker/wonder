@@ -1,4 +1,4 @@
-package com.ez.wonder.chatting;
+package com.ez.wonder.chatting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

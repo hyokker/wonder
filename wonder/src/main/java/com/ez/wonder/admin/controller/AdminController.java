@@ -39,11 +39,11 @@ public class AdminController {
 
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
-		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setRecordCountPerPage(7);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(9);
+		searchVo.setRecordCountPerPage(7);
 
 		List<MemberVO> list = adminService.selectMember(searchVo);
 		logger.info("회원 목록 조회 결과, list.size={}", list.size());
@@ -322,10 +322,10 @@ public class AdminController {
 	}
 
 	@RequestMapping("/grantEx")
-	public String grantExpert(@RequestParam(defaultValue = "0") String userId, Model model) {
-		logger.info("전문가 승인 처리, 파라미터 adminId={}", userId);
+	public String grantExpert(@RequestParam(defaultValue = "0") int memNo, Model model) {
+		logger.info("전문가 승인 처리, 파라미터 memNo={}", memNo);
 
-		int cnt = adminService.grantExpert(userId);
+		int cnt = adminService.grantExpert(memNo);
 		logger.info("전문가 승인 처리 결과, cnt={}", cnt);
 		String msg = "전문가 승인 실패하였습니다.", url = "/admin/nonApprovalEx";
 
@@ -404,20 +404,13 @@ public class AdminController {
 		return "/common/message";
 	}
 
-	@GetMapping("/email")
-	public String get_email() {
-		logger.info("이메일 화면");
-
-		return "/admin/email";
-	}
-
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		logger.info("로그아웃 처리 ");
 
 		// session.invalidate();
 		session.removeAttribute("adminId");
-		
+
 		return "redirect:/";
 	}
 

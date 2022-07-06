@@ -52,7 +52,8 @@
 
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="<c:url value='/admin/logout'/>"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i
+									class="fa fa-power-off"></i></a></li>
 							<li class="active"><a href="#"><i class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
 						</ul>
@@ -65,9 +66,7 @@
 				<div class="dashboard-body">
 					<div class="dashboard-wraper">
 						<!-- row -->
-						<form name="mailform" method="get"
-							action="<c:url value='/admin/sendMail' />">
-							<fieldset>
+						<form method="get" action="<c:url value='/admin/adEmail' />">
 								<div class="frm_submit_block">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12">
@@ -78,37 +77,37 @@
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label>받는사람<i class="req">*</i></label>
-												<!-- <input type="text" class="form-control" name="recipient"> -->
-												<select id="recipient" class="form-control">
-													<option value="">&nbsp;</option>
-													<option value="1">프리랜서@gmail.com</option>
-													<option value="2">일반사용자@gmail.com</option>
-												</select>
+												<label>이름<i class="req">*</i></label> <input type="text"
+													class="form-control simple" name="name">
+											</div>
+										</div>
+
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label>받는사람<i class="req">*</i></label> <input type="email"
+													class="form-control" name="email" id="name">
 											</div>
 										</div>
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label>제목<i class="req">*</i></label> <input type="text"
-													class="form-control">
+													class="form-control" name="title" id="title">
 											</div>
 										</div>
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label>내용<i class="req">*</i></label>
-												<textarea class="form-control ht-50"></textarea>
+												<textarea class="form-control ht-50" name="content"
+													id="content"></textarea>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-lg-12 col-md-12">
-										<button class="btn btn-theme" type="submit">전송</button>
-									</div>
+									<button class="btn btn-theme" type="submit">전송</button>
 								</div>
-							</fieldset>
 						</form>
 						<!--/row -->
 					</div>

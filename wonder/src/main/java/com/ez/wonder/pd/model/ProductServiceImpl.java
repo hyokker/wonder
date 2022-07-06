@@ -94,4 +94,9 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.searchPd(pdTitle, userId);
 	}
 
+	@Override
+	public int deleteProduct(int pdNo) {
+		return productDao.deleteProduct(pdNo);
+	}
+
 }

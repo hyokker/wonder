@@ -7,9 +7,9 @@
 		payment
 	</select>
 	<select id="monthlySales" resultType="int">
-		select sum(price) from
-		payment
-		where sysdate >= TO_CHAR(add_months(sysdate,-1))
+		select sum(price) from payment
+		where regdate 
+		between (SELECT TRUNC(SYSDATE, 'MM') FROM DUAL) and (SELECT LAST_DAY(SYSDATE) FROM DUAL)
 	</select>
 	<select id="countMembers" resultType="int">
 		select count(*) from member
@@ -18,15 +18,32 @@
 		select count(*) from member
 		where type ='프리랜서'
 	</select>
-	<select id="countPaymethod" resultType="saleVo">
-		select pay_method,
-		count(*) from payment
-		group by pay_method order by count(*) desc
-	</select>
 	<select id="countProduct" resultType="int">
 		select count(*) from product
 	</select>
 	<select id="countPayment" resultType="int">
 	select count(*) from payment
+	</select>
+	<select id="countPaymethod" resultType="saleVo">
+		select pay_method,
+		count(*) from payment
+		group by pay_method order by count(*) desc
+	</select>
+	<select id="salesPerMonth" resultType="saleVo" parameterType="saleVo">
+	select * from payment
+<!-- 		select extract(year from regdate), extract(month from regdate), sum(price)
+		from payment 
+		group by extract(year from regdate), extract(month from regdate) 
+		order by extract(year from regdate), extract(month from regdate) -->
+		
+<!-- 		select to_char(regdate,'yy/mm'), sum(price)
+		from payment 
+		group by to_char(regdate,'yy/mm') 
+		order by to_char(regdate,'yy/mm') -->
+	</select>
+	<select id="selectForm" resultType="formVo">
+		select * 
+		from (select * from form order by form_regdate desc)
+		where rownum between 1 and 5
 	</select>
 </mapper>
