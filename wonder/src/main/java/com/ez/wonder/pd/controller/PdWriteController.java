@@ -1,17 +1,39 @@
 package com.ez.wonder.pd.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpUpgradeHandler;
+import javax.servlet.http.Part;
 
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,15 +58,16 @@ import lombok.RequiredArgsConstructor;
 public class PdWriteController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(PdWriteController.class);
-
+	
 	@Autowired
 	ServletContext servletContext;
+	
+	@Value(" ")
+	Resource imgResource;
 
 	private final SkillService skillService;
 	private final ProductService productService;
 	
-	
-
 	@GetMapping("/pdWrite")
 	public void pdWrite(Model model) {
 		logger.info("상품 등록화면");
@@ -73,7 +96,7 @@ public class PdWriteController {
 		String userid= (String)session.getAttribute("userId");
 		pd.setUserId(userid);
 		pd.setCateType("p");
-logger.info("login session :" + userid);
+		
 		pd.setPdTitle(httpServletRequest.getParameter("pdTitle"));
 		pd.setLang(httpServletRequest.getParameter("pdLang"));
 		pd.setFrame(httpServletRequest.getParameter("pdFrame"));
@@ -250,30 +273,32 @@ logger.info("login session :" + userid);
 
 		}
 		
-		// 파일 처리
-		String saveFolder = servletContext.getRealPath("/upload");
-		File folder = new File(saveFolder);
-		if (!folder.exists())
-			folder.mkdirs();
+	      // 파일 처리
+	      String savePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+	            + File.separator + "resources" + File.separator + "static" + File.separator + "img" + File.separator + "pdupload";
+	      File folder = new File(savePath);
+	      if (!folder.exists())
+	         folder.mkdirs();
 
-		for(MultipartFile file : files) {
-			try {
-				PdImageVO fileInfo = new PdImageVO();
-				String originalFileName = file.getOriginalFilename();
-				if (!originalFileName.isEmpty()) {
-					String saveFileName = UUID.randomUUID().toString() + originalFileName.substring(originalFileName.lastIndexOf('.'));
-					fileInfo.setPdNo(pd.getPdNo());
-					fileInfo.setFileName(saveFileName);
-					fileInfo.setOriginalFileName(originalFileName);
-					fileInfo.setFileSize(file.getSize());
-					fileInfo.setFileType(FilenameUtils.getExtension(originalFileName));
-					file.transferTo(new File(folder, saveFileName));
-				}
+	      for (MultipartFile file : files) {
+	         try {
+	            PdImageVO fileInfo = new PdImageVO();
+	            String originalFileName = file.getOriginalFilename();
+	            if (!originalFileName.isEmpty()) {
+	               String saveFileName = UUID.randomUUID().toString()
+	                     + originalFileName.substring(originalFileName.lastIndexOf('.'));
+	               fileInfo.setPdNo(pd.getPdNo());
+	               fileInfo.setFileName(saveFileName);
+	               fileInfo.setOriginalFileName(originalFileName);
+	               fileInfo.setFileSize(file.getSize());
+	               fileInfo.setFileType(FilenameUtils.getExtension(originalFileName));
+	               file.transferTo(new File(folder, saveFileName));
+	            }
 
-				productService.insertPdImage(fileInfo);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	            productService.insertPdImage(fileInfo);
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
 	}
 }

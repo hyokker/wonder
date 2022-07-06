@@ -49,6 +49,7 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", memVo.getName());
+			session.setAttribute("userType", memVo.getType());
 			
 			msg=memVo.getUserId()+"님 로그인되었습니다.";
 			url="/";

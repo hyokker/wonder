@@ -57,11 +57,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	
-	
-	@Override
-	public List<PdDetailVO> searchPdDetail(int pdNo, int editCount, int pdTermMin, int pdTermMax, int pdPriceMin, int pdPriceMax) {
-		return productDao.searchPdDetail(pdNo, editCount, pdTermMin, pdTermMax, pdPriceMin, pdPriceMax);
-	}
 
 	@Override
 	public ProductVO selcetProductByNo(int pdNo) {
@@ -78,7 +73,12 @@ public class ProductServiceImpl implements ProductService{
 	public List<PdDetailVO> selectPdDetail(int pdNo) {
 		return productDao.selectPdDetail(pdNo);
 	}
-	
+
+	@Override
+	public List<PdListVO> selectAllPdByUserId(String userId) {
+		return productDao.selectAllPdByUserId(userId);
+	}
+
 	@Override
 	public int insertDupFlag(NoneDupVO item) {
 		return noneDupDao.insertHeartDup(item);
@@ -88,14 +88,10 @@ public class ProductServiceImpl implements ProductService{
 	public int deleteDupFlag(NoneDupVO item) {
 		return noneDupDao.deleteHeartDup(item);		
 	}
+
 	@Override
-	public List<PdListVO> searchPd(String pdTitle) {
-		return productDao.searchPd(pdTitle);
-	}
-	
-	@Override
-	public List<PdListVO> selectAllPdByUserId(String userId) {
-		return productDao.selectAllPdByUserId(userId);
+	public List<PdListVO> searchPd(String pdTitle, String userId) {
+		return productDao.searchPd(pdTitle, userId);
 	}
 
 }

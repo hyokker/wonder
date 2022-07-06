@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../inc/top.jsp"%>
 <head>
 <meta charset="utf-8" />
@@ -15,221 +15,340 @@
 <script type="text/javascript" src="<c:url value='/js/jquery.min.js'/>"></script>
 <body class="yellow-skin">
 	<script type="text/javascript">
-		$(function() {
+		function updateProductList(type, pdInfo) {
+			//console.log(item);
+			var pdList = pdInfo.pdLists;
+			console.log('length :' + pdList.length);
+			if(pdList.length == 0) {
+				;
+			} else {
+				$('#ProductList').empty();
+				var html = '';
+				pdList.forEach(function(item, index) {
+					var str = '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">';
+					str += '<div class="property-listing list_view">';
+					str += '<div class="listing-img-wrapper">';
+					str += '<div class="_exlio_125">For Sale</div>';
+					str += '<div class="list-img-slide">';
+					str += '<div class="click">';
+					item.pdImages.forEach(function(image, index) {
+						console.log(image.fileName);
+						str += '<div><a href="single-property-1.html"><img src="<c:url value='/img/pdupload/${PdImageVO.fileName}'/>" class="img-fluid mx-auto" alt="" /></a></div>';
+					});
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					str += '';
+					str += '<div class="list_view_flex">';
+					str += '<div class="listing-detail-wrapper mt-1">';
+					str += '<div class="listing-short-detail-wrap">';
+					str += '<div class="_card_list_flex mb-2">';
+					str += '<div class="_card_flex_01">';
+					str += '<span class="_list_blickes _netork" id="pdTerm">' + item.pdDetail.pdTerm + '</span>';
+					str += '<span class="_list_blickes types" id="editCount">' + item.pdDetail.editCount + '</span>';
+					str += '</div>';
+					str += '<div class="_card_flex_last">';
+					str += '<div class="prt_saveed_12lk">';
+					if (item.dupFlag == 'H')
+						str += '<label class="toggler toggler-danger"><input type="checkbox" checked="checked" id="pdDibs" value="' + item.pdNo + '"><i class="fas fa-heart"></i></label>';
+					else
+						str += '<label class="toggler toggler-danger"><input type="checkbox" id="pdDibs" value="' + item.pdNo + '"><i class="fas fa-heart"></i></label>';
+					str += '</div>';
+					str += '</div>';
+					str += '';
+					str += '</div>';
+					str += '<div class="_card_list_flex">';
+					str += '<div class="_card_flex_01">';
+					str += '<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail" id="pdTitle">' + item.pdTitle + '</a></h4>';
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					str += '';
+					str += '<div class="price-features-wrapper">';
+					str += '<div class="list-fx-features">';
+					str += '<div class="listing-card-info-icon">';
+					str += '<div class="inc-fleat-icon">' + item.lang + '</div>';
+					str += '</div>';
+					str += '<div class="listing-card-info-icon">';
+					str += '<div class="inc-fleat-icon">' + item.frame + '</div>';
+					str += '</div>';
+					str += '';
+					str += '</div>';
+					str += '</div>';
+					str += '<div class="listing-detail-footer">';
+					str += '<div class="footer-first">';
+					str += '<div class="foot-location">';
+					str += '<h6 class="listing-card-info-price mb-0" id="pdPrice">' + item.pdDetail.pdPrice + '</h6>/ ' + item.pdDetail.pdType + '</div>';
+					str += '</div>';
+					str += '<div class="footer-flex">';
+					str += '<a href="property-detail.html" class="prt-view">View Detail</a>';
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
 
+					html = $(str);
+					$('#ProductList').append(html);
+				});
+			}
+		};
+
+	      function updatePaging(type, pdList) {
+	          console.log(type);
+	          console.log("updatePaging");
+	          var page = pdList.pageNo;
+	          var maxpage = pdList.maxpage;
+	          $('#Paging').empty();
+	          
+	          var html = '';
+	          html += '<div class="element">';
+	          var full = page/4 - (page/4 % 1);
+	          full *=4;
+	          var scope = page%4;
+	          var prev = 0;
+	          var next = 0;
+	          if(scope == 0) {
+	             prev = 4;
+	             next = 1;
+	          } else if(scope < 5) {
+	             prev = scope;
+	             next = 5 - scope;
+	          }
+	          
+	          html += '<ul class="pagination p-center">';
+	          html += '<li class="page-item">';
+	          html += '<span class="ti-arrow-left"></span>';
+	          
+	          var prevb = 0;
+	          if(page > 4) {
+	             prevb = (page-1)/4 - (((page-1)/4) % 1);
+	             prevb = (prevb-1)*4 + 1;
+	             html += '<span id="prevBtn" class="prev button" value="' + prevb + '"><a href="#" onclick="getPaging(\'' + type + '\', ' +  prevb + ');"> < </a></span>';
+	          }
+	          html += '</li>';
+	          
+	          html += '<li class="page-item">';
+	          if(page != 1) {
+	             var j = prev;
+	             for (i = 1; i <= (prev-1); i++) {
+	                j -= 1;
+	                if((page - j) > 0) {
+	                   html += '<span class="no"><a href="#" onclick="getPaging(\'' + type + '\', ' + (page - j) + ');"> ' + (page - j) + ' </a></span>';
+	                }
+	             }
+	          }
+	          html += '</li>';
+	          
+	          html += '<li class="page-item active">';
+	          html += '<span class="no selected"> ' + page + ' </span>';
+	          html += '</li>';
+
+	          html += '<li class="page-item">';
+	          if(page != maxpage) {
+	             for(i = 1; i <= next-1; i++) {
+	                if(maxpage >= (page + i)) {
+	                   html += '<span class="no"> <a id="pageLink" href="#" onclick="getPaging(\'' + type + '\', ' + (page + i) +');"> ' + (page + i) + ' </a></span>';
+	                }
+	             }
+	          }
+	          html += '</li>';
+
+	          html += '<li class="page-item">';
+	          html += '<span class="ti-arrow-right"></span>';
+	          if(maxpage >= (page + next)) {
+	             var nextb = (page-1)/4 - (((page-1)/4) % 1);
+	             nextb = (nextb+1)*4 + 1;
+	             
+	             html += '<span id="nextBtn" class="next button" value="' + nextb + '"> <a href="#" onclick="getPaging(\'' + type + '\', ' + nextb + ');"> > </a>';
+	             html += '</span>';
+	          }
+	          html += '</li>';
+	          html += '</ul>';
+	          
+	          $('#Paging').append($(html));
+	       };
+		
+		function updateWished() {
 			$('[id=pdDibs]').each(function() {
 				$(this).click(function() {
+					var userId = '<%=(String) session.getAttribute("userId")%>';
+					console.log(userId, typeof userId);
+					if(userId == "null") {
+						alert("로그인후 이용해주세요.");
+						return false;						
+					}
+					
 					var sendInfo = {
-						"pdNo" : $(this).val(),
-						"checked" : $(this).is(':checked')
-					};
+							"pdNo" : $(this).val(),
+							"checked" : $(this).is(':checked')
+						};
 
-					console.log(sendInfo);
-					$.ajax({
-						url : '/wonder/pd/pdWished',
-						data : JSON.stringify(sendInfo),
-						contentType : 'application/json',
-						processData : false,
-						type : 'POST',
-						success : function() {
-						}
-					});
+						console.log(sendInfo);
+						$.ajax({
+							url : '/wonder/pd/pdWished',
+							data : JSON.stringify(sendInfo),
+							contentType : 'application/json',
+							processData : false,
+							type : 'POST',
+							success : function() {
+							}
+						});
 				});
 			});
+		};
+	
+		function getPaging(type, pageNo) {
+//			console.log("getPaging............");
+//			console.log(type + " : " + pageNo);
+			
+			var url = '/wonder/pd/' + type + '?pageNo=' + pageNo;
+			console.log(url);
+			
+			if(type == 'pdList') {
+				$.ajax({
+					url : url,
+					contentType : 'application/json',
+					processData : false,
+					type : 'POST',
+					success : function(pdList) {
+						updateProductList(type, pdList);
+						updatePaging(type, pdList);
+						updateWished();
+					}
+				});
+			} else if(type == 'pdSearch') {
+				console.log("상품검색....");
+				var pdTitle = $('input[name=pdTitle]').val();
+				var editCount = $('#editCount').val();
+				if (editCount === '')
+					editCount = 0;
 
-			$('#searchPd')
-					.click(
-							function() {
-								console.log("상품검색....");
-								var pdTitle = $('input[name=pdTitle]').val();
-								var editCount = $('#editCount').val();
-								if (editCount === '')
-									editCount = 0;
+				var pdTermMin = $('input[name=pdTermMin]').val();
+				if (pdTermMin === '')
+					pdTermMin = 0;
+				var pdTermMax = $('input[name=pdTermMax]').val();
+				if (pdTermMax === '')
+					pdTermMax = 0;
 
-								var pdTermMin = $('input[name=pdTermMin]')
-										.val();
-								if (pdTermMin === '')
-									pdTermMin = 0;
-								var pdTermMax = $('input[name=pdTermMax]')
-										.val();
-								if (pdTermMax === '')
-									pdTermMax = 0;
+				var pdPriceMin = $('span[class=irs-from]').text().replace(/(\s*)/g, "");
+				var pdPriceMax = $('span[class=irs-to]').text().replace(/(\s*)/g, "");
 
-								var pdPriceMin = $('span[class=irs-from]')
-										.text().replace(/(\s*)/g, "");
-								var pdPriceMax = $('span[class=irs-to]').text()
-										.replace(/(\s*)/g, "");
+				var pdLang = new Array();
+				$('[name=langchbox]').each(function() {
+					if ($(this).is(':checked') == true) {
+						pdLang.push($(this).val());
+					}
+				});
 
-								var pdLang = new Array();
-								$('[name=langchbox]').each(function() {
-									if ($(this).is(':checked') == true) {
-										pdLang.push($(this).val());
-									}
-								});
-								var pdFrame = new Array();
-								$('[name=framechbox]').each(function() {
-									if ($(this).is(':checked') == true) {
-										pdFrame.push($(this).val());
-									}
-								});
+				var pdFrame = new Array();
+				$('[name=framechbox]').each(function() {
+					if ($(this).is(':checked') == true) {
+						pdFrame.push($(this).val());
+					}
+				});
 
-								var sendInfo = {
-									"pdTitle" : pdTitle,
-									"editCount" : editCount,
-									"pdTermMin" : pdTermMin,
-									"pdTermMax" : pdTermMax,
-									"pdPriceMin" : pdPriceMin,
-									"pdPriceMax" : pdPriceMax,
-									"pdLang" : pdLang
-								};
+				var sendInfo = {
+					"pdTitle" : pdTitle,
+					"editCount" : editCount,
+					"pdTermMin" : pdTermMin,
+					"pdTermMax" : pdTermMax,
+					"pdPriceMin" : pdPriceMin,
+					"pdPriceMax" : pdPriceMax,
+					"pdLang" : pdLang,
+					"pdFrame" : pdFrame
+				};
 
-								console.log(sendInfo);
-								$
-										.ajax({
-											url : '/wonder/pd/pdSearch',
-											data : JSON.stringify(sendInfo),
-											contentType : 'application/json',
-											processData : false,
-											type : 'POST',
-											success : function(pdList) {
-												console.log(pdList.length);
+				$.ajax({
+					url : url,
+					data : JSON.stringify(sendInfo),
+					contentType : 'application/json',
+					processData : false,
+					type : 'POST',
+					success : function(pdList) {
+							updateProductList(type, pdList);
+							updatePaging(type, pdList);
+							updateWished();
+						}
+				});
+			}
+			
+		};
+		
+		$(function() {
+			
+			$('#pdWrite').click(function() {
+				var userType = '<%=(String) session.getAttribute("userType")%>';
+				console.log(userType);
+				if (userType == '전문가') {
+					location.href = "/wonder/pd/pdWrite"
+				} else {
+					alert("전문가 아이디로 로그인 해주세요.");
+				}
+			});
 
-												if (pdList.length == 0) {
-													alert("상품의 검색 결과가 없습니다.");
-												} else {
-													$('#ProductList').empty();
-													var html = '';
-													pdList
-															.forEach(function(
-																	item, index) {
-																var str = '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">';
-																str += '<div class="property-listing list_view">';
-																str += '<div class="listing-img-wrapper">';
-																str += '<div class="_exlio_125">For Sale</div>';
-																str += '<div class="list-img-slide">';
-																str += '<div class="click">';
-																item.pdImages
-																		.forEach(function(
-																				image,
-																				index) {
-																			console
-																					.log(image.fileName);
-																			str += '<div><a href="single-property-1.html"><img src="/wonder/upload/'+ image.fileName + '" class="img-fluid mx-auto" alt="" /></a></div>';
-																		});
-																str += '</div>';
-																str += '</div>';
-																str += '</div>';
-																str += '';
-																str += '<div class="list_view_flex">';
-																str += '<div class="listing-detail-wrapper mt-1">';
-																str += '<div class="listing-short-detail-wrap">';
-																str += '<div class="_card_list_flex mb-2">';
-																str += '<div class="_card_flex_01">';
-																str += '<span class="_list_blickes _netork" id="pdTerm">'
-																		+ item.pdDetail.pdTerm
-																		+ '</span>';
-																str += '<span class="_list_blickes types" id="editCount">'
-																		+ item.pdDetail.editCount
-																		+ '</span>';
-																str += '</div>';
-																str += '<div class="_card_flex_last">';
-																str += '<div class="prt_saveed_12lk">';
-																if (item.dupFlag == 'H')
-																	str += '<label class="toggler toggler-danger"><input type="checkbox" checked="checked" id="pdDibs" value="' + item.pdNo + '"><i class="fas fa-heart"></i></label>';
-																else
-																	str += '<label class="toggler toggler-danger"><input type="checkbox" id="pdDibs" value="' + item.pdNo + '"><i class="fas fa-heart"></i></label>';
-																str += '</div>';
-																str += '</div>';
-																str += '';
-																str += '</div>';
-																str += '<div class="_card_list_flex">';
-																str += '<div class="_card_flex_01">';
-																str += '<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail" id="pdTitle">'
-																		+ item.pdTitle
-																		+ '</a></h4>';
-																str += '</div>';
-																str += '</div>';
-																str += '</div>';
-																str += '</div>';
-																str += '';
-																str += '<div class="price-features-wrapper">';
-																str += '<div class="list-fx-features">';
-																str += '<div class="listing-card-info-icon">';
-																str += '<div class="inc-fleat-icon">'
-																		+ item.lang
-																		+ '</div>';
-																str += '</div>';
-																str += '<div class="listing-card-info-icon">';
-																str += '<div class="inc-fleat-icon">'
-																		+ item.frame
-																		+ '</div>';
-																str += '</div>';
-																str += '';
-																str += '</div>';
-																str += '</div>';
-																str += '<div class="listing-detail-footer">';
-																str += '<div class="footer-first">';
-																str += '<div class="foot-location">';
-																str += '<h6 class="listing-card-info-price mb-0" id="pdPrice">'
-																		+ item.pdDetail.pdPrice
-																		+ '</h6>/ '
-																		+ item.pdDetail.pdType
-																		+ '</div>';
-																str += '</div>';
-																str += '<div class="footer-flex">';
-																str += '<a href="property-detail.html" class="prt-view">View Detail</a>';
-																str += '</div>';
-																str += '</div>';
-																str += '</div>';
-																str += '</div>';
+			updateWished();
+			
+			$('#searchPd').click(function() {
+				/*
+				console.log("상품검색....");
+				var pdTitle = $('input[name=pdTitle]').val();
+				var editCount = $('#editCount').val();
+				if (editCount === '')
+					editCount = 0;
 
-																console
-																		.log(str);
-																html = $(str);
-																$(
-																		'#ProductList')
-																		.append(
-																				html);
-															});
+				var pdTermMin = $('input[name=pdTermMin]').val();
+				if (pdTermMin === '')
+					pdTermMin = 0;
+				var pdTermMax = $('input[name=pdTermMax]').val();
+				if (pdTermMax === '')
+					pdTermMax = 0;
 
-													$('[id=pdDibs]')
-															.each(
-																	function() {
-																		$(this)
-																				.click(
-																						function() {
-																							var sendInfo = {
-																								"pdNo" : $(
-																										this)
-																										.val(),
-																								"checked" : $(
-																										this)
-																										.is(
-																												':checked')
-																							};
+				var pdPriceMin = $('span[class=irs-from]').text().replace(/(\s*)/g, "");
+				var pdPriceMax = $('span[class=irs-to]').text().replace(/(\s*)/g, "");
 
-																							console
-																									.log(sendInfo);
-																							$
-																									.ajax({
-																										url : '/wonder/pd/pdWished',
-																										data : JSON
-																												.stringify(sendInfo),
-																										contentType : 'application/json',
-																										processData : false,
-																										type : 'POST',
-																										success : function() {
-																										}
-																									});
-																						});
-																	});
-												}
-											}
-										});
-							});
+				var pdLang = new Array();
+				$('[name=langchbox]').each(function() {
+					if ($(this).is(':checked') == true) {
+						pdLang.push($(this).val());
+					}
+				});
+
+				var pdFrame = new Array();
+				$('[name=framechbox]').each(function() {
+					if ($(this).is(':checked') == true) {
+						pdFrame.push($(this).val());
+					}
+				});
+
+				var sendInfo = {
+					"pdTitle" : pdTitle,
+					"editCount" : editCount,
+					"pdTermMin" : pdTermMin,
+					"pdTermMax" : pdTermMax,
+					"pdPriceMin" : pdPriceMin,
+					"pdPriceMax" : pdPriceMax,
+					"pdLang" : pdLang,
+					"pdFrame" : pdFrame
+				};
+
+				$.ajax({
+					url : '/wonder/pd/pdSearch?pageNo=1',
+					data : JSON.stringify(sendInfo),
+					contentType : 'application/json',
+					processData : false,
+					type : 'POST',
+					success : function(pdList) {
+							updateProductList('pdSearch', pdList);
+							updatePaging('pdSearch', pdList);
+							updateWished();
+						}
+				});
+				*/
+				getPaging('pdSearch', 1);
+			});
 		});
 	</script>
-
 	<!-- ============================ All Property ================================== -->
 	<section class="gray pt-4">
 		<div class="container">
@@ -245,9 +364,8 @@
 								<!-- 제목 -->
 								<div class="form-group">
 									<div class="input-with-icon">
-										<input type="text" class="form-control"
-											placeholder="제목을 입력하세요" name="pdTitle"> <i
-											class="ti-search"></i>
+										<input type="text" class="form-control" placeholder="제목을 입력하세요" name="pdTitle">
+										<i class="ti-search"></i>
 									</div>
 								</div>
 
@@ -276,8 +394,7 @@
 									<div class="col-lg-6 col-md-6 col-sm-6">
 										<div class="form-group">
 											<div class="simple-input">
-												<input type="text" class="form-control"
-													placeholder="최소 기한 (일)" name="pdTermMin">
+												<input type="text" class="form-control" placeholder="최소 기한 (일)" name="pdTermMin">
 											</div>
 										</div>
 									</div>
@@ -285,8 +402,7 @@
 									<div class="col-lg-6 col-md-6 col-sm-6">
 										<div class="form-group">
 											<div class="simple-input">
-												<input type="text" class="form-control"
-													placeholder="최대 기한 (일)" name="pdTermMax">
+												<input type="text" class="form-control" placeholder="최대 기한 (일)" name="pdTermMax">
 											</div>
 										</div>
 									</div>
@@ -297,8 +413,7 @@
 									<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 										<h6>Choose Price</h6>
 										<div class="rg-slider">
-											<input type="text" class="js-range-slider" name="my_range"
-												value="" name="pdPrice" />
+											<input type="text" class="js-range-slider" name="my_range" value="" name="pdPrice" />
 										</div>
 									</div>
 								</div>
@@ -309,30 +424,20 @@
 										<div class="classlanguage">
 											<ul class="no-ul-list third-row">
 												<c:forEach var="langVo" items="${langList}">
-													<li><input id="${langVo.langNo}" name="langchbox"
-														class="checkbox-custom" type="checkbox"
-														value="${langVo.lang}"> <label
-														for="${langVo.langNo}" class="checkbox-custom-label">${langVo.lang }</label>
-													</li>
+													<li><input id="${langVo.langNo}" name="langchbox" class="checkbox-custom" type="checkbox" value="${langVo.lang}"> <label for="${langVo.langNo}" class="checkbox-custom-label">${langVo.lang }</label></li>
 												</c:forEach>
 											</ul>
-
-
-
 										</div>
 									</div>
 								</div>
+
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-										<h6>FrameWork</h6>
+										<h6>프레임 워크</h6>
 										<div class="classframe">
 											<ul class="no-ul-list third-row">
 												<c:forEach var="frameVo" items="${frameList}">
-													<li><input id="${frameVo.frameNo}" name="framechbox"
-														class="checkbox-custom" type="checkbox"
-														value="${frameVo.frame}"> <label
-														for="${frameVo.frameNo}" class="checkbox-custom-label">${frameVo.frame }</label>
-													</li>
+													<li><input id="f-${frameVo.frameNo}" name="framechbox" class="checkbox-custom" type="checkbox" value="${frameVo.frame}"> <label for="f-${frameVo.frameNo}" class="checkbox-custom-label">${frameVo.frame }</label></li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -341,8 +446,7 @@
 
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-										<button class="btn theme-bg rounded full-width" id="searchPd">상품
-											검색</button>
+										<button class="btn theme-bg rounded full-width" id="searchPd">상품 검색</button>
 									</div>
 								</div>
 
@@ -363,12 +467,9 @@
 										<div class="_exlio_125">For Sale</div>
 										<div class="list-img-slide">
 											<div class="click">
-												<c:forEach var="PdImageVO" items="${pdListVo.pdImages}"
-													varStatus="status">
+												<c:forEach var="PdImageVO" items="${pdListVo.pdImages}" varStatus="status">
 													<div>
-														<a href="single-property-1.html"><img
-															src="/wonder/upload/${PdImageVO.fileName}"
-															class="img-fluid mx-auto" alt="" /></a>
+														<a href="single-property-1.html"><img src="<c:url value='/img/pdupload/${PdImageVO.fileName}'/>" class="img-fluid mx-auto" alt="" /></a>
 													</div>
 												</c:forEach>
 											</div>
@@ -380,21 +481,16 @@
 											<div class="listing-short-detail-wrap">
 												<div class="_card_list_flex mb-2">
 													<div class="_card_flex_01">
-														<span class="_list_blickes _netork" id="pdTerm">기한
-															: ${pdListVo.pdDetail.pdTerm}</span> <span
-															class="_list_blickes types" id="editCount">수정 :
-															${pdListVo.pdDetail.editCount}</span>
+														<span class="_list_blickes _netork" id="pdTerm">${pdListVo.pdDetail.pdTerm}</span> <span class="_list_blickes types" id="editCount">${pdListVo.pdDetail.editCount}</span>
 													</div>
 													<div class="_card_flex_last">
 														<div class="prt_saveed_12lk">
 															<label class="toggler toggler-danger"> <c:choose>
 																	<c:when test="${pdListVo.dupFlag eq 'H'}">
-																		<input type="checkbox" id="pdDibs" checked="checked"
-																			value="${pdListVo.pdNo}">
+																		<input type="checkbox" id="pdDibs" checked="checked" value="${pdListVo.pdNo}">
 																	</c:when>
 																	<c:otherwise>
-																		<input type="checkbox" id="pdDibs"
-																			value="${pdListVo.pdNo}">
+																		<input type="checkbox" id="pdDibs" value="${pdListVo.pdNo}">
 																	</c:otherwise>
 																</c:choose> <i class="fas fa-heart"></i></label>
 														</div>
@@ -404,9 +500,7 @@
 												<div class="_card_list_flex">
 													<div class="_card_flex_01">
 														<h4 class="listing-name verified">
-															<a
-																href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>"
-																class="prt-link-detail" id="pdTitle">${pdListVo.pdTitle}</a>
+															<a href="single-property-1.html" class="prt-link-detail" id="pdTitle">${pdListVo.pdTitle}</a>
 														</h4>
 													</div>
 												</div>
@@ -432,9 +526,7 @@
 												</div>
 											</div>
 											<div class="footer-flex">
-												<a
-													href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>"
-													class="prt-view">View Detail</a>
+												<a href="property-detail.html" class="prt-view">View Detail</a>
 											</div>
 										</div>
 									</div>
@@ -442,6 +534,7 @@
 								</div>
 							</c:forEach>
 						</div>
+
 						<!-- End Single Property -->
 
 						<!-- Single Property -->
@@ -657,14 +750,98 @@
 						<!-- End Single Property -->
 
 					</div>
-				</div>
+			<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="Paging" id="Paging">
+					
+						<div class="element">
+							<c:set var="page" value="${pageNo}" />
 
+							<!-- page maxpage를 넘었을 경우 제한 -->
+							<c:if test="${page > maxpage}">
+								<c:set var="page" value="${maxpage}" />
+							</c:if>
+
+							<!-- 페이지를 8개씩 나누기 위해 현재 페이지에 보여줄 max값 설정 -->
+							<fmt:formatNumber value="${page/4 - (page/4 % 1)}" type="pattern" pattern="0" var="full" />
+							<c:set var="full" value="${full * 4}" />
+
+							<!-- prev(전페이지), next(다음페이지) 개수 설정 -->
+							<c:set var="scope" value="${page%4}" />
+							<c:choose>
+								<c:when test="${scope == 0}">
+									<c:set var="prev" value="4" />
+									<c:set var="next" value="1" />
+								</c:when>
+								<c:when test="${scope < 5}">
+									<c:set var="prev" value="${scope}" />
+									<c:set var="next" value="${5-scope}" />
+								</c:when>
+							</c:choose>
+
+
+						<ul class="pagination p-center">
+						 <li class="page-item">
+							<!-- prev 버튼 -->
+							<span class="ti-arrow-left"></span>
+							<c:if test="${page > 4}">
+								<fmt:formatNumber value="${(page-1)/4 - (((page-1)/4) % 1)}" type="pattern" pattern="0" var="prevb" />
+								<c:set value="${(prevb-1)*4 + 1}" var="prevb" />
+								<span id="prevBtn" class="prev button" value="${prevb}"><a class="page-link" href="#"onclick="getPaging('pdList', ${prevb});"> < </a></span>
+							</c:if>
+									</li>
+							<!-- 전 페이지 -->
+							<li class="page-item">
+							<c:if test="${page != 1}">
+								<c:set var="j" value="${prev}" />
+								<c:forEach var="i" begin="1" end="${prev-1}">
+									<c:set var="j" value="${j - 1}" />
+									<c:if test="${(page - j) > 0}">
+										<span class="no"><a  onclick="getPaging('pdList', ${page-j});">${page - j}</a></span>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							</li>
+							<!-- 현재 페이지 -->
+							<li class="page-item active">
+								<span class="no selected">${page}</span>
+							</li>
+							<!-- 다음 페이지 -->
+							<li class="page-item">
+							<c:if test="${page != maxpage}">
+								<c:forEach var="i" begin="1" end="${next-1}">
+									<c:if test="${maxpage >= page+i}">
+										<span class="no"> <a id="pageLink" href="#" onclick="getPaging('pdList', ${page+i});">${page+i}</a></span>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							</li>
+
+							<!-- next 버튼 -->
+							<li class="page-item">
+							<span class="ti-arrow-right"></span>
+							<c:if test="${maxpage >= page + next}">
+								<fmt:formatNumber value="${(page-1)/4 - (((page-1)/4) % 1)}" type="pattern" pattern="0" var="nextb" />
+								<c:set value="${(nextb+1)*4 + 1}" var="nextb" />
+								<span id="nextBtn" class="next button" value="${nextb}"> <a class="page-link" href="#" onclick="getPaging('pdList', ${nextb});"> > </a>
+								</span>
+							</c:if>
+							</li>
+							</ul>
+							
+						</div>
+					</div>
+</div>
+					<div>
+						<br> <br> <br>
+						<input type="button" id="pdWrite" value="상품등록">
+					</div>
+				</div>
 
 			</div>
 		</div>
 	</section>
 	<!-- ============================ All Property ================================== -->
-
+			
 	<!-- ============================ Call To Action ================================== -->
 
 	<!-- ============================ Call To Action End ================================== -->
@@ -681,11 +858,9 @@
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/select2.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/slick.js"></script>
 	<script src="${pageContext.request.contextPath}/js/slider-bg.js"></script>
 	<script src="${pageContext.request.contextPath}/js/lightbox.js"></script>

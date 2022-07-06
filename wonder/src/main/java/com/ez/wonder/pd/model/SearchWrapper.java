@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class SearchWrapper {
+	private int pageNo;
+	private int pageCnt;
 	private String pdTitle;
 	private int editCount;
 	private int pdTermMin;
@@ -13,4 +15,5 @@ public class SearchWrapper {
 	private int pdPriceMin;
 	private int pdPriceMax;
 	private ArrayList<String> pdLang;
+	private ArrayList<String> pdFrame;
 }
