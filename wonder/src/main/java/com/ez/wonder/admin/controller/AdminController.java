@@ -56,7 +56,7 @@ public class AdminController {
 		model.addAttribute("adminVo", adminVo);
 		// 관리자 세션 불러오는 부분 유틸리티로 만들까? (반복돼서 코드 지저분함)
 
-		int totalRecord = adminService.getTotalRecord(searchVo);
+		int totalRecord = adminService.getMemTotalRecord(searchVo);
 		logger.info("회원 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
@@ -101,7 +101,7 @@ public class AdminController {
 		List<ProductVO> list = adminService.selectProduct(searchVo);
 		logger.info("게시글 목록 조회 결과, 파라미터 list.size={}", list.size());
 
-		int totalRecord = adminService.getTotalRecord(searchVo);
+		int totalRecord = adminService.getPdTotalRecord(searchVo);
 		logger.info("게시글 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
@@ -204,28 +204,28 @@ public class AdminController {
 		return "/common/message";
 	}
 
-	@GetMapping("/subadminList")
+	@RequestMapping("/subadminList")
 	public String get_subadminList(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("부서별 관리자 목록 화면, 파라미터 searchVo={}", searchVo);
 
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
-		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setRecordCountPerPage(7);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(9);
+		searchVo.setRecordCountPerPage(7);
 
 		List<AdminVO> list = adminService.selectAdmin(searchVo);
 		logger.info("부서별 관리자 목록 결과, list.size={}", list.size());
 
-		int totalRecord = adminService.getTotalRecord(searchVo);
+		int totalRecord = adminService.getAdTotalRecord(searchVo);
 		logger.info("부서별 관리자 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
 
 		model.addAttribute("list", list);
-		model.addAttribute("searchVo", searchVo);
+		model.addAttribute("pagingInfo", pagingInfo);
 
 		return "/admin/subadminList";
 	}
@@ -301,17 +301,17 @@ public class AdminController {
 
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
-		pagingInfo.setRecordCountPerPage(9);
+		pagingInfo.setRecordCountPerPage(7);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(9);
+		searchVo.setRecordCountPerPage(7);
 
 		List<MemberVO> list = adminService.selectNonApprovalEx(searchVo);
 		logger.info("전문가 승인 대기 목록 조회 결과, list.size={}", list.size());
 
-		int totalRecord = adminService.getTotalRecord(searchVo);
-		logger.info("거래대기 목록 totalRecord={}", totalRecord);
+		int totalRecord = adminService.getMemTotalRecord(searchVo);
+		logger.info("전문가 승인 대기 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
 
@@ -374,7 +374,7 @@ public class AdminController {
 		List<ProductVO> list = adminService.selectNonApprovalList(searchVo);
 		logger.info("거래대기 목록 조회 결과, list.size={}", list.size());
 
-		int totalRecord = adminService.getTotalRecord(searchVo);
+		int totalRecord = adminService.getFormTotalRecord(searchVo);
 		logger.info("거래대기 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
