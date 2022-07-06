@@ -33,4 +33,14 @@ public class ChatServiceImpl implements ChatService{
 	public List<HashMap<String, Object>> selectChatById(HashMap<String, Object> map) {
 		return chatDao.selectChatById(map);
 	}
+
+	@Override
+	public String selectNickById(String rUserId) {
+		return chatDao.selectNickById(rUserId);
+	}
+
+	@Override
+	public int insertChat(ChatVO vo) {
+		return chatDao.insertChat(vo);
+	}
 }

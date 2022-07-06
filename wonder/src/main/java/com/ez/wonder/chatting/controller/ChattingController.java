@@ -83,7 +83,17 @@ public class ChattingController {
 	@RequestMapping("/chatDetail")
 	public String chatDetail(@RequestParam("rUserId") String rUserId, HttpSession session) {
 		String sUserId = (String) session.getAttribute("userId");
+		String rUserIdSession = (String) session.getAttribute("rUserId");
+		if(rUserIdSession!=null) {
+			logger.info("기존 채팅상대 id={}",rUserIdSession);
+		}else {
+			logger.info("기존 채팅상대 id 없음");
+		}
+		session.removeAttribute("rUserId"); //기존 상대방 아이디 세션삭제
+		session.setAttribute("rUserId", rUserId); //현재 상대방 아이디 세션추가
+		rUserIdSession = (String) session.getAttribute("rUserId");
 		logger.info("채팅 detail ajax, 파라미터 상대방아이디={},내아이디={}",rUserId,sUserId);
+		logger.info("상대 아이디 세션={}",rUserIdSession);
 		
 		HashMap<String, Object> map= new HashMap<String, Object>();
 		map.put("rUserId", rUserId);
@@ -96,17 +106,65 @@ public class ChattingController {
 			HashMap<String, Object> testMap = list.get(i);
 			logger.info("testMap={}",testMap);
 			logger.info("content={}",testMap.get("CONTENT"));
+			String filename=(String)testMap.get("FILENAME");
+			logger.info("filename={}",filename);
 			
-			html += "<div class='message-plunch me'>";
-			html += "	<div class='dash-msg-avatar margin-top-10'><i class='fa fa-user' style='font-size: 3em'></i></div>";
-			html += "	<div class='dash-msg-text'><p>"+testMap.get("CONTENT")+"</p></div>";
+			if(testMap.get("S_USER_ID").equals(sUserId)) {
+				html += "<div class='message-plunch me'>";
+				html += "	<div class='dash-msg-avatar margin-top-10 right'><i class='fa fa-user' style='font-size: 3em'></i></div>";
+				html += "	<div class='dash-msg-text right'><p>"+testMap.get("CONTENT")+"</p></div>";
+			}else if(!testMap.get("S_USER_ID").equals(sUserId)) {
+				html += "<div class='message-plunch '>";
+				//html += "	<div class='dash-msg-avatar margin-top-10 left'><img src=\"<c:url value='/img/mypage/expert_profile/"+filename+"' />\" alt=\"프로필사진\"></div>";
+				html += "	<div class='dash-msg-avatar margin-top-10 left'><i class='fa fa-user' style='font-size: 3em'></i></div>";
+				html += "	<div class='dash-msg-text left'><p>"+testMap.get("CONTENT")+"</p></div>";
+			}
 			html += "</div>";
 			html += "";
 		}
 		/* logger.info("상대방과의 채팅 메세지 갯수, list.size()={}",list.size()); */
 		
 	
-		return html;
+		return html; 
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("/chatOtherSide")
+	public HashMap<String, Object> chatOtherSide(@RequestParam("rUserId") String rUserId, HttpSession session) {
+		String sUserId = (String) session.getAttribute("userId");
+		logger.info("채팅 detail ajax, 파라미터 상대방아이디={},내아이디={}",rUserId,sUserId);
+		
+		String rNickName=chatService.selectNickById(rUserId);
+		logger.info("상대방 Id={}, 닉네임={}",rUserId,rNickName);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("rUserId", rUserId);
+		map.put("rNickName", rNickName);
+		
+				
+		return map; 
+	}
+	
+	@ResponseBody
+	@RequestMapping("/insertChat") 
+	public void insertChat(@RequestParam("content") String content, HttpSession session) {
+					  
+		String sUserId = (String) session.getAttribute("userId");
+		String rUserId = (String) session.getAttribute("rUserId");
+		logger.info("채팅 입력 ajax, 파라미터 내아이디={},상대아이디={},메세지={}",sUserId, rUserId,content);
+		
+		ChatVO vo = new ChatVO();
+		vo.setRUserId(rUserId);
+		vo.setSUserId(sUserId);
+		vo.setContent(content);
+		int cnt = chatService.insertChat(vo);
+		if(cnt>0) {
+			logger.info("입력한 메세지 vo={}",vo);
+		}else {
+			logger.info("메세지 입력 실패, cnt=0");
+		}
+
+	}
+	 
 }
