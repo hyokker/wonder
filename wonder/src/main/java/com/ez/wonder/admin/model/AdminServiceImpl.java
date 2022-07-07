@@ -78,8 +78,23 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int getTotalRecord(SearchVO searchVo) {
-		return adminDao.getTotalRecord(searchVo);
+	public int getMemTotalRecord(SearchVO searchVo) {
+		return adminDao.getMemTotalRecord(searchVo);
+	}
+	
+	@Override
+	public 	int getPdTotalRecord(SearchVO searchVo){
+		return adminDao.getPdTotalRecord(searchVo);
+	}
+	
+	@Override
+	public 	int getAdTotalRecord(SearchVO searchVo) {
+		return adminDao.getAdTotalRecord(searchVo);
+	}
+	
+	@Override
+	public int getFormTotalRecord(SearchVO searchVo) {
+		return adminDao.getFormTotalRecord(searchVo);
 	}
 	
 	@Override

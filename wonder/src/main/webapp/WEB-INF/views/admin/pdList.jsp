@@ -1,6 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<script src="${pageContext.request.contextPath}/js/adminpaging.js"></script>
+<style type="text/css">
+#img {
+	padding-left: 10px;
+}
+
+.divSearch {
+	flex: 0 0 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#formflex {
+	display: contents;
+}
+
+#optionbar {
+	max-width: 300px;
+	display: flex;
+}
+
+#searchinput {
+	width: 220px;
+}
+
+div#srchTitBar {
+	height: 30px;
+}
+
+#searchment {
+	padding-left: 20px;
+}
+</style>
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
@@ -50,7 +83,8 @@
 					</div>
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="<c:url value='/admin/logout'/>"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i
+									class="fa fa-power-off"></i></a></li>
 							<li><a href="<c:url value='/admin/email'/>"><i
 									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
@@ -60,35 +94,48 @@
 				</div>
 			</div>
 
+			<form action="<c:url value='/admin/pdList'/>" method="post"
+				name="frmPage">
+				<input type="hidden" name="searchKeyword"
+					value="${param.searchKeyword }"> <input type="hidden"
+					name="searchCondition" value="${param.searchCondition }"> <input
+					type="hidden" name="currentPage">
+			</form>
+
 			<div class="col-lg-9 col-md-8 col-sm-12">
 				<div class="dashboard-body">
 
 					<div class="row">
 						<div class="col-lg-12 col-md-12">
 							<div class="_prt_filt_dash">
-								<div class="_prt_filt_dash_flex">
-									<div class="foot-news-last">
-										<div class="input-group">
-											<input type="text" class="form-control"
-												placeholder="아이디, 제목 등으로 조회" size="20">
-											<div class="input-group-append">
-												<span type="button"
-													class="input-group-text theme-bg b-0 text-light"><i
-													class="fas fa-search"></i></span>
+
+								<div class="divSearch">
+									<form name="frmSearch" method="post" id="formflex"
+										action='<c:url value="/admin/pdList"/>'>
+										<div class="_prt_filt_dash_flex">
+											<div class="foot-news-last" id="optionbar">
+												<div class="col-lg-6 col-md-6 col-sm-6">
+													<div class="form-group">
+														<select name="searchCondition" class="form-control">
+															<option value="pd_Title"
+																<c:if test="${param.searchCondition == 'pd_Title'}">selected="selected"</c:if>>제목</option>
+															<option value="user_Id"
+																<c:if test="${param.searchCondition == 'user_Id'}">selected="selected"</c:if>>아이디</option>
+															<option value="lang"
+																<c:if test="${param.searchCondition == 'lang'}">selected="selected"</c:if>>언어</option>
+															<option value="frame"
+																<c:if test="${param.searchCondition == 'frame'}">selected="selected"</c:if>>프레임워크</option>
+														</select>
+													</div>
+												</div>
+												<div class="input-group">
+													<input type="text" class="form-control" id="searchinput"
+														name="searchKeyword" placeholder="회원명, 아이디 등으로 조회"
+														value="${param.searchKeyword}">
+												</div>
 											</div>
 										</div>
-									</div>
 								</div>
-
-								<div class="col-lg-2 col-md-2 col-sm-2">
-									<div class="form-group">
-										<select id="recipient" class="form-control">
-											<option value="1">등록일순</option>
-											<option value="2">조회수순</option>
-										</select>
-									</div>
-								</div>
-
 							</div>
 						</div>
 					</div>
@@ -100,7 +147,8 @@
 									<table class="table">
 										<thead class="thead-dark">
 											<tr>
-												<th scope="col">게시글목록</th>
+												<th scope="col">게시글목록 / 제목</th>
+												<th scope="col" class="m2_hide">아이디</th>
 												<th scope="col" class="m2_hide">조회수</th>
 												<th scope="col" class="m2_hide">언어/프레임워크</th>
 												<th scope="col" class="m2_hide">등록일</th>
@@ -108,6 +156,11 @@
 											</tr>
 										</thead>
 										<tbody>
+											<c:if test="${empty list }">
+												<tr>
+													<td colspan="5">게시글이 존재하지 않습니다.</td>
+												</tr>
+											</c:if>
 											<c:if test="${!empty list }">
 												<!-- tr block -->
 												<c:forEach var="productVo" items="${list }">
@@ -119,12 +172,18 @@
 																		class="img-fluid" alt="" />
 																</div>
 																<div class="dash_prt_caption">
-																	<h5>${productVo.pdTitle }</h5>
-																	<div class="prt_dashb_lot">회원이메일 넣을 예정</div>
-																	<div class="prt_dash_rate">
-																		<span>${productVo.userId }</span>
-																	</div>
+																	<c:if test="${fn:length(productVo.pdTitle)>30}">
+																		<h5>${fn:substring(productVo.pdTitle,0,30) }...</h5>
+																	</c:if>
+																	<c:if test="${fn:length(productVo.pdTitle)<=30}">
+																		<h5>${productVo.pdTitle}</h5>
+																	</c:if>
 																</div>
+															</div>
+														</td>
+														<td class="m2_hide">
+															<div class="prt_leads">
+																<h6>${productVo.userId }</h6>
 															</div>
 														</td>
 														<td class="m2_hide">
@@ -149,7 +208,18 @@
 														</td>
 														<td class="m2_hide">
 															<div class="_leads_view">
-																<h5 class="up">${productVo.lang }/${productVo.frame }</h5>
+																<c:if test="${fn:length(productVo.lang)>6}">
+																	<h5>${fn:substring(productVo.lang,0,6) }...</h5>
+																</c:if>
+																<c:if test="${fn:length(productVo.lang)<=6}">
+																	<h5>${productVo.lang}</h5>
+																</c:if>
+																<c:if test="${fn:length(productVo.frame)>6}">
+																	<h5>/${fn:substring(productVo.frame,0,6) }...</h5>
+																</c:if>
+																<c:if test="${fn:length(productVo.frame)<=6}">
+																	<h5>/${productVo.frame}</h5>
+																</c:if>
 															</div>
 															<div class="_leads_view_title">
 																<span>language/framework</span>
@@ -157,15 +227,19 @@
 														</td>
 														<td class="m2_hide">
 															<div class="_leads_posted">
-																<h5>${productVo.regdate}</h5>
+																<h5>
+																	<fmt:formatDate value="${productVo.regdate }"
+																		pattern="yyyy-MM-dd HH:mm" />
+																</h5>
 															</div>
 															<div class="_leads_view_title">
-																<span>16일전</span>
+																<%-- <span>${u:diffOfDate(${memberVo.regdate})}</span> --%>
 															</div>
 														</td>
 														<td>
 															<div class="_leads_action">
-																<a href="delProduct?pdNo=${productVo.pdNo }"><i class="fas fa-trash"></i></a>
+																<a href="delProduct?pdNo=${productVo.pdNo }"><i
+																	class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>
@@ -180,7 +254,7 @@
 					</div>
 					<!-- row -->
 
-
+					<%@ include file="../adminInc/pagination.jsp"%>
 				</div>
 
 			</div>

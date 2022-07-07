@@ -8,9 +8,11 @@
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/select2.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/slick.js"></script>
 <script src="${pageContext.request.contextPath}/js/slider-bg.js"></script>
 <script src="${pageContext.request.contextPath}/js/lightbox.js"></script>
@@ -20,7 +22,8 @@
 
 <script src="${pageContext.request.contextPath}/js/dropzone.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/ion.rangeSlider.min.js"></script>
 
 <!--  -->
 <!-- ============================================================== -->
@@ -41,308 +44,377 @@
 <meta charset="utf-8" />
 <meta name="author" content="Themezhub" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <title>RentUP - Residence & Real Estate Template</title>
 
 <script type="text/javascript">
 	var arr_PdImgNo = new Array();
-    Dropzone.autoDiscover = false;
-    var addedFiles = [];
+	Dropzone.autoDiscover = false;
+	var addedFiles = [];
 
 	$(function() {
 
-		const dropzone = new Dropzone('form#pdImage', {
-			url:'/wonder/image/write',	// 파일을 업로드할 서버 주소 url.
-			method: 'post', // 기본 post로 request 감. put으로도 할수있음
-			headers: {},
-			autoProcessQueue: false, // 자동으로 보내기. true : 파일 업로드 되자마자 서버로 요청, false : 서버에는 올라가지 않은 상태. 따로 this.processQueue() 호출시 전송
-			clickable: true, // 클릭 가능 여부
-			autoQueue: false, // 드래그 드랍 후 바로 서버로 전송
-			createImageThumbnails: true, //파일 업로드 썸네일 생성
-			
-			thumbnailHeight: 120, // Upload icon size
-			thumbnailWidth: 120, // Upload icon size
-			
-			maxFiles: 10, // 업로드 파일수
-			maxFilesize: 100, // 최대업로드용량 : 100MB
-			paramName: 'file', // 서버에서 사용할 formdata 이름 설정 (default는 file)
-			parallelUploads: 2, // 동시파일업로드 수(이걸 지정한 수 만큼 여러파일을 한번에 넘긴다.)
-			uploadMultiple: false, // 다중업로드 기능
-			timeout: 300000, //커넥션 타임아웃 설정 -> 데이터가 클 경우 꼭 넉넉히 설정해주자
-			
-			addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
-			dictRemoveFile: '삭제', // 삭제버튼 표시 텍스트
-			acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 이미지 파일 포맷만 허용
-			
-			init: function () {
-				// 최초 dropzone 설정시 init을 통해 호출
-				console.log('최초 실행');
-				let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
-				
-				// 파일이 업로드되면 실행
-				this.on('addedfile', function (file) {
-					// 중복된 파일의 제거
-					console.log(this.files.length);
-					if (this.files.length) {
-						// -1 to exclude current file
-						var hasFile = false;
-						for (var i = 0; i < this.files.length - 1; i++) {
-							if (	this.files[i].name === file.name &&
-									this.files[i].size === file.size &&
-									this.files[i].lastModifiedDate.toString() === file.lastModifiedDate.toString())
-							{
-								hasFile = true;
-								this.removeFile(file);
-							}
-						}
-						
-						if (!hasFile) {
-							addedFiles.push(file);
-						}
-					} else {
-						addedFiles.push(file);
-					}
+		const dropzone = new Dropzone(
+				'form#pdImage',
+				{
+					url : '/wonder/image/write', // 파일을 업로드할 서버 주소 url.
+					method : 'post', // 기본 post로 request 감. put으로도 할수있음
+					headers : {},
+					autoProcessQueue : false, // 자동으로 보내기. true : 파일 업로드 되자마자 서버로 요청, false : 서버에는 올라가지 않은 상태. 따로 this.processQueue() 호출시 전송
+					clickable : true, // 클릭 가능 여부
+					autoQueue : false, // 드래그 드랍 후 바로 서버로 전송
+					createImageThumbnails : true, //파일 업로드 썸네일 생성
+
+					thumbnailHeight : 120, // Upload icon size
+					thumbnailWidth : 120, // Upload icon size
+
+					maxFiles : 10, // 업로드 파일수
+					maxFilesize : 100, // 최대업로드용량 : 100MB
+					paramName : 'file', // 서버에서 사용할 formdata 이름 설정 (default는 file)
+					parallelUploads : 2, // 동시파일업로드 수(이걸 지정한 수 만큼 여러파일을 한번에 넘긴다.)
+					uploadMultiple : false, // 다중업로드 기능
+					timeout : 300000, //커넥션 타임아웃 설정 -> 데이터가 클 경우 꼭 넉넉히 설정해주자
+
+					addRemoveLinks : true, // 업로드 후 파일 삭제버튼 표시 여부
+					dictRemoveFile : '삭제', // 삭제버튼 표시 텍스트
+					acceptedFiles : '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 이미지 파일 포맷만 허용
+
+					init : function() {
+						// 최초 dropzone 설정시 init을 통해 호출
+						console.log('최초 실행');
+						let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
+
+						// 파일이 업로드되면 실행
+						this
+								.on(
+										'addedfile',
+										function(file) {
+											// 중복된 파일의 제거
+											console.log(this.files.length);
+											if (this.files.length) {
+												// -1 to exclude current file
+												var hasFile = false;
+												for (var i = 0; i < this.files.length - 1; i++) {
+													if (this.files[i].name === file.name
+															&& this.files[i].size === file.size
+															&& this.files[i].lastModifiedDate
+																	.toString() === file.lastModifiedDate
+																	.toString()) {
+														hasFile = true;
+														this.removeFile(file);
+													}
+												}
+
+												if (!hasFile) {
+													addedFiles.push(file);
+												}
+											} else {
+												addedFiles.push(file);
+											}
+										});
+
+						// 업로드한 파일을 서버에 요청하는 동안 호출 실행
+						this.on('sending', function(file, xhr, formData) {
+							console.log('보내는중');
+						});
+
+						// 서버로 파일이 성공적으로 전송되면 실행
+						this.on('success', function(file, responseText) {
+							console.log('성공');
+						});
+
+						// 업로드 에러 처리
+						this.on('error', function(file, errorMessage) {
+							alert(errorMessage);
+						});
+					},
 				});
-				
-				// 업로드한 파일을 서버에 요청하는 동안 호출 실행
-				this.on('sending', function (file, xhr, formData) {
-					console.log('보내는중');
-				});
-				
-				// 서버로 파일이 성공적으로 전송되면 실행
-				this.on('success', function (file, responseText) {
-					console.log('성공');
-				});
-				
-				// 업로드 에러 처리
-				this.on('error', function (file, errorMessage) {
-					alert(errorMessage);
-				});
-			},
-		});
 
 		// 의미적으로 활성화 표기를 위해 true로 설정된 aria-selected 속성 추가
-		$(".property_block_wrap_header li:first-of-type, .tab-pane:first-of-type").find("a").attr("aria-expanded","true");
-  		$(".property_block_wrap_header li:first-of-type").find("a").attr("aria-selected","true");
-  		$(".property_block_wrap_header li:first-of-type").siblings().find("a").attr("aria-expanded","false");
-  		$(".property_block_wrap_header li:first-of-type").siblings().find("a").attr("aria-selected","false");
-  		
+		$(
+				".property_block_wrap_header li:first-of-type, .tab-pane:first-of-type")
+				.find("a").attr("aria-expanded", "true");
+		$(".property_block_wrap_header li:first-of-type").find("a").attr(
+				"aria-selected", "true");
+		$(".property_block_wrap_header li:first-of-type").siblings().find("a")
+				.attr("aria-expanded", "false");
+		$(".property_block_wrap_header li:first-of-type").siblings().find("a")
+				.attr("aria-selected", "false");
+
 		/* 탭 클릭 시 전환 */
-        $('.property_block_wrap_header li').click(function(e){
-            e.preventDefault();
-            $(this).find("a").attr("aria-selected", "true");
-            $(this).siblings().find("a").attr("aria-selected","false");
-        })
-		
-		$('#pd_reg').click(function() {
-			var pdWrite = new FormData();
+		$('.property_block_wrap_header li').click(function(e) {
+			e.preventDefault();
+			$(this).find("a").attr("aria-selected", "true");
+			$(this).siblings().find("a").attr("aria-selected", "false");
+		})
 
-			var pdTitle = $('#pdTitle').val();
-			if (pdTitle == '') {
-				alert("제목을 입력해주세요.");
-				return false;
-			}
+		$('#pd_reg')
+				.click(
+						function() {
+							var pdWrite = new FormData();
 
-			pdWrite.append('pdTitle', pdTitle);
-			
-			
-			var pdLang = new Array();
-			$('[name=langchbox]').each( function() {
-				if($(this).is(':checked') == true) {
-					pdLang.push($(this).val());
-				}
-			});
-			
-			if(pdLang.length == 0) {
-				alert("개발 언어를 선택해주세요.");
-				return false;
-			}
-			
-			pdWrite.append('pdLang', pdLang);
-			
-			
-			var pdFrame = new Array();
-			$('[name=framechbox]').each( function() {
-				if($(this).is(':checked') == true) {
-					pdFrame.push($(this).val());
-				}
-			});
-			
-			if(pdFrame.length == 0) {
-				alert("프레임 워크를 선택해주세요.");
-				return false;
-			}
-			
-			pdWrite.append('pdFrame', pdFrame);
-			
-			var priceType = "";
-			$('.property_block_wrap_header li').find('a').each( function() { 
-				if($(this).attr('aria-selected') === 'true')
-					priceType = $(this).text();
-				});
-			
-			pdWrite.append('priceType', priceType);
-			
-			if(priceType === 'TYPE1') {
+							var pdTitle = $('#pdTitle').val();
+							if (pdTitle == '') {
+								alert("제목을 입력해주세요.");
+								return false;
+							}
 
-				// 가격 입력 체크
-				if ($("#pdPrice").val() == '') {
-					alert($('#pdType').val() + " 가격을 입력해주세요.");
-					return false;
-				}
+							pdWrite.append('pdTitle', pdTitle);
 
-				// 기한 입력 체크
-				if ($("#pdTerm").val() == '') {
-					alert($('#pdType').val() + " 기한을 입력해주세요.");
-					return false;
-				}
+							var pdLang = new Array();
+							$('[name=langchbox]').each(function() {
+								if ($(this).is(':checked') == true) {
+									pdLang.push($(this).val());
+								}
+							});
 
-				// 서비스 설명 체크
-				if ($("#serviceExplanation").val() == '') {
-					alert($('#pdType').val() + " 서비스 설명을 입력해주세요.");
-					return false;
-				}
-				
-				// 수정횟수 체크
-				if ($("#editCount").val() == '') {
-					alert($('#pdType').val() + " 수정횟수를 입력해주세요.");
-					return false;
-				}
-				
-				// 수정설명 체크
-				if ($("#editExplanation").val() == '') {
-					alert($('#pdType').val() + " 수정설명을 입력해주세요.");
-					return false;
-				}
+							if (pdLang.length == 0) {
+								alert("개발 언어를 선택해주세요.");
+								return false;
+							}
 
-				pdWrite.append('pdType', $('#pdType').val());
-				pdWrite.append('pdPrice', $('#pdPrice').val());
-				pdWrite.append('pdTerm', $('#pdTerm').val());
-				pdWrite.append('serviceExplanation', $('#serviceExplanation').val());
-				pdWrite.append('editCount', $('#editCount').val());
-				pdWrite.append('editExplanation', $('#editExplanation').val());
-				pdWrite.append('commercial', $('#commercial').is(':checked'));
-				pdWrite.append('codeSupply', $('#codeSupply').is(':checked'));
-				pdWrite.append('customize', $('#customize').is(':checked'));
-				pdWrite.append('payment', $('#payment').is(':checked'));
-			} else if(priceType === 'TYPE2') {
-				
-				// 가격 입력 체크
-				if ($("#pdPrice1").val() == '') {
-					alert($('#pdType1').val() + " 가격을 입력해주세요.");
-					return false;
-				}
-				if ($("#pdPrice2").val() == '') {
-					alert($('#pdType2').val() + " 가격을 입력해주세요.");
-					return false;
-				}
-				if ($("#pdPrice3").val() == '') {
-					alert($('#pdType3').val() + " 가격을 입력해주세요.");
-					return false;
-				}
+							pdWrite.append('pdLang', pdLang);
 
-				// 기한 입력 체크
-				if ($("#pdTerm1").val() == '') {
-					alert($('#pdType1').val() + " 기한을 입력해주세요.");
-					return false;
-				}
-				if ($("#pdTerm2").val() == '') {
-					alert($('#pdType2').val() + " 기한을 입력해주세요.");
-					return false;
-				}
-				if ($("#pdTerm3").val() == '') {
-					alert($('#pdType3').val() + " 기한을 입력해주세요.");
-					return false;
-				}
+							var pdFrame = new Array();
+							$('[name=framechbox]').each(function() {
+								if ($(this).is(':checked') == true) {
+									pdFrame.push($(this).val());
+								}
+							});
 
-				// 서비스 설명 체크
-				if ($("#serviceExplanation1").val() == '') {
-					alert($('#pdType1').val() + " 서비스 설명을 입력해주세요.");
-					return false;
-				}
-				if ($("#serviceExplanation2").val() == '') {
-					alert($('#pdType2').val() + " 서비스 설명을 입력해주세요.");
-					return false;
-				}
-				if ($("#serviceExplanation3").val() == '') {
-					alert($('#pdType3').val() + " 서비스 설명을 입력해주세요.");
-					return false;
-				}
-				
-				// 수정횟수 체크
-				if ($("#editCount1").val() == '') {
-					alert($('#pdType1').val() + " 수정횟수를 입력해주세요.");
-					return false;
-				}
-				if ($("#editCount2").val() == '') {
-					alert($('#pdType2').val() + " 수정횟수를 입력해주세요.");
-					return false;
-				}
-				if ($("#editCount3").val() == '') {
-					alert($('#pdType3').val() + " 수정횟수를 입력해주세요.");
-					return false;
-				}
-				
-				// 수정설명 체크
-				if ($("#editExplanation1").val() == '') {
-					alert($('#pdType1').val() + " 수정설명을 입력해주세요.");
-					return false;
-				}
-				if ($("#editExplanation2").val() == '') {
-					alert($('#pdType2').val() + " 수정설명을 입력해주세요.");
-					return false;
-				}
-				if ($("#editExplanation3").val() == '') {
-					alert($('#pdType3').val() + " 수정설명을 입력해주세요.");
-					return false;
-				}
-				
-				pdWrite.append('pdType1', $('#pdType1').val());
-				pdWrite.append('pdPrice1', $('#pdPrice1').val());
-				pdWrite.append('pdTerm1', $('#pdTerm1').val());
-				pdWrite.append('serviceExplanation1', $('#serviceExplanation1').val());
-				pdWrite.append('editCount1', $('#editCount1').val());
-				pdWrite.append('editExplanation1', $('#editExplanation1').val());
-				pdWrite.append('commercial1', $('#commercial1').is(':checked'));
-				pdWrite.append('codeSupply1', $('#codeSupply1').is(':checked'));
-				pdWrite.append('customize1', $('#customize1').is(':checked'));
-				pdWrite.append('payment1', $('#payment1').is(':checked'));
-				
-				pdWrite.append('pdType2', $('#pdType2').val());
-				pdWrite.append('pdPrice2', $('#pdPrice2').val());
-				pdWrite.append('pdTerm2', $('#pdTerm2').val());
-				pdWrite.append('serviceExplanation2', $('#serviceExplanation2').val());
-				pdWrite.append('editCount2', $('#editCount2').val());
-				pdWrite.append('editExplanation2', $('#editExplanation2').val());
-				pdWrite.append('commercial2', $('#commercial2').is(':checked'));
-				pdWrite.append('codeSupply2', $('#codeSupply2').is(':checked'));
-				pdWrite.append('customize2', $('#customize2').is(':checked'));
-				pdWrite.append('payment2', $('#payment2').is(':checked'));
+							if (pdFrame.length == 0) {
+								alert("프레임 워크를 선택해주세요.");
+								return false;
+							}
 
-				pdWrite.append('pdType3', $('#pdType3').val());
-				pdWrite.append('pdPrice3', $('#pdPrice3').val());
-				pdWrite.append('pdTerm3', $('#pdTerm3').val());
-				pdWrite.append('serviceExplanation3', $('#serviceExplanation3').val());
-				pdWrite.append('editCount3', $('#editCount3').val());
-				pdWrite.append('editExplanation3', $('#editExplanation3').val());
-				pdWrite.append('commercial3', $('#commercial3').is(':checked'));
-				pdWrite.append('codeSupply3', $('#codeSupply3').is(':checked'));
-				pdWrite.append('customize3', $('#customize3').is(':checked'));
-				pdWrite.append('payment3', $('#payment3').is(':checked'));
-			} else {
-				alert("가격 정책이 잘못 입력 되었습니다.");
-			}
+							pdWrite.append('pdFrame', pdFrame);
 
-			for (let i = 0; i < addedFiles.length; i++) {
-				pdWrite.append('files', addedFiles[i]);
-			}
-			
-			var request = new XMLHttpRequest();
-			request.open("POST", "/wonder/pd/pdWrite");
-			request.send(pdWrite);
+							var priceType = "";
+							$('.property_block_wrap_header li')
+									.find('a')
+									.each(
+											function() {
+												if ($(this).attr(
+														'aria-selected') === 'true')
+													priceType = $(this).text();
+											});
 
-		});
-		
+							pdWrite.append('priceType', priceType);
+
+							if (priceType === 'TYPE1') {
+
+								// 가격 입력 체크
+								if ($("#pdPrice").val() == '') {
+									alert($('#pdType').val() + " 가격을 입력해주세요.");
+									return false;
+								}
+
+								// 기한 입력 체크
+								if ($("#pdTerm").val() == '') {
+									alert($('#pdType').val() + " 기한을 입력해주세요.");
+									return false;
+								}
+
+								// 서비스 설명 체크
+								if ($("#serviceExplanation").val() == '') {
+									alert($('#pdType').val()
+											+ " 서비스 설명을 입력해주세요.");
+									return false;
+								}
+
+								// 수정횟수 체크
+								if ($("#editCount").val() == '') {
+									alert($('#pdType').val() + " 수정횟수를 입력해주세요.");
+									return false;
+								}
+
+								// 수정설명 체크
+								if ($("#editExplanation").val() == '') {
+									alert($('#pdType').val() + " 수정설명을 입력해주세요.");
+									return false;
+								}
+
+								pdWrite.append('pdType', $('#pdType').val());
+								pdWrite.append('pdPrice', $('#pdPrice').val());
+								pdWrite.append('pdTerm', $('#pdTerm').val());
+								pdWrite.append('serviceExplanation', $(
+										'#serviceExplanation').val());
+								pdWrite.append('editCount', $('#editCount')
+										.val());
+								pdWrite.append('editExplanation', $(
+										'#editExplanation').val());
+								pdWrite.append('commercial', $('#commercial')
+										.is(':checked'));
+								pdWrite.append('codeSupply', $('#codeSupply')
+										.is(':checked'));
+								pdWrite.append('customize', $('#customize').is(
+										':checked'));
+								pdWrite.append('payment', $('#payment').is(
+										':checked'));
+							} else if (priceType === 'TYPE2') {
+
+								// 가격 입력 체크
+								if ($("#pdPrice1").val() == '') {
+									alert($('#pdType1').val() + " 가격을 입력해주세요.");
+									return false;
+								}
+								if ($("#pdPrice2").val() == '') {
+									alert($('#pdType2').val() + " 가격을 입력해주세요.");
+									return false;
+								}
+								if ($("#pdPrice3").val() == '') {
+									alert($('#pdType3').val() + " 가격을 입력해주세요.");
+									return false;
+								}
+
+								// 기한 입력 체크
+								if ($("#pdTerm1").val() == '') {
+									alert($('#pdType1').val() + " 기한을 입력해주세요.");
+									return false;
+								}
+								if ($("#pdTerm2").val() == '') {
+									alert($('#pdType2').val() + " 기한을 입력해주세요.");
+									return false;
+								}
+								if ($("#pdTerm3").val() == '') {
+									alert($('#pdType3').val() + " 기한을 입력해주세요.");
+									return false;
+								}
+
+								// 서비스 설명 체크
+								if ($("#serviceExplanation1").val() == '') {
+									alert($('#pdType1').val()
+											+ " 서비스 설명을 입력해주세요.");
+									return false;
+								}
+								if ($("#serviceExplanation2").val() == '') {
+									alert($('#pdType2').val()
+											+ " 서비스 설명을 입력해주세요.");
+									return false;
+								}
+								if ($("#serviceExplanation3").val() == '') {
+									alert($('#pdType3').val()
+											+ " 서비스 설명을 입력해주세요.");
+									return false;
+								}
+
+								// 수정횟수 체크
+								if ($("#editCount1").val() == '') {
+									alert($('#pdType1').val()
+											+ " 수정횟수를 입력해주세요.");
+									return false;
+								}
+								if ($("#editCount2").val() == '') {
+									alert($('#pdType2').val()
+											+ " 수정횟수를 입력해주세요.");
+									return false;
+								}
+								if ($("#editCount3").val() == '') {
+									alert($('#pdType3').val()
+											+ " 수정횟수를 입력해주세요.");
+									return false;
+								}
+
+								// 수정설명 체크
+								if ($("#editExplanation1").val() == '') {
+									alert($('#pdType1').val()
+											+ " 수정설명을 입력해주세요.");
+									return false;
+								}
+								if ($("#editExplanation2").val() == '') {
+									alert($('#pdType2').val()
+											+ " 수정설명을 입력해주세요.");
+									return false;
+								}
+								if ($("#editExplanation3").val() == '') {
+									alert($('#pdType3').val()
+											+ " 수정설명을 입력해주세요.");
+									return false;
+								}
+
+								pdWrite.append('pdType1', $('#pdType1').val());
+								pdWrite
+										.append('pdPrice1', $('#pdPrice1')
+												.val());
+								pdWrite.append('pdTerm1', $('#pdTerm1').val());
+								pdWrite.append('serviceExplanation1', $(
+										'#serviceExplanation1').val());
+								pdWrite.append('editCount1', $('#editCount1')
+										.val());
+								pdWrite.append('editExplanation1', $(
+										'#editExplanation1').val());
+								pdWrite.append('commercial1', $('#commercial1')
+										.is(':checked'));
+								pdWrite.append('codeSupply1', $('#codeSupply1')
+										.is(':checked'));
+								pdWrite.append('customize1', $('#customize1')
+										.is(':checked'));
+								pdWrite.append('payment1', $('#payment1').is(
+										':checked'));
+
+								pdWrite.append('pdType2', $('#pdType2').val());
+								pdWrite
+										.append('pdPrice2', $('#pdPrice2')
+												.val());
+								pdWrite.append('pdTerm2', $('#pdTerm2').val());
+								pdWrite.append('serviceExplanation2', $(
+										'#serviceExplanation2').val());
+								pdWrite.append('editCount2', $('#editCount2')
+										.val());
+								pdWrite.append('editExplanation2', $(
+										'#editExplanation2').val());
+								pdWrite.append('commercial2', $('#commercial2')
+										.is(':checked'));
+								pdWrite.append('codeSupply2', $('#codeSupply2')
+										.is(':checked'));
+								pdWrite.append('customize2', $('#customize2')
+										.is(':checked'));
+								pdWrite.append('payment2', $('#payment2').is(
+										':checked'));
+
+								pdWrite.append('pdType3', $('#pdType3').val());
+								pdWrite
+										.append('pdPrice3', $('#pdPrice3')
+												.val());
+								pdWrite.append('pdTerm3', $('#pdTerm3').val());
+								pdWrite.append('serviceExplanation3', $(
+										'#serviceExplanation3').val());
+								pdWrite.append('editCount3', $('#editCount3')
+										.val());
+								pdWrite.append('editExplanation3', $(
+										'#editExplanation3').val());
+								pdWrite.append('commercial3', $('#commercial3')
+										.is(':checked'));
+								pdWrite.append('codeSupply3', $('#codeSupply3')
+										.is(':checked'));
+								pdWrite.append('customize3', $('#customize3')
+										.is(':checked'));
+								pdWrite.append('payment3', $('#payment3').is(
+										':checked'));
+							} else {
+								alert("가격 정책이 잘못 입력 되었습니다.");
+							}
+
+							for (let i = 0; i < addedFiles.length; i++) {
+								pdWrite.append('files', addedFiles[i]);
+							}
+
+							var request = new XMLHttpRequest();
+							
+							request.onreadystatechange = function() {
+							    if (this.readyState == 4 && this.status == 200) {
+							        console.log("상품이 등록 되었습니다.");
+							        alert("상품이 등록 되었습니다.");
+							        location.reload(true);
+							    }
+							}
+							
+							request.open("POST", "/wonder/pd/pdWrite");
+							request.send(pdWrite);
+
+						});
+
 		$('#btWrite').click(function() {
 			alert("제목을 입력해주세요.");
 			location.href = '<c:url value="/pd/pdList"/>';
@@ -449,16 +521,15 @@
 											<!-- Single Block Wrap -->
 											<div class="property_block_wrap">
 												<div class="property_block_wrap_header">
-													<ul class="nav nav-pills tabs_system" id="pill-tab" role="tablist">
-														<li class="nav-item">
-															<a class="nav-link active"
+													<ul class="nav nav-pills tabs_system" id="pill-tab"
+														role="tablist">
+														<li class="nav-item"><a class="nav-link active"
 															id="pills-walk-tab" data-toggle="pill" href="#pills-walk"
 															role="tab" aria-controls="pills-walk">TYPE1</a></li>
 														<li class="nav-item"><a class="nav-link"
 															id="pills-nearby-tab" data-toggle="pill"
 															href="#pills-nearby" role="tab"
-															aria-controls="pills-nearby">TYPE2</a>
-														</li>
+															aria-controls="pills-nearby">TYPE2</a></li>
 													</ul>
 												</div>
 
@@ -785,8 +856,10 @@
 
 										<div class="form-group col-md-12">
 											<label>사진을 첨부하세요</label>
-											<form id="pdImage" name="pdImage" action="/wonder/image/write"
-												class="dropzone dz-clickable primary-dropzone" enctype="multipart/form-data"  >
+											<form id="pdImage" name="pdImage"
+												action="/wonder/image/write"
+												class="dropzone dz-clickable primary-dropzone"
+												enctype="multipart/form-data">
 												<div class="dz-default dz-message">
 													<i class="ti-gallery"></i> <span>원하는 파일을 드래그해주세요</span>
 												</div>
@@ -803,7 +876,8 @@
 
 				<div class="form-group">
 					<div class="col-lg-12 col-md-12">
-						<button id="pd_reg" class="btn btn-theme" type="submit" >상품 등록하기</button>
+						<button id="pd_reg" class="btn btn-theme" type="submit">상품
+							등록하기</button>
 					</div>
 				</div>
 

@@ -23,7 +23,10 @@ public interface AdminDAO {
 	int deleteExpert(int memNo);
 	List<ProductVO> selectNonApprovalList(SearchVO searchVo);
 	int deleteForm(int formNo);
-	int getTotalRecord(SearchVO searchVo);
+	int getMemTotalRecord(SearchVO searchVo); 
+	int getPdTotalRecord(SearchVO searchVo); 
+	int getAdTotalRecord(SearchVO searchVo); 
+	int getFormTotalRecord(SearchVO searchVo); 
 	
 	int dupAdminId(String adminId);
 	AdminVO selectByAdminId(String adminId);

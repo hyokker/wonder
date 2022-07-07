@@ -1,9 +1,7 @@
 package com.ez.wonder.pd.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,23 +11,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.ez.wonder.noneDup.model.NoneDupVO;
 import com.ez.wonder.pd.model.PdDetailVO;
 import com.ez.wonder.pd.model.PdImageVO;
 import com.ez.wonder.pd.model.PdList;
+import com.ez.wonder.pd.model.PdListItem;
 import com.ez.wonder.pd.model.PdListVO;
 import com.ez.wonder.pd.model.ProductService;
-import com.ez.wonder.pd.model.ProductVO;
 import com.ez.wonder.pd.model.SearchWrapper;
 import com.ez.wonder.pd.model.WishedWrapper;
 import com.ez.wonder.skill.model.FrameworkVO;
@@ -48,7 +42,9 @@ public class PdListController {
 	private final SkillService skillService;
 
 	@GetMapping("/pdList")
-	public String pdList(HttpServletRequest httpServletRequest, Model model, HttpSession session) {
+	public String pdList(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageCnt", required = true, defaultValue = "7") int pageCnt,
+			HttpServletRequest httpServletRequest, Model model, HttpSession session) {
 		logger.info("상품 리스트화면");
 
 		List<LanguageVO> langList = skillService.allLanguage();
@@ -61,45 +57,75 @@ public class PdListController {
 		model.addAttribute("langList", langList);
 		model.addAttribute("frameList", frameList);
 
-		List<PdList> pdList = new ArrayList<PdList>();
 
 		String userId= (String)session.getAttribute("userId");
-		userId = "test";
+
+		List<PdListItem> pdList = getPdList(userId);
+		
+		int totalCnt = pdList.size();
+		int maxpage = totalCnt/pageCnt + ((totalCnt%pageCnt)>0?1:0);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("pageCnt", pageCnt);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("pdList", pdList.subList((pageNo-1)*pageCnt, pageNo*pageCnt));
+		return "pd/pdList";
+	}
+	
+	@PostMapping("/pdList")
+	@ResponseBody
+	public PdList pdListPage(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageCnt", required = true, defaultValue = "7") int pageCnt,
+			HttpSession session) {
+
+		String userId= (String)session.getAttribute("userId");
+
+		List<PdListItem> pdListItems = getPdList(userId);
+		
+		int totalCnt = pdListItems.size();
+		int maxpage = totalCnt/pageCnt + ((totalCnt%pageCnt)>0?1:0);
+		
+		PdList ret = new PdList();
+		ret.setPageNo(pageNo);
+		ret.setPageCnt(pageCnt);
+		ret.setMaxpage(maxpage);
+		ret.setTotalCnt(totalCnt);
+		ret.setPdLists(pdListItems.subList((pageNo-1)*pageCnt, (pageNo*pageCnt) >= totalCnt ? totalCnt : (pageNo*pageCnt)));
+		
+		return ret;
+	}
+
+	private List<PdListItem> getPdList(String userId) {
+		List<PdListItem> pdList = new ArrayList<PdListItem>();
+
 		List<PdListVO> products = productService.selectAllPdByUserId(userId);
 		for (PdListVO product : products) {
-			logger.info("vo :" + product);
-			PdList item = new PdList(product);
+			PdListItem item = new PdListItem(product);
 			int pdNo = item.getPdNo();
 			List<PdDetailVO> pdDetails = productService.selectPdDetail(pdNo);
 			if (pdDetails.isEmpty())
 				continue;
-			logger.info("vo :" + pdDetails);
 
 			item.setPdDetail(pdDetails.get(0));
 			List<PdImageVO> pdImages = productService.selectPdImage(pdNo);
 			item.setPdImages(pdImages);
 			pdList.add(item);
 		}
-		model.addAttribute("pdList", pdList);
-		return "pd/pdList";
+		return pdList;
 	}
 
 	@PostMapping("/pdSearch")
 	@ResponseBody
-	public List<PdList> pdSearch(@RequestBody SearchWrapper search, HttpServletRequest httpServletRequest, HttpSession session) {
-		logger.info("loginfo : " + search.toString());
-		logger.info("title : " + search.getPdTitle());
-
+	public PdList pdSearch(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageCnt", required = true, defaultValue = "2") int pageCnt,
+			@RequestBody SearchWrapper search, HttpServletRequest httpServletRequest, HttpSession session) {
 		String userId= (String)session.getAttribute("userId");
-		userId = "test";
-		List<PdListVO> products = productService.searchPd(search.getPdTitle());
-		logger.info(products.toString());
-		List<PdList> pdList = new ArrayList<PdList>();
+		List<PdListVO> products = productService.searchPd(search.getPdTitle(), userId);
+		List<PdListItem> pdListItems = new ArrayList<PdListItem>();
 		for (PdListVO product : products) {
-			PdList item = new PdList(product);
+			PdListItem item = new PdListItem(product);
 			int pdNo = item.getPdNo();
 			
-			 
 			List<PdDetailVO> pdDetails = productService.selectPdDetail(pdNo);
 			
 			boolean isPdTerm = false;
@@ -128,16 +154,36 @@ public class PdListController {
 			if (search.getPdLang().size() == 0)
 				isLang = true;
 
-			if (isLang && !pdDetails.isEmpty() && isPdTerm && isPdPrice) {
+			
+			boolean isFrame = false;
+			for (String frame : search.getPdFrame()) {
+				if (product.getLang().indexOf(frame) >= 0) {
+					isFrame = true;
+				}
+			}
+
+			if (search.getPdFrame().size() == 0)
+				isFrame = true;
+
+			
+			if (isLang && isFrame && !pdDetails.isEmpty() && isPdTerm && isPdPrice) {
 				List<PdImageVO> pdImages = productService.selectPdImage(pdNo);
 				item.setPdImages(pdImages);
 				item.setPdDetail(pdDetails.get(0));
-				pdList.add(item);
+				pdListItems.add(item);
 			}
 		}
+		int totalCnt = pdListItems.size();
+		int maxpage = totalCnt/pageCnt + ((totalCnt%pageCnt)>0?1:0);
 		
-		logger.info(pdList.toString());
-		return pdList;
+		PdList ret = new PdList();
+		ret.setPageNo(pageNo);
+		ret.setPageCnt(pageCnt);
+		ret.setMaxpage(maxpage);
+		ret.setTotalCnt(totalCnt);
+		ret.setPdLists(pdListItems.subList((pageNo-1)*pageCnt, (pageNo*pageCnt) >= totalCnt ? totalCnt : (pageNo*pageCnt)));
+		
+		return ret;
 	}
 	
 	@PostMapping("/pdWished")
@@ -146,7 +192,6 @@ public class PdListController {
 		logger.info(wish.toString());
 		
 		String userId= (String)session.getAttribute("userId");
-		userId = "test";
 		if(wish.isChecked()) {
 			productService.insertDupFlag(new NoneDupVO(userId, wish.getPdNo()));
 		} else {

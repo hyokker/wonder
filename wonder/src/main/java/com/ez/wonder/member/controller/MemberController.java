@@ -50,6 +50,7 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", memVo.getName());
+			session.setAttribute("userType", memVo.getType());
 			session.setAttribute("type", memVo.getType());
 			session.setAttribute("LoginType", "normal");
 			

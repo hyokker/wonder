@@ -13,7 +13,7 @@
 		, LANG
 		, FRAME
 	</sql>
-			
+
 	<sql id="DetailColsRaw">
 		DETAIL_NO
 		, PD_NO
@@ -35,20 +35,21 @@
 		, FILE_NAME
 		, ORIGINAL_FILE_NAME
 		, FILE_SIZE
-		, FILE_TYPE
+		,
+		FILE_TYPE
 	</sql>
 
-	
+
 	<select id="selectAllPd" resultType="productVo">
 		select
-			<include refid="PdColsRaw" />
+		<include refid="PdColsRaw" />
 		from product
 	</select>
-	
+
 	<select id="selectAllPdByUserId" resultType="pdListVo">
 		SELECT
-			T1.PD_NO AS pdNo
-			, T1.USER_ID AS userId
+			T1.PD_NO AS PD_NO
+			, T1.USER_ID AS USER_ID
 			, CATE_TYPE
 			, PD_TITLE
 			, REGDATE
@@ -56,12 +57,20 @@
 			, READ_COUNT
 			, LANG
 			, FRAME
-			, T2.DUP_FLAG AS dupFlag
-		FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
-			ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+		<choose>
+			<when test="userId != null and userId != ''">
+				, T2.DUP_FLAG AS DUP_FLAG
+			FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
+				ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+			</when>
+			<otherwise>
+				, NULL AS DUP_FLAG
+			FROM PRODUCT T1
+			</otherwise>
+		</choose>
 	</select>
-	
-	
+
+
 	<select id="searchPd" parameterType="string" resultType="pdListVo">
 		SELECT
 			T1.PD_NO AS PD_NO
@@ -73,50 +82,28 @@
 			, READ_COUNT
 			, LANG
 			, FRAME
-			, T2.DUP_FLAG AS DUP_FLAG
-		FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
-			ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+		<choose>
+			<when test="userId != null and userId != ''">
+				, T2.DUP_FLAG AS DUP_FLAG
+			FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
+				ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+			</when>
+			<otherwise>
+				, NULL AS DUP_FLAG
+			FROM PRODUCT T1
+			</otherwise>
+		</choose>
 		<where>
 			<if test="pdTitle != null and pdTitle != ''">
 				AND PD_TITLE LIKE '%' || #{pdTitle} || '%'
 			</if>
 		</where>
 	</select>
-	
-	<select id="searchPdDetail" resultType="PdDetailVO">
-      select
-      <include refid="DetailColsRaw" />
-      from PD_DETAIL
-      <where>
-         AND PD_TYPE = 'STANDARD'
-         <if test="pdNo != 0">
-            AND PD_NO = #{pdNo}
-         </if>
-         <if test="editCount != 0">
-            AND EDIT_COUNT = #{editCount}
-         </if>
-         <if test="pdTermMin != 0">
-            AND PD_TERM <![CDATA[>=]]>
-            #{pdTermMin}
-         </if>
-         <if test="pdTermMax != 0">
-            AND PD_TERM <![CDATA[<=]]>
-            #{pdTermMax}
-         </if>
-         <if test="pdPriceMin != 0">
-            AND PD_PRICE <![CDATA[>=]]>
-            #{pdPriceMin}
-         </if>
-         <if test="pdPriceMax != 0">
-            AND PD_PRICE <![CDATA[<=]]>
-            #{pdPriceMax}
-         </if>
-      </where>
-   </select>
-	
-	<select id="selectPdDetail" parameterType="int" resultType="PdDetailVO">
+
+	<select id="selectPdDetail" parameterType="int"
+		resultType="PdDetailVO">
 		select
-			<include refid="DetailColsRaw" />
+		<include refid="DetailColsRaw" />
 		from PD_DETAIL
 		<where>
 			AND PD_TYPE = 'STANDARD'
@@ -125,10 +112,11 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id="selectPdDetailS" parameterType="int" resultType="PdDetailVO">
+
+	<select id="selectPdDetailS" parameterType="int"
+		resultType="PdDetailVO">
 		select
-			<include refid="DetailColsRaw" />
+		<include refid="DetailColsRaw" />
 		from PD_DETAIL
 		<where>
 			AND PD_TYPE = 'STANDARD'
@@ -137,10 +125,11 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id="selectPdImage" parameterType="int" resultType="PdImageVO">
+
+	<select id="selectPdImage" parameterType="int"
+		resultType="PdImageVO">
 		select
-			<include refid="ImageColsRaw" />
+		<include refid="ImageColsRaw" />
 		from PD_IMAGE
 		<where>
 			<if test="pdNo != 0">
@@ -149,74 +138,76 @@
 		</where>
 	</select>
 
-	<insert id="insertPd" parameterType="productVo" >
-		<selectKey resultType="int" keyProperty="pdNo" order="BEFORE">
+	<insert id="insertPd" parameterType="productVo">
+		<selectKey resultType="int" keyProperty="pdNo"
+			order="BEFORE">
 			select PRODUCT_seq.nextval from dual
 		</selectKey>
 		INSERT INTO PRODUCT
 		(
-			PD_NO
-			, USER_ID
-			, CATE_TYPE
-			, PD_TITLE
-			, LANG
-			, FRAME
+		PD_NO
+		, USER_ID
+		, CATE_TYPE
+		, PD_TITLE
+		, LANG
+		, FRAME
 		)VALUES(
-			#{pdNo}
-			, #{userId}
-			, #{cateType}
-			, #{pdTitle}
-			, #{lang}
-			, #{frame}
+		#{pdNo}
+		, #{userId}
+		, #{cateType}
+		, #{pdTitle}
+		, #{lang}
+		, #{frame}
 		)
 	</insert>
-	
-	<insert id="insertPdDetail" parameterType="PdDetailVO" >
-		<selectKey resultType="int" keyProperty="detailNo" order="BEFORE">
+
+	<insert id="insertPdDetail" parameterType="PdDetailVO">
+		<selectKey resultType="int" keyProperty="detailNo"
+			order="BEFORE">
 			select PD_DETAIL_seq.nextval from dual
 		</selectKey>
 		INSERT INTO PD_DETAIL
 		(
-			<include refid="DetailColsRaw" />
+		<include refid="DetailColsRaw" />
 		)VALUES(
-			#{detailNo}
-			, #{pdNo}
-			, #{pdType}
-			, #{pdPrice}
-			, #{pdTerm}
-			, #{editCount}
-			, #{serviceExplanation}
-			, #{editExplanation}
-			, #{commercial}
-			, #{codeSupply}
-			, #{payment}
-			, #{customize}
+		#{detailNo}
+		, #{pdNo}
+		, #{pdType}
+		, #{pdPrice}
+		, #{pdTerm}
+		, #{editCount}
+		, #{serviceExplanation}
+		, #{editExplanation}
+		, #{commercial}
+		, #{codeSupply}
+		, #{payment}
+		, #{customize}
 		)
 	</insert>
-	
-	<insert id="insertPdImage" parameterType="PdImageVO" >
-		<selectKey resultType="int" keyProperty="pdImgNo" order="BEFORE">
+
+	<insert id="insertPdImage" parameterType="PdImageVO">
+		<selectKey resultType="int" keyProperty="pdImgNo"
+			order="BEFORE">
 			select PD_IMAGE_seq.nextval from dual
 		</selectKey>
 		INSERT INTO PD_IMAGE
 		(
-			PDIMG_NO
-			, PD_NO
-			, FILE_NAME
-			, ORIGINAL_FILE_NAME
-			, FILE_SIZE
-			, FILE_TYPE
+		PDIMG_NO
+		, PD_NO
+		, FILE_NAME
+		, ORIGINAL_FILE_NAME
+		, FILE_SIZE
+		, FILE_TYPE
 		)VALUES(
-			#{pdImgNo}
-			, #{pdNo}
-			, #{fileName}
-			, #{originalFileName}
-			, #{fileSize}
-			, #{fileType}
+		#{pdImgNo}
+		, #{pdNo}
+		, #{fileName}
+		, #{originalFileName}
+		, #{fileSize}
+		, #{fileType}
 		)
 	</insert>
-	
-	
+
 <!-- 
 	<insert id="insertDupFlag" parameterType="NoneDupVO">
 		<selectKey resultType="int" keyProperty="dupNo" order="BEFORE">
@@ -248,7 +239,5 @@
 		</where>
 	</delete>
 -->
-	
-	
-	
+
 </mapper>
