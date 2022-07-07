@@ -46,8 +46,7 @@ public interface AdminService {
 	int countProduct();
 	int countPayment();
 	
-	ArrayList<SaleVO> countPaymethod();
-	ArrayList<SaleVO> salesPerMonth();
+	ArrayList<PaymentVO> countPaymethod();
 	
 	List<FormVo> selectForm();
 }
