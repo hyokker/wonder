@@ -670,7 +670,7 @@
 	<div class="modal fade modalB" id="exampleModalToggleB${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	  <div class="modal-dialog modal-lg modal-dialog-centered">
 	    <div class="modal-content">
-	    	<form name="frmB" method="post" action="<c:url value='/pd/form'/>">
+	    	<form name="frmB">
 		      <div class="modal-header" style="margin-left: 15px">
 		        <div class="prt_price" style="margin: 5px 0 0 0">
 					<h3><span>${detailVo.pdType } : &nbsp;&nbsp;</span><fmt:formatNumber value="${detailVo.pdPrice }" pattern="#,###"/>원</h3>
@@ -769,11 +769,11 @@
      	//처음 날짜 자동 덧셈
      	$('.choose_package').click(function(){
      		//로그인 체크
-     		/* if($('input[name=userId]').val().length<1){
+     		if($('input[name=userId]').val().length<1){
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
         		return false;
-        	} */
+        	}
      		date = new Date();
      		var today=getDate(date, 0);
      		$('input[name="orderstart"]').val(today);
@@ -821,22 +821,22 @@
         });
         
         //로그인 체크
-        /* $('form[name=frm]').submit(function(){
+        $('form[name=frm]').submit(function(){
         	if($('input[name=userId]').val().length<1){
         		event.preventDefault();
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
         	}
-        }); */
+        });
         
         //찜하기
         $('#heart').click(function(){
         	//로그인 체크
-     		/* if($('input[name=userId]').val().length<1){
+     		if($('input[name=userId]').val().length<1){
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
         		return false;
-        	} */
+        	}
         	$('form[name=frmB]').attr('action','<c:url value="/pd/noneDup"/>');
         	$('form[name=frmB]').submit();
         });
@@ -848,11 +848,33 @@
         	}
         });
         
-        //의뢰서 confirm 모달
-        if('${confirm}'){
-        	alert('의뢰서가 전달되었습니다.');
-        	$('.modalC').modal('show');
-        }
+        //의뢰서 ajax
+        $('form[name=frmB]').submit(function(){
+	        var form = $(this).serialize();
+        	
+	        $.ajax({
+	        	type:"POST", 
+	        	url:"<c:url value='/pd/ajaxForm' />", 
+	        	contentType: 'application/json',
+	        	data:JSON.stringify(form),
+	        	dataType:"json",
+	        	success: function (res) {
+		        	if(res==0){
+			        	alert("의뢰서 전송에 실패하였습니다.");
+		        	}else if(res==1){
+		        		alert("의뢰서를 전송하였습니다.");
+		        		$('.modalC').modal('show');
+		        	}else if(res==2){
+		        		alert("현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.");
+		        	}
+	        	},
+	        	error:function(xhr, status, error){
+					alert('error:'+error);
+				}
+	        });
+        });
+        
+        
         
     });
     

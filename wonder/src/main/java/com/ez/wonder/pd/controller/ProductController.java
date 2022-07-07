@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.wonder.common.CLOBToStringConvert;
 import com.ez.wonder.common.ConstUtil;
@@ -27,6 +29,7 @@ import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
 import com.ez.wonder.review.model.ReviewService;
 import com.ez.wonder.review.model.ReviewVO;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +46,7 @@ public class ProductController {
 	private final NoneDupService noneDupService;
 	
 	//http://localhost:9095/wonder/pd/pdDetail?pdNo=1
+	
 	@RequestMapping("/pdDetail")
 	public String pdDetail_get(@RequestParam(defaultValue = "0") int pdNo,
 			HttpSession session, Model model) {
@@ -91,7 +95,7 @@ public class ProductController {
 	public String noneDup_post(@ModelAttribute NoneDupVO vo,
 			Model model) {
 		logger.info("찜하기 처리, 파라미터 vo={}", vo);
-		vo.setUserId("kim");	//test
+		//vo.setUserId("kim");	//test
 		
 		int result=noneDupService.clickHeart(vo);
 		logger.info("찜하기 처리 결과, result={}", result);
@@ -143,37 +147,27 @@ public class ProductController {
 		return "/common/message";
 	}
 	
-	@PostMapping("/form")
-	public String form(@ModelAttribute FormVo formVo,
-			Model model) {
+	@ResponseBody
+	@PostMapping("/ajaxForm")
+	public int form(@RequestBody FormVo formVo) {
 		logger.info("의뢰서 등록 처리, 파라미터 formVo={}", formVo);
-		formVo.setUserId("kim");	//test
+		//formVo.setUserId("kim");	//test
 		
 		Map<String, Object> map=formService.formConfirm(formVo);
 		logger.info("의뢰서 조회 결과, formConfirm={}", map);
+		int result=0;
 		if(map != null) {
-			String msg="현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.", url="/pd/pdDetail?pdNo="+formVo.getPdNo();
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			
-			return "/common/message";
+			result=2;
 		}
 		
 		int cnt=formService.insertForm(formVo);
-		logger.info("의뢰서 등롤 결과, cnt={}", cnt);
+		logger.info("의뢰서 등록 결과, cnt={}", cnt);
 		
-		boolean confirm=true;
-		if(cnt==0) {
-			String msg="의뢰서를 전송을 실패하였습니다.", url="/pd/pdDetail?pdNo="+formVo.getPdNo();
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			
-			return "/common/message";
+		if(cnt>0) {
+			result=1;
 		}
 		
-		model.addAttribute("confirm", confirm);
-		
-		return "forward:/pd/pdDetail";
+		return result;
 	}
 	
 	@GetMapping("/formConfirm")
