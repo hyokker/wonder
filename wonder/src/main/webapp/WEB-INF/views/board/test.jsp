@@ -3,9 +3,5 @@
 <%@ include file="../inc/top.jsp" %>
 
 <title>wonder - </title>
-			<!-- ============================ Page Title Start================================== -->
-			
-			<!-- ============================ Submit Property End ================================== -->
-			
 
 <%@ include file="../inc/bottom.jsp" %>

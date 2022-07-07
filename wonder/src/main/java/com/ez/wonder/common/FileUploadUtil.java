@@ -249,7 +249,7 @@ public class FileUploadUtil {
 			if(pathFlag==ConstUtil.UPLOAD_FILE_FLAG) {  //자료실 업로드
 				path=ConstUtil.FILE_UPLOAD_PATH_TEST;
 			}else if(pathFlag==ConstUtil.UPLOAD_IMAGE_FLAG) {  //상품 등록시 이미지 업로드
-				path=ConstUtil.IMAGE_FILE_UPLOAD_PATH_TEST;				
+				path=ConstUtil.IMAGE_FILE_UPLOAD_PATH_TEST;			
 			}else if(pathFlag==ConstUtil.EXPERT_PROFILE_IMAGE) {  //전문가 프로필 이미지 업로드
 				path=ConstUtil.EXPERT_PROFILE_IMAGE_PATH_TEST;				
 			}else if(pathFlag==ConstUtil.EXPERT_PORTFOLIO_IMAGE) {  //전문가 포트폴리오 이미지 업로드
@@ -257,7 +257,7 @@ public class FileUploadUtil {
 			}
 		}else {  //배포시(deploy)
 			if(pathFlag==ConstUtil.UPLOAD_FILE_FLAG) {  //자료실 업로드
-				path=ConstUtil.FILE_UPLOAD_PATH;  //pds_upload
+				path=ConstUtil.FILE_UPLOAD_PATH;  //board_upload
 			}else if(pathFlag==ConstUtil.UPLOAD_IMAGE_FLAG) {  //상품 등록시 이미지 업로드
 				path=ConstUtil.IMAGE_FILE_UPLOAD_PATH; //pd_images				
 			}else if(pathFlag==ConstUtil.EXPERT_PROFILE_IMAGE) {  //전문가 프로필 이미지 업로드
