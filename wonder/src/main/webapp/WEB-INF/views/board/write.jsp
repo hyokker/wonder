@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%> 
 <%@ include file="../inc/top.jsp"%>
- 
+
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/board.css'/>" />
 
@@ -15,7 +15,7 @@
 	-->
 </c:if>
 <script type="text/javascript">
-//jquerry작동안됨
+
 
 </script>
 
@@ -113,10 +113,14 @@
 					</div>
 				</fieldset>
 			</form>
+			<!--ckEditor  -->
+			<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+			<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+			<script type="text/javascript" src="<c:url value='/js/board.js'/>"></script>
+
 		</div>
 	</div>
 </section>
-<!-- ============================ Submit Property End ================================== -->
 
 
 <%@ include file="../inc/bottom.jsp"%>

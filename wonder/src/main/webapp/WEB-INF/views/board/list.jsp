@@ -13,7 +13,9 @@
 <title>wonder - 자유게시판</title>
 
 <section class="gray pt-5 pb-5">
+<div class="property_block_title">
 	<h2>&nbsp;자유게시판</h2>
+</div>
 	<hr>
 	<c:if test="${!empty param.searchKeyword }">
 		<div class="tit" id="srchTitBar">
@@ -28,8 +30,8 @@
 		name="frmPage">
 		<input type="hidden" name="searchKeyword"
 			value="${param.searchKeyword }"> <input type="hidden"
-			name="searchCondition" value="${param.searchCondition }"> <input
-			type="hidden" name="currentPage">
+			name="searchCondition" value="${param.searchCondition }">
+		<input type="hidden" name="currentPage">
 	</form>
 
 	<div class="container-fluid">
@@ -77,29 +79,25 @@
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_caption">
 																	<div class="prt_dash_rate">
-																		<c:if test="${vo.delType=='Y'}">
-																			<strong style="color: red">삭제된 게시글입니다.</strong>
+																		<!--공지인 경우  -->
+																		<c:if test="${vo.cateType=='N'}">
+																			<span class="notice">공지</span>
 																		</c:if>
-																		<c:if test="${vo.delType!='Y'}">
-																			<!--공지인 경우  -->
-																			<c:if test="${vo.cateType=='N'}">
-																				<span class="notice">공지</span>
-																			</c:if>
-																			<a
-																				href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
-																				<c:if test="${fn: length(vo.boardTitle)>20}">
-																                  ${fn:substring(vo.boardTitle,0,20) }...            
-																            </c:if> <c:if
-																					test="${fn: length(vo.boardTitle)<=20}">
-																                  ${vo.boardTitle }            
-																            </c:if>
-																			</a>
-																			<c:if test="${!empty vo.fileName }">
-																				<img src='<c:url value="/img/file.gif"/>'>
-																			</c:if>
-																			<c:if test="${vo.dateTerm<24 }">
-																				<span class="new">new</span>
-																			</c:if>
+																		<a
+																			href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
+																			<c:if test="${fn: length(vo.boardTitle)>20}">
+															                  ${fn:substring(vo.boardTitle,0,20) }...            
+															            </c:if>
+															            <c:if
+																				test="${fn: length(vo.boardTitle)<=20}">
+															                  ${vo.boardTitle }           
+															            </c:if>
+																		</a>
+																		<c:if test="${!empty vo.fileName }">
+																			<img src='<c:url value="/img/file.gif"/>'>
+																		</c:if>
+																		<c:if test="${vo.dateTerm<24 }">
+																			<span class="new">new</span>
 																		</c:if>
 																	</div>
 																</div>
@@ -132,17 +130,17 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
+				
 						<div class="col-lg-12 col-md-12">
 							<div class="_prt_filt_dash">
 							<!-- 검색바  -->
 								<div class="divSearch">
+								<div class="divSearch_bar">
 									<form name="frmSearch" method="post"
 										action='<c:url value="/board/list"/>'>
 										<div class="_prt_filt_dash_flex">
 											<div class="foot-news-last">
-												<div class="form-group col-md-4">
+												<div class="form-group col-md-4" id="searchCondition">
 													<select name="searchCondition" class="form-control">
 														<option value="board_title"
 															<c:if test="${param.searchCondition=='board_title' }">
@@ -158,7 +156,6 @@
 											            	</c:if>>작성자</option>
 													</select>
 												</div>
-												<div class="form-group col-md-1"></div>
 												<div class="input-group">
 													<input type="text" class="form-control"
 														name="searchKeyword" placeholder="검색어 입력"
@@ -171,17 +168,14 @@
 													</div>
 												</div>
 											</div>
-										</div>
 
+										</div>
 									</form>
-								</div>
-								<div class="_prt_filt_dash_last m2_hide">
-									<div class="_prt_filt_radius"></div>
-									<div class="_prt_filt_add_new">
-										<a href="<c:url value="/board/write"/>"
-											class="prt_submit_link"><i class="fas fa-edit"></i><span
-											class="d-non`e d-lg-block d-md-block">글쓰기</span></a>
-									</div>
+										</div>
+						<button class="btn btn-theme" type="button" id=""
+							onclick="location.href='<c:url value='write'/>'">
+							<i class="fas fa-edit"></i> 글쓰기
+						</button>
 								</div>
 							</div>
 							<!--페이지이동  -->
