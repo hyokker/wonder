@@ -30,8 +30,8 @@
 		name="frmPage">
 		<input type="hidden" name="searchKeyword"
 			value="${param.searchKeyword }"> <input type="hidden"
-			name="searchCondition" value="${param.searchCondition }"> <input
-			type="hidden" name="currentPage">
+			name="searchCondition" value="${param.searchCondition }">
+		<input type="hidden" name="currentPage">
 	</form>
 
 	<div class="container-fluid">
@@ -79,29 +79,25 @@
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_caption">
 																	<div class="prt_dash_rate">
-																		<c:if test="${vo.delType=='Y'}">
-																			<strong class="red">삭제된 게시글입니다.</strong>
+																		<!--공지인 경우  -->
+																		<c:if test="${vo.cateType=='N'}">
+																			<span class="notice">공지</span>
 																		</c:if>
-																		<c:if test="${vo.delType!='Y'}">
-																			<!--공지인 경우  -->
-																			<c:if test="${vo.cateType=='N'}">
-																				<span class="notice">공지</span>
-																			</c:if>
-																			<a
-																				href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
-																				<c:if test="${fn: length(vo.boardTitle)>20}">
-																                  ${fn:substring(vo.boardTitle,0,20) }...            
-																            </c:if> <c:if
-																					test="${fn: length(vo.boardTitle)<=20}">
-																                  ${vo.boardTitle }            
-																            </c:if>
-																			</a>
-																			<c:if test="${!empty vo.fileName }">
-																				<img src='<c:url value="/img/file.gif"/>'>
-																			</c:if>
-																			<c:if test="${vo.dateTerm<24 }">
-																				<span class="new">new</span>
-																			</c:if>
+																		<a
+																			href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
+																			<c:if test="${fn: length(vo.boardTitle)>20}">
+															                  ${fn:substring(vo.boardTitle,0,20) }...            
+															            </c:if>
+															            <c:if
+																				test="${fn: length(vo.boardTitle)<=20}">
+															                  ${vo.boardTitle }           
+															            </c:if>
+																		</a>
+																		<c:if test="${!empty vo.fileName }">
+																			<img src='<c:url value="/img/file.gif"/>'>
+																		</c:if>
+																		<c:if test="${vo.dateTerm<24 }">
+																			<span class="new">new</span>
 																		</c:if>
 																	</div>
 																</div>

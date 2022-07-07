@@ -69,15 +69,7 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteBoard(int boardNo) {
 		return boardDao.deleteBoard(boardNo);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 }

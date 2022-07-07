@@ -70,7 +70,7 @@
 												<div class="form-group col-md-12" id="content">
 													<label for="boardContent">내용</label>
 													<textarea class="form-control ht-120" rows="50" cols="50"
-														name="boardContent">${vo.boardContent}</textarea>
+														id="boardContent" name="boardContent">${vo.boardContent}</textarea>
 												</div>
 											</div>
 										</div>
@@ -96,10 +96,13 @@
 					</div>
 				</fieldset>
 			</form>
+			<!--ckEditor  -->
+			<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+			<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+			<script type="text/javascript" src="<c:url value='/js/board.js'/>"></script>
 		</div>
 	</div>
 </section>
-<!-- ============================ Submit Property End ================================== -->
 
 
 <%@ include file="../inc/bottom.jsp"%>

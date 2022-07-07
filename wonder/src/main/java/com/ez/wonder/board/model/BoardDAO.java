@@ -13,10 +13,11 @@ public interface BoardDAO {
 	int getTotalRecord(SearchVO searchVo);
 	public int updateCount(int boardNo);
 	public BoardVO selectByNo(int boardNo);
-	int updateDownCount(int boardNo);
 	String selectPwd(int boardNo);
 	public int updateBoard(BoardVO vo);
+	int updateDownCount(int boardNo);
 	public int deleteBoard(int boardNo);
+	
 	
 }
 

@@ -76,5 +76,5 @@
 	<delete id="deleteBoard" parameterType="int">
 		delete board where board_no=#{boardNo}
 	</delete>
-
+	
 </mapper>

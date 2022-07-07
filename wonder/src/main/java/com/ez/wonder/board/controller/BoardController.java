@@ -25,6 +25,8 @@ import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.reply.model.ReplyService;
+import com.ez.wonder.reply.model.ReplyVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +38,7 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	private final FileUploadUtil fileUploadUtil;
+	private final ReplyService replyService;
 	
 	@GetMapping("/test")
 	public void test() {
@@ -87,7 +90,6 @@ public class BoardController {
 	public void list(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("자유게시판 목록, 파라미터 searchVo={}", searchVo);
 		
-		
 		 PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
 		 pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
@@ -104,7 +106,8 @@ public class BoardController {
 		logger.info("조회 건수 totalRecord={}", totalRecord);
 		
 		pagingInfo.setTotalRecord(totalRecord);
-		
+						
+
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
 	}
@@ -128,7 +131,8 @@ public class BoardController {
 	@RequestMapping("/detail")
 	public String detail(@RequestParam(defaultValue = "0") int boardNo,
 			HttpServletRequest request, Model model) {
-		logger.info("게시글 상세보기 파라미터 boardNo={}", boardNo);
+		logger.info("게시글 상세보기, 파라미터 boardNo={}", boardNo);
+		logger.info("댓글 목록 파라미터, boardNo={}", boardNo);
 
 		if(boardNo==0) {
 			model.addAttribute("msg", "잘못된 url 접근입니다");
@@ -142,9 +146,18 @@ public class BoardController {
 		String fileInfo
 		=fileUploadUtil.getFileInfo(vo.getOriginalFileName(), 
 				vo.getFileSize(), request);
+		
+		List<ReplyVO> replyList=replyService.showAll(boardNo);
+		logger.info("댓글 목록 조회 결과, replyList.size={}", replyList.size());
+		
+		//totalRecord개수 구하기
+		int totalComment=replyService.getTotalComment(boardNo);
+		logger.info("게시물당 총 댓글 수 totalComment={}", totalComment);
 
 		model.addAttribute("vo", vo);
 		model.addAttribute("fileInfo", fileInfo);
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("totalComment", totalComment);
 		
 		return "board/detail";
 		
@@ -305,18 +318,7 @@ public class BoardController {
 		return "common/message";
 	}
 	
-	@GetMapping("/reply.do")
-	public String reply_get() {
 	
-		
-		return "";
-	}
-	
-	@PostMapping("/reply.do")
-	public String reply_post() {
-	
-		return "";
-	}
 }
 
 
