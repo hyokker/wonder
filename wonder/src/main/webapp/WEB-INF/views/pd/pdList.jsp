@@ -33,7 +33,7 @@
 					str += '<div class="click">';
 					item.pdImages.forEach(function(image, index) {
 						console.log(image.fileName);
-						str += '<div><a href="single-property-1.html"><img src="<c:url value='/img/pdupload/${PdImageVO.fileName}'/>" class="img-fluid mx-auto" alt="" /></a></div>';
+						str += '<div><a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'" ><img src="" class="img-fluid mx-auto" alt="" /></a></div>';
 					});
 					str += '</div>';
 					str += '</div>';
@@ -59,7 +59,7 @@
 					str += '</div>';
 					str += '<div class="_card_list_flex">';
 					str += '<div class="_card_flex_01">';
-					str += '<h4 class="listing-name verified"><a href="single-property-1.html" class="prt-link-detail" id="pdTitle">' + item.pdTitle + '</a></h4>';
+					 str += '<h4 class="listing-name verified"><a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'" class="prt-link-detail" id="pdTitle">' + item.pdTitle + '</a></h4>';
 					str += '</div>';
 					str += '</div>';
 					str += '</div>';
@@ -278,7 +278,7 @@
 		$(function() {
 			
 			$('#pdWrite').click(function() {
-				var userType = '<%=(String) session.getAttribute("userType")%>';
+				var userType = '<%=(String) session.getAttribute("type")%>';
 				console.log(userType);
 				if (userType == '전문가') {
 					location.href = "/wonder/pd/pdWrite"
@@ -458,7 +458,14 @@
 
 				<div class="col-lg-8 col-md-12 col-sm-12">
 					<div class="row justify-content-center" id="ProductList">
-
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="stbooking-footer mt-1">
+								<div class="form-group mb-0 pb-0">
+									<a href="#" class="btn book_btn theme-bg" id="pdWrite" >상품 등록하기</a>
+									<br><br>
+								</div>
+							</div>
+						</div>
 						<!-- Single Property -->
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 							<c:forEach var="pdListVo" items="${pdList}" varStatus="status">
@@ -469,7 +476,7 @@
 											<div class="click">
 												<c:forEach var="PdImageVO" items="${pdListVo.pdImages}" varStatus="status">
 													<div>
-														<a href="single-property-1.html"><img src="<c:url value='/img/pdupload/${PdImageVO.fileName}'/>" class="img-fluid mx-auto" alt="" /></a>
+														<a href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>"><img src="../../../../resources/static/img/pdupload/${PdImageVO.fileName}" class="img-fluid mx-auto" alt="" /></a>
 													</div>
 												</c:forEach>
 											</div>
@@ -499,9 +506,8 @@
 												</div>
 												<div class="_card_list_flex">
 													<div class="_card_flex_01">
-														<h4 class="listing-name verified">
-															<a href="single-property-1.html" class="prt-link-detail" id="pdTitle">${pdListVo.pdTitle}</a>
-														</h4>
+														<h4 class="listing-name verified"><a href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>" 
+														class="prt-link-detail" id="pdTitle">${pdListVo.pdTitle}</a></h4>
 													</div>
 												</div>
 											</div>
