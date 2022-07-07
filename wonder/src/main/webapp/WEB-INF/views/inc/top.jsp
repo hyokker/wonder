@@ -47,8 +47,6 @@ src="${pageContext.request.contextPath}/img/logo.png"
 <div class="nav-toggle"></div>
 <div class="mobile_nav">
 	<ul>
-		<!-- <li class="_my_prt_list"><a href="#"><span></span></a></li> -->
-<!-- <li><a href="#" data-toggle="modal" data-target="#login"><i class="fas fa-user-circle fa-lg"></i></a></li> -->
 		</ul>
 	</div>
 </div>
@@ -57,97 +55,22 @@ src="${pageContext.request.contextPath}/img/logo.png"
 
 	<li class="active"><a
 		href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span
-class="submenu-indicator"></span></a> <%-- 	<!-- 관리자 로그인 창 이동 버튼  -->
-<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
-<script type="text/javascript">
-	$(function(){
-		$("#dblclick").dblclick(function() {
-				location.href="/wonder/admin/login";					
-		
-	      });
-	});
-
-</script>
-
-<button id="dblclick" type="button">doubleClick</button>
- --%></li>
+class="submenu-indicator"></span></a></li>
 
 <li><a>상품 목록 <span class="submenu-indicator"></span>
 </a>
 	<ul class="nav-dropdown nav-submenu">
 		<li><a href="<c:url value='/pd/pdList'/>"">언어별 상품 목록<span
 		class="submenu-indicator"> </span>
-</a> <!-- 		 	<ul class="nav-dropdown nav-submenu">
-	<li><a href="grid-layout-with-sidebar.html">JAVA</a></li>
-	<li><a href="grid-layout-2.html">ORACLE</a></li>
-	<li><a href="grid-layout-3.html">SPRING</a></li>
-</ul>  --></li>
-<!-- <li><a href="#">가격별 상품 목록<span class="submenu-indicator"></span></a>
-	<ul class="nav-dropdown nav-submenu">
-		<li><a href="list-layout-with-sidebar.html">BRONZE</a></li>
-		<li><a href="list-layout-with-map-2.html">SILVER</a></li>
-		<li><a href="list-layout-with-map-2.html">GOLD</a></li>
-	</ul>
-</li> -->
-<!-- <li><a href="#">Listing Map<span class="submenu-indicator"></span></a>
-	<ul class="nav-dropdown nav-submenu">
-		<li><a href="half-map.html">Half Map</a></li>
-		<li><a href="half-map-2.html">Half Map 2</a></li>
-		<li><a href="classical-layout-with-map.html">Classical With Sidebar</a></li>
-		<li><a href="list-layout-with-map.html">List Sidebar Map</a></li>
-		<li><a href="grid-layout-with-map.html">Grid Sidebar Map</a></li>
-	</ul>
-</li>
-<li><a href="#">Agents View<span class="submenu-indicator"></span></a>
-	<ul class="nav-dropdown nav-submenu">
-		<li><a href="agents.html">Agent Grid Style</a></li>
-		<li><a href="agents-2.html">Agent Grid 2</a></li>
-		<li><a href="agent-page.html">Agent Detail Page</a></li>
-	</ul>
-</li>
-<li><a href="#">Agency View<span class="submenu-indicator"></span></a>
-	<ul class="nav-dropdown nav-submenu">
-		<li><a href="agencies.html">Agency Grid Style</a></li>
-		<li><a href="agency-page.html">Agency Detail Page</a></li>
-	</ul>
-</li> -->
+</a> 
 	</ul></li>
 
 <li><a href="<c:url value='/board/list'/>">자유게시판<span
-class="submenu-indicator"></span></a> <!-- <ul class="nav-dropdown nav-submenu">
-	<li class=""><a href="#">User Admin<span class="submenu-indicator"></span></a>
-		<ul class="nav-dropdown nav-submenu">
-			<li><a href="dashboard.html">User Dashboard</a></li>
-			<li><a href="my-profile.html">My Profile</a></li>
-			<li><a href="my-property.html">My Property</a></li>
-			<li><a href="messages.html">Messages</a></li>
-			<li><a href="bookmark-list.html">Bookmark Property</a></li>
-			<li><a href="submit-property.html">Submit Property</a></li>
-		</ul>
-	</li>
-	<li><a href="#">Single Property<span class="submenu-indicator"></span></a>
-		<ul class="nav-dropdown nav-submenu">
-			<li><a href="single-property-1.html">Single Property 1</a></li>
-			<li><a href="single-property-2.html">Single Property 2</a></li>
-			<li><a href="single-property-3.html">Single Property 3</a></li>
-			<li><a href="single-property-4.html">Single Property 4</a></li>
-		</ul>
-	</li>
-	<li><a href="compare-property.html">Compare Property</a></li>
-</ul> --></li>
+class="submenu-indicator"></span></a> 
 
 <li><a href="<c:url value='/qna/qnaList'/>">Q&A게시판<span
-class="submenu-indicator"></span></a> <!-- 	<ul class="nav-dropdown nav-submenu">
-	<li><a href="blog.html">Blog Style</a></li>
-	<li><a href="about-us.html">About Us</a></li>
-	<li><a href="pricing.html">Pricing</a></li>
-	<li><a href="404.html">404 Page</a></li>
-	<li><a href="checkout.html">Checkout</a></li>
-	<li><a href="contact.html">Contact</a></li>
-	<li><a href="component.html">Elements</a></li>
-	<li><a href="privacy.html">Privacy Policy</a></li>
-	<li><a href="faq.html">FAQs</a></li>
-</ul> --></li>
+class="submenu-indicator"></span></a>
+	<li></li>
 
 </ul>
 <!-- 로그인 안된 경우 -->
@@ -166,6 +89,7 @@ class="submenu-indicator"></span></a> <!-- 	<ul class="nav-dropdown nav-submenu"
 	<li>${sessionScope.userId }님환영합니다! <%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
 <%-- <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li> --%>
 <button class="api-btn" onclick="unlinkApp()">로그아웃</button>
+
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
