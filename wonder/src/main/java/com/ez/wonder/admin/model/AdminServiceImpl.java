@@ -174,13 +174,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public 	ArrayList<SaleVO> countPaymethod(){
+	public 	ArrayList<PaymentVO> countPaymethod(){
 		return adminDao.countPaymethod();
-	}
-	
-	@Override
-	public 	ArrayList<SaleVO> salesPerMonth(){
-		return adminDao.salesPerMonth();
 	}
 	
 	@Override

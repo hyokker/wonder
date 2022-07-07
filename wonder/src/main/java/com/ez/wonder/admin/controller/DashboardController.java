@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.wonder.admin.model.AdminService;
-import com.ez.wonder.admin.model.SaleVO;
+import com.ez.wonder.admin.model.PaymentVO;
 import com.ez.wonder.form.model.FormVo;
 
 import lombok.RequiredArgsConstructor;
@@ -50,11 +50,9 @@ public class DashboardController {
 		return "/admin/dashboard";
 	}
 	
-	@RequestMapping("/chart")
-	public  @ResponseBody List<SaleVO> salesPerMonth (@ModelAttribute SaleVO saleVo, Model model){
-		List<SaleVO> chart1 = adminService.salesPerMonth();
-		model.addAttribute("chart1", chart1);
-		return chart1;
+	@RequestMapping("/chartjs")
+	public String chartjs() {
+		return "/admin/chartjs";
 	}
 }
 
