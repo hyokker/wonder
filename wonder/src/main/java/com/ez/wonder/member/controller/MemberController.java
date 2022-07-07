@@ -127,67 +127,6 @@ public class MemberController {
 		return "/member/checkUserId";
 	}
 	
-	@RequestMapping("/member/kakaoLogin")
-	public String kakaoLogin(@RequestParam(required = false) String email, @RequestParam(required = false) String nick,
-			HttpServletRequest request,
-			HttpServletResponse response,
-			Model model) {
-		logger.info("카카오 로그인 or 회원가입 처리, 파라미터 email={},nick={}",email,nick);
-		
-		MemberVO vo = new MemberVO();
-		int result=0;
-		
-		String userId=email.substring(0,email.indexOf("@"));
-		logger.info("db에 넣을 이메일 짜른것 userId={}",userId);
-		
-		
-		result=memberService.duplicateId(email);
-		logger.info("중복확인 resutl={}",result);
-		String msg="로그인 실패", url="/";
-		if(result==MemberService.USABLE_ID) {
-			
-			vo.setUserId(email);
-			vo.setEmail(email);
-			vo.setName(nick);
-			vo.setNickname(nick);
-			vo.setPwd("1234");
-			vo.setTel("010-1234-1234");
-			
-			int cnt=memberService.insertMember(vo);
-			logger.info("회원가입 결과 cnt={}",cnt);
-				if(cnt>0) {
-					//[1] session에 저장
-					HttpSession session=request.getSession();
-					session.setAttribute("userId", email);
-					session.setAttribute("userName", nick);
-					logger.info("회원 가입 후 로그인 세션 email={},nick={}",email,nick);
-					
-					msg=nick+"님 로그인되었습니다.";
-					url="/";
-					
-					model.addAttribute("msg", msg);
-					model.addAttribute("url", url);
-				}
-				return "/common/message";
-			}
-		//[1] session에 저장
-		HttpSession session=request.getSession();
-		session.setAttribute("userId", email);
-		session.setAttribute("userName", nick);
-		session.setAttribute("LoginType", "kakao");
-		
-		logger.info("회원 가입 후 패스 후 로그인 세션 email={},nick={}",email,nick);
-		
-		msg=nick+"님 로그인되었습니다.";
-		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
-		return "/common/message";
-		
-	}
-	
-	
 	@RequestMapping("/member/dupId")
 	@ResponseBody
 	public boolean dupId(@RequestParam String userId) {
@@ -226,8 +165,10 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", userId);
 			session.setAttribute("userName", memVo.getName());
-			session.setAttribute("type", memVo.getType());
-			session.setAttribute("LoginType", "normal");
+			session.setAttribute("type", memVo.getType()); //로그인 회원의 타입(1.일반회원, 2.프리랜서)
+			
+			
+			session.setAttribute("LoginType", "normal"); //일반 회원 로그인 타입 노말
 
 			
 			msg=memVo.getUserId()+"님 로그인되었습니다.";
@@ -237,4 +178,64 @@ public class MemberController {
 	   }
 		return 2;
 	}	
+	@RequestMapping("/member/kakaoLogin")
+	public String kakaoLogin(@RequestParam(required = false) String email, @RequestParam(required = false) String nick,
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Model model) {
+		logger.info("카카오 로그인 or 회원가입 처리, 파라미터 email={},nick={}",email,nick);
+		
+		MemberVO vo = new MemberVO();
+		int result=0;
+		
+		String userId=email.substring(0,email.indexOf("@"));
+		logger.info("db에 넣을 이메일 짜른것 userId={}",userId);
+		
+		
+		result=memberService.duplicateId(email);
+		logger.info("중복확인 resutl={}",result);
+		String msg="로그인 실패", url="/";
+		if(result==MemberService.USABLE_ID) {
+			
+			vo.setUserId(email);
+			vo.setEmail(email);
+			vo.setName(nick);
+			vo.setNickname(nick);
+			vo.setPwd("1234");
+			vo.setTel("010-1234-1234");
+			
+			int cnt=memberService.insertMember(vo);
+			logger.info("회원가입 결과 cnt={}",cnt);
+				if(cnt>0) {
+					//[1] session에 저장
+					HttpSession session=request.getSession();
+					session.setAttribute("userId", email);
+					session.setAttribute("userName", nick);
+					session.setAttribute("LoginType", "kakao");//카카오 회원 로그인 타입 카카오
+					logger.info("회원 가입 후 로그인 세션 email={},nick={}",email,nick);
+					
+					msg=nick+"님 로그인되었습니다.";
+					url="/";
+					
+					model.addAttribute("msg", msg);
+					model.addAttribute("url", url);
+				}
+				return "/common/message";
+			}
+		//[1] session에 저장
+		HttpSession session=request.getSession();
+		session.setAttribute("userId", email);
+		session.setAttribute("userName", nick);
+		session.setAttribute("LoginType", "kakao");//카카오 회원 로그인 타입 카카오
+		
+		logger.info("회원 가입 후 패스 후 로그인 세션 email={},nick={}",email,nick);
+		
+		msg=nick+"님 로그인되었습니다.";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+		
+	}
 }

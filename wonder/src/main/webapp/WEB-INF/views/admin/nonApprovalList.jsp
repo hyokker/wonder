@@ -1,6 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<script src="${pageContext.request.contextPath}/js/adminpaging.js"></script>
+<style type="text/css">
+#img {
+	padding-left: 10px;
+}
+
+.divSearch {
+	flex: 0 0 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#formflex {
+	display: contents;
+}
+
+#optionbar {
+	max-width: 300px;
+	display: flex;
+}
+
+#searchinput {
+	width: 220px;
+}
+
+div#srchTitBar {
+	height: 30px;
+}
+
+#searchment {
+	padding-left: 20px;
+}
+</style>
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
@@ -52,7 +85,8 @@
 
 					<div class="dash_user_footer">
 						<ul>
-							<li><a href="<c:url value='/admin/logout'/>"><i class="fa fa-power-off"></i></a></li>
+							<li><a href="<c:url value='/admin/logout'/>"><i
+									class="fa fa-power-off"></i></a></li>
 							<li><a href="<c:url value='/admin/email'/>"><i
 									class="fa fa-envelope"></i></a></li>
 							<li><a href="#"><i class="fa fa-cog"></i></a></li>
@@ -62,8 +96,56 @@
 				</div>
 			</div>
 
+			<form action="<c:url value='/admin/nonApprovalList'/>" method="post"
+				name="frmPage">
+				<input type="hidden" name="searchKeyword"
+					value="${param.searchKeyword }"> <input type="hidden"
+					name="searchCondition" value="${param.searchCondition }"> <input
+					type="hidden" name="currentPage">
+			</form>
+
 			<div class="col-lg-9 col-md-8 col-sm-12">
 				<div class="dashboard-body">
+
+					<div class="col-lg-12 col-md-12">
+						<div class="_prt_filt_dash">
+
+							<div class="divSearch">
+								<form name="frmSearch" method="post" id="formflex"
+									action='<c:url value="/admin/nonApprovalList"/>'>
+									<div class="_prt_filt_dash_flex">
+										<div class="foot-news-last" id="optionbar">
+											<div class="col-lg-6 col-md-6 col-sm-6">
+												<div class="form-group">
+													<select name="searchCondition" class="form-control">
+														<option value="user_Id"
+															<c:if test="${param.searchCondition == 'user_Id'}">selected="selected"</c:if>>아이디</option>
+													</select>
+												</div>
+											</div>
+											<div class="input-group">
+												<input type="text" class="form-control" id="searchinput"
+													name="searchKeyword" placeholder="아이디로 조회"
+													value="${param.searchKeyword}">
+												<!-- 													<div class="input-group-append">
+														<btton type="submit"
+															class="input-group-text theme-bg b-0 text-light">
+														<i class="fas fa-search"></i>
+														</button>
+													</div> -->
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+
+					<c:if test="${!empty param.searchKeyword }">
+						<p id="searchment">
+							"${param.searchKeyword}" 검색 결과 총 <strong class="tit_cnt">${pagingInfo.totalRecord}</strong>
+							건 검색되었습니다.
+						</p>
+					</c:if>
 
 					<div class="dashboard-wraper">
 
@@ -71,7 +153,6 @@
 						<div class="frm_submit_block">
 							<h4>거래대기 목록</h4>
 						</div>
-
 						<table class="property-table-wrap responsive-table bkmark">
 
 							<tbody>
@@ -90,9 +171,10 @@
 														<a href="#">${productVo.pdTitle }</a>
 													</h4>
 													<span>${productVo.userId }</span> <span
-														class="table-property-price">900000만원</span>
+														class="table-property-price">이거를 어디서 불러올까 만원</span>
 												</div></td>
-											<td class="action"><a href="delnonApList?formNo=${formVo.formNo }" class="delete"><i
+											<td class="action"><a
+												href="delnonApList?formNo=${formVo.formNo }" class="delete"><i
 													class="ti-close"></i> Delete</a></td>
 										</tr>
 									</c:forEach>

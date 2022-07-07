@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="u" uri="/WEB-INF/customTag/Utility.tld"%>
 <%@ include file="../inc/top.jsp"%>
+<script src="${pageContext.request.contextPath}/js/adminpaging.js"></script>
 <style type="text/css">
 #img {
 	padding-left: 10px;
@@ -34,12 +35,6 @@ div#srchTitBar {
 	padding-left: 20px;
 }
 </style>
-<script type="text/javascript">
-	function pageProc(currentPage) {
-		$('input[name=currentPage]').val(currentPage);
-		$('form[name=frmPage]').submit();
-	}
-</script>
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
@@ -191,7 +186,7 @@ div#srchTitBar {
 											<!-- tr block -->
 											<c:if test="${empty list }">
 												<tr>
-													<td colspan="5">게시글이 존재하지 않습니다.</td>
+													<td colspan="5">회원이 존재하지 않습니다.</td>
 												</tr>
 											</c:if>
 											<c:if test="${!empty list}">
@@ -237,7 +232,7 @@ div#srchTitBar {
 																</h5>
 															</div>
 															<div class="_leads_view_title">
-																<span>${u:diffOfDate(${memberVo.regdate})}</span>
+																<%-- <span>${u:diffOfDate(${memberVo.regdate})}</span> --%>
 															</div>
 														</td>
 														<td><c:if test="${memberVo.type eq '일반회원' }">

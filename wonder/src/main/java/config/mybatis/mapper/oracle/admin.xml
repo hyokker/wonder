@@ -28,12 +28,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
+
 	<delete id="deleteMember" parameterType="int">
-		delete 
+		delete
 		from
 		member
-		where mem_No=#{memNO}
+		where
+		mem_No=#{memNO}
 	</delete>
 
 	<select id="selectNonApprovalEx" resultType="memberVo"
@@ -53,30 +54,33 @@
 		<if test="searchKeyword !=null and searchKeyword !=''">
 			and
 		</if>
-		grant_flag = 'N'
+		grant_flag = 'N' and type='일반회원'
 		order by mem_No desc
 		)B
 		)
-		where RNUM>#{firstRecordIndex} 
+		where
+		RNUM>#{firstRecordIndex} 
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
+
 	<update id="grantExpert" parameterType="int">
 		update
 		member
 		set
-		type = '프리랜서'
+		type =
+		'프리랜서'
 		where mem_NO=#{memNO}
 	</update>
-	
+
 	<delete id="deleteExpert" parameterType="int">
 		delete
 		from
 		member
-		where mem_No=#{memNo}
+		where
+		mem_No=#{memNo}
 	</delete>
-		
+
 	<select id="selectProduct" resultType="productVo"
 		parameterType="searchVo">
 		select *
@@ -95,12 +99,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
+
 	<delete id="deleteProduct" parameterType="int">
 		delete
 		from
 		product
-		where pd_No=#{pdNo}
+		where
+		pd_No=#{pdNo}
 	</delete>
 
 	<select id="selectAdmin" resultType="adminVo"
@@ -121,12 +126,13 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
+
 	<delete id="deleteSubAdmin" parameterType="int">
 		delete
 		from
 		admin
-		where admin_No=#{adminNo}
+		where
+		admin_No=#{adminNo}
 	</delete>
 
 	<select id="selectNonApprovalList" resultType="productVo"
@@ -155,18 +161,43 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
-	
+
 	<delete id="deleteForm" parameterType="int">
 		delete
 		from
 		form
-		where form_no-#{formNo}
+		where
+		form_no-#{formNo}
 	</delete>
 
-	<select id="getTotalRecord" parameterType="searchVo"
+	<select id="getMemTotalRecord" parameterType="searchVo"
 		resultType="int">
 		select count(*) from member
 		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="getPdTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from product
+		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="getAdTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from admin
+		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="getFormTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from form
+		<include refid="searchWhere"></include>
+		<if test="searchKeyword ==null or searchKeyword ==''"> where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			and
+		</if>
+		pay_flag='N'
 	</select>
 
 	<select id="selectByAdminId" parameterType="string"
@@ -202,5 +233,5 @@
 		where admin_Id=#{adminId}
 	</select>
 
-	
+
 </mapper>
