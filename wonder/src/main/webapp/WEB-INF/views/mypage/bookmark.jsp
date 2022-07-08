@@ -5,12 +5,65 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
+<script type="text/javascript">
+	$(function(){
+		$('.action').each(function(item,idx){
+			$(this).find('.delete').click(function(){
+				if(!confirm('정보를 수정하시겠습니까?')){
+					return false;
+				}else{
+					var deleteNo = $(this).next().val();
+					
+					$.ajax({
+						url : "<c:url value='/mypage/bookmark/delBookmark'/>",
+						type : 'GET',
+						data : "deleteNo="+deleteNo,
+						success : function(response) {
+							console.log(response); //response = list
+							
+							$('.bkmark tbody').empty();
+							
+							for(var i=0;i<response.length;i++){
+							var html ='';
+							var price = response[i].PD_PRICE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+							
+							html += '<tr>';
+							html += '<td class="dashboard_propert_wrapper">';
+							html += '	<img src="/wonder/img/pdupload/'+response[i].FILE_NAME+'" alt="찜목록 사진" class="bookmarkImg">';
+							html += '	<div class="title">';
+							html += '		<h4><a href="#">'+response[i].PD_TITLE+'</a></h4>';
+							html += '		<span>'+response[i].INTRODUCTION+'</span>';
+							html += '		<span class="table-property-price">'+price+'원 부터~</span>';
+							html += '	</div>';
+							html += '</td>';
+							html += '<td class="action">';
+							html += '	<a class="delete pointer"><i class="ti-close"></i> 찜 취소</a>';
+							html += '	<input type="text" value="'+response[i].PD_NO+'" class="pdNo">';
+							html += '</td>';
+							html += '</tr>';
+							
+							console.log(html);
+								
+							$('.bkmark tbody').append(html);
+							}
+						},
+						error : function(xhr, status, error) {
+							alert("채팅 불러오기 실패, deleteNo = "+deleteNo);
+						}
+					});
+					
+					
+					
+				}//컨펌
+			}); //삭제버튼 클릭 이벤트
+		});
+		
+		
+	});
+</script>
 <input type="hidden" id="pageCheck" value="bookmark">
 
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
-
-
-						
 						<div class="col-lg-9 col-md-8 col-sm-12">
 							<div class="dashboard-body">
 							
@@ -20,30 +73,31 @@
 									<div class="frm_submit_block">	
 										<h4>찜해둔 상품 목록</h4>
 									</div>
-									
 									<table class="property-table-wrap responsive-table bkmark">
-
 										<tbody>
-											<tr>
-												<th><i class="fa fa-file-text"></i> 상품목록</th>
-												<th></th>
-											</tr>
-
 											<!-- Item #1 -->
+											<c:forEach var="map" items="${list }">
 											<tr>
 												<td class="dashboard_propert_wrapper">
-													<img src="<c:url value='/img/mypage/bookmark/ex01.jpg' />" alt="찜목록 사진">
+													<img src="<c:url value='/img/pdupload/${map.FILE_NAME }' />" alt="찜목록 사진" class="bookmarkImg">
 													<div class="title">
-														<h4><a href="#">디자인여기야</a></h4>
-														<span>사용자가 사용하기 편안한 반응형 홈페이지를 제작해 드립니다.
- </span>
-														<span class="table-property-price">100,000 원</span>
+														<h4><a href="#">${map.PD_TITLE }</a></h4>
+														<span>${map.INTRODUCTION }</span>
+														
+														<span class="table-property-price">
+															<fmt:formatNumber value="${map.PD_PRICE }" pattern="#,###" />
+															 원 부터~</span>
 													</div>
 												</td>
 												<td class="action">
-													<a href="#" class="delete"><i class="ti-close"></i> Delete</a>
+													<a class="delete pointer"><i class="ti-close"></i> 찜 취소</a>
+													<input type="text" value="${map.PD_NO }" class="pdNo">
 												</td>
 											</tr>
+											</c:forEach>
+<%-- 
+
+
 
 											<!-- Item #2 -->
 											<tr>
@@ -89,7 +143,7 @@
 													<a href="#" class="delete"><i class="ti-close"></i> Delete</a>
 												</td>
 											</tr>
-
+ --%>
 										</tbody>
 									</table>
 									

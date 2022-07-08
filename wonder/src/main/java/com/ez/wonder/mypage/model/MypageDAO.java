@@ -1,5 +1,6 @@
 package com.ez.wonder.mypage.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -29,5 +30,10 @@ public interface MypageDAO {
 	int deletePortfolio();
 	String selectPwd(String userId);
 	int updatePwd(MemberVO memVo);
-	
+	int insertFree(ExpertVO expertVo);
+	int updateMemberToApplication(ExpertVO expertVo);
+	int insertApplication(ExpertVO expertVo);
+	int checkExpertGrantById(String userId);
+	List<HashMap<String, Object>> selectBookmark(String userId);
+	int deleteBookmark(HashMap<String, Object> map);
 }
