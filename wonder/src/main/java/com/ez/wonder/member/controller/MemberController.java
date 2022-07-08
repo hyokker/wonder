@@ -50,10 +50,12 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", vo.getUserId());
 			session.setAttribute("userName", memVo.getName());
-			session.setAttribute("userType", memVo.getType());
 			session.setAttribute("type", memVo.getType());
 			session.setAttribute("LoginType", "normal");
-			
+
+			logger.info("이름!!!!!!!!vo.getUserId={}", vo.getUserId());
+			logger.info("이름!!!!!!!!memVo.getName={}", memVo.getName());
+			logger.info("유저 타입!!!!!!!!memVo.getType={}", memVo.getType());
 			msg=memVo.getUserId()+"님 로그인되었습니다.";
 			url="/";
 		}else if(result==MemberService.DISAGREE_PWD) {	

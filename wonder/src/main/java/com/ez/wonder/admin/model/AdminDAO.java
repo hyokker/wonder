@@ -42,8 +42,7 @@ public interface AdminDAO {
 	int countProduct();
 	int countPayment();
 
-	ArrayList<SaleVO> countPaymethod();
-	ArrayList<SaleVO> salesPerMonth();
+	ArrayList<PaymentVO> countPaymethod();
 	
 	List<FormVo> selectForm();
 }
