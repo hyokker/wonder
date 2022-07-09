@@ -50,7 +50,7 @@ select A.* from
     from chat 
     where s_user_id=#{userId}
     group by s_user_id, r_user_id
-) A join (
+)  A full outer join (
      select s_user_id, r_user_id, max(timestamp) 
     from chat 
     where r_user_id=#{userId}

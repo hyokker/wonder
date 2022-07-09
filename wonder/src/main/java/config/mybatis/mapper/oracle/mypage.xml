@@ -75,6 +75,15 @@ values (#{userId})
 	values (#{expertImgNo},#{userId},#{fileName},#{originalFileName},#{fileSize},'PROFILE')
 </insert>
 
+<!-- 전문가 사진 기본사진으로 업로드 -->
+<insert id="insertDefaultExpertProfile" parameterType="expertImageVo">
+	<selectKey resultType="int" keyProperty="expertImgNo" order="BEFORE">
+		select EXPERT_IMAGE_SEQ.nextval from dual
+	</selectKey>
+	insert into expert_image
+	values (#{expertImgNo},#{userId},'default_profile.png','default_profile.png',18906,'PROFILE')
+</insert>
+
 <!-- 전문가 아이디로 프로필사진 vo찾기 -->
 <select id="selectExpertProfileById" parameterType="String" resultType="expertImageVo">
 	select * from expert_image
@@ -148,7 +157,7 @@ select * from
         select A.pd_no,A.user_id,B.pd_title , TO_CHAR(C.introduction) as introduction, D.pd_price, E.file_name
         from (((none_dup A join product B
         on A.pd_no=B.pd_no) join expert_info C
-        on A.user_id=C.user_id) join pd_detail D
+        on B.user_id=C.user_id) join pd_detail D
         on B.pd_no=D.pd_no) join pd_image E
         on B.pd_no=E.pd_no
         where D.pd_type='STANDARD'

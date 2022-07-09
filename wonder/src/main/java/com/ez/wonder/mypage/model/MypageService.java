@@ -24,6 +24,7 @@ public interface MypageService {
 	int updateFree(ExpertVO vo);
 	int insertExpertProfile(ExpertImageVO expertVo);
 	int insertExpertPorfolio(ExpertImageVO expertVo);
+	int insertDefaultExpertProfile(ExpertImageVO expertVo);
 	int checkExpertProfileById(String userId);
 	int deleteDupExpertProfile(String userId);
 	ExpertImageVO selectExpertProfileById(String userId);
