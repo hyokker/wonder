@@ -341,8 +341,8 @@
 														<p>모두 취소</p>
 													</div>
 													 -->
-													<input type="hidden" name="language" id="usableLanguage"  style="width:100%">
-													<input type="hidden" name="framework" id="usableFramework"  style="width:100%">
+													<input type="hidden" name="lang" id="usableLanguage"  style="width:100%">
+													<input type="hidden" name="frame" id="usableFramework"  style="width:100%">
 													<input type="hidden" id="langArr" style="width:100%"">
 													
 												</div>
