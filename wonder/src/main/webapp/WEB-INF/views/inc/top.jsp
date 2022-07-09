@@ -109,7 +109,7 @@ function unlinkApp() {
 					/* alert('fail: '+ JSON.stringify(err)); */
 				},
 			})
-}
+	}
 </script>
 
 <input type="hidden" name="sessionDel" id="sessionDel"
