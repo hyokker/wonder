@@ -63,8 +63,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int deleteExpert(int memNo) {
-		return adminDao.deleteExpert(memNo);
+	public int deleteExpert(String userId) {
+		return adminDao.deleteExpert(userId);
 	}
 	
 	@Override
@@ -181,6 +181,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<FormVo> selectForm(){
 		return adminDao.selectForm();
+	}
+	
+	@Override
+	public 	List<PaymentVO> payChart(){
+		return adminDao.payChart();
 	}
 }
 

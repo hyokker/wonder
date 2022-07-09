@@ -73,12 +73,12 @@
 		where mem_NO=#{memNO}
 	</update>
 
-	<delete id="deleteExpert" parameterType="int">
+	<delete id="deleteExpert" parameterType="string">
 		delete
 		from
-		member
+		expert_grant
 		where
-		mem_No=#{memNo}
+		user_Id=#{userId}
 	</delete>
 
 	<select id="selectProduct" resultType="productVo"

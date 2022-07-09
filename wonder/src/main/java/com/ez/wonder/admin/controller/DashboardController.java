@@ -26,19 +26,20 @@ public class DashboardController {
 
 	@RequestMapping("/dashboard")
 	public String dashboard(Model model) {
-		
-		int sumAllSales = adminService.sumAllSales(); 
-		int monthlySales = adminService.monthlySales(); 
+
+		int sumAllSales = adminService.sumAllSales();
+		int monthlySales = adminService.monthlySales();
 		int countMembers = adminService.countMembers();
 		int countExperts = adminService.countExperts();
 		int countProduct = adminService.countProduct();
 		int countPayment = adminService.countPayment();
-		
-		logger.info("누적매출 sumAllSales={}, 월매출 monthlySales={}, 누적회원수 countMembers={}, 전문가수 countExperts={}", sumAllSales, monthlySales, countMembers, countExperts);
-		
+
+		logger.info("누적매출 sumAllSales={}, 월매출 monthlySales={}, 누적회원수 countMembers={}, 전문가수 countExperts={}",
+				sumAllSales, monthlySales, countMembers, countExperts);
+
 		List<FormVo> list = adminService.selectForm();
 		logger.info("의뢰서 목록 조회 결과 list.size={}", list.size());
-		
+
 		model.addAttribute("sumAllSales", sumAllSales);
 		model.addAttribute("monthlySales", monthlySales);
 		model.addAttribute("countMembers", countMembers);
@@ -46,15 +47,28 @@ public class DashboardController {
 		model.addAttribute("countProduct", countProduct);
 		model.addAttribute("countPayment", countPayment);
 		model.addAttribute("list", list);
-		
+
 		return "/admin/dashboard";
 	}
-	
+
 	@RequestMapping("/chartjs")
-	public String chartjs() {
-		return "/admin/chartjs";
+	public @ResponseBody List<PaymentVO> payChart(PaymentVO paymentVo, Model model) {
+		List<PaymentVO> payChart = adminService.payChart();
+		model.addAttribute("payChart", payChart);
+		return payChart;
 	}
 }
+
+/*
+ * List<tbl_counselVO> result =
+ * adOnlineCounselService.getCounselHistoryChartInfo(searchVO);
+ * 
+ * JSONArray cJsonArr = new JSONArray(); JSONObject cJsonObj = new JSONObject();
+ * for(tbl_counselVO vo : result) { cJsonObj.put("y", vo.getCnt());
+ * cJsonObj.put("d", vo.getCs_pm()); cJsonArr.add(cJsonObj); }
+ * 
+ * model.addAttribute("chartJSON", cJsonArr);
+ */
 
 
 /*
@@ -69,4 +83,3 @@ public class DashboardController {
  * 
  * return map;
  */
-
