@@ -17,11 +17,36 @@
 			type : 'GET',
 			data : "rUserId="+rUserId,
 			success : function(response) {
-				console.log(response); //response = html
+				console.log(response); //response = list
+				var sUserId = "<c:out value='${vo.userId}'/>";
+				var html="";
+				var rNickname = "";
+				var rUserId = "";
+				
+				for(var i =0;i<response.length;i++){
+					if(response[i].S_USER_ID===sUserId) {
+						html += "<div class='message-plunch me'>";
+						html += "	<div class='dash-msg-avatar margin-top-10 right'><i class='fa fa-user' style='font-size: 3em'></i></div>";
+						html += "	<div class='dash-msg-text right'><p>"+response[i].CONTENT+"</p></div>";
+						
+						rNickname =response[i].R_NICKNAME;
+						rUserId =response[i].R_USER_ID;
+					}else if(!(response[i].S_USER_ID===sUserId)) {
+						html += "<div class='message-plunch '>";
+						//html += "	<div class='dash-msg-avatar margin-top-10 left'><img src=\"<c:url value='/img/mypage/expert_profile/"+filename+"' />\" alt=\"프로필사진\"></div>";
+						html += "	<div class='dash-msg-avatar margin-top-10 left'><i class='fa fa-user' style='font-size: 3em'></i></div>";
+						html += "	<div class='dash-msg-text left'><p>"+response[i].CONTENT+"</p></div>";
+					}
+					html += "</div>";
+					html += "";
+				}
 				
 				$('.dash-msg-content').empty();
-				$('.dash-msg-content').append(response);
+				$('.dash-msg-content').append(html);
 				$('#chatCommentContainer').scrollTop($('.dash-msg-content').innerHeight());
+				
+				$('.messages-headline h4').empty();
+				$('.messages-headline h4').append(rNickname+"(<span id='r_Id'>"+rUserId+"</span>) 님과의 채팅입니다");
 			},
 			error : function(xhr, status, error) {
 				alert("채팅 불러오기 실패, rUserId = "+rUserId);
@@ -38,8 +63,6 @@
 				console.log(response); //response = 닉네임+아이디 hashmap (rUserId, rNickName)
 				
 				
-				$('.messages-headline h4').empty();
-				$('.messages-headline h4').append(response.rNickName+"(<span id='r_Id'>"+response.rUserId+"</span>) 님과의 채팅입니다");
 			},
 			error : function(xhr, status, error) {
 				alert("닉네임 불러오기 실패, rUserId = "+rUserId);
@@ -53,7 +76,6 @@
 				var rUserId = $(this).find('.message-by-headline input').val();
 				
 				getChatDetail(rUserId);
-				showOtherNickName(rUserId);
 				
 				/* readonly chatSendArea */
 				$('#chatSendArea').removeAttr( 'readonly' );
@@ -80,7 +102,6 @@
 					success : function() {
 						getChatDetail(rUserId);
 						
-						alert("test채팅 입력 성공, content = "+content);
 					},
 					error : function(xhr, status, error) {
 						alert("test채팅 입력 실패, content = "+content);
@@ -88,9 +109,10 @@
 				}); //ajax
 				
 			} //else
-			$('#chatCommentContainer').
 			$('#chatSendArea').val('');
 		}); //보내기 버튼 클릭함수
+		
+		
 		
 		
 		
@@ -164,7 +186,7 @@
 														<div class="message-by-headline">
 															<h5>${map.R_NICKNAME }</h5>
 															<span>36 min ago</span>
-															<input type="text" value="${map.R_USER_ID }"/>
+															<input type="hidden" value="${map.R_USER_ID }"/>
 														</div>
 														<p>${map.CONTENT }</p>
 													</div>

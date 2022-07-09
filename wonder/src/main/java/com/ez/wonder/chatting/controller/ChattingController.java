@@ -81,7 +81,7 @@ public class ChattingController {
 	
 	@ResponseBody
 	@RequestMapping("/chatDetail")
-	public String chatDetail(@RequestParam("rUserId") String rUserId, HttpSession session) {
+	public List<HashMap<String, Object>> chatDetail(@RequestParam("rUserId") String rUserId, HttpSession session) {
 		String sUserId = (String) session.getAttribute("userId");
 		String rUserIdSession = (String) session.getAttribute("rUserId");
 		if(rUserIdSession!=null) {
@@ -101,6 +101,10 @@ public class ChattingController {
 		logger.info("파라미터 map={}",map);
 		
 		List<HashMap<String, Object>> list = chatService.selectChatById(map);
+		logger.info("채팅중인 list = {}",list);
+		logger.info("채팅중인 list.size()={}",list.size());
+		
+		/*
 		String html ="";
 		for(int i=0;i<list.size();i++) {
 			HashMap<String, Object> testMap = list.get(i);
@@ -122,10 +126,11 @@ public class ChattingController {
 			html += "</div>";
 			html += "";
 		}
+		*/
 		/* logger.info("상대방과의 채팅 메세지 갯수, list.size()={}",list.size()); */
 		
 	
-		return html; 
+		return list; 
 	}
 	
 	

@@ -10,9 +10,9 @@ public interface BoardService {
 	int getTotalRecord(SearchVO searchVo);
 	public int updateCount(int boardNo);
 	public BoardVO selectByNo(int boardNo);
-	int updateDownCount(int boardNo);
 	public boolean checkPwd(int no, String pwd);
 	public int updateBoard(BoardVO vo);
-	//public int deleteBoard(int no);
+	int updateDownCount(int boardNo);
+	public int deleteBoard(int boardNo);
 	
 }

@@ -183,6 +183,7 @@ div#srchTitBar {
 						</table>
 					</div>
 					<!-- row -->
+					<%@ include file="../adminInc/pagination.jsp"%>
 				</div>
 			</div>
 
