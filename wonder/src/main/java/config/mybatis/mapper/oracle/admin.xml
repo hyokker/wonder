@@ -54,7 +54,7 @@
 		<if test="searchKeyword !=null and searchKeyword !=''">
 			and
 		</if>
-		grant_flag = 'N' and type='일반회원'
+		grant_flag = 'N' and type='승인대기'
 		order by mem_No desc
 		)B
 		)
@@ -73,12 +73,12 @@
 		where mem_NO=#{memNO}
 	</update>
 
-	<delete id="deleteExpert" parameterType="int">
+	<delete id="deleteExpert" parameterType="string">
 		delete
 		from
-		member
+		expert_grant
 		where
-		mem_No=#{memNo}
+		user_Id=#{userId}
 	</delete>
 
 	<select id="selectProduct" resultType="productVo"

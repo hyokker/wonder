@@ -28,8 +28,12 @@
       where user_id=#{userId}
    </update>
    
-   <select id="selectByUserId" parameterType="string" resultType="expertVo">
+   <select id="selectSeller" parameterType="string" resultType="expertVo">
 		select * from expertMemberView where user_id=#{userId}
+	</select>
+	
+   <select id="selectSellerImg" parameterType="string" resultType="expertVo">
+		select * from expertMemberView where user_id=#{userId} and file_type='PROFILE'
 	</select>
 
 
@@ -48,7 +52,9 @@
 <!-- 
 create or replace view expertMemberView
 as
-select m.mem_no, e.*,  m.name, m.pwd, m.nickname, m.email, m.tel, m.regdate
+select A.*, B.file_name, B.file_type from 
+(select m.mem_no, e.*,  m.name, m.pwd, m.nickname, m.email, m.tel, m.regdate
 from expert_info e join member m
-on e.user_id=m.user_id; 
+on e.user_id=m.user_id)A left outer join expert_image B
+on A.user_id=B.user_id;
 -->

@@ -13,7 +13,8 @@ public interface MemberDAO {
 	public int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
 	//public
-	ExpertVO selectByUserId(String userid);
+	ExpertVO selectSeller(String userid);
+	ExpertVO selectSellerImg(String userid);
 	
 	
 	//관리자 로그인 메서드

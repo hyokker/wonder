@@ -45,7 +45,7 @@
 <meta name="author" content="Themezhub" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript"
-	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+	src="<c:url value='/js/jquery.min.js'/>"></script>
 <title>RentUP - Residence & Real Estate Template</title>
 
 <script type="text/javascript">
@@ -86,9 +86,7 @@
 						let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
 
 						// 파일이 업로드되면 실행
-						this
-								.on(
-										'addedfile',
+						this.on('addedfile',
 										function(file) {
 											// 중복된 파일의 제거
 											console.log(this.files.length);
@@ -149,8 +147,7 @@
 			$(this).siblings().find("a").attr("aria-selected", "false");
 		})
 
-		$('#pd_reg')
-				.click(
+		$('#pd_reg').click(
 						function() {
 							var pdWrite = new FormData();
 
@@ -191,9 +188,7 @@
 							pdWrite.append('pdFrame', pdFrame);
 
 							var priceType = "";
-							$('.property_block_wrap_header li')
-									.find('a')
-									.each(
+							$('.property_block_wrap_header li').find('a').each(
 											function() {
 												if ($(this).attr(
 														'aria-selected') === 'true')
@@ -374,8 +369,7 @@
 										':checked'));
 
 								pdWrite.append('pdType3', $('#pdType3').val());
-								pdWrite
-										.append('pdPrice3', $('#pdPrice3')
+								pdWrite.append('pdPrice3', $('#pdPrice3')
 												.val());
 								pdWrite.append('pdTerm3', $('#pdTerm3').val());
 								pdWrite.append('serviceExplanation3', $(
@@ -402,13 +396,15 @@
 
 							var request = new XMLHttpRequest();
 							
-							request.onreadystatechange = function() {
-							    if (this.readyState == 4 && this.status == 200) {
-							        console.log("상품이 등록 되었습니다.");
-							        alert("상품이 등록 되었습니다.");
-							        location.reload(true);
-							    }
-							}
+					          request.onreadystatechange = function() {
+			                        console.log(this.readyState + ' : ' + this.status);
+			                         if (this.readyState == 4 && this.status == 200) {
+			                             console.log("상품이 등록 되었습니다.");
+			                             alert("상품이 등록 되었습니다.");
+			                             //location.reload(true);
+			                             location.href = '<c:url value="/pd/pdList"/>';
+			                         }
+			                     }
 							
 							request.open("POST", "/wonder/pd/pdWrite");
 							request.send(pdWrite);

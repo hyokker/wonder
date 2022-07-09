@@ -57,13 +57,9 @@ src="${pageContext.request.contextPath}/img/logo.png"
 		href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span
 class="submenu-indicator"></span></a></li>
 
-<li><a>상품 목록 <span class="submenu-indicator"></span>
-</a>
-	<ul class="nav-dropdown nav-submenu">
-		<li><a href="<c:url value='/pd/pdList'/>"">언어별 상품 목록<span
-		class="submenu-indicator"> </span>
-</a> 
-	</ul></li>
+
+<li><a href="<c:url value='/pd/pdList'/>">상품 목록<span
+class="submenu-indicator"></span></a> 
 
 <li><a href="<c:url value='/board/list'/>">자유게시판<span
 class="submenu-indicator"></span></a> 

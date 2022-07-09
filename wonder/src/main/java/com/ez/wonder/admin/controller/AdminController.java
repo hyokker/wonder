@@ -341,10 +341,10 @@ public class AdminController {
 	}
 
 	@RequestMapping("/delnonApEx")
-	public String deleteExpert(@RequestParam(defaultValue = "0") int memNo, Model model) {
-		logger.info("전문가 승인 삭제 처리, 파라미터 memNo={}", memNo);
+	public String deleteExpert(@RequestParam String userId, Model model) {
+		logger.info("전문가 승인 삭제 처리, 파라미터 userId={}", userId);
 
-		int cnt = adminService.deleteExpert(memNo);
+		int cnt = adminService.deleteExpert(userId);
 		logger.info("전문가 승인 삭제 처리 결과, cnt={}", cnt);
 		String msg = "삭제 실패하였습니다.", url = "/admin/nonApprovalEx";
 

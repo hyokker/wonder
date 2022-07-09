@@ -16,7 +16,9 @@ public interface ProductService {
 	List<PdListVO> selectAllPdByUserId(String userId);
 	int insertPd(ProductVO item);
 	int insertPdDetail(PdDetailVO item);
-	ExpertVO getExpertInfo(int pdNo);
+	ExpertVO getSellerInfo(int pdNo);
+	ExpertVO getSellerImg(int pdNo);
+	
 	int insertPdImage(PdImageVO item);
 	
 	List<PdDetailVO> selectPdDetail(int pdNo);
