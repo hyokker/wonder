@@ -197,7 +197,7 @@ div#srchTitBar {
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb" id="img">
 																	<img
-																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${ExpertProfileVo.fileName}"
+																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
 																	class="img-fluid" alt="프로필 사진" />
 																</div>
 																<div class="dash_prt_caption">
@@ -243,9 +243,13 @@ div#srchTitBar {
 																<div class="_leads_status" id="type1">
 																	<span class="expire" id="type">프리랜서</span>
 																</div>
-															</c:if> <%-- 															<div class="_leads_status" id="type1">
-																<span class="active" id="type">${memberVo.type }</span>
-															</div> --%></td>
+															</c:if>
+															<c:if test="${memberVo.type eq '승인대기' }">
+																<div class="_leads_status" id="type1">
+																	<span class="active" id="type">승인대기</span>
+																</div>
+															</c:if>
+															</td>
 														<td>
 															<div class="_leads_action">
 																<a href="delMember?memNo=${memberVo.memNo }"><i

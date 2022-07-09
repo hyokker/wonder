@@ -168,7 +168,7 @@ div#srchTitBar {
 														<td>
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb">
-																	<img src="${pageContext.request.contextPath}/img/pdupload/${pdImages.fileName}"
+																	<img src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }"
 																		class="img-fluid" alt="상품 사진" />
 																</div>
 																<div class="dash_prt_caption">

@@ -179,7 +179,7 @@ div#srchTitBar {
 														<div class="dash_prt_wrap">
 															<div class="dash_prt_thumb" id="img">
 																<img
-																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${ExpertProfileVo.fileName}"
+																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
 																	class="img-fluid" alt="프로필 사진" />
 															</div>
 															<div class="dash_prt_caption">
