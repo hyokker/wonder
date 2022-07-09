@@ -20,13 +20,14 @@ public interface AdminDAO {
 	int deleteProduct(int pdNo);
 	List<MemberVO> selectNonApprovalEx(SearchVO searchVo);
 	int grantExpert(int  memNo);
-	int deleteExpert(int memNo);
+	int deleteExpert(String userId);
 	List<ProductVO> selectNonApprovalList(SearchVO searchVo);
 	int deleteForm(int formNo);
 	int getMemTotalRecord(SearchVO searchVo); 
 	int getPdTotalRecord(SearchVO searchVo); 
 	int getAdTotalRecord(SearchVO searchVo); 
 	int getFormTotalRecord(SearchVO searchVo); 
+	int getExMemTotalRecord(SearchVO searchVo);
 	
 	int dupAdminId(String adminId);
 	AdminVO selectByAdminId(String adminId);
@@ -45,4 +46,5 @@ public interface AdminDAO {
 	ArrayList<PaymentVO> countPaymethod();
 	
 	List<FormVo> selectForm();
+	List<PaymentVO> payChart();
 }

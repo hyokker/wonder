@@ -168,8 +168,8 @@ div#srchTitBar {
 														<td>
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb">
-																	<img src="https://via.placeholder.com/800x500"
-																		class="img-fluid" alt="" />
+																	<img src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }"
+																		class="img-fluid" alt="상품 사진" />
 																</div>
 																<div class="dash_prt_caption">
 																	<c:if test="${fn:length(productVo.pdTitle)>30}">

@@ -179,8 +179,8 @@ div#srchTitBar {
 														<div class="dash_prt_wrap">
 															<div class="dash_prt_thumb" id="img">
 																<img
-																	src="${pageContext.request.contextPath}/img/profile.png"
-																	class="img-fluid" alt="" />
+																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
+																	class="img-fluid" alt="프로필 사진" />
 															</div>
 															<div class="dash_prt_caption">
 																<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
@@ -228,7 +228,7 @@ div#srchTitBar {
 														</c:if></td>
 													<td>
 														<div class="_leads_action">
-															<a href="grantEx?memNo=${memberVo.userId }"><i
+															<a href="grantEx?memNo=${memberVo.memNo }"><i
 																class="fas fa-edit"></i></a> <a
 																href="delnonApEx?memNo=${memberVo.memNo }"><i
 																class="fas fa-trash"></i></a>

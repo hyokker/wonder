@@ -44,7 +44,7 @@
 
 	<select id="payChart" resultType="paymentVo">
 		select * from payment
-		where regdate between TO_CHAR(SYSDATE - 7, 'yyyy-mm-dd hh24:mi:ss') and
+		where regdate between TO_CHAR(SYSDATE - 7) and
 		TO_CHAR(SYSDATE)
 		order by regdate
 	</select>

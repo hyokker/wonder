@@ -4,9 +4,9 @@
 <mapper namespace="com.ez.wonder.admin.model.AdminDAO">
 	<sql id="searchWhere">
 		<if test="searchKeyword !=null and searchKeyword !=''">
-			where ${searchCondition}
-			like '%' || #{searchKeyword} ||
-			'%'
+			where UPPER(${searchCondition})
+			like UPPER('%' || #{searchKeyword} ||
+			'%')
 		</if>
 	</sql>
 
@@ -54,7 +54,7 @@
 		<if test="searchKeyword !=null and searchKeyword !=''">
 			and
 		</if>
-		grant_flag = 'N' and type='일반회원'
+		grant_flag = 'N' and type='승인대기'
 		order by mem_No desc
 		)B
 		)
@@ -73,12 +73,12 @@
 		where mem_NO=#{memNO}
 	</update>
 
-	<delete id="deleteExpert" parameterType="int">
+	<delete id="deleteExpert" parameterType="string">
 		delete
 		from
-		member
+		expert_grant
 		where
-		mem_No=#{memNo}
+		user_Id=#{userId}
 	</delete>
 
 	<select id="selectProduct" resultType="productVo"
@@ -135,7 +135,7 @@
 		admin_No=#{adminNo}
 	</delete>
 
-	<select id="selectNonApprovalList" resultType="productVo"
+	<select id="selectNonApprovalList" resultType="formVo"
 		parameterType="searchVo">
 		select *
 		from
@@ -145,7 +145,7 @@
 		(
 		select A.*
 		from
-		productFormView A
+		form A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
 		</if>
@@ -167,13 +167,25 @@
 		from
 		form
 		where
-		form_no-#{formNo}
+		form_no=#{formNo}
 	</delete>
 
 	<select id="getMemTotalRecord" parameterType="searchVo"
 		resultType="int">
 		select count(*) from member
 		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="getExMemTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from member
+		<include refid="searchWhere"></include>
+		<if test="searchKeyword ==null or searchKeyword ==''"> where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			and
+		</if>
+		type='승인대기'
 	</select>
 
 	<select id="getPdTotalRecord" parameterType="searchVo"

@@ -26,6 +26,8 @@ import com.ez.wonder.chatting.model.ChatService;
 import com.ez.wonder.chatting.model.ChatVO;
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
+import com.ez.wonder.common.PaginationInfo;
+import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -101,6 +103,17 @@ public class MypageController {
 		return "/mypage/dashboard";
 	}
 	
+	@RequestMapping("/dashboard/out")
+	public String mypage_dashboard_out(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("userId");
+		session.removeAttribute("type");
+		session.removeAttribute("userName");
+		
+		return "/";
+	}
+	
 	@GetMapping("/profile")
 	public void mypage_profile_get(HttpSession session, Model model) {
 		logger.info("프로필 페이지");
@@ -117,11 +130,11 @@ public class MypageController {
 			logger.info("프로필 페이지 프리랜서 정보조회 expertVo={}", vo);
 			
 			
-			String language = vo.getLanguage();
+			String language = vo.getLang();
 			String[] langArr = language.split(",");
 			logger.info("langArr.length={}",langArr.length);
 			
-			String framework = vo.getFramework();
+			String framework = vo.getFrame();
 			String[] frameArr = framework.split(",");
 			logger.info("frameArr.length={}",frameArr.length);
 			
@@ -206,7 +219,30 @@ public class MypageController {
 							}
 						}
 					} //for
-				}//if
+				}else{	//사진업로드 안했을경우
+					logger.info("사진 업로드 안함");
+					profileVo.setUserId(userId);
+					profileVo.setFileName("default_profile.png");
+					profileVo.setOriginalFileName("default_profile.png");
+					profileVo.setFileSize(18906);
+					profileVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
+
+					int defaultCnt = mypageService.insertDefaultExpertProfile(profileVo);
+					logger.info("기본프로필 등록");
+					
+					int checkCountProfile = mypageService.checkExpertProfileById(userId);
+					logger.info("현재 프로필사진 갯수={}",checkCountProfile);
+					if(checkCountProfile>1) {
+						while(true) {
+							int deleteDupProfileCnt = mypageService.deleteDupExpertProfile(userId);
+							int checkCount = mypageService.checkExpertProfileById(userId);
+							logger.info("중복 프로필 사진 삭제 결과 cnt={}, 남은 프로필사진 갯수={}",deleteDupProfileCnt,checkCount);
+							if(checkCount==1) {
+								break;
+							}
+						}
+					}
+				}//else
 					
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -252,7 +288,7 @@ public class MypageController {
 		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
 
 		ExpertVO vo = null;
-		if(type.equals("일반회원")) {
+		if(type.equals("일반회원") || type.equals("승인대기")) {
 			List<LanguageVO> langList = mypageService.selectAllLanguage();
 			logger.info("langList.size={}",langList.size());
 
@@ -375,11 +411,11 @@ public class MypageController {
 			logger.info("프리랜서 신청 페이지 정보조회 expertVo={}", vo);
 			
 			
-			String language = vo.getLanguage();
+			String language = vo.getLang();
 			String[] langArr = language.split(",");
 			logger.info("langArr.length={}",langArr.length);
 			
-			String framework = vo.getFramework();
+			String framework = vo.getFrame();
 			String[] frameArr = framework.split(",");
 			logger.info("frameArr.length={}",frameArr.length);
 			
@@ -518,19 +554,40 @@ public class MypageController {
 	}
 	
 
-	@GetMapping("/bookmark")
-	public void mypage_bookmark_get(HttpSession session,Model model) {
+	@RequestMapping("/bookmark")
+	public void mypage_bookmark(@ModelAttribute SearchVO searchVo, HttpSession session,Model model) {
 		logger.info("찜(북마크) 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
-		List<HashMap<String, Object>> list = mypageService.selectBookmark(userId);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setBlockSize(ConstUtil.BLOCKSIZE5);
+		paging.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		paging.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setFirstRecordIndex(paging.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("searchCondition", searchVo.getSearchCondition());
+		map.put("searchKeyword", searchVo.getSearchKeyword());
+		map.put("firstRecordIndex", searchVo.getFirstRecordIndex());
+		map.put("recordCountPerPage", searchVo.getRecordCountPerPage());
+
+		List<HashMap<String, Object>> list = mypageService.selectBookmark(map);
 		logger.info("북마크 페이지 리스트size={}", list.size());
-		logger.info("북마크 페이지 리스트={}", list);
+		
+		int totalRecord = mypageService.getTotalRecordBM(map);
+		logger.info("북마크 totalRecord={}",totalRecord);
+		
+		paging.setTotalRecord(totalRecord);
 		
 		model.addAttribute("list",list);
+		model.addAttribute("pagingInfo",paging);
 		model.addAttribute("vo",vo);
 	}
 	
@@ -558,7 +615,7 @@ public class MypageController {
 			logger.info("북마크 삭제실패");
 		}
 		
-		list = mypageService.selectBookmark(userId);
+		//list = mypageService.selectBookmark(userId);
 		logger.info("북마크 페이지 리스트size={}", list.size());
 		logger.info("북마크 페이지 리스트={}", list);
 		

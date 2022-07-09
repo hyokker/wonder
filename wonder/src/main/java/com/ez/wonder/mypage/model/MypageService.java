@@ -3,6 +3,7 @@ package com.ez.wonder.mypage.model;
 import java.util.HashMap;
 import java.util.List;
 
+import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -23,6 +24,7 @@ public interface MypageService {
 	int updateFree(ExpertVO vo);
 	int insertExpertProfile(ExpertImageVO expertVo);
 	int insertExpertPorfolio(ExpertImageVO expertVo);
+	int insertDefaultExpertProfile(ExpertImageVO expertVo);
 	int checkExpertProfileById(String userId);
 	int deleteDupExpertProfile(String userId);
 	ExpertImageVO selectExpertProfileById(String userId);
@@ -34,7 +36,8 @@ public interface MypageService {
 	int updatePwd(MemberVO memVo);
 	int applicationFree(ExpertVO expertVo);
 	int checkExpertGrantById(String userId);
-	List<HashMap<String, Object>> selectBookmark(String userId);
+	List<HashMap<String, Object>> selectBookmark(HashMap<String, Object> map);
 	int deleteBookmark(HashMap<String, Object> map);
+	int getTotalRecordBM(HashMap<String, Object> map);
 
 }
