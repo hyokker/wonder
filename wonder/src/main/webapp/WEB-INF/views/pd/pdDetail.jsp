@@ -26,7 +26,12 @@
 			<div class="col-lg-4 col-md-4 col-sm-12" id="profile">
 				<div class="property_dashboard_navbar" style="padding: 0;">
 					<div class="dash_user_avater">
-						<img src="<c:url value='/img/mypage/expert_profile/${expertVo.fileName }'/>" class="img-fluid avater" alt="">
+						<c:if test="${!empty expertVoImg }">					
+							<img src="<c:url value='/img/mypage/expert_profile/${expertVoImg.fileName }'/>" class="img-fluid avater" alt="">
+						</c:if>
+						<c:if test="${empty expertVoImg }">					
+							<img src="" class="img-fluid avater" alt="">
+						</c:if>
 						<h4>${expertVo.nickname }</h4>
 					</div>
 					
