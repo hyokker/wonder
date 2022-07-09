@@ -161,20 +161,28 @@ div#srchTitBar {
 									<th></th>
 								</tr>
 								<c:if test="${!empty list }">
-									<c:forEach var="productVo" items="${list }">
+									<c:forEach var="formVo" items="${list }">
 										<!-- Item #1 -->
 										<tr>
 											<td class="dashboard_propert_wrapper"><img
-												src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }" alt="상품 사진">
+												src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }"
+												alt="상품 사진">
 												<div class="title">
-													<h4>
-														<a href="#">${productVo.pdTitle }</a>
-													</h4>
-													<span>${productVo.userId }</span> <span
-														class="table-property-price">이거를 어디서 불러올까 만원</span>
+													<c:if test="${fn:length(formVo.formTitle)>40}">
+														<h4>
+															<a href="#">${fn:substring(formVo.formTitle,0,40)}...</a>
+														</h4>
+													</c:if>
+													<c:if test="${fn:length(formVo.formTitle)<=40}">
+														<h4>
+															<a href="#">${formVo.formTitle}</a>
+														</h4>
+													</c:if>
+													<span>${formVo.userId }</span> <span
+														class="table-property-price">${formVo.price } 만원</span>
 												</div></td>
 											<td class="action"><a
-												href="delnonApList?formNo=${formVo.formNo }" class="delete"><i
+												href="deleteForm?formNo=${formVo.formNo}" class="delete"><i
 													class="ti-close"></i> Delete</a></td>
 										</tr>
 									</c:forEach>

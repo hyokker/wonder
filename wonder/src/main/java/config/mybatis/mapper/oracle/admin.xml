@@ -4,9 +4,9 @@
 <mapper namespace="com.ez.wonder.admin.model.AdminDAO">
 	<sql id="searchWhere">
 		<if test="searchKeyword !=null and searchKeyword !=''">
-			where ${searchCondition}
-			like '%' || #{searchKeyword} ||
-			'%'
+			where UPPER(${searchCondition})
+			like UPPER('%' || #{searchKeyword} ||
+			'%')
 		</if>
 	</sql>
 
@@ -135,7 +135,7 @@
 		admin_No=#{adminNo}
 	</delete>
 
-	<select id="selectNonApprovalList" resultType="productVo"
+	<select id="selectNonApprovalList" resultType="formVo"
 		parameterType="searchVo">
 		select *
 		from
@@ -145,7 +145,7 @@
 		(
 		select A.*
 		from
-		productFormView A
+		form A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
 		</if>
@@ -167,13 +167,25 @@
 		from
 		form
 		where
-		form_no-#{formNo}
+		form_no=#{formNo}
 	</delete>
 
 	<select id="getMemTotalRecord" parameterType="searchVo"
 		resultType="int">
 		select count(*) from member
 		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="getExMemTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from member
+		<include refid="searchWhere"></include>
+		<if test="searchKeyword ==null or searchKeyword ==''"> where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			and
+		</if>
+		type='승인대기'
 	</select>
 
 	<select id="getPdTotalRecord" parameterType="searchVo"

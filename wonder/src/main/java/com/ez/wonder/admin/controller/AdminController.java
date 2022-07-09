@@ -310,7 +310,7 @@ public class AdminController {
 		List<MemberVO> list = adminService.selectNonApprovalEx(searchVo);
 		logger.info("전문가 승인 대기 목록 조회 결과, list.size={}", list.size());
 
-		int totalRecord = adminService.getMemTotalRecord(searchVo);
+		int totalRecord = adminService.getExMemTotalRecord(searchVo);
 		logger.info("전문가 승인 대기 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
@@ -385,7 +385,7 @@ public class AdminController {
 		return "/admin/nonApprovalList";
 	}
 
-	@RequestMapping("/delNonApprovalList")
+	@RequestMapping("/deleteForm")
 	public String deleteForm(@RequestParam(defaultValue = "0") int formNo, Model model) {
 		logger.info("거래대기 목록 삭제 처리, 파라미터 formNo={}", formNo);
 

@@ -98,6 +98,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public int getExMemTotalRecord(SearchVO searchVo){
+		return adminDao.getExMemTotalRecord(searchVo);
+	}
+	
+	@Override
 	public AdminVO selectByAdminId(String adminId) {
 		return adminDao.selectByAdminId(adminId);
 	}

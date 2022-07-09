@@ -143,12 +143,6 @@ div#srchTitBar {
 													<input type="text" class="form-control" id="searchinput"
 														name="searchKeyword" placeholder="회원명, 아이디 등으로 조회"
 														value="${param.searchKeyword}">
-													<!-- 													<div class="input-group-append">
-														<btton type="submit"
-															class="input-group-text theme-bg b-0 text-light">
-														<i class="fas fa-search"></i>
-														</button>
-													</div> -->
 												</div>
 											</div>
 										</div>
