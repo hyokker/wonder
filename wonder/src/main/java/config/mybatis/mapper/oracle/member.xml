@@ -29,7 +29,7 @@
    </update>
    
    <select id="selectSeller" parameterType="string" resultType="expertVo">
-		select * from expertMemberView where user_id=#{userId}
+		select * from expertMemberView where user_id=#{userId} and file_type='PROFILE'
 	</select>
 	
    <select id="selectSellerImg" parameterType="string" resultType="expertVo">

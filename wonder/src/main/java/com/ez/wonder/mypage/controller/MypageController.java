@@ -219,7 +219,30 @@ public class MypageController {
 							}
 						}
 					} //for
-				}//if
+				}else{	//사진업로드 안했을경우
+					logger.info("사진 업로드 안함");
+					profileVo.setUserId(userId);
+					profileVo.setFileName("default_profile.png");
+					profileVo.setOriginalFileName("default_profile.png");
+					profileVo.setFileSize(18906);
+					profileVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
+
+					int defaultCnt = mypageService.insertDefaultExpertProfile(profileVo);
+					logger.info("기본프로필 등록");
+					
+					int checkCountProfile = mypageService.checkExpertProfileById(userId);
+					logger.info("현재 프로필사진 갯수={}",checkCountProfile);
+					if(checkCountProfile>1) {
+						while(true) {
+							int deleteDupProfileCnt = mypageService.deleteDupExpertProfile(userId);
+							int checkCount = mypageService.checkExpertProfileById(userId);
+							logger.info("중복 프로필 사진 삭제 결과 cnt={}, 남은 프로필사진 갯수={}",deleteDupProfileCnt,checkCount);
+							if(checkCount==1) {
+								break;
+							}
+						}
+					}
+				}//else
 					
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
