@@ -25,6 +25,7 @@ import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.noneDup.model.NoneDupService;
 import com.ez.wonder.noneDup.model.NoneDupVO;
 import com.ez.wonder.pd.model.PdDetailVO;
+import com.ez.wonder.pd.model.PdImageVO;
 import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
 import com.ez.wonder.review.model.ReviewService;
@@ -65,6 +66,8 @@ public class ProductController {
 		logger.info("상품 조회 결과, pdVo={}", pdVo);
 		List<PdDetailVO> list=productService.selcetPdDetail(pdNo);
 		logger.info("상품 상세 조회 결과, list.size={}", list.size());
+		List<PdImageVO> imgList=productService.selectPdImage(pdNo);
+		logger.info("상품 이미지 조회 결과, imgList.size={}", imgList.size());
 		List<ReviewVO> reviewList=reviewService.selectReviewByPdNo(pdNo);
 		logger.info("리뷰 목록 조회, reviewList.size={}", reviewList.size());
 		Map<String, Object> map=reviewService.getAvgScore(pdNo);
@@ -83,6 +86,7 @@ public class ProductController {
 		model.addAttribute("userId", userId);
 		model.addAttribute("pdVo", pdVo);
 		model.addAttribute("list", list);
+		model.addAttribute("imgList", imgList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("map", map);
 		model.addAttribute("expertVo", expertVo);

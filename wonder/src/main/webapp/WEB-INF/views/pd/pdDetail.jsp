@@ -16,9 +16,9 @@
 			<!-- Gallery -->
 			<div class="col-lg-8 col-md-7 col-sm-12">
 				<div class="mySlick">
-			        <div><img src="https://d2v80xjmx68n4w.cloudfront.net/gigs/Zq4Ky1648784180.jpg" class="img-fluid mx-auto" alt="" /></div>
-			        <div><img src="https://d2v80xjmx68n4w.cloudfront.net/gigs/Zq4Ky1648784180.jpg" class="img-fluid mx-auto" alt="" /></div>
-			        <div><img src="https://d2v80xjmx68n4w.cloudfront.net/gigs/Zq4Ky1648784180.jpg" class="img-fluid mx-auto" alt="" /></div>
+					<c:forEach var="pdImageVo" items="${imgList }">
+			        	<div><img src="<c:url value='/img/pdupload/${pdImageVo.fileName }'/>" class="img-fluid mx-auto" alt="" /></div>
+			        </c:forEach>
 			        <!-- <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div> -->
 			    </div>
 			</div>
@@ -26,7 +26,7 @@
 			<div class="col-lg-4 col-md-4 col-sm-12" id="profile">
 				<div class="property_dashboard_navbar" style="padding: 0;">
 					<div class="dash_user_avater">
-						<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA3MzBfMjUg%2FMDAxNTY0NDc0OTg4ODMy.ZqJOHVWgvIAFFRC0OX65wGbyV2jXpX3FKcBHW760XDYg.UII4II2u9MVQej__czZINBtV3pLo_Caxqf3MGjon2l8g.JPEG.thejoeunart%2F%25BF%25BB%25B7%25CE%25BF%25EC%25BE%25C6%25C0%25CC%25B5%25F0.jpg&type=sc960_832" class="img-fluid avater" alt="">
+						<img src="<c:url value='/img/mypage/expert_profile/${expertVo.fileName }'/>" class="img-fluid avater" alt="">
 						<h4>${expertVo.nickname }</h4>
 					</div>
 					

@@ -17,6 +17,7 @@ public class ExpertVO extends MemberVO{
 	private int workAmount;
 	private String language;
 	private String framework;
+	private String fileName;
 
 	
 	//private String fileName;
