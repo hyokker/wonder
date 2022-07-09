@@ -48,7 +48,7 @@
 	var ws;
 
 	function wsOpen(){
-		ws = new WebSocket("ws://localhost:9095/wonder/testChat/websocket");
+		ws = new WebSocket("wss://localhost:9095/wonder/chat/testChat");
 		console.log(ws);
 		wsEvt();
 	}

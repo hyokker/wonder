@@ -191,7 +191,7 @@
 			}
 		});
 		
-		if(${memVo.type=='일반회원'}){
+		if(${memVo.type=='일반회원'} || ${memVo.type=='승인대기'}){
 			$('.form-row div').hide();
 			$('.generalMember').show();
 		}

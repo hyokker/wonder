@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+.pointer{
+	cursor: pointer;
+}
 /* 프로필 */
 
 .align_c{
@@ -195,4 +197,39 @@
 	display: inline-block;
 	float: left;
 	text-align: left;
+}
+
+/************** Application ************/
+.appCheckDiv{
+	height: 100px;
+}
+
+.appCheckH4{
+	display: inline-block;
+	margin-top: 20px;
+}
+.appCheck{
+	display: inline-block;
+	float:right;
+}
+
+#memList{
+	text-align: conter;
+}
+
+.application {
+    padding: 3px 15px;
+    background: rgb(174 175 76 / 24%);
+    border-radius: 50px;
+    font-size: 12px;
+    color:#c0bd55;
+    border: rgb(163 175 76 / 20%);
+    font-weight: 600;
+    margin-bottom: 3px;
+    display: inline-flex;
+}
+
+/************* Bookmark *************/
+.bookmarkImg{
+	height: 100px;
 }

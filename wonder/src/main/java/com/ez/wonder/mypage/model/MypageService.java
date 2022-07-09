@@ -1,5 +1,6 @@
 package com.ez.wonder.mypage.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.ez.wonder.member.model.ExpertImageVO;
@@ -31,7 +32,9 @@ public interface MypageService {
 	int deletePortfolio();
 	int checkPwd(String userId, String pwd);
 	int updatePwd(MemberVO memVo);
-
-
+	int applicationFree(ExpertVO expertVo);
+	int checkExpertGrantById(String userId);
+	List<HashMap<String, Object>> selectBookmark(String userId);
+	int deleteBookmark(HashMap<String, Object> map);
 
 }

@@ -68,7 +68,7 @@ public class PdListController {
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("maxpage", maxpage);
 		model.addAttribute("totalCnt", totalCnt);
-		model.addAttribute("pdList", pdList.subList((pageNo-1)*pageCnt, pageNo*pageCnt));
+		model.addAttribute("pdList", pdList.subList((pageNo-1)*pageCnt, (pageNo*pageCnt) >= totalCnt ? totalCnt : (pageNo*pageCnt)));
 		return "pd/pdList";
 	}
 	

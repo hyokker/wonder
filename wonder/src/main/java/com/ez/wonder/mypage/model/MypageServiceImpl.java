@@ -1,5 +1,6 @@
 package com.ez.wonder.mypage.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
-import com.ez.wonder.member.model.MemberDAO;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
@@ -54,6 +54,16 @@ public class MypageServiceImpl implements MypageService{
 		return cnt;
 	}
 
+	@Override
+	@Transactional
+	public int applicationFree(ExpertVO expertVo) {
+		int insertFreeCnt = mypageDao.insertFree(expertVo);
+		int updateMemCnt = mypageDao.updateMemberToApplication(expertVo);
+		int insertAppCnt = mypageDao.insertApplication(expertVo);
+		
+		return insertAppCnt;
+	}
+	
 	@Override
 	public int insertExpertProfile(ExpertImageVO expertVo) {
 		return mypageDao.insertExpertProfile(expertVo);
@@ -121,6 +131,23 @@ public class MypageServiceImpl implements MypageService{
 	public int updatePwd(MemberVO memVo) {
 		return mypageDao.updatePwd(memVo);
 	}
+
+	@Override
+	public int checkExpertGrantById(String userId) {
+		return mypageDao.checkExpertGrantById(userId);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectBookmark(String userId) {
+		return mypageDao.selectBookmark(userId);
+	}
+
+	@Override
+	public int deleteBookmark(HashMap<String, Object> map) {
+		return mypageDao.deleteBookmark(map);
+	}
+
+
 
 
 

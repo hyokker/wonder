@@ -237,6 +237,172 @@ public class MypageController {
 		return "/common/message";
 	}
 	
+	
+	@GetMapping("/application")
+	public void mypage_application_get(HttpSession session, Model model) {
+		logger.info("프리랜서 등록 신청 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO memVo = mypageService.selectMemberById(userId);
+		String type = memVo.getType();
+		
+		int checkGrant = mypageService.checkExpertGrantById(userId);
+		model.addAttribute("checkGrant",checkGrant);
+		
+		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
+
+		ExpertVO vo = null;
+		if(type.equals("일반회원")) {
+			List<LanguageVO> langList = mypageService.selectAllLanguage();
+			logger.info("langList.size={}",langList.size());
+
+			List<FrameworkVO> frameList = mypageService.selectAllFramework();
+			logger.info("langList.size={}",frameList.size());
+			
+			
+			model.addAttribute("langList",langList); //전체 언어
+			model.addAttribute("frameList",frameList); //전체 프레임워크
+			
+		}
+		logger.info("프로필 페이지 memVo={}",memVo);
+		
+		model.addAttribute("expertVo", vo);
+		model.addAttribute("memVo",memVo);
+	}
+	
+	
+	@PostMapping("/application")
+	public String mypage_application_post(@ModelAttribute ExpertImageVO profileVo ,@ModelAttribute MemberVO memberVo, 
+			@ModelAttribute ExpertVO expertVo,  HttpServletRequest request, HttpSession session,Model model) {
+		String userId = (String) session.getAttribute("userId");
+		memberVo.setUserId(userId);
+		logger.info("멤버프로필 등록신청 처리, memberVo={}",memberVo);
+		
+		int applicationCnt=0;
+		
+		int checkGrant = mypageService.checkExpertGrantById(userId);
+		model.addAttribute("checkGrant",checkGrant);
+		logger.info("승인신청 확인 1이면 이미 승인함, checkGrant={}", checkGrant);
+		
+		
+		String fileName="", originFileName="";
+		long fileSize=0;
+		List<Map<String, Object>> fileList=null;
+		String msg="프리랜서 등록 신청 실패", url="/mypage/application";
+		
+		if(checkGrant>0) {
+			msg="이미 승인신청이 완료된 회원입니다.";
+		}else {
+			expertVo.setUserId(userId);
+			applicationCnt = mypageService.applicationFree(expertVo);
+			logger.info("프리랜서 신청 등록 결과, applicationCnt={}, expertVo={}", applicationCnt, expertVo);
+			
+			//파일 업로드
+			try {
+				fileList = fileUploadUtil.profileUpload(request, ConstUtil.EXPERT_PROFILE_IMAGE);
+				logger.info("fileList 사이즈 ={}",fileList.size());
+				if(fileList.size()!=0 && !fileList.isEmpty()) {
+					
+					for(Map<String, Object> fileMap : fileList) {
+						originFileName=(String) fileMap.get("originalFileName");
+						fileName=(String) fileMap.get("fileName");
+						fileSize=(long)fileMap.get("fileSize");
+						logger.info("파일 업로드 성공, fileName={}, fileSize={}",fileName, fileSize);
+						
+						//프로필사진 DB로 넣는부분
+						profileVo.setUserId(userId);
+						profileVo.setFileName(fileName);
+						profileVo.setOriginalFileName(originFileName);
+						profileVo.setFileSize(fileSize);
+						profileVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
+						
+						int profileCnt = mypageService.insertExpertProfile(profileVo);
+						logger.info("전문가사진 vo, profileVo={}",profileVo);
+						logger.info("파일 업로드 완료 profileCnt={}", profileCnt);
+						
+						//이전파일이름
+						//메소드를 count(*)갯수로 바꾸고, (2이상이 나올경우 expert_img_no가 가장 작은값 삭제) 이걸 반복해서 2이하까지
+						int checkCountProfile = mypageService.checkExpertProfileById(userId);
+						logger.info("현재 프로필사진 갯수={}",checkCountProfile);
+						if(checkCountProfile>1) {
+							while(true) {
+								int deleteDupProfileCnt = mypageService.deleteDupExpertProfile(userId);
+								int checkCount = mypageService.checkExpertProfileById(userId);
+								logger.info("중복 프로필 사진 삭제 결과 cnt={}, 남은 프로필사진 갯수={}",deleteDupProfileCnt,checkCount);
+								if(checkCount==1) {
+									break;
+								}
+							}
+						}
+					} //for
+				}//if
+				
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(applicationCnt>0) {
+			msg="프리랜서 등록 신청 성공";
+		}
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		
+		return "/common/message";
+	}
+	
+	
+	
+	
+	@GetMapping("/applicationCheck")
+	public void mypage_applicationCheck_get(HttpSession session, Model model) {
+		logger.info("프리랜서 등록 확인 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO memVo = mypageService.selectMemberById(userId);
+		String type = memVo.getType();
+
+		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
+
+		ExpertVO vo = null;
+		if(type.equals("일반회원") || type.equals("승인대기")) {
+			vo = mypageService.selectExpertById(userId);
+			logger.info("프리랜서 신청 페이지 정보조회 expertVo={}", vo);
+			
+			
+			String language = vo.getLanguage();
+			String[] langArr = language.split(",");
+			logger.info("langArr.length={}",langArr.length);
+			
+			String framework = vo.getFramework();
+			String[] frameArr = framework.split(",");
+			logger.info("frameArr.length={}",frameArr.length);
+			
+			List<LanguageVO> langList = mypageService.selectAllLanguage();
+			logger.info("langList.size={}",langList.size());
+
+			List<FrameworkVO> frameList = mypageService.selectAllFramework();
+			logger.info("langList.size={}",frameList.size());
+			
+			model.addAttribute("langArr",langArr); //전문가 사용가능 언어
+			model.addAttribute("frameArr",frameArr); //전문가 사용가능 프레임워크
+			model.addAttribute("langList",langList); //전체 언어
+			model.addAttribute("frameList",frameList); //전체 프레임워크
+			
+		}
+		logger.info("프로필 페이지 memVo={}",memVo);
+		
+		model.addAttribute("expertVo", vo);
+		model.addAttribute("memVo",memVo);
+	}
+	
+	
+	
 	@GetMapping("/portfolio")
 	public String mypage_portfolio_get(HttpSession session, Model model) {
 		logger.info("전문가용 포트폴리오 페이지");
@@ -272,6 +438,8 @@ public class MypageController {
 		
 		return "/mypage/portfolio";
 	}
+	
+	
 	
 	@PostMapping("/portfolio")
 	public String mypage_portfolio_post(@RequestParam(required = false) String reviewProtfolioName,
@@ -350,15 +518,51 @@ public class MypageController {
 	}
 	
 
-	@RequestMapping("/bookmark")
-	public void mypage_bookmark(HttpSession session,Model model) {
+	@GetMapping("/bookmark")
+	public void mypage_bookmark_get(HttpSession session,Model model) {
 		logger.info("찜(북마크) 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		List<HashMap<String, Object>> list = mypageService.selectBookmark(userId);
+		logger.info("북마크 페이지 리스트size={}", list.size());
+		logger.info("북마크 페이지 리스트={}", list);
+		
+		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
+	}
+	
+	@ResponseBody
+	@GetMapping("/bookmark/delBookmark") //ajax
+	public List<HashMap<String, Object>> mypage_delBookmark_get(@RequestParam String deleteNo, HttpSession session) {
+		int pdNo=Integer.parseInt(deleteNo);
+		logger.info("북마크 삭제 ajax 페이지, 삭제할 번호={}",pdNo);
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("프로필 페이지 vo={}",vo);
+		List<HashMap<String, Object>> list = null;
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("pdNo", pdNo);
+		
+		logger.info("삭제 파라미터 map={}", map);
+		
+		int cnt = mypageService.deleteBookmark(map);
+		if(cnt>0) {
+			logger.info("북마크 삭제완료");
+			
+		}else {
+			logger.info("북마크 삭제실패");
+		}
+		
+		list = mypageService.selectBookmark(userId);
+		logger.info("북마크 페이지 리스트size={}", list.size());
+		logger.info("북마크 페이지 리스트={}", list);
+		
+		return list;
 	}
 	
 	@RequestMapping("/transaction")

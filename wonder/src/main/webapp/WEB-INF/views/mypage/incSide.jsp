@@ -21,6 +21,8 @@
 			$('#li_01').addClass("active");
 		}else if(page=='portfolio'){
 			$('#li_02').addClass("active");
+		}else if(page=='application'){
+			$('#li_02').addClass("active");
 		}else if(page=='bookmark'){
 			$('#li_03').addClass("active");
 		}else if(page=='transaction'){
@@ -86,6 +88,12 @@
 										<li id="li_01"><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
 										<c:if test="${memVo.type=='프리랜서' }">
 											<li id="li_02"><a href="<c:url value='/mypage/portfolio' />">　└ 포트폴리오 관리</a></li>
+										</c:if>
+										<c:if test="${memVo.type=='일반회원' }">
+											<li id="li_02"><a href="<c:url value='/mypage/application' />">　└ 프리랜서 등록 신청</a></li>
+										</c:if>
+										<c:if test="${memVo.type=='승인대기' }">
+											<li id="li_02"><a href="<c:url value='/mypage/application' />">　└ 프리랜서 등록 신청</a></li>
 										</c:if>
 										<li id="li_03"><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
 										<li id="li_04"><a href="<c:url value='/mypage/transaction' />"><i class="fa fa-tasks"></i>거래내역</a></li>
