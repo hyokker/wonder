@@ -32,9 +32,9 @@
 					str += '<div class="list-img-slide">';
 					str += '<div class="click">';
 					item.pdImages.forEach(function(image, index) {
-						console.log(image.fileName);
-						str += '<div><a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'" ><img src="" class="img-fluid mx-auto" alt="" /></a></div>';
-					});
+						   str += '<div><a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'"><img src="${pageContext.request.contextPath}/img/pdupload/'+ image.fileName + '" class="img-fluid mx-auto" alt="" /></a></div>';
+						});
+
 					str += '</div>';
 					str += '</div>';
 					str += '</div>';
@@ -44,8 +44,8 @@
 					str += '<div class="listing-short-detail-wrap">';
 					str += '<div class="_card_list_flex mb-2">';
 					str += '<div class="_card_flex_01">';
-					str += '<span class="_list_blickes _netork" id="pdTerm">' + item.pdDetail.pdTerm + '</span>';
-					str += '<span class="_list_blickes types" id="editCount">' + item.pdDetail.editCount + '</span>';
+					str += '<span class="_list_blickes _netork" id="pdTerm">기한: ' + item.pdDetail.pdTerm + '</span>';
+					str += '<span class="_list_blickes types" id="editCount">수정: ' + item.pdDetail.editCount + '</span>';
 					str += '</div>';
 					str += '<div class="_card_flex_last">';
 					str += '<div class="prt_saveed_12lk">';
@@ -59,7 +59,7 @@
 					str += '</div>';
 					str += '<div class="_card_list_flex">';
 					str += '<div class="_card_flex_01">';
-					 str += '<h4 class="listing-name verified"><a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'" class="prt-link-detail" id="pdTitle">' + item.pdTitle + '</a></h4>';
+					 str += '<h4 class="listing-name verified"><a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'" class="prt-link-detail" id="pdTitle" style="margin-left: 5px">' + item.pdTitle + '</a></h4>';
 					str += '</div>';
 					str += '</div>';
 					str += '</div>';
@@ -82,7 +82,7 @@
 					str += '<h6 class="listing-card-info-price mb-0" id="pdPrice">' + item.pdDetail.pdPrice + '</h6>/ ' + item.pdDetail.pdType + '</div>';
 					str += '</div>';
 					str += '<div class="footer-flex">';
-					str += '<a href="property-detail.html" class="prt-view">View Detail</a>';
+					str += '<a href="/wonder/pd/pdDetail?pdNo=' + item.pdNo +'" id="viewDetail" class="prt-view">상품 상세보기</a>';
 					str += '</div>';
 					str += '</div>';
 					str += '</div>';
@@ -462,7 +462,7 @@
 							<div class="stbooking-footer mt-1">
 								<div class="form-group mb-0 pb-0">
 									<a href="#" class="btn book_btn theme-bg" id="pdWrite" >상품 등록하기</a>
-									<br><br>
+									<br>
 								</div>
 							</div>
 						</div>
@@ -476,7 +476,7 @@
 											<div class="click">
 												<c:forEach var="PdImageVO" items="${pdListVo.pdImages}" varStatus="status">
 													<div>
-														<a href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>"><img src="../../../../resources/static/img/pdupload/${PdImageVO.fileName}" class="img-fluid mx-auto" alt="" /></a>
+														<a href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>"><img src="${pageContext.request.contextPath}/img/pdupload/${PdImageVO.fileName}" class="img-fluid mx-auto" alt="" /></a>
 													</div>
 												</c:forEach>
 											</div>
@@ -488,7 +488,7 @@
 											<div class="listing-short-detail-wrap">
 												<div class="_card_list_flex mb-2">
 													<div class="_card_flex_01">
-														<span class="_list_blickes _netork" id="pdTerm">${pdListVo.pdDetail.pdTerm}</span> <span class="_list_blickes types" id="editCount">${pdListVo.pdDetail.editCount}</span>
+														<span class="_list_blickes _netork" id="pdTerm">기한: ${pdListVo.pdDetail.pdTerm}</span> <span class="_list_blickes types" id="editCount">수정: ${pdListVo.pdDetail.editCount}</span>
 													</div>
 													<div class="_card_flex_last">
 														<div class="prt_saveed_12lk">
@@ -507,7 +507,7 @@
 												<div class="_card_list_flex">
 													<div class="_card_flex_01">
 														<h4 class="listing-name verified"><a href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>" 
-														class="prt-link-detail" id="pdTitle">${pdListVo.pdTitle}</a></h4>
+														class="prt-link-detail" id="pdTitle" style="margin-left: 5px">${pdListVo.pdTitle}</a></h4>
 													</div>
 												</div>
 											</div>
@@ -526,13 +526,13 @@
 										</div>
 										<div class="listing-detail-footer">
 											<div class="footer-first">
-												<div class="foot-location">
+												<div class="foot-location" id="detailPd">
 													<h6 class="listing-card-info-price mb-0" id="pdPrice">${pdListVo.pdDetail.pdPrice}</h6>
 													/ ${pdListVo.pdDetail.pdType}
 												</div>
 											</div>
 											<div class="footer-flex">
-												<a href="property-detail.html" class="prt-view">View Detail</a>
+												<a href="<c:url value='/pd/pdDetail?pdNo=${pdListVo.pdNo}'/>" id="viewDetail" class="prt-view">상품 상세보기</a>
 											</div>
 										</div>
 									</div>
@@ -837,10 +837,7 @@
 						</div>
 					</div>
 </div>
-					<div>
-						<br> <br> <br>
-						<input type="button" id="pdWrite" value="상품등록">
-					</div>
+					
 				</div>
 
 			</div>

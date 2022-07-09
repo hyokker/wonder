@@ -7730,7 +7730,8 @@ a._calss_tyui {
     object-fit: cover;
 }
 .property-listing.list_view .list_view_flex {
-    padding-left: 15px;
+    width: 50%;
+    margin-left: 5px;
 }
 .property-listing.list_view .listing-name {
     font-size: 15px;

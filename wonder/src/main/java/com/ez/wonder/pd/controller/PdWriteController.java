@@ -95,7 +95,7 @@ public class PdWriteController {
 		ProductVO pd = new ProductVO();
 		String userid= (String)session.getAttribute("userId");
 		pd.setUserId(userid);
-		pd.setCateType("p");
+		pd.setCateType("P");
 		
 		pd.setPdTitle(httpServletRequest.getParameter("pdTitle"));
 		pd.setLang(httpServletRequest.getParameter("pdLang"));
