@@ -30,7 +30,7 @@
 							<img src="<c:url value='/img/mypage/expert_profile/${expertVoImg.fileName }'/>" class="img-fluid avater" alt="">
 						</c:if>
 						<c:if test="${empty expertVoImg }">					
-							<img src="" class="img-fluid avater" alt="">
+							<img src="<c:url value='/img/mypage/expert_profile/default_profile.png'/>" class="img-fluid avater" alt="">
 						</c:if>
 						<h4>${expertVo.nickname }</h4>
 					</div>
@@ -551,7 +551,7 @@
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<button class="btn theme-bg rounded" type="submit">등록</button>
+												<button class="btn theme-bg rounded" type="submit" id="reviewBtn">등록</button>
 												<input type="hidden" value="${param.pdNo }" name="pdNo">
 												<input type="hidden" value="${userId }" name="userId">
 											</div>
@@ -783,6 +783,9 @@
         		$('#topLogin').click();
         		return false;
         	}
+     		//모달 뒷 배경 스크롤 고정
+     		$('body').css('overflow', 'hidden');
+     		
      		date = new Date();
      		var today=getDate(date, 0);
      		$('input[name="orderstart"]').val(today);
@@ -814,6 +817,11 @@
         	$('.modalB').modal('hide');
         });
         
+        //모달 닫으면 뒷 배경 스크롤 가능
+        $('.mod-close').click(function(){
+        	$('body').css('overflow', 'auto');
+        });
+        
         //리뷰 더 보기
         var bool=false;
         $('.more_review').hide();
@@ -829,12 +837,22 @@
         	bool=!bool;
         });
         
-        //로그인 체크
+        //리뷰 로그인 체크 및 유효성 검사
         $('form[name=frm]').submit(function(){
         	if($('input[name=userId]').val().length<1){
         		event.preventDefault();
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
+        	}else{
+        		if($.trim($('input[name=reviewTitle]').val()).length < 1 ){
+        			event.preventDefault();
+            		alert("제목을 입력해주세요");
+            		$('input[name=reviewTitle]').focus();
+            	}else if($.trim($('textarea[name=reviewContent]').val()).length < 1){
+            		event.preventDefault();
+            		alert("내용을 입력해주세요");
+            		$('textarea[name=reviewContent]').focus();
+            	}
         	}
         });
         
@@ -859,6 +877,19 @@
         
         //의뢰서 ajax
         $('button[name=frmBSubmit]').click(function(){
+        	//유효성 검사
+        	if($.trim($('input[name=formTitle]').val()).length < 1 ){
+    			event.preventDefault();
+        		alert("제목을 입력해주세요");
+        		$('input[name=formTitle]').focus();
+        		return false;
+        	}else if($.trim($('textarea[name=formContent]').val()).length < 1){
+        		event.preventDefault();
+        		alert("내용을 입력해주세요");
+        		$('textarea[name=formContent]').focus();
+        		return false;
+        	}
+        	
 	        var form = $(this).parent().parent().serialize();
         	
 	        $.ajax({
