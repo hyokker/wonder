@@ -46,6 +46,14 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
+	public ExpertVO getSellerImg(int pdNo) {
+		ProductVO vo=productDao.selcetProductByNo(pdNo);
+		String userId=vo.getUserId();
+		
+		return memberDao.selectSellerImg(userId);
+	}
+	
+	@Override
 	public int insertPdImage(PdImageVO item) {
 		return productDao.insertPdImage(item);
 	}
@@ -98,5 +106,6 @@ public class ProductServiceImpl implements ProductService{
 	public int deleteProduct(int pdNo) {
 		return productDao.deleteProduct(pdNo);
 	}
+
 
 }

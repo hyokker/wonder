@@ -74,6 +74,8 @@ public class ProductController {
 		logger.info("리뷰 평점 조회, map={}", map);
 		ExpertVO expertVo=productService.getSellerInfo(pdNo);
 		logger.info("판매자 정보 조회, expertVo={}", expertVo);
+		ExpertVO expertVoImg=productService.getSellerImg(pdNo);
+		logger.info("판매자 정보 조회, expertVoImg={}", expertVoImg);
 		int heartCount=0;
 		if(userId != null && !userId.isEmpty()) {
 			NoneDupVO dupVo=new NoneDupVO();
@@ -90,6 +92,7 @@ public class ProductController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("map", map);
 		model.addAttribute("expertVo", expertVo);
+		model.addAttribute("expertVoImg", expertVoImg);
 		model.addAttribute("heartCount", heartCount);
 		
 		return "/pd/pdDetail";
