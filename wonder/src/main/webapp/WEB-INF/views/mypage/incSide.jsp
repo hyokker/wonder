@@ -12,6 +12,9 @@
 		$('#free').click(function(){
 			location.href="<c:url value='/mypage/dashboard/free' />";
 		});
+		$('#out').click(function(){
+			location.href="<c:url value='/mypage/dashboard/out' />";
+		});
 
 		var page=$('#pageCheck').val();
 		
@@ -69,6 +72,7 @@
 								<div>
 									<input type="button" value="일반회원" id="genaral">
 									<input type="button" value="프리랜서" id="free">
+									<input type="button" value="세션out" id="out">
 
 								</div>
 								<div class="dash_user_avater">

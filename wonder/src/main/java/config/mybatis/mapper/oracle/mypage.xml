@@ -42,7 +42,7 @@ where user_id=#{userId}
 
 <!-- 프리랜서 정보 insert -->
 <insert id="insertFree" parameterType="expertVo">
-	insert into expert_info(user_id,major, career, grade, bank_name, account_no, certificate, introduction, language, framework)
+	insert into expert_info(user_id,major, career, grade, bank_name, account_no, certificate, introduction, lang, frame)
 	values (#{userId},#{major}, #{career},#{grade},#{bankName},#{accountNo},#{certificate},#{introduction},#{language},#{framework})
 </insert>
 
@@ -62,7 +62,7 @@ values (#{userId})
 <!-- 프리랜서 정보 업데이트 -->
 <update id="updateFree" parameterType="expertVo">
 	update expert_info
-	set major=#{major}, career=#{career},grade=#{grade},bank_name=#{bankName},account_no=#{accountNo},certificate=#{certificate},introduction=#{introduction},language=#{language},framework=#{framework}
+	set major=#{major}, career=#{career},grade=#{grade},bank_name=#{bankName},account_no=#{accountNo},certificate=#{certificate},introduction=#{introduction},lang=#{language},frame=#{framework}
 	where user_id=#{userId}
 </update>
 

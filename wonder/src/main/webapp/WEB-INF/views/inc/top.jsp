@@ -105,7 +105,7 @@ function unlinkApp() {
 					window.location = "/wonder/member/logout";
 				},
 				fail : function(err) {
-					alert('fail: '+ JSON.stringify(err));
+					//alert('fail: '+ JSON.stringify(err));
 				},
 			})
 }

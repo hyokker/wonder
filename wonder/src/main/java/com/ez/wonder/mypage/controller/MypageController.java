@@ -103,6 +103,17 @@ public class MypageController {
 		return "/mypage/dashboard";
 	}
 	
+	@RequestMapping("/dashboard/out")
+	public String mypage_dashboard_out(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("userId");
+		session.removeAttribute("type");
+		session.removeAttribute("userName");
+		
+		return "/";
+	}
+	
 	@GetMapping("/profile")
 	public void mypage_profile_get(HttpSession session, Model model) {
 		logger.info("프로필 페이지");
@@ -119,11 +130,11 @@ public class MypageController {
 			logger.info("프로필 페이지 프리랜서 정보조회 expertVo={}", vo);
 			
 			
-			String language = vo.getLanguage();
+			String language = vo.getLang();
 			String[] langArr = language.split(",");
 			logger.info("langArr.length={}",langArr.length);
 			
-			String framework = vo.getFramework();
+			String framework = vo.getFrame();
 			String[] frameArr = framework.split(",");
 			logger.info("frameArr.length={}",frameArr.length);
 			
@@ -254,7 +265,7 @@ public class MypageController {
 		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
 
 		ExpertVO vo = null;
-		if(type.equals("일반회원")) {
+		if(type.equals("일반회원") || type.equals("승인대기")) {
 			List<LanguageVO> langList = mypageService.selectAllLanguage();
 			logger.info("langList.size={}",langList.size());
 
@@ -377,11 +388,11 @@ public class MypageController {
 			logger.info("프리랜서 신청 페이지 정보조회 expertVo={}", vo);
 			
 			
-			String language = vo.getLanguage();
+			String language = vo.getLang();
 			String[] langArr = language.split(",");
 			logger.info("langArr.length={}",langArr.length);
 			
-			String framework = vo.getFramework();
+			String framework = vo.getFrame();
 			String[] frameArr = framework.split(",");
 			logger.info("frameArr.length={}",frameArr.length);
 			
