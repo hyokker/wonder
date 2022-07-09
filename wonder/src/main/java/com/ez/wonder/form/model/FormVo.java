@@ -2,9 +2,14 @@ package com.ez.wonder.form.model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
+@JsonAutoDetect
 public class FormVo {
 	private int formNo;
 	private String userId;
@@ -17,4 +22,5 @@ public class FormVo {
 	private String payFlag;
 	private String orderstart;
 	private String orderend;
+	
 }

@@ -82,6 +82,10 @@
 											<li><a href="#" style="color: #2a2f3a;" id="pdDelete"><i class="fa fa-trash" style="font-size: 18px; color: #d72121;"></i>&nbsp;삭제하기</a></li>
 											</c:if>
 										</ul>
+										<form name="frmHeart" method="post">
+											<input type="hidden" value="${pdVo.pdNo }" name="pdNo">
+											<input type="hidden" value="${userId }" name="userId">
+										</form> 
 									</div>
 								</div>
 							</div>
@@ -721,7 +725,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <input type="button" class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;" value="제작자 일정보기">
-				<button class="btn theme-bg rounded" type="submit">의뢰서 전송</button>
+				<button class="btn theme-bg rounded" type="submit" name="frmBSubmit">의뢰서 전송</button>
 				<input type="hidden" name="userId" value="${userId }">
 				<input type="hidden" value="${expertVo.userId }" name="pUserId">
 				<input type="hidden" value="${param.pdNo }" name="pdNo">
@@ -733,7 +737,7 @@
 	</div>
 </c:forEach>
 <!-- Modal C -->
-	<div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+	<div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" id="modalC">
 	  <div class="modal-dialog modal-lg modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
@@ -842,8 +846,8 @@
         		$('#topLogin').click();
         		return false;
         	}
-        	$('form[name=frmB]').attr('action','<c:url value="/pd/noneDup"/>');
-        	$('form[name=frmB]').submit();
+        	$('form[name=frmHeart]').attr('action','<c:url value="/pd/noneDup"/>');
+        	$('form[name=frmHeart]').submit();
         });
         
         //상품 삭제
@@ -854,27 +858,29 @@
         });
         
         //의뢰서 ajax
-        $('form[name=frmB]').submit(function(){
-	        var form = $(this).serialize();
+        $('button[name=frmBSubmit]').click(function(){
+	        var form = $(this).parent().parent().serialize();
         	
 	        $.ajax({
-	        	type:"POST", 
-	        	url:"<c:url value='/pd/ajaxForm' />", 
+	        	type:"GET", 
+	        	url:"<c:url value='/pd/ajaxForm'/>", 
+	        	data: form,
 	        	contentType: 'application/json',
-	        	data:JSON.stringify(form),
-	        	dataType:"json",
 	        	success: function (res) {
 		        	if(res==0){
 			        	alert("의뢰서 전송에 실패하였습니다.");
 		        	}else if(res==1){
 		        		alert("의뢰서를 전송하였습니다.");
-		        		$('.modalC').modal('show');
 		        	}else if(res==2){
 		        		alert("현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.");
 		        	}
+	        		location.href="<c:url value='/pd/pdDetail?pdNo=${pdVo.pdNo}'/>";
+	        		if(res==1){
+	        			$('#modalC').modal('show');
+	        		}
 	        	},
 	        	error:function(xhr, status, error){
-					alert('error:'+error);
+					alert('error:'+form);
 				}
 	        });
         });
