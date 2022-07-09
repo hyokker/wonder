@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.wonder.mypage.model.MypageDAO">
-
+<sql id="searchWhere">
+		<if test="searchKeyword !=null and searchKeyword !=''">
+        	and ${searchCondition} 
+        		like '%' || #{searchKeyword} || '%'
+        </if>
+</sql>
+	
 <select id="selectMemberByNo" parameterType="int" resultType="memberVo">
 	select * from member where mem_no=#{no} <!-- 멤버번호 세션값으로 받아오는걸로 바꿔야함!!!! -->
 </select>
@@ -133,7 +139,30 @@ values (#{userId})
 </update>
 
 <!-- 찜한 게시글 정보 select -->
-<select id="selectBookmark" parameterType="string" resultType="hashmap">
+<select id="selectBookmark" parameterType="hashmap" resultType="hashmap">
+select * from 
+(
+    select rownum as RNUM, Z.*
+    from
+        (
+        select A.pd_no,A.user_id,B.pd_title , TO_CHAR(C.introduction) as introduction, D.pd_price, E.file_name
+        from (((none_dup A join product B
+        on A.pd_no=B.pd_no) join expert_info C
+        on A.user_id=C.user_id) join pd_detail D
+        on B.pd_no=D.pd_no) join pd_image E
+        on B.pd_no=E.pd_no
+        where D.pd_type='STANDARD'
+		and A.user_id=#{userId}
+		<include refid="searchWhere"></include>
+        ) Z
+    )
+	where RNUM>#{firstRecordIndex} 
+		<![CDATA[
+		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage} ]]>
+
+
+
+<!-- 	
 	select A.pd_no,A.user_id,B.pd_title , TO_CHAR(C.introduction) as introduction, D.pd_price, E.file_name
 	from (((none_dup A join product B
 	on A.pd_no=B.pd_no) join expert_info C
@@ -142,6 +171,20 @@ values (#{userId})
 	on B.pd_no=E.pd_no
 	where D.pd_type='STANDARD'
 	and A.user_id=#{userId}
+-->
+</select>
+
+<!-- 찜한 게시글 레코드 구하기 -->
+<select id="getTotalRecordBM" parameterType="hashmap" resultType="int">	
+	select count(*)
+	from (((none_dup A join product B
+	on A.pd_no=B.pd_no) join expert_info C
+	on A.user_id=C.user_id) join pd_detail D
+	on B.pd_no=D.pd_no) join pd_image E
+	on B.pd_no=E.pd_no
+	where D.pd_type='STANDARD'
+	and A.user_id=#{userId}
+	<include refid="searchWhere"></include>
 </select>
 
 <!-- 찜한 게시글 삭제 delete -->

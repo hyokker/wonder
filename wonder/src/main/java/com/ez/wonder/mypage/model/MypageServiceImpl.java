@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -138,13 +139,18 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<HashMap<String, Object>> selectBookmark(String userId) {
-		return mypageDao.selectBookmark(userId);
+	public List<HashMap<String, Object>> selectBookmark(HashMap<String, Object> map) {
+		return mypageDao.selectBookmark(map);
 	}
 
 	@Override
 	public int deleteBookmark(HashMap<String, Object> map) {
 		return mypageDao.deleteBookmark(map);
+	}
+
+	@Override
+	public int getTotalRecordBM(HashMap<String, Object> map) {
+		return mypageDao.getTotalRecordBM(map);
 	}
 
 

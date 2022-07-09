@@ -26,6 +26,8 @@ import com.ez.wonder.chatting.model.ChatService;
 import com.ez.wonder.chatting.model.ChatVO;
 import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
+import com.ez.wonder.common.PaginationInfo;
+import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -518,19 +520,40 @@ public class MypageController {
 	}
 	
 
-	@GetMapping("/bookmark")
-	public void mypage_bookmark_get(HttpSession session,Model model) {
+	@RequestMapping("/bookmark")
+	public void mypage_bookmark(@ModelAttribute SearchVO searchVo, HttpSession session,Model model) {
 		logger.info("찜(북마크) 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
-		List<HashMap<String, Object>> list = mypageService.selectBookmark(userId);
+		PaginationInfo paging = new PaginationInfo();
+		paging.setBlockSize(ConstUtil.BLOCKSIZE5);
+		paging.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		paging.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setFirstRecordIndex(paging.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("searchCondition", searchVo.getSearchCondition());
+		map.put("searchKeyword", searchVo.getSearchKeyword());
+		map.put("firstRecordIndex", searchVo.getFirstRecordIndex());
+		map.put("recordCountPerPage", searchVo.getRecordCountPerPage());
+
+		List<HashMap<String, Object>> list = mypageService.selectBookmark(map);
 		logger.info("북마크 페이지 리스트size={}", list.size());
-		logger.info("북마크 페이지 리스트={}", list);
+		
+		int totalRecord = mypageService.getTotalRecordBM(map);
+		logger.info("북마크 totalRecord={}",totalRecord);
+		
+		paging.setTotalRecord(totalRecord);
 		
 		model.addAttribute("list",list);
+		model.addAttribute("pagingInfo",paging);
 		model.addAttribute("vo",vo);
 	}
 	
@@ -558,7 +581,7 @@ public class MypageController {
 			logger.info("북마크 삭제실패");
 		}
 		
-		list = mypageService.selectBookmark(userId);
+		//list = mypageService.selectBookmark(userId);
 		logger.info("북마크 페이지 리스트size={}", list.size());
 		logger.info("북마크 페이지 리스트={}", list);
 		
