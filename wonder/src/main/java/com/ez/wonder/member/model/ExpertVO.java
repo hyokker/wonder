@@ -15,8 +15,8 @@ public class ExpertVO extends MemberVO{
 	private String introduction;
 	private String approval;
 	private int workAmount;
-	private String language;
-	private String framework;
+	private String lang;
+	private String frame;
 	private String fileName;
 
 	

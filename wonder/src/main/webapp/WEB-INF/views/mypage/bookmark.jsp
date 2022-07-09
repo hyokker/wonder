@@ -7,6 +7,7 @@
 <%-- <%@ include file="incSide.jsp" %> --%>
 <script type="text/javascript">
 	$(function(){
+		
 		$('.action').each(function(item,idx){
 			$(this).find('.delete').click(function(){
 				if(!confirm('정보를 수정하시겠습니까?')){
@@ -51,17 +52,18 @@
 							alert("채팅 불러오기 실패, deleteNo = "+deleteNo);
 						}
 					});
-					
-					
-					
 				}//컨펌
 			}); //삭제버튼 클릭 이벤트
 		});
-		
-		
 	});
+	
+	function pageProc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();
+	}
 </script>
 <input type="hidden" id="pageCheck" value="bookmark">
+
 
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
 						<div class="col-lg-9 col-md-8 col-sm-12">
@@ -81,7 +83,7 @@
 												<td class="dashboard_propert_wrapper">
 													<img src="<c:url value='/img/pdupload/${map.FILE_NAME }' />" alt="찜목록 사진" class="bookmarkImg">
 													<div class="title">
-														<h4><a href="#">${map.PD_TITLE }</a></h4>
+														<h4><a href="<c:url value='/pd/pdDetail?pdNo=${map.PD_NO}'/>">${map.PD_TITLE }</a></h4>
 														<span>${map.INTRODUCTION }</span>
 														
 														<span class="table-property-price">
@@ -146,7 +148,48 @@
  --%>
 										</tbody>
 									</table>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<ul class="pagination p-center">
+											<c:if test="${pagingInfo.firstPage>1}">
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Previous" onclick="pageProc(${pagingInfo.firstPage-1})">
+														<span class="ti-arrow-left"></span> <span class="sr-only">Previous</span>
+												</a></li>
+											</c:if>
+											<c:forEach var="i" begin="${pagingInfo.firstPage}"
+												end="${pagingInfo.lastPage}">
+												<c:if test="${i==pagingInfo.currentPage}">
+													<li class="page-item active"><a class="page-link" href="#">${i}
+													</a></li>
+												</c:if>
+												<c:if test="${i!=pagingInfo.currentPage}">
+													<li class="page-item"><a class="page-link" href="#"
+														onclick="pageProc(${i })">${i} </a></li>
+												</c:if>
+											</c:forEach>
+											<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage}">
+												<li class="page-item"><a class="page-link" href="#"
+													aria-label="Next" onclick="pageProc(${pagingInfo.lastPage+1})">
+														<span class="ti-arrow-right"></span> <span class="sr-only">Next</span>
+												</a></li>
+											</c:if>
+										</ul>
+									</div>
 									
+									
+									<%-- 
+									<c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">		
+									<c:if test="${i==pagingInfo.currentPage }">
+										<span style="color: blue;font-weight: bold;font-size: 1em">
+											${i }</span>
+									</c:if>
+									<c:if test="${i!=pagingInfo.currentPage }">			
+										<a href="#" onclick="pageProc(${i})">	
+											[${i}]
+										</a>
+									</c:if>		
+									</c:forEach>
+									 --%>
 								</div>
 								
 								<div class="row">
@@ -165,6 +208,12 @@
 				</div>
 			</section>
 			<!-- ============================ User Dashboard End ================================== -->
-
+<form action="<c:url value='/mypage/bookmark'/>" 
+	method="post" name="frmPage">
+	<input type="text" name="searchKeyword" value="${param.searchKeyword }">
+	<input type="text" name="searchCondition" 
+		value="${param.searchCondition }">
+	<input type="text" name="currentPage" >	
+</form>
 
 <%@ include file="../inc/bottom.jsp" %>
