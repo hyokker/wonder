@@ -165,7 +165,7 @@ div#srchTitBar {
 										<!-- Item #1 -->
 										<tr>
 											<td class="dashboard_propert_wrapper"><img
-												src="${pageContext.request.contextPath}/img/np1.jpg" alt="">
+												src="${pageContext.request.contextPath}/img/pdupload/${pdImages.fileName}" alt="상품 사진">
 												<div class="title">
 													<h4>
 														<a href="#">${productVo.pdTitle }</a>
