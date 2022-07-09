@@ -38,11 +38,11 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.insertPdDetail(item);
 	}
 	
-	public ExpertVO getExpertInfo(int pdNo) {
+	public ExpertVO getSellerInfo(int pdNo) {
 		ProductVO vo=productDao.selcetProductByNo(pdNo);
 		String userId=vo.getUserId();
 		
-		return memberDao.selectByUserId(userId);
+		return memberDao.selectSeller(userId);
 	}
 	
 	@Override

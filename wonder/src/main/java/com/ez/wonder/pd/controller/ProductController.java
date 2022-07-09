@@ -72,7 +72,7 @@ public class ProductController {
 		logger.info("리뷰 목록 조회, reviewList.size={}", reviewList.size());
 		Map<String, Object> map=reviewService.getAvgScore(pdNo);
 		logger.info("리뷰 평점 조회, map={}", map);
-		ExpertVO expertVo=productService.getExpertInfo(pdNo);
+		ExpertVO expertVo=productService.getSellerInfo(pdNo);
 		logger.info("판매자 정보 조회, expertVo={}", expertVo);
 		int heartCount=0;
 		if(userId != null && !userId.isEmpty()) {
@@ -161,7 +161,7 @@ public class ProductController {
 		logger.info("의뢰서 조회 결과, formConfirm={}", map);
 		int result=0;
 		if(map != null) {
-			result=2;
+			return result=2;
 		}
 		
 		int cnt=formService.insertForm(formVo);
@@ -192,7 +192,7 @@ public class ProductController {
 			}
 		}
 		
-		ExpertVO expertVo=productService.getExpertInfo(vo.getPdNo());
+		ExpertVO expertVo=productService.getSellerInfo(vo.getPdNo());
 		logger.info("판매자 정보 조회, expertVo={}", expertVo);
 		
 		model.addAttribute("map", map);
