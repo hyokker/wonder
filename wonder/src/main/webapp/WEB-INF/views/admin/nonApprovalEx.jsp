@@ -228,7 +228,7 @@ div#srchTitBar {
 														</c:if></td>
 													<td>
 														<div class="_leads_action">
-															<a href="grantEx?memNo=${memberVo.userId }"><i
+															<a href="grantEx?memNo=${memberVo.memNo }"><i
 																class="fas fa-edit"></i></a> <a
 																href="delnonApEx?memNo=${memberVo.memNo }"><i
 																class="fas fa-trash"></i></a>

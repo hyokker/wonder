@@ -50,6 +50,12 @@ class="item">
 			class="fa fa-arrow-right ml-2"></i>
 		</a>
 		</c:if>
+		<c:if test='${("승인대기") eq (sessionScope.type) }'>
+ 		<a href="<c:url value='/pd/pdList'/>"
+			class="read-more theme-bg"> 상품목록<i
+			class="fa fa-arrow-right ml-2"></i>
+		</a>
+		</c:if>
 		<c:if test='${("프리랜서") eq (sessionScope.type) }'>
 		<a href="<c:url value='/pd/pdWrite'/>"
 			class="read-more theme-bg"> 상품등록<i

@@ -91,7 +91,7 @@ class="submenu-indicator"></span></a>
 <script type="text/javascript">
 function unlinkApp() {
 	var loginType="${sessionScope.LoginType}";
-	alert(loginType);
+		/* alert(loginType); */
 	if(loginType=="normal"){
 		location.href="<c:url value='/member/logout'/>";
 	}
@@ -105,10 +105,11 @@ function unlinkApp() {
 					window.location = "/wonder/member/logout";
 				},
 				fail : function(err) {
-					//alert('fail: '+ JSON.stringify(err));
+					window.location = "/wonder/";
+					/* alert('fail: '+ JSON.stringify(err)); */
 				},
 			})
-}
+	}
 </script>
 
 <input type="hidden" name="sessionDel" id="sessionDel"
