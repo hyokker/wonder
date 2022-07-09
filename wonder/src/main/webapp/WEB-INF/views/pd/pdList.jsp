@@ -280,7 +280,7 @@
 			$('#pdWrite').click(function() {
 				var userType = '<%=(String) session.getAttribute("type")%>';
 				console.log(userType);
-				if (userType == '전문가') {
+				if (userType == '프리랜서') {
 					location.href = "/wonder/pd/pdWrite"
 				} else {
 					alert("전문가 아이디로 로그인 해주세요.");
