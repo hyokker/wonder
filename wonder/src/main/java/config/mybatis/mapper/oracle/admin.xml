@@ -54,7 +54,7 @@
 		<if test="searchKeyword !=null and searchKeyword !=''">
 			and
 		</if>
-		grant_flag = 'N' and type='일반회원'
+		grant_flag = 'N' and type='승인대기'
 		order by mem_No desc
 		)B
 		)
