@@ -47,54 +47,8 @@ div#srchTitBar {
 	<div class="container-fluid">
 
 		<div class="row">
-
-			<div class="col-lg-3 col-md-4">
-				<div class="property_dashboard_navbar">
-
-					<div class="dash_user_avater">
-						<img src="https://via.placeholder.com/500x500"
-							class="img-fluid avater" alt="">
-						<h4>${adminVo.adminId }</h4>
-						<span>관리자 계정</span>
-					</div>
-
-					<div class="dash_user_menues">
-
-						<ul>
-							<li><a href="<c:url value='/admin/dashboard'/>"><i
-									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li><a href="<c:url value='/admin/memberList'/>"><i
-									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
-							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
-									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
-							<li><a href="<c:url value='/admin/pdList'/>"><i
-									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
-							<li class="active"><a
-								href="<c:url value='/admin/nonApprovalList'/>"><i
-									class="fa fa-bookmark"></i>거래대기 목록<span
-									class="notti_coun style-2">7</span></a></li>
-							<li><a href="<c:url value='/admin/subadminList'/>"><i
-									class="fa fa-id-badge"></i>부서별 관리자 관리<span
-									class="notti_coun style-3">3</span></a></li>
-							<li><a href="<c:url value='/admin/editAccount'/>"><i
-									class="fa fa-user-tie"></i>내 정보</a></li>
-							<li><a href="<c:url value='/admin/createAdmin'/>"><i
-									class="fa fa-plus-circle"></i>부서별 관리자 생성</a></li>
-						</ul>
-					</div>
-
-					<div class="dash_user_footer">
-						<ul>
-							<li><a href="<c:url value='/admin/logout'/>"><i
-									class="fa fa-power-off"></i></a></li>
-							<li><a href="<c:url value='/admin/email'/>"><i
-									class="fa fa-envelope"></i></a></li>
-							<li><a href="#"><i class="fa fa-cog"></i></a></li>
-						</ul>
-					</div>
-
-				</div>
-			</div>
+			<input type="hidden" id="link" value="nonApprovalList">
+			<%@ include file="../admin/menubar.jsp"%>
 
 			<form action="<c:url value='/admin/nonApprovalList'/>" method="post"
 				name="frmPage">
@@ -164,18 +118,17 @@ div#srchTitBar {
 									<c:forEach var="formVo" items="${list }">
 										<!-- Item #1 -->
 										<tr>
-											<td class="dashboard_propert_wrapper"><img
-												src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }"
-												alt="상품 사진">
+											<td class="dashboard_propert_wrapper"><a href="../mypage/form?formNo=${formVo.formNo}"><img
+												src="${pageContext.request.contextPath}/img/adminImg/formImg.jpg" alt="상품 사진"/></a>
 												<div class="title">
 													<c:if test="${fn:length(formVo.formTitle)>40}">
 														<h4>
-															<a href="#">${fn:substring(formVo.formTitle,0,40)}...</a>
+															<a href="../mypage/form?formNo=${formVo.formNo}">${fn:substring(formVo.formTitle,0,40)}...</a>
 														</h4>
 													</c:if>
 													<c:if test="${fn:length(formVo.formTitle)<=40}">
 														<h4>
-															<a href="#">${formVo.formTitle}</a>
+															<a href="../mypage/form?formNo=${formVo.formNo}">${formVo.formTitle}</a>
 														</h4>
 													</c:if>
 													<span>${formVo.userId }</span> <span
