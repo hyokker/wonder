@@ -23,13 +23,27 @@
    <select id="selectByUserid" parameterType="string" resultType="memberVo">
       select * from member where user_id=#{userId}
    </select>
-      <update id="deleteMember">
+    <update id="deleteMember">
       update member set outdate=sysdate 
       where user_id=#{userId}
    </update>
    
+    <select id="findUserId" parameterType="memberVo" resultType="memberVo">
+      select * from member where name=#{name} and email=#{email}
+   </select>
+    <select id="findPwd" parameterType="memberVo" resultType="String">
+      select pwd from member
+      where user_id=#{userId} and name=#{name} and email=#{email} 
+   </select>
+	<update id="updatePwd" parameterType="memberVo">
+		update member
+		set pwd=#{pwd}
+		where email=#{email}
+	</update>   
+   
+   
    <select id="selectSeller" parameterType="string" resultType="expertVo">
-		select * from expertMemberView where user_id=#{userId} and file_type='PROFILE'
+		select * from expertMemberView where user_id=#{userId} and (file_type is null or file_type='PROFILE')
 	</select>
 	
    <select id="selectSellerImg" parameterType="string" resultType="expertVo">

@@ -183,14 +183,17 @@
 	
 }
 
+
 .message-plunch{
-	height: 50px;
+	min-height: 50px;
+	overflow: hidden;
 }
 
 .right{
 	display: inline-block;
 	float: right;
 	text-align: right;
+	margin-right: 0;
 }
 
 .left{

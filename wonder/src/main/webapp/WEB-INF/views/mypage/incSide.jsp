@@ -15,6 +15,10 @@
 		$('#out').click(function(){
 			location.href="<c:url value='/mypage/dashboard/out' />";
 		});
+		
+		$('.linkFreeWrite').click(function(){
+			open("<c:url value='/mypage/freeDetailWrite' />", "중복확인","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+		});
 
 		var page=$('#pageCheck').val();
 		
@@ -77,10 +81,15 @@
 								</div>
 								<div class="dash_user_avater">
 										<c:if test="${profileVo.fileName !=null && profileVo.fileName != ''}">
-											<img src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" class="img-fluid avater" alt="프로필이미지">
+											<a class="linkFreeWrite">
+												<img src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" class="img-fluid avater" alt="프로필이미지">
+											</a>
 										</c:if>
 										<c:if test="${profileVo.fileName ==null || profileVo.fileName == ''}">
-											<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="프로필이미지">
+											<%-- <a href="<c:url value='/mypage/freeDetailWrite' />"> --%>
+											<a class="linkFreeWrite">
+												<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="프로필이미지">
+											</a>
 										</c:if>
 									<h4>${userId }</h4>
 									<span>${vo.email }</span>

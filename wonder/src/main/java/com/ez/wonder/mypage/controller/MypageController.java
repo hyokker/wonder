@@ -123,8 +123,9 @@ public class MypageController {
 		String type = memVo.getType();
 
 		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
-
+		
 		ExpertVO vo = null;
+		
 		if(type.equals("프리랜서")) {
 			vo = mypageService.selectExpertById(userId);
 			logger.info("프로필 페이지 프리랜서 정보조회 expertVo={}", vo);
@@ -273,6 +274,38 @@ public class MypageController {
 		return "/common/message";
 	}
 	
+	@GetMapping("/freeDetailWrite")
+	public String mypage_feeDetail_get(HttpSession session, Model model) {
+		logger.info("프리랜서 명함 작성 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO memVo = mypageService.selectMemberById(userId);
+		String type = memVo.getType();
+		
+		if(userId==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
+		
+
+		ExpertVO expertVo = mypageService.selectExpertById(userId);
+		ExpertImageVO ExpertProfileVo = mypageService.selectExpertProfileById(userId);
+		logger.info("expertVo={}",expertVo);
+		logger.info("profileVo={}",ExpertProfileVo);
+		logger.info("memVo={}",memVo);
+		model.addAttribute("expertVo", expertVo);
+		model.addAttribute("profileVo", ExpertProfileVo);
+		model.addAttribute("memVo",memVo);
+		
+
+		return "/mypage/freeDetailWrite";
+	}
+	
 	
 	@GetMapping("/application")
 	public void mypage_application_get(HttpSession session, Model model) {
@@ -388,7 +421,7 @@ public class MypageController {
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
-		
+
 		return "/common/message";
 	}
 	
@@ -396,10 +429,11 @@ public class MypageController {
 	
 	
 	@GetMapping("/applicationCheck")
-	public void mypage_applicationCheck_get(HttpSession session, Model model) {
+	public String mypage_applicationCheck_get(@RequestParam("userId") String userIdGet,HttpSession session, Model model) {
 		logger.info("프리랜서 등록 확인 페이지");
 		
-		String userId=(String) session.getAttribute("userId");
+		String ssUserId=(String) session.getAttribute("userId");
+		String userId=userIdGet;
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
 
@@ -433,8 +467,20 @@ public class MypageController {
 		}
 		logger.info("프로필 페이지 memVo={}",memVo);
 		
-		model.addAttribute("expertVo", vo);
-		model.addAttribute("memVo",memVo);
+		if(ssUserId.equals(userId)) {
+			model.addAttribute("expertVo", vo);
+			model.addAttribute("memVo",memVo);
+			
+			return "/mypage/applicationCheck";
+		}
+		
+		String msg="잘못된 접근입니다", url="/mypage/application";
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";
+
 	}
 	
 	
