@@ -137,26 +137,25 @@ div#srchTitBar {
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb" id="img">
 																	<c:if test="${memberVo.type eq '일반회원' || memberVo.type eq '승인대기'}">
-																		<a href="../mypage/profile?userId=${memberVo.userId}"><img
+																		<img
 																			src="${pageContext.request.contextPath}/img/mypage/default_profile.png"
-																			class="img-fluid" alt="일반회원 프로필 사진" /></a>
+																			class="img-fluid" alt="일반회원 프로필 사진" />
 																	</c:if>
 																	<c:if test="${memberVo.type eq '프리랜서'}">
-																	<a href="../mypage/profile?userId=${memberVo.userId}">
 																		<img
 																			src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName}"
-																			class="img-fluid" alt="프리랜서 프로필 사진" /></a>
+																			class="img-fluid" alt="프리랜서 프로필 사진" />
 																	</c:if>
 																</div>
 																<div class="dash_prt_caption">
 																	<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
-																	<a href="../mypage/profile?userId=${memberVo.userId}"><h5>${memberVo.userId}</h5></a>
+																	<h5>${memberVo.userId}</h5>
 																</div>
 															</div>
 														</td>
 														<td class="m2_hide">
 															<div class="prt_leads">
-																<a href="../mypage/profile?userId=${memberVo.userId}"><h6>${memberVo.name }</h6></a>
+																<h6>${memberVo.name }</h6>
 															</div>
 														</td>
 														<td class="m2_hide">

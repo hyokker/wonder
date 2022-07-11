@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ez.wonder.admin.model.AdminDAO">
-<select id="sumAllSales" resultType="int">
+	<select id="sumAllSales" resultType="int">
 		select sum(price) from
 		payment
 	</select>
@@ -41,11 +41,21 @@
 		where rownum between 1
 		and 5
 	</select>
-
+	<select id="selectReadCount" resultType="productVo">
+		select *
+		from (select *
+		from
+		product where regdate
+		between (SELECT TRUNC(SYSDATE, 'MM') FROM
+		DUAL)
+		and (SELECT LAST_DAY(SYSDATE)
+		FROM DUAL) order by read_count desc)
+		where rownum
+		between 1 and 5
+	</select>
 	<select id="payChart" resultType="paymentVo">
-		select * from payment
-		where regdate between TO_CHAR(SYSDATE - 7) and
-		TO_CHAR(SYSDATE)
-		order by regdate
+		select pay_method, sum(price)
+		from payment
+		group by pay_method order by sum(price) desc
 	</select>
 </mapper>
