@@ -326,10 +326,18 @@
 
 												<script type="text/javascript">
 												$(function(){
+													
 													/* 실제 제출용 */
 													$('#submitBt').click(function(){
 														$('#usableLanguage').val("");
 														$('#usableFramework').val("");
+														
+														/*
+														var introduction = $('#introduction').val();
+														introduction = introduction.replaceAll("\n","<br>");
+														$('#introduction').val(introduction);
+														*/
+
 
 														$('.langLi').each(function(idx,item){
 															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
@@ -531,7 +539,13 @@
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
-													<textarea class="form-control" name="introduction">${expertVo.introduction }</textarea>
+													<% pageContext.setAttribute("newLine","\n"); %>
+													<textarea class="form-control" name="introduction" id="introduction">${expertVo.introduction }</textarea>
+													<%-- 
+													${fn:escapeXml(expertVo.introduction) }
+													${fn:replace(expertVo.introduction, newLine, "<br/>") }
+													<c:out value='${expertVo.introduction }' escapeXml="false" />
+													 --%>
 												</div>	
 												
 												

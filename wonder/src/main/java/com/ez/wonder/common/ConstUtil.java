@@ -20,7 +20,7 @@ public interface ConstUtil {
 	
 	//전문가 페이지 - 프로필사진 업로드
 	String EXPERT_PROFILE_IMAGE_PATH="img\\mypage\\expert_profile";
-	String EXPERT_PROFILE_IMAGE_PATH_TEST="${pageContext.request.contextPath}\\img\\mypage\\expert_profile";
+	String EXPERT_PROFILE_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_profile";
 
 	//전문가 페이지 - 포트폴리오사진 업로드
 	String EXPERT_PORTFOLIO_IMAGE_PATH="img\\mypage\\expert_portfolio";

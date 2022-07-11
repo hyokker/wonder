@@ -155,8 +155,8 @@ public class ProductController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/ajaxForm")
-	public int form(@RequestBody FormVo formVo) {
+	@GetMapping("/ajaxForm")
+	public int form(@ModelAttribute FormVo formVo) {
 		logger.info("의뢰서 등록 처리, 파라미터 formVo={}", formVo);
 		//formVo.setUserId("kim");	//test
 		
