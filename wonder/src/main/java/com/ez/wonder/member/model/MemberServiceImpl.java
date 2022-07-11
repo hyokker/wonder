@@ -79,6 +79,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	@Override
+	public MemberVO findUserId(MemberVO vo) {
+		return memberDao.findUserId(vo);
+	}
 	
 	//public
 
