@@ -198,7 +198,7 @@
 		}
 		function findPwd(){
 			window.open("/wonder/member/findPwd","findPwd",
-		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
+		"width=500,height=450,location=yes,resizable=yes,top=100,left=50");	
 		}
 </script>
 	

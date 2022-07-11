@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,16 +24,16 @@
 						event.preventDefault();
 					} else{
 						var userId = $('#userId').val();
-						var nick = $('#nick').val();
+						var name = $('#name').val();
 						var email = $('#email').val();
 						
 						$.ajax({
 							url: "<c:url value='/member/ajaxFindPwd'/>",
 							type:"GET",
 							data:{
-								memName:name,
-								memTel:tel,
-								memId:id
+								userId:userId,
+								name:name,
+								email:email
 							},
 							async:false,
 							success:function(data){
@@ -45,8 +46,8 @@
 										url: "<c:url value='/email/pwdEmail'/>",
 										type:"GET",
 										data:{
-											pw:num,
-											receiver:id
+											pwd:num,
+											receiver:email
 										},
 										async:false,
 										success:function(data){
@@ -54,6 +55,7 @@
 												alert('이메일 발송이 실패했습니다');
 											}else if(data==1){
 												alert('회원님의 이메일로 임시비밀번호가 발송되었습니다.');
+												alert('로그인 후 꼭 비밀번호를 변경하세요!');
 											}
 										},
 										error:function(){
@@ -69,11 +71,15 @@
 					}
 				});
 			});
+			function closePwd() {
+				
+				self.close();
+			}
 		</script>
 </head>
 <body>
-	<section class="gray pt-5 pb-5" style="text-align: left;">
-<div class="col-lg-9 col-md-8" style="text-align: left">
+	<section class="gray pt-5 pb-5" style="text-align: center;">
+<div class="col-lg-9 col-md-8" style="text-align: center">
 <div class="dashboard-body">
 	<div class="dashboard-wraper">
 		<!-- Basic Information -->
@@ -97,6 +103,7 @@
 
 								<div class="form-group col-lg-12 col-md-12">
 									<button class="btn btn-theme" type="submit" id="findPwd">찾기</button>
+									<button class="btn btn-theme" onclick="closePwd()">닫기</button>
 								</div>
 				</div>
 			</div>

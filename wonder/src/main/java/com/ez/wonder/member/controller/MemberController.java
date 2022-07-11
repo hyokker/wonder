@@ -270,7 +270,8 @@ public class MemberController {
 		logger.info("비밀번호 찾기 화면");
 	}
 	
-	@PostMapping("/member/findPwd")
+	@RequestMapping("/member/ajaxFindPwd")
+	@ResponseBody
 	public int ajaxFindPwd( String userId,  String name,
 			 String email) {
 		logger.info("비밀번호 찾기 처리 파라미터 userId={},name={},email={}",userId,name,email);

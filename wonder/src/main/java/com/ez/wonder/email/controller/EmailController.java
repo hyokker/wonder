@@ -59,6 +59,7 @@ public class EmailController {
 		
 		return "/common/message";
 	}
+	
 	@RequestMapping("/pwdEmail")
 	@ResponseBody
 	public int sendPwd(String receiver, String pwd) {
@@ -76,10 +77,12 @@ public class EmailController {
 			emailSender.sendEmail(subject, content, receiver, sender);
 			logger.info("이메일 발송 성공");
 			
+			
 			result = 1;
 			MemberVO vo = new MemberVO();
 			vo.setEmail(receiver);
 			vo.setPwd(pwd);
+			logger.info("받는사람 이메일 receiver={},임시비밀번호 pwd={}",receiver,pwd);
 			int cnt = memberService.updatePwd(vo);
 			
 			return result;
