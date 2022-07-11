@@ -190,21 +190,29 @@
 				}
 			});
 		});
+
 	});
+		function findUserId(){
+			window.open("/wonder/member/findUserId","findUserId",
+		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
+		}
+		function findPwd(){
+			window.open("/wonder/member/findPwd","findPwd",
+		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
+		}
 </script>
-<!-- 
+	
 	<div class="form-group">
 		<div class="eltio_ol9">
-			<div class="eltio_k1">
-				<input id="dd" class="checkbox-custom"
-					type="checkbox"> <label for="dd"
-					class="checkbox-custom-label">아이디 기억</label>
+			<div class="eltio_k2">
+			
 			</div>
 			<div class="eltio_k2">
-				<a href="#">비밀번호를 잊어버리셨나요?</a>
+				<a href='#' onclick="findUserId();">아이디 찾기</a>
+				<a href="<c:url value='/member/findUserId'/>" style="margin-left: 232px;">비밀번호 찾기</a>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- e001f5b6437ab5c78a358d107808c37c -->
 	<!-- 카카오 로그인 api 어떻게 사용하징? -->
