@@ -263,6 +263,29 @@ public class MemberController {
 		}
 		
 		return map;
+	}
+	
+	@RequestMapping("/member/findPwd")
+	public void findPwd() {
+		logger.info("비밀번호 찾기 화면");
+	}
+	
+	@PostMapping("/member/findPwd")
+	public int ajaxFindPwd( String userId,  String name,
+			 String email) {
+		logger.info("비밀번호 찾기 처리 파라미터 userId={},name={},email={}",userId,name,email);
+		MemberVO vo = new MemberVO();
+		vo.setUserId(userId);
+		vo.setName(name);
+		vo.setEmail(email);
 		
+		String pwd=memberService.findPwd(vo);
+		logger.info("비밀번호 찾기 결과 pwd={}",pwd);
+		int result=0;
+		
+		if(pwd!=null && !pwd.isEmpty()) {
+			result=1;
+		}
+		return result;
 	}
 }

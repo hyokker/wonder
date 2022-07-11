@@ -116,7 +116,7 @@ body {
 <!-- Bootstrap core JavaScript -->
 <script src="jquery/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 
 	$(function(){
