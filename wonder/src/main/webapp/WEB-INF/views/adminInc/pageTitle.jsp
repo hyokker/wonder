@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
 <div class="page-title"
-	style="background: #f4f4f4 url(${pageContext.request.contextPath}/img/freelancer.jpg);"
+	style="background:#00ff0000 url(${pageContext.request.contextPath}/img/adminImg/adminBackground.jpg);"
 	data-overlay="5">
 	<div class="container"> 
 		<div class="row">

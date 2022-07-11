@@ -23,7 +23,7 @@ public interface AdminService {
 	List<ProductVO> selectProduct(SearchVO searchVo);
 	int deleteProduct(int pdNo);
 	List<MemberVO> selectNonApprovalEx(SearchVO searchVo);
-	int grantExpert(int memNo);
+	int grantExpert(String userId);
 	int deleteExpert(String userId);
 	List<ProductVO> selectNonApprovalList(SearchVO searchVo);
 	int deleteForm(int formNo);
@@ -31,6 +31,7 @@ public interface AdminService {
 	int getPdTotalRecord(SearchVO searchVo); 
 	int getAdTotalRecord(SearchVO searchVo); 
 	int getFormTotalRecord(SearchVO searchVo); 
+	int getExMemTotalRecord(SearchVO searchVo);
 	
 	int dupAdminId(String adminId);
 	AdminVO selectByAdminId(String adminId); //admin 아이디로 정보(vo)조회

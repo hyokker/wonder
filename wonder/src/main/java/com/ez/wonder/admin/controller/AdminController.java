@@ -19,6 +19,7 @@ import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.AdminVO;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.pd.model.ProductVO;
 
@@ -47,14 +48,6 @@ public class AdminController {
 
 		List<MemberVO> list = adminService.selectMember(searchVo);
 		logger.info("회원 목록 조회 결과, list.size={}", list.size());
-
-		String adimin_Id = "admin";
-		session.setAttribute("adminId", adimin_Id);
-		String adminId = (String) session.getAttribute("adminId");
-		AdminVO adminVo = adminService.selectByAdminId(adminId);
-		logger.info("관리자 정보 조회 결과, adminVo={}", adminVo);
-		model.addAttribute("adminVo", adminVo);
-		// 관리자 세션 불러오는 부분 유틸리티로 만들까? (반복돼서 코드 지저분함)
 
 		int totalRecord = adminService.getMemTotalRecord(searchVo);
 		logger.info("회원 목록 totalRecord={}", totalRecord);
@@ -310,7 +303,7 @@ public class AdminController {
 		List<MemberVO> list = adminService.selectNonApprovalEx(searchVo);
 		logger.info("전문가 승인 대기 목록 조회 결과, list.size={}", list.size());
 
-		int totalRecord = adminService.getMemTotalRecord(searchVo);
+		int totalRecord = adminService.getExMemTotalRecord(searchVo);
 		logger.info("전문가 승인 대기 목록 totalRecord={}", totalRecord);
 
 		pagingInfo.setTotalRecord(totalRecord);
@@ -322,10 +315,10 @@ public class AdminController {
 	}
 
 	@RequestMapping("/grantEx")
-	public String grantExpert(@RequestParam(defaultValue = "0") int memNo, Model model) {
-		logger.info("전문가 승인 처리, 파라미터 memNo={}", memNo);
+	public String grantExpert(@RequestParam String userId, Model model) {
+		logger.info("전문가 승인 처리, 파라미터 userId={}", userId);
 
-		int cnt = adminService.grantExpert(memNo);
+		int cnt = adminService.grantExpert(userId);
 		logger.info("전문가 승인 처리 결과, cnt={}", cnt);
 		String msg = "전문가 승인 실패하였습니다.", url = "/admin/nonApprovalEx";
 
@@ -385,7 +378,7 @@ public class AdminController {
 		return "/admin/nonApprovalList";
 	}
 
-	@RequestMapping("/delNonApprovalList")
+	@RequestMapping("/deleteForm")
 	public String deleteForm(@RequestParam(defaultValue = "0") int formNo, Model model) {
 		logger.info("거래대기 목록 삭제 처리, 파라미터 formNo={}", formNo);
 
@@ -413,5 +406,14 @@ public class AdminController {
 
 		return "redirect:/";
 	}
-
+	
+	@RequestMapping("/menubar")
+	public void menubar(HttpSession session, Model model) {
+		logger.info("사이드 메뉴바 화면");
+		
+		String adminId=(String) session.getAttribute("adminId");
+		AdminVO adminVo = adminService.selectByAdminId(adminId);
+		logger.info("관리자 정보 조회 결과, adminVo={}", adminVo);
+		model.addAttribute("adminVo", adminVo);
+	}
 }
