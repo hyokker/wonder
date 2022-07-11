@@ -19,8 +19,13 @@ public interface AdminDAO {
 	List<ProductVO> selectProduct(SearchVO searchVo);
 	int deleteProduct(int pdNo);
 	List<MemberVO> selectNonApprovalEx(SearchVO searchVo);
-	int grantExpert(int  memNo);
+	int grantExpert(String userId);
+	int grantExType(String userId);
+	int grantExFlag(String userId);
 	int deleteExpert(String userId);
+	int deleteExType(String userId);
+	int deleteExFlag(String userId);
+	
 	List<ProductVO> selectNonApprovalList(SearchVO searchVo);
 	int deleteForm(int formNo);
 	int getMemTotalRecord(SearchVO searchVo); 

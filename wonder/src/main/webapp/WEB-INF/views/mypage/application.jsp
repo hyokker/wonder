@@ -85,8 +85,11 @@
 		
 		$('#appCheckBt').click(function(){
 			var check = $('#checkGrant').val();
+			var userId = $('#applicationUserId').val();
+			console.log(userId);
+			
 			if(check>0){
-				location.href="<c:url value='/mypage/applicationCheck'/>";
+				location.href="<c:url value='/mypage/applicationCheck?userId="+userId+"'/>";
 			}else if(check==0){
 				alert('먼저 등록신청을 해야합니다');				
 			}
@@ -121,6 +124,7 @@
 												<div class="form-group col-md-6 generalMember">
 													<label>이름</label>
 													<input type="text" class="form-control profile_disabled" value="${memVo.name }" disabled="disabled">
+													<input type="hidden" id="applicationUserId" value="${memVo.userId }" disabled="disabled">
 												</div>
 												
 												<div class="form-group col-md-6 generalMember">

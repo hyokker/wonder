@@ -20,7 +20,7 @@ public interface MemberService {
 	int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
 	//public
-	
+	MemberVO findUserId(MemberVO vo);
 	
 	//관리자 로그인 메서드
 	AdminVO selectByAdminId(String adminId);

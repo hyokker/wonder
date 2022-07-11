@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.form.model.FormVo;
@@ -58,13 +59,21 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public 	int grantExpert(int memNo) {
-		return adminDao.grantExpert(memNo);
+	@Transactional
+	public 	int grantExpert(String userId) {
+		int grantExpert = adminDao.grantExType(userId);
+		int grantExFlag = adminDao.grantExFlag(userId);
+		
+		return grantExFlag;
 	}
 	
 	@Override
+	@Transactional
 	public int deleteExpert(String userId) {
-		return adminDao.deleteExpert(userId);
+		int deleteExType = adminDao.deleteExType(userId);
+		int deleteExFlag = adminDao.deleteExFlag(userId);
+		
+		return deleteExFlag;
 	}
 	
 	@Override
