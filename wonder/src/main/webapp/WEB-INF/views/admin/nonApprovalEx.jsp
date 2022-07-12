@@ -133,19 +133,19 @@ div#srchTitBar {
 													<td>
 														<div class="dash_prt_wrap">
 															<div class="dash_prt_thumb" id="img">
-																<a href="../mypage/profile?userId=${memberVo.userId}"><img
+																<a href="../mypage/applicationCheck?userId=${memberVo.userId}"><img
 																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
 																	class="img-fluid" alt="프로필 사진" /></a>
 															</div>
 															<div class="dash_prt_caption">
 																<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
-																<a href="../mypage/profile?userId=${memberVo.userId}"><h5>${memberVo.userId}</h5></a>
+																<a href="../mypage/applicationCheck?userId=${memberVo.userId}"><h5>${memberVo.userId}</h5></a>
 															</div>
 														</div>
 													</td>
 													<td class="m2_hide">
 														<div class="prt_leads">
-															<a href="../mypage/profile?userId=${memberVo.userId}"><h6>${memberVo.name }</h6></a>
+															<a href="../mypage/applicationCheck?userId=${memberVo.userId}"><h6>${memberVo.name }</h6></a>
 														</div>
 													</td>
 													<td class="m2_hide">
