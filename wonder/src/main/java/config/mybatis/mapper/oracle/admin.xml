@@ -4,9 +4,10 @@
 <mapper namespace="com.ez.wonder.admin.model.AdminDAO">
 	<sql id="searchWhere">
 		<if test="searchKeyword !=null and searchKeyword !=''">
-			where ${searchCondition}
-			like '%' || #{searchKeyword} ||
-			'%'
+			where UPPER(${searchCondition})
+			like UPPER('%' ||
+			#{searchKeyword} ||
+			'%')
 		</if>
 	</sql>
 
@@ -47,7 +48,11 @@
 		(
 		select A.*
 		from
-		memExGrantView A
+		(select m.*,
+		e.GRANT_FLAG
+		from member m, expert_grant e
+		where m.user_id = e.user_id)
+		A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
 		</if>
@@ -64,16 +69,34 @@
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
 
-	<update id="grantExpert" parameterType="int">
+	<update id="grantExType" parameterType="string">
 		update
 		member
 		set
 		type =
 		'프리랜서'
-		where mem_NO=#{memNO}
+		where user_Id = #{userId}
 	</update>
 
-	<delete id="deleteExpert" parameterType="string">
+	<update id="grantExFlag" parameterType="string">
+		update
+		expert_grant
+		set
+		grant_flag = 'Y'
+		where user_Id = #{userId}
+	</update>
+
+	<delete id="deleteExType" parameterType="string">
+		update
+		member
+		set
+		type =
+		'일반회원'
+		where
+		user_Id=#{userId}
+	</delete>
+
+	<delete id="deleteExFlag" parameterType="string">
 		delete
 		from
 		expert_grant
@@ -135,7 +158,7 @@
 		admin_No=#{adminNo}
 	</delete>
 
-	<select id="selectNonApprovalList" resultType="productVo"
+	<select id="selectNonApprovalList" resultType="formVo"
 		parameterType="searchVo">
 		select *
 		from
@@ -145,7 +168,13 @@
 		(
 		select A.*
 		from
-		productFormView A
+		(select
+		p.pd_no,p.user_id,p.cate_type,p.pd_title,p.regdate, p.del_type,
+		p.read_count, p.lang, p.frame, f.form_no,
+		f.form_title, f.form_content, f.form_regdate, f.price, f.pay_flag ,f.orderstart,
+		f.orderend
+		from product p, form f
+		where p.pd_no = f.pd_no) A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
 		</if>
@@ -167,13 +196,25 @@
 		from
 		form
 		where
-		form_no-#{formNo}
+		form_no=#{formNo}
 	</delete>
 
 	<select id="getMemTotalRecord" parameterType="searchVo"
 		resultType="int">
 		select count(*) from member
 		<include refid="searchWhere"></include>
+	</select>
+
+	<select id="getExMemTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from member
+		<include refid="searchWhere"></include>
+		<if test="searchKeyword ==null or searchKeyword ==''"> where
+		</if>
+		<if test="searchKeyword !=null and searchKeyword !=''">
+			and
+		</if>
+		type='승인대기'
 	</select>
 
 	<select id="getPdTotalRecord" parameterType="searchVo"
@@ -232,6 +273,4 @@
 		select count(*) from admin
 		where admin_Id=#{adminId}
 	</select>
-
-
 </mapper>

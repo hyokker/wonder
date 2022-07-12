@@ -1,5 +1,8 @@
 package com.ez.wonder.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -236,6 +239,54 @@ public class MemberController {
 		model.addAttribute("url", url);
 		
 		return "/common/message";
+	}
+	@RequestMapping("/member/findUserId")
+	public void findUserId() {
+		logger.info("아이디 찾기 화면");
+	}
+	
+	@RequestMapping("/member/ajaxFindUserId")
+	@ResponseBody
+	public Map<String, Object> ajaxFindUserId(@ModelAttribute MemberVO vo) {
+		logger.info("ajax 아이디 조회 파라미터 vo={}",vo);
 		
+		MemberVO vo2=memberService.findUserId(vo);
+		logger.info("찾은 아이디 vo2={}",vo2);
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("msg", "찾으시는 아이디가 없습니다..");
+		map.put("SUCCESS", false);
+		if(vo2!=null) {
+			map.put("msg", vo2.getUserId());
+			map.put("SUCCESS", true);
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping("/member/findPwd")
+	public void findPwd() {
+		logger.info("비밀번호 찾기 화면");
+	}
+	
+	@RequestMapping("/member/ajaxFindPwd")
+	@ResponseBody
+	public int ajaxFindPwd( String userId,  String name,
+			 String email) {
+		logger.info("비밀번호 찾기 처리 파라미터 userId={},name={},email={}",userId,name,email);
+		MemberVO vo = new MemberVO();
+		vo.setUserId(userId);
+		vo.setName(name);
+		vo.setEmail(email);
+		
+		String pwd=memberService.findPwd(vo);
+		logger.info("비밀번호 찾기 결과 pwd={}",pwd);
+		int result=0;
+		
+		if(pwd!=null && !pwd.isEmpty()) {
+			result=1;
+		}
+		return result;
 	}
 }

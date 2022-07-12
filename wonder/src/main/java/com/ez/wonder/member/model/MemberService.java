@@ -19,9 +19,13 @@ public interface MemberService {
 	public MemberVO selectByUserid(String userid);
 	int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
-	//public
+
+	//아이디찾기
+	MemberVO findUserId(MemberVO vo);
 	
-	
+	//비밀번호 찾기
+	String findPwd(MemberVO vo);
+	int updatePwd(MemberVO vo);
 	//관리자 로그인 메서드
 	AdminVO selectByAdminId(String adminId);
 	public int checkAmdinLogin(String userid, String pwd);

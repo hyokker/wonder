@@ -79,6 +79,21 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	@Override
+	public MemberVO findUserId(MemberVO vo) {
+		return memberDao.findUserId(vo);
+	}
+
+	@Override
+	public String findPwd(MemberVO vo) {
+		return memberDao.findPwd(vo);
+	}
+
+	@Override
+	public int updatePwd(MemberVO vo) {
+		return memberDao.updatePwd(vo);
+	}
 	
 	//public
 

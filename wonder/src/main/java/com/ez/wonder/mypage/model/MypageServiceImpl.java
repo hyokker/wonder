@@ -153,6 +153,11 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDao.getTotalRecordBM(map);
 	}
 
+	@Override
+	public int insertDefaultExpertProfile(ExpertImageVO expertVo){
+		return mypageDao.insertDefaultExpertProfile(expertVo);
+	}
+
 
 
 

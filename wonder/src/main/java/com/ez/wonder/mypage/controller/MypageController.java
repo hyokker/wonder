@@ -123,8 +123,9 @@ public class MypageController {
 		String type = memVo.getType();
 
 		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
-
+		
 		ExpertVO vo = null;
+		
 		if(type.equals("프리랜서")) {
 			vo = mypageService.selectExpertById(userId);
 			logger.info("프로필 페이지 프리랜서 정보조회 expertVo={}", vo);
@@ -219,7 +220,30 @@ public class MypageController {
 							}
 						}
 					} //for
-				}//if
+				}else{	//사진업로드 안했을경우
+					logger.info("사진 업로드 안함");
+					profileVo.setUserId(userId);
+					profileVo.setFileName("default_profile.png");
+					profileVo.setOriginalFileName("default_profile.png");
+					profileVo.setFileSize(18906);
+					profileVo.setFileType("PROFILE"); //체크용임 실재로는 xml에서 PROFILE 상수로 들어감
+
+					int defaultCnt = mypageService.insertDefaultExpertProfile(profileVo);
+					logger.info("기본프로필 등록");
+					
+					int checkCountProfile = mypageService.checkExpertProfileById(userId);
+					logger.info("현재 프로필사진 갯수={}",checkCountProfile);
+					if(checkCountProfile>1) {
+						while(true) {
+							int deleteDupProfileCnt = mypageService.deleteDupExpertProfile(userId);
+							int checkCount = mypageService.checkExpertProfileById(userId);
+							logger.info("중복 프로필 사진 삭제 결과 cnt={}, 남은 프로필사진 갯수={}",deleteDupProfileCnt,checkCount);
+							if(checkCount==1) {
+								break;
+							}
+						}
+					}
+				}//else
 					
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -248,6 +272,38 @@ public class MypageController {
 		
 		
 		return "/common/message";
+	}
+	
+	@GetMapping("/freeDetailWrite")
+	public String mypage_feeDetail_get(HttpSession session, Model model) {
+		logger.info("프리랜서 명함 작성 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO memVo = mypageService.selectMemberById(userId);
+		String type = memVo.getType();
+		
+		if(userId==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
+		
+
+		ExpertVO expertVo = mypageService.selectExpertById(userId);
+		ExpertImageVO ExpertProfileVo = mypageService.selectExpertProfileById(userId);
+		logger.info("expertVo={}",expertVo);
+		logger.info("profileVo={}",ExpertProfileVo);
+		logger.info("memVo={}",memVo);
+		model.addAttribute("expertVo", expertVo);
+		model.addAttribute("profileVo", ExpertProfileVo);
+		model.addAttribute("memVo",memVo);
+		
+
+		return "/mypage/freeDetailWrite";
 	}
 	
 	
@@ -365,7 +421,7 @@ public class MypageController {
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
-		
+
 		return "/common/message";
 	}
 	
@@ -373,10 +429,11 @@ public class MypageController {
 	
 	
 	@GetMapping("/applicationCheck")
-	public void mypage_applicationCheck_get(HttpSession session, Model model) {
+	public String mypage_applicationCheck_get(@RequestParam("userId") String userIdGet,HttpSession session, Model model) {
 		logger.info("프리랜서 등록 확인 페이지");
 		
-		String userId=(String) session.getAttribute("userId");
+		String ssUserId=(String) session.getAttribute("userId");
+		String userId=userIdGet;
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
 
@@ -410,8 +467,20 @@ public class MypageController {
 		}
 		logger.info("프로필 페이지 memVo={}",memVo);
 		
-		model.addAttribute("expertVo", vo);
-		model.addAttribute("memVo",memVo);
+		if(ssUserId.equals(userId)) {
+			model.addAttribute("expertVo", vo);
+			model.addAttribute("memVo",memVo);
+			
+			return "/mypage/applicationCheck";
+		}
+		
+		String msg="잘못된 접근입니다", url="/mypage/application";
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";
+
 	}
 	
 	
