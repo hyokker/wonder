@@ -878,12 +878,12 @@
         //의뢰서 ajax
         $('button[name=frmBSubmit]').click(function(){
         	//유효성 검사
-        	if($.trim($('input[name=formTitle]').val()).length < 1 ){
+        	if($.trim($(this).parent().parent().find('input[name=formTitle]').val()).length < 1 ){
     			event.preventDefault();
         		alert("제목을 입력해주세요");
         		$('input[name=formTitle]').focus();
         		return false;
-        	}else if($.trim($('textarea[name=formContent]').val()).length < 1){
+        	}else if($.trim($(this).parent().parent().find('textarea[name=formContent]').val()).length < 1){
         		event.preventDefault();
         		alert("내용을 입력해주세요");
         		$('textarea[name=formContent]').focus();
