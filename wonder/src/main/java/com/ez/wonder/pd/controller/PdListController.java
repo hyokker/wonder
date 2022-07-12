@@ -59,11 +59,13 @@ public class PdListController {
 
 
 		String userId= (String)session.getAttribute("userId");
-
+		String userType=(String)session.getAttribute("type");
+		
 		List<PdListItem> pdList = getPdList(userId);
 		
 		int totalCnt = pdList.size();
 		int maxpage = totalCnt/pageCnt + ((totalCnt%pageCnt)>0?1:0);
+		model.addAttribute("userType", userType);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("maxpage", maxpage);
@@ -117,7 +119,7 @@ public class PdListController {
 	@PostMapping("/pdSearch")
 	@ResponseBody
 	public PdList pdSearch(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo,
-			@RequestParam(value = "pageCnt", required = true, defaultValue = "2") int pageCnt,
+			@RequestParam(value = "pageCnt", required = true, defaultValue = "7") int pageCnt,
 			@RequestBody SearchWrapper search, HttpServletRequest httpServletRequest, HttpSession session) {
 		String userId= (String)session.getAttribute("userId");
 		List<PdListVO> products = productService.searchPd(search.getPdTitle(), userId);
