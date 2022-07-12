@@ -1,9 +1,13 @@
 package com.ez.wonder.main.MainController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ez.wonder.aboutUs.controller.AboutUsController;
 import com.ez.wonder.admin.model.AdminVO;
+import com.ez.wonder.main.model.MainPdService;
+import com.ez.wonder.main.model.MainPdVO;
 import com.ez.wonder.member.model.MemberService;
 import com.ez.wonder.member.model.MemberVO;
 
@@ -26,6 +32,40 @@ public class MainController {
 	=LoggerFactory.getLogger(MainController.class);
 	
 	private final MemberService memberService;
+	private final MainPdService mainPdService;
+	
+	@RequestMapping("/")
+	public String get_main(Model model) {
+		logger.info("메인페이지 화면");
+		
+		List<MainPdVO> list =mainPdService.mainPdList();
+		//1.vo가 담길 list 
+		
+		
+		List<List<MainPdVO>> resList = new ArrayList<List<MainPdVO>>();
+		//3.vo가 4개 들어있는 list를 담을 최종 list 
+		
+		
+		int chk = 0;
+		while(true) {
+			if(chk >= list.size()) break;
+			List<MainPdVO> tempList = new ArrayList<MainPdVO>();
+			//2.vo 4개를 담을 list
+			
+			for(int i = 0; i < 4; i++) {
+				tempList.add(list.get(chk));
+				chk++;
+			}
+			resList.add(tempList);
+		}
+		
+		logger.info("resList={}", resList.size());
+		model.addAttribute("resList", resList);
+		
+		return "/main/main";
+	}
+	
+	
 	
 	
 	@RequestMapping("/admin/login")
@@ -66,10 +106,7 @@ public class MainController {
 		return "/common/message";
 	}
 	
-	@RequestMapping("/")
-	public String get_main() {
-		return "/main/main";
-	}
+
 	
 	@RequestMapping("/provision/provision")
 	public String provision() {
@@ -84,4 +121,7 @@ public class MainController {
 	@RequestMapping("/faq/faq")
 	public void faq() {
 	}
+	
+	
+
 }
