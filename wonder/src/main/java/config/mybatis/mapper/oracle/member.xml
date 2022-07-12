@@ -31,7 +31,15 @@
     <select id="findUserId" parameterType="memberVo" resultType="memberVo">
       select * from member where name=#{name} and email=#{email}
    </select>
-   
+    <select id="findPwd" parameterType="memberVo" resultType="String">
+      select pwd from member
+      where user_id=#{userId} and name=#{name} and email=#{email} 
+   </select>
+	<update id="updatePwd" parameterType="memberVo">
+		update member
+		set pwd=#{pwd}
+		where email=#{email}
+	</update>   
    
    
    <select id="selectSeller" parameterType="string" resultType="expertVo">

@@ -51,5 +51,6 @@ public interface AdminDAO {
 	ArrayList<PaymentVO> countPaymethod();
 	
 	List<FormVo> selectForm();
+	List<ProductVO> selectReadCount();
 	List<PaymentVO> payChart();
 }

@@ -198,7 +198,7 @@
 		}
 		function findPwd(){
 			window.open("/wonder/member/findPwd","findPwd",
-		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
+		"width=500,height=450,location=yes,resizable=yes,top=100,left=50");	
 		}
 </script>
 	
@@ -209,7 +209,7 @@
 			</div>
 			<div class="eltio_k2">
 				<a href='#' onclick="findUserId();">아이디 찾기</a>
-				<a href="<c:url value='/member/findUserId'/>" style="margin-left: 232px;">비밀번호 찾기</a>
+				<a href="#" onclick="findPwd();" style="margin-left: 232px;">비밀번호 찾기</a>
 			</div>
 		</div>
 	</div>

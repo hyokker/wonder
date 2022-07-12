@@ -50,5 +50,6 @@ public interface AdminService {
 	ArrayList<PaymentVO> countPaymethod();
 	
 	List<FormVo> selectForm();
+	List<ProductVO> selectReadCount();
 	List<PaymentVO> payChart();
 }

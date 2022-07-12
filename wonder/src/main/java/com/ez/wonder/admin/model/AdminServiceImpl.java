@@ -198,6 +198,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public List<ProductVO> selectReadCount(){
+		return adminDao.selectReadCount();
+	}
+	
+	@Override
 	public 	List<PaymentVO> payChart(){
 		return adminDao.payChart();
 	}

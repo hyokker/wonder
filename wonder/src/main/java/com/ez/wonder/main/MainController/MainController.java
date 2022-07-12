@@ -67,7 +67,11 @@ public class MainController {
 	}
 	
 	@RequestMapping("/")
-	public String get_main() {
+	public String get_main(Model model) {
+		logger.info("메인페이지 화면");
+		
+		
+		
 		return "/main/main";
 	}
 	
@@ -84,4 +88,7 @@ public class MainController {
 	@RequestMapping("/faq/faq")
 	public void faq() {
 	}
+	
+	
+
 }
