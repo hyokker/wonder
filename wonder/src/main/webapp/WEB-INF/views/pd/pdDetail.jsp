@@ -742,7 +742,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
 	        <h5 class="modal-title" id="exampleModalToggleLabel">의뢰서</h5>
-	        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+	        <span class="mod-close confirm" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
 	      </div>
 	      <div class="modal-body">
 	      	<c:import url="/pd/formConfirm">
@@ -751,7 +751,7 @@
 	      	</c:import>
 	      </div>
 	      <div class="modal-footer d-flex justify-content-center">
-	      	<button type="button" class="btn theme-bg rounded" data-dismiss="modal">확인</button>
+	      	<button type="button" class="btn theme-bg rounded confirm" data-dismiss="modal">확인</button>
 	      </div>
 	    </div>
 	  </div>
@@ -821,6 +821,9 @@
         $('.mod-close').click(function(){
         	$('body').css('overflow', 'auto');
         });
+        $('.confirm').click(function(){
+        	$('body').css('overflow', 'auto');
+        });
         
         //리뷰 더 보기
         var bool=false;
@@ -876,7 +879,8 @@
         });
         
         //의뢰서 ajax
-        $('button[name=frmBSubmit]').click(function(){
+        $('button[name=frmBSubmit]').on('click', function(e) {
+        	e.preventDefault();
         	//유효성 검사
         	if($.trim($(this).parent().parent().find('input[name=formTitle]').val()).length < 1 ){
     			event.preventDefault();
@@ -890,25 +894,22 @@
         		return false;
         	}
         	
-	        var form = $(this).parent().parent().serialize();
+	        var form = $(this).parent().parent().serializeArray();
         	
 	        $.ajax({
-	        	type:"GET", 
-	        	url:"<c:url value='/pd/ajaxForm'/>", 
+	        	url:"<c:url value='/pd/ajaxForm'/>",
+	        	type:"POST",
 	        	data: form,
-	        	contentType: 'application/json',
 	        	success: function (res) {
+	        		$('.modalB').modal('hide');
 		        	if(res==0){
 			        	alert("의뢰서 전송에 실패하였습니다.");
 		        	}else if(res==1){
 		        		alert("의뢰서를 전송하였습니다.");
+		        		location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}&confirm=1"/>';
 		        	}else if(res==2){
 		        		alert("현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.");
 		        	}
-	        		location.href="<c:url value='/pd/pdDetail?pdNo=${pdVo.pdNo}'/>";
-	        		if(res==1){
-	        			$('#modalC').modal('show');
-	        		}
 	        	},
 	        	error:function(xhr, status, error){
 					alert('error:'+form);
@@ -916,6 +917,13 @@
 	        });
         });
         
+        //의뢰확인서
+        if(${confirm == 1}){
+        	$('.modalC').modal('show');
+        }
+        $('.confirm').click(function(){
+        	location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}"/>';
+        });
         
         
     });
@@ -936,7 +944,7 @@
 		}
 		return date;
 	}
-
+    
 </script>
 
 
