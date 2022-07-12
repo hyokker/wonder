@@ -236,3 +236,39 @@
 .bookmarkImg{
 	height: 100px;
 }
+
+
+/************* Transaction *************/
+.transactionTd{
+	width: 10%;
+}
+
+.transactionTdIcon{
+	width:6%;
+}
+
+.greenLabel{
+	    height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #27ae60;
+    border-radius: 0.2rem;
+    width: 215px;
+}
+
+.noneList{
+	text-align: center;
+}
+
+.center{
+	text-align: center;
+}
+
+input.form-control.transSearch{
+	width: 100%;
+}
