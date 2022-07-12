@@ -28,7 +28,6 @@
                var str = '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">';
                str += '<div class="property-listing list_view">';
                str += '<div class="listing-img-wrapper">';
-               str += '<div class="_exlio_125">For Sale</div>';
                str += '<div class="list-img-slide">';
                str += '<div class="click">';
                item.pdImages.forEach(function(image, index) {
