@@ -219,8 +219,8 @@ $(function() {
       type: "double",
       min: 0,
       max: 200000,
-      from: 10000,
-      to: 50000,
+      from: 0,
+      to: 200000,
       grid: true
    });
 	
