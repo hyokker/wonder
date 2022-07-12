@@ -13059,6 +13059,7 @@ table.property-table-wrap .dashboard_propert_wrapper .title .table-property-pric
     font-size:16px;
     line-height: 1.2;
 }
+/* mypage 거래내역 수정 오지훈 */
 .prt_dashb_lot {
     font-size: 13px;
     color: #667094;
@@ -14248,6 +14249,7 @@ h1, .h1 {
 	.m2_hide {
 		display: none;
 	}
+
 	.resp_log_caption {
 		flex: 1;
 		padding: 2rem 1.5rem;

@@ -170,10 +170,88 @@ class="item">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="list_views">
 
-					<!-- Single Item -->
-<div class="single_items">
+					<!-- Single Item 1 -->
+					<c:forEach var="tempList" items="${resList }">
+					
+					<div class="single_items">
+						<div class="row">
+							<c:forEach var="vo" items="${tempList }">
+							<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+								<div class="property-listing list_view">
+					
+									<div class="listing-img-wrapper">
+										<div class=""></div>
+										<div class="list-img-slide">
+											<a href="single-property-1.html"><img
+													src="${pageContext.request.contextPath}/img/pdupload/${vo.fileName}"
+													class="img-fluid mx-auto" alt="" /></a>
+										</div>
+									</div>
+					
+									<div class="list_view_flex">
+					
+										<div class="listing-detail-wrapper mt-1">
+											<div class="listing-short-detail-wrap">
+												<div class="_card_list_flex mb-2">
+													<div class="_card_flex_01">
+														<span class="_list_blickes _netork">기한 :
+																${vo.pdTerm }</span> <span class="_list_blickes types">수정
+																: ${vo.editCount }</span>
+													</div>
+													<div class="_card_flex_last">
+														<h4 class="listing-name verified">
+																<a href="<c:url value='/pd/pdDetail?pdNo=${vo.pdNo}'/>"
+																	class="prt-link-detail" id="pdTitle"
+																	style="margin-left: 5px">${vo.pdTitle}</a>
+															</h4>
+													</div>
+												</div>
+												<div class="_card_list_flex">
+													<div class="_card_flex_01">
+														<h4 class="listing-name verified">
+														</h4>
+													</div>
+												</div>
+											</div>
+										</div>
+					
+										<div class="price-features-wrapper">
+												<div class="list-fx-features">
+													<div class="listing-card-info-icon">
+														<div class="inc-fleat-icon">${vo.lang}</div>
+													</div>
+													<div class="listing-card-info-icon">
+														<div class="inc-fleat-icon">${vo.frame}</div>
+													</div>
+
+												</div>
+										</div>
+					
+										<div class="listing-detail-footer">
+												<div class="footer-first">
+													<div class="foot-location" id="detailPd">
+														<h6 class="listing-card-info-price mb-0" id="pdPrice">${vo.pdPrice}</h6>
+														/ ${vo.pdType}
+													</div>
+												</div>
+												<div class="footer-flex">
+													<a
+														href="<c:url value='/pd/pdDetail?pdNo=${vo.pdNo}'/>"
+														id="viewDetail" class="prt-view">상품 상세보기</a>
+												</div>
+											</div>
+										</div>
+									</div>
+					
+								</div>
+								</c:forEach>
+							</div>
+						</div>
+					</c:forEach>
+					</div>
+<!-- <div class="single_items">
 	<div class="row">
-		<!-- Single Property -->
+		Single Property
 		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 			<div class="property-listing list_view">
 
@@ -252,7 +330,7 @@ class="item">
 
 			</div>
 		</div>
-		<!-- Single Property -->
+		Single Property 2
 		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 			<div class="property-listing list_view">
 
@@ -329,7 +407,7 @@ class="item">
 
 			</div>
 		</div>
-		<!-- Single Property -->
+		Single Property  3
 		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 			<div class="property-listing list_view">
 
@@ -405,7 +483,7 @@ class="item">
 
 			</div>
 		</div>
-		<!-- Single Property -->
+		Single Property  4
 		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 			<div class="property-listing list_view">
 
@@ -481,985 +559,7 @@ class="item">
 			</div>
 		</div>
 	</div>
-</div>
-
-<!-- Single Item -->
-<div class="single_items">
-	<div class="row">
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Sale</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">6 Network</span> <span
-										class="_list_blickes types">Condos</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$8,000</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">7012
-											Shine Sehu Street, Liverpool London, LC345AC</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								850 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.3</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Rent</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">4 Network</span> <span
-										class="_list_blickes types">Office</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$10,000</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">425
-											Vine 012 Street, Montreal Canada, UHW45Q</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								5 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								900 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate perfect">4.6</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Sale</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">10 Network</span> <span
-										class="_list_blickes types">Building</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$8,400</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">1244
-											Vansh Market, Mise Mizkel Australia, AU456HA</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								1000 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.4</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Rent</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">3 Network</span> <span
-										class="_list_blickes types">Studio</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$9,990</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">7264
-											Green Glelcer Street, Barghimbar USA, ERIO098</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								800 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate perfect">4.9</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Single Item -->
-<div class="single_items">
-	<div class="row">
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Sale</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">4 Network</span> <span
-										class="_list_blickes types">Villas</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$10,000</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">425
-											Vine 012 Street, Montreal Canada, UHW45Q</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								5 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								900 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.3</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Rent</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">7 Network</span> <span
-										class="_list_blickes types">Family</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$8,600</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">7298
-											Rani Market Near Saaket, Henever Canada, QWUI98</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								900 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.2</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Rent</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">6 Network</span> <span
-										class="_list_blickes types">Villas</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$8,500</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">8512
-											Red Reveals Market, Montreal Canada, SHQT45O</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								900 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate perfect">4.7</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Sale</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">6 Network</span> <span
-										class="_list_blickes types">Family</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$7,000</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">9632
-											New Green Garden, Huwai Denever USA, AWE789O</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								3 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								1 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								800 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.2</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Single Item -->
-<div class="single_items">
-	<div class="row">
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Rent</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">10 Network</span> <span
-										class="_list_blickes types">Apartment</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$10,200</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">5689
-											Resot Relly Market, Montreal Canada, HAQC445</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								2 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								950 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate perfect">4.7</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Rent</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">12 Network</span> <span
-										class="_list_blickes types">Condos</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$10,500</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">7012
-											Shine Sehu Street, Liverpool London, LC345AC</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								4 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								1 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								950 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.7</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-			<div class="property-listing list_view">
-
-				<div class="listing-img-wrapper">
-					<div class="_exlio_125">For Sale</div>
-					<div class="list-img-slide">
-						<a href="single-property-1.html"><img
-							src="https://via.placeholder.com/800x500"
-							class="img-fluid mx-auto" alt="" /></a>
-					</div>
-				</div>
-
-				<div class="list_view_flex">
-
-					<div class="listing-detail-wrapper mt-1">
-						<div class="listing-short-detail-wrap">
-							<div class="_card_list_flex mb-2">
-								<div class="_card_flex_01">
-									<span class="_list_blickes _netork">6 Network</span> <span
-										class="_list_blickes types">Family</span>
-								</div>
-								<div class="_card_flex_last">
-									<h6 class="listing-card-info-price mb-0">$7,000</h6>
-								</div>
-							</div>
-							<div class="_card_list_flex">
-								<div class="_card_flex_01">
-									<h4 class="listing-name verified">
-										<a href="single-property-1.html" class="prt-link-detail">425
-											Vine 012 Street, Montreal Canada, UHW45Q</a>
-									</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="price-features-wrapper">
-						<div class="list-fx-features">
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bed.svg" width="13" alt="" />
-								</div>
-								3 Beds
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/bathtub.svg" width="13" alt="" />
-								</div>
-								1 Bath
-							</div>
-							<div class="listing-card-info-icon">
-								<div class="inc-fleat-icon">
-									<img src="assets/img/move.svg" width="13" alt="" />
-								</div>
-								800 sqft
-							</div>
-						</div>
-					</div>
-
-					<div class="listing-detail-footer">
-						<div class="footer-first">
-							<div class="foot-rates">
-								<span class="elio_rate good">4.7</span>
-								<div class="_rate_stio">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-										class="fa fa-star"></i>
-								</div>
-							</div>
-						</div>
-						<div class="footer-flex">
-							<a href="property-detail.html" class="prt-view">View
-								Detail</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- Single Property -->
-							<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
-								<div class="property-listing list_view">
-
-									<div class="listing-img-wrapper">
-										<div class="_exlio_125">For Rent</div>
-										<div class="list-img-slide">
-											<a href="single-property-1.html"><img
-												src="https://via.placeholder.com/800x500"
-												class="img-fluid mx-auto" alt="" /></a>
-										</div>
-									</div>
-
-									<div class="list_view_flex">
-
-										<div class="listing-detail-wrapper mt-1">
-											<div class="listing-short-detail-wrap">
-												<div class="_card_list_flex mb-2">
-													<div class="_card_flex_01">
-														<span class="_list_blickes _netork">8 Network</span> <span
-															class="_list_blickes types">Office</span>
-													</div>
-													<div class="_card_flex_last">
-														<h6 class="listing-card-info-price mb-0">$9,000</h6>
-													</div>
-												</div>
-												<div class="_card_list_flex">
-													<div class="_card_flex_01">
-														<h4 class="listing-name verified">
-															<a href="single-property-1.html" class="prt-link-detail">1244
-																Vansh Market, Mise Mizkel Australia, AU456HA</a>
-														</h4>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="price-features-wrapper">
-											<div class="list-fx-features">
-												<div class="listing-card-info-icon">
-													<div class="inc-fleat-icon">
-														<img src="assets/img/bed.svg" width="13" alt="" />
-													</div>
-													4 Beds
-												</div>
-												<div class="listing-card-info-icon">
-													<div class="inc-fleat-icon">
-														<img src="assets/img/bathtub.svg" width="13" alt="" />
-													</div>
-													2 Bath
-												</div>
-												<div class="listing-card-info-icon">
-													<div class="inc-fleat-icon">
-														<img src="assets/img/move.svg" width="13" alt="" />
-													</div>
-													960 sqft
-												</div>
-											</div>
-										</div>
-
-										<div class="listing-detail-footer">
-											<div class="footer-first">
-												<div class="foot-rates">
-													<span class="elio_rate perfect">4.8</span>
-													<div class="_rate_stio">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i>
-													</div>
-												</div>
-											</div>
-											<div class="footer-flex">
-												<a href="property-detail.html" class="prt-view">View
-													Detail</a>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
+</div> -->
 
 				</div>
 			</div>
