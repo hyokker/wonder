@@ -904,13 +904,14 @@
 	        		$('.modalB').modal('hide');
 		        	if(res==0){
 			        	alert("의뢰서 전송에 실패하였습니다.");
+			        	location.reload();
 		        	}else if(res==1){
 		        		alert("의뢰서를 전송하였습니다.");
 		        		location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}&confirm=1"/>';
 		        	}else if(res==2){
 		        		alert("현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.");
+			        	location.reload();
 		        	}
-		        	location.reload();
 	        	},
 	        	error:function(xhr, status, error){
 					alert('error:'+form);
