@@ -344,6 +344,8 @@
                   }
             });
             */
+            alert("상품이 검색되었습니다.");
+            window.scrollTo(0,0);
             getPaging('pdSearch', 1);
          });
       });
