@@ -28,6 +28,7 @@ import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -115,12 +116,23 @@ public class MypageController {
 	}
 	
 	@GetMapping("/profile")
-	public void mypage_profile_get(HttpSession session, Model model) {
+	public String mypage_profile_get(HttpSession session, Model model) {
 		logger.info("프로필 페이지");
+		
+		if((String)session.getAttribute("userId")==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
+		
 
 		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
 		
@@ -157,6 +169,8 @@ public class MypageController {
 		
 		model.addAttribute("expertVo", vo);
 		model.addAttribute("memVo",memVo);
+		
+		return "/mypage/profile";
 	}
 	
 	@PostMapping("/profile")
@@ -669,14 +683,74 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/transaction")
-	public void mypage_transaction(HttpSession session,Model model) {
+	public String mypage_transaction(@ModelAttribute SearchVO searchVo ,HttpSession session,Model model) {
 		logger.info("거래 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		String type = vo.getType();
+		
+
+		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
+		
+		
+		PaginationInfo paging = new PaginationInfo();
+		paging.setBlockSize(ConstUtil.BLOCKSIZE5);
+		paging.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		paging.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setFirstRecordIndex(paging.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("searchCondition", searchVo.getSearchCondition());
+		map.put("searchKeyword", searchVo.getSearchKeyword());
+		map.put("firstRecordIndex", searchVo.getFirstRecordIndex());
+		map.put("recordCountPerPage", searchVo.getRecordCountPerPage());
+		
+		
+		
+		List<HashMap<String, Object>> list = null;
+		if(type.equals("프리랜서")) {
+			logger.info("현재 로그인중인 type={}",type);
+			map.put("userId", userId);
+			
+			list = mypageService.selectFormExpert(map);
+			logger.info("전문가용 의뢰서 갯수 list.size()={}", list.size());
+			
+			int totalRecord = mypageService.getTotalRecordTSExpert(map);
+			logger.info("프리랜서 토탈레코드 totalRecord={}",totalRecord);
+			paging.setTotalRecord(totalRecord);
+			
+			for(int i=0; i<list.size();i++) {
+				HashMap<String, Object> testMap=list.get(i);
+				logger.info("테스트용 map체크={}",testMap);
+			}
+		}else {
+			logger.info("현재 로그인중인 type={}",type);
+			map.put("userId", userId);
+			
+			list = mypageService.selectForm(map);
+			logger.info("의뢰서 갯수 list.size()={}", list.size());
+
+			int totalRecord = mypageService.getTotalRecordTS(map);
+			logger.info("일반회원 토탈레코드 totalRecord={}",totalRecord);
+			paging.setTotalRecord(totalRecord);
+			
+			for(int i=0; i<list.size();i++) {
+				HashMap<String, Object> testMap=list.get(i);
+				logger.info("테스트용 map체크={}",testMap);
+			}
+		}
+		
+		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
+		model.addAttribute("pagingInfo",paging);
+
+		return "/mypage/transaction";
 	}
 	
 	@GetMapping("/chatting")

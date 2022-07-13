@@ -50,7 +50,7 @@ public class ProductController {
 	
 	@RequestMapping("/pdDetail")
 	public String pdDetail_get(@RequestParam(defaultValue = "0") int pdNo,
-			HttpSession session, Model model) {
+			@RequestParam(defaultValue = "0") int confirm, HttpSession session, Model model) {
 		String userId=(String) session.getAttribute("userId");
 		//userId="hong";	//test
 		logger.info("상품 상세 화면, 파라미터 pdNo={}, userId={}", pdNo, userId);
@@ -94,6 +94,7 @@ public class ProductController {
 		model.addAttribute("expertVo", expertVo);
 		model.addAttribute("expertVoImg", expertVoImg);
 		model.addAttribute("heartCount", heartCount);
+		model.addAttribute("confirm", confirm);
 		
 		return "/pd/pdDetail";
 	}
@@ -155,8 +156,8 @@ public class ProductController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/ajaxForm")
-	public int form(@ModelAttribute FormVo formVo) {
+	@PostMapping("/ajaxForm")
+	public int form(FormVo formVo) {
 		logger.info("의뢰서 등록 처리, 파라미터 formVo={}", formVo);
 		//formVo.setUserId("kim");	//test
 		
