@@ -910,7 +910,7 @@
 		        		location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}&confirm=1"/>';
 		        	}else if(res==2){
 		        		alert("현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.");
-		        		location.reload();
+			        	location.reload();
 		        	}
 	        	},
 	        	error:function(xhr, status, error){
