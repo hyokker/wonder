@@ -55,26 +55,7 @@ public class ChattingController {
 		map.put("rUserId", rUserId);
 		logger.info("파라미터 map={}",map);
 		
-		/*
-		 * if(checkCnt==0) {//방이 없을경우 chatVo.setUserId(rUserId); int
-		 * cnt=chatService.insertTestChat(chatVo); logger.info("test채팅방 생성 완료");
-		 * 
-		 * if(cnt>0) { commentVo=chatService.selectChatById(map);
-		 * logger.info("채팅방 정보 commentVo={}",commentVo); } }else { //방이 있을경우
-		 * logger.info("이미 생성된 채팅방이 존재합니다"); commentVo=chatService.selectChatById(map);
-		 * logger.info("채팅방 정보 commentVo={}",commentVo); }
-		 */
-		/*
-		 * if(checkCnt==0) {//방이 없을경우 chatVo.setUserId(rUserId); int
-		 * cnt=chatService.insertTestChat(chatVo); logger.info("test채팅방 생성 완료");
-		 * 
-		 * if(cnt>0) { list=chatService.selectChatCommentById(map);
-		 * logger.info("채팅방 정보 list.size={}",list.size()); } }else { //방이 있을경우
-		 * logger.info("이미 생성된 채팅방이 존재합니다");
-		 * list=chatService.selectChatCommentById(map);
-		 * logger.info("채팅방 정보 list.size={}",list.size()); }
-		 * 
-		 */	
+		
 		return commentVo;
 	}
 	

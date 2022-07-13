@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -682,10 +683,10 @@ public class MypageController {
 		return list;
 	}
 	
-	@RequestMapping("/transaction")
+	@RequestMapping(value =  "/transaction", method = {RequestMethod.GET, RequestMethod.POST})
 	public String mypage_transaction(@ModelAttribute SearchVO searchVo ,HttpSession session,Model model) {
-		logger.info("거래 페이지");
-		
+		logger.info("거래 페이지 searchVo={}",searchVo);
+		logger.info("현재 페이지 currentPage={}",searchVo.getCurrentPage());
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
@@ -746,6 +747,8 @@ public class MypageController {
 			}
 		}
 		
+		logger.info("페이징용 pagingInfo={}",paging);
+		
 		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
 		model.addAttribute("pagingInfo",paging);
@@ -754,19 +757,56 @@ public class MypageController {
 	}
 	
 	@GetMapping("/chatting")
-	public void mypage_chatting_get(HttpSession session,Model model) {
+	public String mypage_chatting_get(@RequestParam(name = "userId" ,required = false) String otherUserId,HttpSession session,Model model) {
 		logger.info("채팅 페이지");
-		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		if(otherUserId!=null) {
+			logger.info("상대방 아이디={}",otherUserId);
+			
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("rUserId", userId);
+			map.put("sUserId", otherUserId);
+			logger.info("파라미터 map={}",map);
+	
+			List<HashMap<String, Object>> otherList = chatService.selectChatById(map);
+			logger.info("거래대상과의 채팅수={}",otherList.size());
+			
+			if(otherList.size()==0) {
+				ChatVO chatVo = new ChatVO();
+				chatVo.setSUserId(userId);
+				chatVo.setRUserId(otherUserId);
+				int cnt = chatService.insertDefaultChat(chatVo);
+				chatVo.setSUserId(otherUserId);
+				chatVo.setRUserId(userId);
+				int otherCnt = chatService.insertDefaultChat(chatVo);
+				
+				logger.info("기본채팅 메세지 출력 성공 cnt={}",cnt);
+				
+				String msg="기본 메세지 등록에 실패하였습니다", url="/mypage/chatting";
+				if(cnt>0 && otherCnt>0) {
+					msg="기본 메세지 등록에 성공하였습니다";
+					
+					model.addAttribute("msg",msg);
+					model.addAttribute("url",url);
+					
+				}
+				return "/common/message";
+			}
+		
+		}
+		
 		List<HashMap<String, Object>> list = chatService.selectMyChat(userId);
+		
 		logger.info("현재 채팅중인 채팅방 list={}", list);
 		
 		
 		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
+		
+		return "/mypage/chatting";
 	}
 	
 	@GetMapping("/changePwd")

@@ -233,6 +233,8 @@ select * from
 	on A.user_id=D.user_id) join pd_image E
 	on A.pd_no = E.pd_no
 	where B.user_id=#{userId}
+	<include refid="searchWhere"></include>
+	
 </select>
 
 <!-- 거래중인 의뢰서 목록 select 고객-->
@@ -265,6 +267,8 @@ select * from
 	on A.user_id=D.user_id) join pd_image E
 	on A.pd_no = E.pd_no
 	where B.p_user_id=#{userId}
+	<include refid="searchWhere"></include>
+
 </select>
 
 
