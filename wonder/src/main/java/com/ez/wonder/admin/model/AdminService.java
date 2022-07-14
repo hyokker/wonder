@@ -40,8 +40,8 @@ public interface AdminService {
 	int updateAdmin(AdminVO adminVo);
 	int insertAdmin(AdminVO adminVo);
 	
-	int sumAllSales();
-	int monthlySales();
+	Integer sumAllSales();
+	Integer monthlySales();
 	int countMembers();
 	int countExperts();
 	int countProduct();
