@@ -30,15 +30,16 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
-
+												//1
 	public int checkLogin(String userid, String pwd) {
 		String dbPwd = memberDao.selectPwd(userid);
-
+				//암호화 된 비밀번호
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		int result = 0;
 
 		if (dbPwd != null && !dbPwd.isEmpty()) {
+			
 			if (encoder.matches(pwd, dbPwd)) {
 				result = MemberService.LOGIN_OK;
 			} else {
