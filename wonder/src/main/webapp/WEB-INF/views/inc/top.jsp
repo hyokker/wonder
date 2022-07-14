@@ -24,115 +24,112 @@
 <body class="yellow-skin">
 
 	<!-- ============================================================== -->
-<!-- Preloader - style you can find in spinners.css -->
-<!-- ============================================================== -->
-<div class="preloader"></div>
-
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
-<div id="main-wrapper">
+	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
-<!-- Top header  -->
-<!-- ============================================================== -->
-<!-- Start Navigation -->
-<div class="header header-light">
-	<div class="container">
-		<nav id="navigation" class="navigation navigation-landscape">
-			<div class="nav-header">
-				<a class="nav-brand" href="<c:url value='/'/>"> <img
-src="${pageContext.request.contextPath}/img/logo.png"
-	class="logo" alt="" />
-</a>
-<div class="nav-toggle"></div>
-<div class="mobile_nav">
-	<ul>
-		</ul>
-	</div>
-</div>
-<div class="nav-menus-wrapper" style="transition-property: none;">
-<ul class="nav-menu">
+	<div class="preloader"></div>
 
-	<li class="active"><a
-		href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span
-class="submenu-indicator"></span></a></li>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper">
+		<!-- ============================================================== -->
+		<!-- Top header  -->
+		<!-- ============================================================== -->
+		<!-- Start Navigation -->
+		<div class="header header-light">
+			<div class="container">
+				<nav id="navigation" class="navigation navigation-landscape">
+					<div class="nav-header">
+						<a class="nav-brand" href="<c:url value='/'/>"> <img
+							src="${pageContext.request.contextPath}/img/logo.png"
+							class="logo" alt="" />
+						</a>
+						<div class="nav-toggle"></div>
+						<div class="mobile_nav">
+							<ul>
+							</ul>
+						</div>
+					</div>
+					<div class="nav-menus-wrapper" style="transition-property: none;">
+						<ul class="nav-menu">
 
-
-<li><a href="<c:url value='/pd/pdList'/>">상품 목록<span
-class="submenu-indicator"></span></a> 
-
-<li><a href="<c:url value='/board/list'/>">자유게시판<span
-class="submenu-indicator"></span></a> 
-
-<li><a href="<c:url value='/qna/qnaList'/>">Q&A게시판<span
-class="submenu-indicator"></span></a>
-	<li></li>
-
-</ul>
-<!-- 로그인 안된 경우 -->
-<c:if test="${empty sessionScope.userId }">
-<ul class="nav-menu nav-menu-social align-to-right">
-	<li><a href="#" class="alio_green" data-toggle="modal"
-		data-target="#login" id="topLogin"> <i
-			class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">로그인
-				하세요</span>
-	</a></li>
-</ul>
-</c:if>
-<!-- 로그인 된 경우 -->
-<c:if test="${!empty sessionScope.userId }">
-<ul class="nav-menu nav-menu-social align-to-right">
-	<li>${sessionScope.userId }님환영합니다! <%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
-<%-- <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li> --%>
-<button class="api-btn" onclick="unlinkApp()">로그아웃</button>
+							<li class="active"><a
+								href="<c:url value='/aboutUs/aboutUs'/>">WONDER?<span
+									class="submenu-indicator"></span></a></li>
 
 
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script type="text/javascript">
-function unlinkApp() {
-	var loginType="${sessionScope.LoginType}";
-		/* alert(loginType); */
-	if(loginType=="normal"){
-		location.href="<c:url value='/member/logout'/>";
-	}
-	
-	Kakao.init('e001f5b6437ab5c78a358d107808c37c');
-	Kakao.API.request({
-				url : '/v1/user/unlink',
-				success : function(res) {
-					/* alert ('success: '
-							+ JSON.stringify(res)); */
-					window.location = "/wonder/member/logout";
-				},
-				fail : function(err) {
-					window.location = "/wonder/";
-					/* alert('fail: '+ JSON.stringify(err)); */
-				},
-			})
-	}
-</script>
+							<li><a href="<c:url value='/pd/pdList'/>">상품 목록<span
+									class="submenu-indicator"></span></a>
+							<li><a href="<c:url value='/board/list'/>">자유게시판<span
+									class="submenu-indicator"></span></a>
+							<li><a href="<c:url value='/qna/qnaList'/>">Q&A게시판<span
+									class="submenu-indicator"></span></a>
+							<li></li>
 
-<input type="hidden" name="sessionDel" id="sessionDel"
-	value="${sessionScope.userId }" />
+						</ul>
+						<!-- 로그인 안된 경우 -->
+						<c:if test="${empty sessionScope.userId }">
+							<ul class="nav-menu nav-menu-social align-to-right">
+								<li><a href="#" class="alio_green" data-toggle="modal"
+									data-target="#login" id="topLogin"> <i
+										class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">로그인
+											하세요</span>
+								</a></li>
+							</ul>
+						</c:if>
+						<!-- 로그인 된 경우 -->
+						<c:if test="${!empty sessionScope.userId }">
+							<ul class="nav-menu nav-menu-social align-to-right">
+								<li>${sessionScope.userId }님환영합니다!<%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
+									<%-- <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li> --%>
+									<button class="api-btn" onclick="unlinkApp()">로그아웃</button> <script
+										src="https://developers.kakao.com/sdk/js/kakao.js"></script> <script
+										type="text/javascript">
+											function unlinkApp() {
+												var loginType = "${sessionScope.LoginType}";
+												/* alert(loginType); */
+												if (loginType == "normal") {
+													location.href = "<c:url value='/member/logout'/>";
+												}
+
+												Kakao
+														.init('e001f5b6437ab5c78a358d107808c37c');
+												Kakao.API
+														.request({
+															url : '/v1/user/unlink',
+															success : function(
+																	res) {
+																/* alert ('success: '
+																		+ JSON.stringify(res)); */
+																window.location = "/wonder/member/logout";
+															},
+															fail : function(err) {
+																window.location = "/wonder/";
+																/* alert('fail: '+ JSON.stringify(err)); */
+															},
+														})
+											}
+										</script> <input type="hidden" name="sessionDel" id="sessionDel"
+									value="${sessionScope.userId }" />
 
 
 
 
-</li>
-<li class="add-listing"><c:if test="${userId=='admin'}">
-<a href="<c:url value='/admin/dashboard'/>" class=""> <i
-	class="fas fa-user-circle fa-lg"></i>
-</a>
-</c:if> <c:if test="${userId!='admin' }">
-<a href="<c:url value='/mypage/dashboard'/>" class=""> <i
-	class="fas fa-user-circle fa-lg"></i>
-</a>
-</c:if></li>
-</ul>
-</c:if>
+								</li>
+								<li class="add-listing"><c:if test="${userId=='admin'}">
+										<a href="<c:url value='/admin/dashboard'/>" class=""> <i
+											class="fas fa-user-circle fa-lg"></i>
+										</a>
+									</c:if> <c:if test="${userId!='admin' }">
+										<a href="<c:url value='/mypage/dashboard'/>" class=""> <i
+											class="fas fa-user-circle fa-lg"></i>
+										</a>
+									</c:if></li>
+							</ul>
+						</c:if>
 					</div>
 				</nav>
-</div>
+			</div>
 		</div>
 		<!-- End Navigation -->
-<div class="clearfix"></div>
+		<div class="clearfix"></div>

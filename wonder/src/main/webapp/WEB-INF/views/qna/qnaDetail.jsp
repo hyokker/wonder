@@ -62,7 +62,11 @@
 						<script type="text/javascript">
 	$(function(){
 		$('#btedit').click(function(){
-			if($('#sessionId').val()!=$('#userId').val()){
+			if($('#sessionAdmin').length > 1 ){
+				alert($('#sessionAdmin').val());
+				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
+			}
+			else if($('#sessionId').val()!=$('#userId').val()){
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
@@ -71,7 +75,11 @@
 		});
 
 		$('#btreply').click(function(){
-			if($('#sessionId').val()!=$('#userId').val()){
+			if($('#sessionAdmin').length > 1 ){
+				alert($('#sessionAdmin').val());
+				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
+			}
+			else if($('#sessionId').val()!=$('#userId').val()){
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
@@ -80,8 +88,11 @@
 		});
 		
 		$('#btdelete').click(function(){
-			
-			if($('#sessionId').val()!=$('#userId').val()){
+			if($('#sessionAdmin').length > 1 ){
+				alert($('#sessionAdmin').val());
+				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
+			}
+			else if($('#sessionId').val()!=$('#userId').val()){
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
@@ -135,12 +146,11 @@
 							</button>
 						</c:if>
 					</div>
-					<input type="hidden" id="sessionAdmin"
-						value="${sessionScope.adminId }"> <input type="hidden"
-						id="sessionId" value="${sessionScope.userId }"> <input
-						type="hidden" id="userId" value="${vo.userId }"> <input
-						type="hidden" id="qnaNo" value="${vo.qnaNo }"> <input
-						type="hidden" id="qnaNo" value="${sessionScope.qnaNo }">
+					<input type="hidden" id="sessionAdmin"value="${sessionScope.adminId }"> 
+					<input type="hidden" id="sessionId" value="${sessionScope.userId }">
+					<input type="hidden" id="userId" value="${vo.userId }">
+					<input type="hidden" id="qnaNo" value="${vo.qnaNo }">
+					<input type="hidden" id="qnaNo" value="${sessionScope.qnaNo }">
 				</div>
 
 			</div>

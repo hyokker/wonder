@@ -53,6 +53,7 @@ public class MainController {
 			//2.vo 4개를 담을 list
 			
 			for(int i = 0; i < 4; i++) {
+				if(chk >= list.size()) break; //chk 브레이크!
 				tempList.add(list.get(chk));
 				chk++;
 			}
