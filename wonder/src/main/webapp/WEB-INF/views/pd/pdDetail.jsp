@@ -904,7 +904,7 @@
 	        		$('.modalB').modal('hide');
 		        	if(res==0){
 			        	alert("의뢰서 전송에 실패하였습니다.");
-			        	location.reload();
+		        		location.reload();
 		        	}else if(res==1){
 		        		alert("의뢰서를 전송하였습니다.");
 		        		location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}&confirm=1"/>';

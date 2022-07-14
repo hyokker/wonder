@@ -216,28 +216,34 @@ class="item">
 										</div>
 					
 										<div class="price-features-wrapper">
-												<div class="list-fx-features">
+									 			<div class="list-fx-features">
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon">${vo.lang}</div>
+														<!-- <div class="inc-fleat-icon"> -->
+														<p>${vo.lang}</p>
+														<!-- </div> -->
 													</div>
 													<div class="listing-card-info-icon">
-														<div class="inc-fleat-icon">${vo.frame}</div>
+														<!-- <div class="inc-fleat-icon"> -->
+														<p>${vo.frame}</p>
+														<!-- </div> -->
 													</div>
 
-												</div>
+												</div> 
 										</div>
 					
 										<div class="listing-detail-footer">
 												<div class="footer-first">
 													<div class="foot-location" id="detailPd">
-														<h6 class="listing-card-info-price mb-0" id="pdPrice">${vo.pdPrice}</h6>
-														/ ${vo.pdType}
+														<h3 class="listing-card-info-price mb-0" id="pdPrice">
+														<fmt:formatNumber pattern="#,###" value="${vo.pdPrice }"/> 원
+														</h3>
 													</div>
+														<p>${vo.pdType}</p>
 												</div>
 												<div class="footer-flex">
 													<a
 														href="<c:url value='/pd/pdDetail?pdNo=${vo.pdNo}'/>"
-														id="viewDetail" class="prt-view">상품 상세보기</a>
+														id="viewDetail" class="prt-view">상세보기</a>
 												</div>
 											</div>
 										</div>

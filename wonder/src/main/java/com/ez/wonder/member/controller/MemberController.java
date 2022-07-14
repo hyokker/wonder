@@ -3,16 +3,15 @@ package com.ez.wonder.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,8 +92,13 @@ public class MemberController {
 	public String join(@ModelAttribute MemberVO vo, 
 			Model model) {
 		logger.info("회원가입 처리, 파라미터 vo={}",vo);
-
-
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String security = encoder.encode(vo.getPwd());
+		
+		logger.info("비밀번호 암호화 pwd={},security={}",vo.getPwd(),security);
+		vo.setPwd(security);
+		
 		int cnt=memberService.insertMember(vo);
 		logger.info("회원가입 결과, cnt={}", cnt);
 

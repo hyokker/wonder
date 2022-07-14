@@ -6,6 +6,16 @@
 <c:import url="/mypage/incSide" />
 <%-- <%@ include file="incSide.jsp" %> --%>
 <script type="text/javascript">
+
+ $(function(){
+	 $('.modalA').each(function(item,idx){
+		 $(this).click(function(){
+			 $(this).find('.modalC').modal('show');
+		 });
+	 });
+ });
+ 
+ 
 function pageProc(curPage){
 	$('input[name=currentPage]').val(curPage);
 	$('form[name=frmPage]').submit();
@@ -29,11 +39,11 @@ function pageProc(curPage){
 												<div class="foot-news-last">
 													<div class="input-group">
 														<form name="frmSearch" method="post" 
-													   		action='<c:url value="/mypage/transaction"/>'>
+													   		action='<c:url value="/mypage/transaction" />'>
 																<div class="input-group-append">
 																<input type="text" class="form-control transSearch" name="searchKeyword" title="검색어 입력"
 													        		value="${param.searchKeyword}" placeholder="상품명으로 검색">
-													        	<input type="hidden" name="searchCondition"/ value="PD_TITLE">
+													        	<input type="hidden" name="searchCondition" value="PD_TITLE">
 																	<button type="submit" class="input-group-text theme-bg b-0 text-light"><i class="fas fa-search"></i></button>
 																</div>
 													    </form>
@@ -120,17 +130,42 @@ function pageProc(curPage){
 																	</td>
 																	<td class="center">
 																		<div class="_leads_action">
-																			<a href=""><i class="fas fa-envelope"></i></a>
+																			<c:if test="${vo.type=='프리랜서' }">
+																				<a href="<c:url value='/mypage/chatting?userId=${map.B_USER_ID}'/>"><i class="fas fa-envelope"></i></a>
+																			</c:if>
+																			<c:if test="${vo.type=='일반회원' or vo.type=='승인대기'}">
+																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><i class="fas fa-envelope"></i></a>
+																			</c:if>
+																		</div>
+																	</td>
+																	<td class="center modalA">
+																		<div class="_leads_action">
+																			<a href="#"><i class="fas fa-edit"></i></a>
+																				<!-- Modal C -->
+																			   <div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" id="modalC">
+																			     <div class="modal-dialog modal-lg modal-dialog-centered">
+																			       <div class="modal-content">
+																			         <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
+																			           <h5 class="modal-title" id="exampleModalToggleLabel">의뢰서</h5>
+																			           <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+																			         </div>
+																			         <div class="modal-body">
+																			            <c:import url="/pd/formConfirm">
+																			               <c:param name="userId" value="${map.B_USER_ID }"></c:param>
+																			               <c:param name="pdNo" value="${map.PD_NO }"></c:param>
+																			            </c:import>
+																			         </div>
+																			         <div class="modal-footer d-flex justify-content-center">
+																			            <button type="button" class="btn theme-bg rounded" data-dismiss="modal">확인</button>
+																			         </div>
+																			       </div>
+																			     </div>
+																			   </div>
 																		</div>
 																	</td>
 																	<td class="center">
 																		<div class="_leads_action">
-																			<a href=""><i class="fas fa-edit"></i></a>
-																		</div>
-																	</td>
-																	<td class="center">
-																		<div class="_leads_action">
-																			<a href=""><i class="fas fa-credit-card"></i></a>
+																			<a href="#"><i class="fas fa-credit-card"></i></a>
 																		</div>
 																	</td>
 																</tr>
@@ -150,7 +185,7 @@ function pageProc(curPage){
 								<div class="col-lg-12 col-md-12 col-sm-12">
 										<ul class="pagination p-center">
 											<c:if test="${pagingInfo.firstPage>1}">
-												<li class="page-item"><a class="page-link" href=""
+												<li class="page-item"><a class="page-link" href="#"
 													aria-label="Previous" onclick="pageProc(${pagingInfo.firstPage-1})">
 														<span class="ti-arrow-left"></span> <span class="sr-only">Previous</span>
 												</a></li>
@@ -158,16 +193,16 @@ function pageProc(curPage){
 											<c:forEach var="i" begin="${pagingInfo.firstPage}"
 												end="${pagingInfo.lastPage}">
 												<c:if test="${i==pagingInfo.currentPage}">
-													<li class="page-item active"><a class="page-link" href="">${i}
+													<li class="page-item active"><a class="page-link" href="#">${i}
 													</a></li>
 												</c:if>
 												<c:if test="${i!=pagingInfo.currentPage}">
-													<li class="page-item"><a class="page-link" href=""
-														onclick="pageProc(${i })">${i} </a></li>
+													<li class="page-item"><a class="page-link" href="#" 
+													onclick="pageProc(${i })">${i} </a></li>
 												</c:if>
 											</c:forEach>
 											<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage}">
-												<li class="page-item"><a class="page-link" href=""
+												<li class="page-item"><a class="page-link" href="#"
 													aria-label="Next" onclick="pageProc(${pagingInfo.lastPage+1})">
 														<span class="ti-arrow-right"></span> <span class="sr-only">Next</span>
 												</a></li>
@@ -175,33 +210,13 @@ function pageProc(curPage){
 										</ul>
 									</div>
 							
-							<form action="<c:url value='/mypage/transaction'/>" 
-								method="post" name="frmPage">
+							<form action="<c:url value='/mypage/transaction' />" method="post" name="frmPage">
 								<input type="text" name="searchKeyword" value="${param.searchKeyword }">
-								<input type="text" name="searchCondition" 
-									value="${param.searchCondition }">
+								<input type="text" name="searchCondition" value="${param.searchCondition }">
 								<input type="text" name="currentPage" >	
 							</form>
-									<!-- Modal C -->
-								   <div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" id="modalC">
-								     <div class="modal-dialog modal-lg modal-dialog-centered">
-								       <div class="modal-content">
-								         <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
-								           <h5 class="modal-title" id="exampleModalToggleLabel">의뢰서</h5>
-								           <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
-								         </div>
-								         <div class="modal-body">
-								            <c:import url="/pd/formConfirm">
-								               <c:param name="userId" value="${userId }"></c:param>
-								               <c:param name="pdNo" value="${pdVo.pdNo }"></c:param>
-								            </c:import>
-								         </div>
-								         <div class="modal-footer d-flex justify-content-center">
-								            <button type="button" class="btn theme-bg rounded" data-dismiss="modal">확인</button>
-								         </div>
-								       </div>
-								     </div>
-								   </div>
+							
+									
 									
 								
 							</div>
