@@ -17,7 +17,7 @@ public interface AdminService {
 	public static final int UNUSABLE_ID=1; //존재하는 아이디
 
 	List<MemberVO> selectMember(SearchVO searchVo);
-	int deleteMember(int memNo);
+	int deleteMember(String userId);
 	List<AdminVO> selectAdmin(SearchVO searchVo);
 	int deleteSubAdmin(int adminNo);
 	List<ProductVO> selectProduct(SearchVO searchVo);
@@ -40,8 +40,8 @@ public interface AdminService {
 	int updateAdmin(AdminVO adminVo);
 	int insertAdmin(AdminVO adminVo);
 	
-	int sumAllSales();
-	int monthlySales();
+	Integer sumAllSales();
+	Integer monthlySales();
 	int countMembers();
 	int countExperts();
 	int countProduct();

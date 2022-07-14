@@ -29,8 +29,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int deleteMember(int memNo) {
-		return adminDao.deleteMember(memNo);
+	public int deleteMember(String userId) {
+		return adminDao.deleteMember(userId);
 	}
 	
 	@Override
@@ -158,12 +158,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int sumAllSales() {
+	public Integer sumAllSales() {
 		return adminDao.sumAllSales();
 	}
 	
 	@Override
-	public int monthlySales(){
+	public Integer monthlySales(){
 		return adminDao.monthlySales();
 	}
 	
