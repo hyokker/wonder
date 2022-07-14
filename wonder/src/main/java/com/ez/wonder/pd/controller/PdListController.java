@@ -132,10 +132,15 @@ public class PdListController {
 			
 			boolean isPdTerm = false;
 			boolean isPdPrice = false;
+			boolean isEditCount = false;
 			
 			for(PdDetailVO pdDetail : pdDetails) {
 				if(search.getPdTermMax() == 0) {
 					isPdTerm = true;
+				}
+				
+				if (search.getEditCount() == pdDetail.getEditCount())	{
+					isEditCount = true;
 				}
 				
 				if(search.getPdTermMin() <= pdDetail.getPdTerm() && pdDetail.getPdTerm()<= search.getPdTermMax()) {
@@ -159,7 +164,7 @@ public class PdListController {
 			
 			boolean isFrame = false;
 			for (String frame : search.getPdFrame()) {
-				if (product.getLang().indexOf(frame) >= 0) {
+				if (product.getFrame().indexOf(frame) >= 0) {
 					isFrame = true;
 				}
 			}
@@ -168,7 +173,7 @@ public class PdListController {
 				isFrame = true;
 
 			
-			if (isLang && isFrame && !pdDetails.isEmpty() && isPdTerm && isPdPrice) {
+			if (isLang && isFrame && !pdDetails.isEmpty() && isPdTerm && isPdPrice && isEditCount) {
 				List<PdImageVO> pdImages = productService.selectPdImage(pdNo);
 				item.setPdImages(pdImages);
 				item.setPdDetail(pdDetails.get(0));

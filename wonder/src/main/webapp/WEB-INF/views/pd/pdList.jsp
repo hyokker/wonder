@@ -239,14 +239,12 @@
                   pdLang.push($(this).val());
                }
             });
-
             var pdFrame = new Array();
             $('[name=framechbox]').each(function() {
                if ($(this).is(':checked') == true) {
                   pdFrame.push($(this).val());
                }
             });
-
             var sendInfo = {
                "pdTitle" : pdTitle,
                "editCount" : editCount,
