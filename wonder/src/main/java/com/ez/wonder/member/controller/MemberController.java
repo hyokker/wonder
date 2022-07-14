@@ -82,7 +82,7 @@ public class MemberController {
 		session.removeAttribute("userName");
 		
 		//임시
-		session.removeAttribute("adminId");
+		//session.removeAttribute("adminId");
 		
 		
 		return "redirect:/";
@@ -94,6 +94,7 @@ public class MemberController {
 		logger.info("회원가입 처리, 파라미터 vo={}",vo);
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		String security = encoder.encode(vo.getPwd());
 		
 		logger.info("비밀번호 암호화 pwd={},security={}",vo.getPwd(),security);

@@ -61,12 +61,26 @@
 					<div class="flex-end">
 						<script type="text/javascript">
 	$(function(){
-		$('#btedit').click(function(){
-			if($('#sessionAdmin').length > 1 ){
-				alert($('#sessionAdmin').val());
-				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
+		$('#btreply').click(function(){
+			if($('#sessionAdmin').val().length > 1){
+				location.href="<c:url value='/qna/qnaReply?qnaNo='/>"+$('#qnaNo').val();
+			}
+			else if($('#sessionId').val()==$('#userId').val()){
+				alert('답변은 관리자만 가능합니다..');
+				event.preventDefault();
 			}
 			else if($('#sessionId').val()!=$('#userId').val()){
+				alert('답변은 관리자만 가능합니다..');
+				event.preventDefault();
+			}else{
+				location.href="<c:url value='/qna/qnaReply?qnaNo='/>"+$('#qnaNo').val();
+			}
+		});
+		
+		$('#btedit').click(function(){
+			if($('#sessionAdmin').val().length > 1 ){
+				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
+			}else if($('#sessionId').val()!=$('#userId').val()){
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
@@ -74,25 +88,18 @@
 			}
 		});
 
-		$('#btreply').click(function(){
-			if($('#sessionAdmin').length > 1 ){
-				alert($('#sessionAdmin').val());
-				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
-			}
-			else if($('#sessionId').val()!=$('#userId').val()){
-				alert('권한이 없습니다.');
-				event.preventDefault();
-			}else{
-				location.href="<c:url value='/qna/qnaReply?qnaNo='/>"+$('#qnaNo').val();
-			}
-		});
+
 		
 		$('#btdelete').click(function(){
-			if($('#sessionAdmin').length > 1 ){
-				alert($('#sessionAdmin').val());
-				location.href="<c:url value='/qna/qnaEdit?qnaNo='/>"+$('#qnaNo').val();
-			}
-			else if($('#sessionId').val()!=$('#userId').val()){
+			if($('#sessionAdmin').val().length > 1 ){
+				var con=confirm('관리자님 삭제하시겠습니까?'); //변수에 집어넣어도 컨펌창은 뜬다.(if문 안에서 다시 선언해라)
+				if(con){
+					location.href="<c:url value='/qna/qnaDelete?qnaNo='/>"+$('#qnaNo').val();
+				}else if(!con){
+					event.preventDefault();
+				}
+				
+			}else if($('#sessionId').val()!=$('#userId').val()){
 				alert('권한이 없습니다.');
 				event.preventDefault();
 			}else{
@@ -146,11 +153,11 @@
 							</button>
 						</c:if>
 					</div>
-					<input type="hidden" id="sessionAdmin"value="${sessionScope.adminId }"> 
-					<input type="hidden" id="sessionId" value="${sessionScope.userId }">
-					<input type="hidden" id="userId" value="${vo.userId }">
-					<input type="hidden" id="qnaNo" value="${vo.qnaNo }">
-					<input type="hidden" id="qnaNo" value="${sessionScope.qnaNo }">
+					<input type="text" id="sessionAdmin"value="${sessionScope.adminId }"> 
+					<input type="text" id="sessionId" value="${sessionScope.userId }">
+					<input type="text" id="userId" value="${vo.userId }">
+					
+					<input type="text" id="qnaNo" value="${vo.qnaNo }">
 				</div>
 
 			</div>
