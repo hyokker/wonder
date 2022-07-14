@@ -14,8 +14,12 @@
 		select * from form where p_user_id=#{userId} and pay_flag='Y'
 	</select>
 	
-	<select id="selectCount" parameterType="reviewVo" resultType="int">
-		select count(*) from form where pd_no=#{pdNo} and user_id=#{userId} and pay_flag='Y'
+	<select id="checkPayFlag" parameterType="reviewVo" resultType="string">
+		select pay_flag from 
+			(select pay_flag from form 
+			where pd_no=#{pdNo} and user_id=#{userId} and pay_flag != 'C' 
+			order by form_regdate desc) 
+		where rownum = 1
 	</select>
 	
 	<select id="formConfirm" parameterType="formVo" resultType="map">

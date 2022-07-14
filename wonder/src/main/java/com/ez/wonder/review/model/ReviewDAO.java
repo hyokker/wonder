@@ -11,4 +11,5 @@ public interface ReviewDAO {
 	List<ReviewVO> selectReviewByPdNo(int pdNo);
 	Map<String, Object> getAvgScore(int pdNo);
 	int reviewCount(ReviewVO vo);
+	int deleteReview(int reviewNo);
 }
