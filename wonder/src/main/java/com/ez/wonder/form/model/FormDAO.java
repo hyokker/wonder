@@ -11,7 +11,7 @@ import com.ez.wonder.review.model.ReviewVO;
 public interface FormDAO {
 	int insertForm(FormVo vo);
 	List<FormVo> selectFormByUserId(String userId);
-	int selectCount(ReviewVO vo);
+	String checkPayFlag(ReviewVO vo);
 	Map<String, Object> formConfirm(FormVo vo);
 	int checkForm(int pdNo);
 }

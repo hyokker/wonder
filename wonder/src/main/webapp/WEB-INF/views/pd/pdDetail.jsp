@@ -17,7 +17,7 @@
 			<div class="col-lg-8 col-md-7 col-sm-12">
 				<div class="mySlick">
 					<c:forEach var="pdImageVo" items="${imgList }">
-			        	<div><img src="<c:url value='/img/pdupload/${pdImageVo.fileName }'/>" class="img-fluid mx-auto" alt="" /></div>
+			        	<div><img src="<c:url value='/img/pdupload/${pdImageVo.fileName }'/>" class="img-fluid mx-auto" alt="상품 이미지" style="max-height: 490px;"/></div>
 			        </c:forEach>
 			        <!-- <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div> -->
 			    </div>
@@ -420,27 +420,27 @@
 											<span style="margin: 0 auto;">등록된 리뷰가 없습니다.</span>
 										</c:if>
 										<c:if test="${!empty reviewList }">
-												<span class="avgScore">AvgScore</span>
-												<div class="rating-overview-box">
-													<div class="rating">
-													    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													    </span>
-													    <span class="rating-lower">
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													    </span>
-													</div>
+											<span class="avgScore">AvgScore</span>
+											<div class="rating-overview-box">
+												<div class="rating">
+												    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												    </span>
+												    <span class="rating-lower">
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												    </span>
 												</div>
-												<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
-												<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
+											</div>
+											<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
+											<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
 										</c:if>
 									</div>
 							
@@ -458,7 +458,14 @@
 																<div class="comment-details">
 																	<div class="comment-meta">
 																		<div class="comment-left-meta">
-																			<h4 class="author-name">${reviewVo.userId } <span class="regdate"><fmt:formatDate value="${reviewVo.regdate}" pattern="yyyy-MM-dd HH:mm" /></span></h4>
+																			<h4 class="author-name">${reviewVo.userId } 
+																				<span class="regdate">
+																					<c:if test="${reviewVo.userId == userId }">
+																						<span style="margin-right: 7px;"><a href="<c:url value='/pd/reviewDel?reviewNo=${reviewVo.reviewNo }&pdNo=${pdVo.pdNo }' />" class="reviewDel">삭제</a></span>
+																					</c:if>
+																					<fmt:formatDate value="${reviewVo.regdate}" pattern="yyyy-MM-dd HH:mm" />
+																				</span>
+																			</h4>
 																			<span class="rating" style="font-size: 15px;top: -2px">
 																				<span class="rating-upper" style="width: ${reviewVo.rating * 20 }%">
 																			        <span>★</span>
@@ -856,6 +863,13 @@
             		alert("내용을 입력해주세요");
             		$('textarea[name=reviewContent]').focus();
             	}
+        	}
+        });
+        
+        //리뷰 삭제
+        $('.reviewDel').click(function(){
+        	if(!confirm('리뷰를 삭제하시겠습니까?')){
+        		return false;
         	}
         });
         
