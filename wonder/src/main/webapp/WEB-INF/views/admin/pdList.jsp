@@ -91,6 +91,7 @@ div#srchTitBar {
 												</div>
 											</div>
 										</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -188,9 +189,6 @@ div#srchTitBar {
 																	<fmt:formatDate value="${productVo.regdate }"
 																		pattern="yyyy-MM-dd HH:mm" />
 																</h5>
-															</div>
-															<div class="_leads_view_title">
-																<%-- <span>${u:diffOfDate(${memberVo.regdate})}</span> --%>
 															</div>
 														</td>
 														<td>

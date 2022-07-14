@@ -30,12 +30,12 @@
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
 
-	<delete id="deleteMember" parameterType="int">
+	<delete id="deleteMember" parameterType="String">
 		delete
 		from
 		member
 		where
-		mem_No=#{memNO}
+		user_Id=#{userId}
 	</delete>
 
 	<select id="selectNonApprovalEx" resultType="memberVo"

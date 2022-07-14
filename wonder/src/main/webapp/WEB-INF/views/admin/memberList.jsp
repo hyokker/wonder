@@ -3,6 +3,17 @@
 <%@taglib prefix="u" uri="/WEB-INF/customTag/Utility.tld"%>
 <%@ include file="../inc/top.jsp"%>
 <script src="${pageContext.request.contextPath}/js/adminpaging.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#delOk').click(function() {
+			if (!confirm('삭제하시면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')) {
+				return false;
+			}else if(confirm('삭제하시면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')){
+				loaction.href="<c:url value='/admin/delMember?userId=' />" + $(#deleteparameter).text();
+			}
+		});
+	});
+</script>
 <style type="text/css">
 #img {
 	padding-left: 10px;
@@ -136,7 +147,8 @@ div#srchTitBar {
 														<td>
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb" id="img">
-																	<c:if test="${memberVo.type eq '일반회원' || memberVo.type eq '승인대기'}">
+																	<c:if
+																		test="${memberVo.type eq '일반회원' || memberVo.type eq '승인대기'}">
 																		<img
 																			src="${pageContext.request.contextPath}/img/mypage/default_profile.png"
 																			class="img-fluid" alt="일반회원 프로필 사진" />
@@ -148,7 +160,7 @@ div#srchTitBar {
 																	</c:if>
 																</div>
 																<div class="dash_prt_caption">
-																	<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
+																	<div class="prt_dashb_lot">${memberVo.memNo }</div>
 																	<h5>${memberVo.userId}</h5>
 																</div>
 															</div>
@@ -178,9 +190,6 @@ div#srchTitBar {
 																		pattern="yyyy-MM-dd HH:mm" />
 																</h5>
 															</div>
-															<div class="_leads_view_title">
-																<%-- <span>${u:diffOfDate(${memberVo.regdate})}</span> --%>
-															</div>
 														</td>
 														<td><c:if test="${memberVo.type eq '일반회원' }">
 																<div class="_leads_status" id="type1">
@@ -197,8 +206,7 @@ div#srchTitBar {
 															</c:if></td>
 														<td>
 															<div class="_leads_action">
-																<a href="delMember?memNo=${memberVo.memNo }"><i
-																	class="fas fa-trash"></i></a>
+																<a href="#" id="delMem"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

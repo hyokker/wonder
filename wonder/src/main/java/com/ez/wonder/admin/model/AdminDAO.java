@@ -13,7 +13,7 @@ import com.ez.wonder.pd.model.ProductVO;
 @Mapper
 public interface AdminDAO {
 	List<MemberVO> selectMember(SearchVO searchVo);
-	int deleteMember(int memNo);
+	int deleteMember(String userId);
 	List<AdminVO> selectAdmin(SearchVO searchVo);
 	int deleteSubAdmin(int adminNo);
 	List<ProductVO> selectProduct(SearchVO searchVo);

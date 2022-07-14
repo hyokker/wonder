@@ -61,10 +61,10 @@ public class AdminController {
 	}
 
 	@RequestMapping("/delMember")
-	public String deleteMember(@RequestParam(defaultValue = "0") int memNo, Model model) {
-		logger.info("회원 삭제 처리, 파라미터 memNo={}", memNo);
+	public String deleteMember(@RequestParam(defaultValue = "0") String userId, Model model) {
+		logger.info("회원 삭제 처리, 파라미터 userId={}", userId);
 
-		int cnt = adminService.deleteMember(memNo);
+		int cnt = adminService.deleteMember(userId);
 		logger.info("회원 삭제 처리 결과, cnt={}", cnt);
 		String msg = "삭제 실패하였습니다.", url = "/admin/memberList";
 
