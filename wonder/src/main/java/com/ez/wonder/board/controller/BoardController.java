@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,13 +47,36 @@ public class BoardController {
 	}
 	
 	@GetMapping("/write")
-	public void write() {
+	public void write(Model model
+		//	, HttpSession session) {
+			) {
 		logger.info("게시판 글쓰기");
+		//테스트용
+		String userId="testUserId";
+		String adminId="testAdminId";
+		logger.info("파라미터 userId={}, adminId={}", userId, adminId);
+		/*
+		String  userId = (String) session.getAttribute("userId");
+		String adminId= (String) session.getAttribute("adminId");
+		logger.info("파라미터 userId={}", userId);
+		logger.info("파라미터 adminId={}", adminId);
+
+		MemberVO memberVo= memberService.selectMember(userId);
+		logger.info("회원 정보 조회 결과, memberVo={}",memberVo);
+		
+		model.addAttribute("memberVo", memberVo);
+		model.addAttribute("userId", userId);
+		model.addAttribute("adminId", adminId);
+		*/
+		model.addAttribute("userId", userId);
+		model.addAttribute("adminId", adminId);
+		
 	}
 	
 	@PostMapping("/write")
 	public String write_ok(@ModelAttribute BoardVO vo,
-			HttpServletRequest request) {
+			//@ModelAttribute MemberVO memberVo,
+			HttpServletRequest request, Model model) {
 		logger.info("글쓰기 처리, 파라미터 vo={}",vo);
 		
 		//파일 업로드 처리
@@ -87,16 +111,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/list")
-	public void list(@ModelAttribute SearchVO searchVo, Model model) {
+	public void list(
+			@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("자유게시판 목록, 파라미터 searchVo={}", searchVo);
 		
 		 PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(ConstUtil.BLOCKSIZE);
-		 pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		 pagingInfo.setRecordCountPerPage(ConstUtil.BOARD_RECORD);
 		  pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		 
 		  searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		  searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		  searchVo.setRecordCountPerPage(ConstUtil.BOARD_RECORD);
 		 
 		
 		List<BoardVO> list=boardService.selectAll(searchVo);
@@ -106,8 +131,20 @@ public class BoardController {
 		logger.info("조회 건수 totalRecord={}", totalRecord);
 		
 		pagingInfo.setTotalRecord(totalRecord);
-						
+		
+		//댓글개수 구하기
+		int boardNo = 0;
+		int totalComment = 0;
+		for(int i=0; i<list.size(); i++){
+			BoardVO vo=list.get(i);
+			boardNo = vo.getBoardNo();
+			logger.info("게시글 당 댓글 수 파라미터, boardNo={}", boardNo);
+			totalComment=replyService.getTotalComment(boardNo);
+			vo.setTotalComment(totalComment);
+			logger.info("게시물당 총 댓글 수 totalComment={}", totalComment);
+		}
 
+		model.addAttribute("totalComment", totalComment);
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
 	}
@@ -150,7 +187,7 @@ public class BoardController {
 		List<ReplyVO> replyList=replyService.showAll(boardNo);
 		logger.info("댓글 목록 조회 결과, replyList.size={}", replyList.size());
 		
-		//totalRecord개수 구하기
+		//댓글개수 구하기
 		int totalComment=replyService.getTotalComment(boardNo);
 		logger.info("게시물당 총 댓글 수 totalComment={}", totalComment);
 
@@ -318,7 +355,23 @@ public class BoardController {
 		return "common/message";
 	}
 	
-	
+	/*
+	@RequestMapping("/mainNotice")
+	public String mainNotice(ModelMap model) {
+		//1
+		logger.info("메인 공지사항 페이지");
+		
+		//2
+		List<BoardVO> list=boardService.selectMainNotice();
+		logger.info("메인 공지사항 결과, list.size={}", list.size());
+		
+		//3
+		model.addAttribute("noticeList", list);
+		
+		//4
+		return "/inc/mainNotice";
+	}
+	*/
 }
 
 
