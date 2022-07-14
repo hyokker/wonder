@@ -415,6 +415,8 @@
 			alert("제목을 입력해주세요.");
 			location.href = '<c:url value="/pd/pdList"/>';
 		});
+		
+		 
 
 	});
 </script>
@@ -546,13 +548,13 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE" id="pdPrice"
+																		<label>가격</label> <input type="TYPE" id="pdPrice" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 																			name="pdPrice" class="form-control" placeholder="KRW">
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text" id="pdTerm"
-																			name="pdTerm" class="form-control">
+																		<label>기한</label> <input type="text" id="pdTerm" placeholder="(일)"
+																			name="pdTerm" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 																	</div>
 
 																	<div class="form-group col-md-12">
@@ -562,8 +564,8 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text" id="editCount"
-																			name="editCount" class="form-control">
+																		<label>수정횟수</label> <input type="text" id="editCount" placeholder="(회)"
+																			name="editCount" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> 
 																	</div>
 
 																	<div class="form-group col-md-12">
@@ -581,13 +583,13 @@
 																		</label>
 																		<hr>
 																		<input id="codeSupply" class="checkbox-custom"
-																			name="codeSupply" type="checkbox" checked> <label
+																			name="codeSupply" type="checkbox" > <label
 																			for="codeSupply" class="checkbox-custom-label">소스코드
 																			제공<i></i>
 																		</label>
 																		<hr>
 																		<input id="customize" class="checkbox-custom"
-																			name="customize" type="checkbox" checked> <label
+																			name="customize" type="checkbox" > <label
 																			for="customize" class="checkbox-custom-label">맞춤
 																			디자인<i></i>
 																		</label>
@@ -626,14 +628,14 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE" id="pdPrice1"
+																		<label>가격</label> <input type="TYPE" id="pdPrice1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 																			name="pdPrice1" class="form-control"
 																			placeholder="KRW">
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text" id="pdTerm1"
-																			name="pdTerm1" class="form-control">
+																		<label>기한</label> <input type="text" id="pdTerm1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+																			placeholder="(일)" name="pdTerm1" class="form-control">
 																	</div>
 
 																	<div class="form-group col-md-12">
@@ -643,8 +645,8 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text" id="editCount1"
-																			name="editCount1" class="form-control">
+																		<label>수정횟수</label> <input type="text" id="editCount1" placeholder="(회)"
+																			name="editCount1" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 																	</div>
 
 																	<div class="form-group col-md-12">
@@ -692,14 +694,14 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE" id="pdPrice2"
+																		<label>가격</label> <input type="TYPE" id="pdPrice2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 																			name="pdPrice2" class="form-control"
 																			placeholder="KRW">
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text" id="pdTerm2"
-																			name="pdTerm2" class="form-control">
+																		<label>기한</label> <input type="text" id="pdTerm2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+																			placeholder="(일)" name="pdTerm2" class="form-control">
 																	</div>
 
 																	<div class="form-group col-md-12">
@@ -709,8 +711,8 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text"
-																			class="form-control" id="editCount2"
+																		<label>수정횟수</label> <input type="text" placeholder="(회)"
+																			class="form-control" id="editCount2" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 																			name="editCount2">
 																	</div>
 
@@ -729,13 +731,13 @@
 																		</label>
 																		<hr>
 																		<input id="codeSupply2" class="checkbox-custom"
-																			name="codeSupply2" type="checkbox" checked> <label
+																			name="codeSupply2" type="checkbox" > <label
 																			for="codeSupply2" class="checkbox-custom-label">소스코드
 																			제공<i></i>
 																		</label>
 																		<hr>
 																		<input id="customize2" class="checkbox-custom"
-																			name="customize2" type="checkbox" checked> <label
+																			name="customize2" type="checkbox" > <label
 																			for="customize2" class="checkbox-custom-label">맞춤
 																			디자인<i></i>
 																		</label>
@@ -760,14 +762,14 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>가격</label> <input type="TYPE" id="pdPrice3"
+																		<label>가격</label> <input type="TYPE" id="pdPrice3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 																			name="pdPrice3" class="form-control"
 																			placeholder="KRW">
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>기한</label> <input type="text" id="pdTerm3"
-																			name="pdTerm3" class="form-control">
+																		<label>기한</label> <input type="text" id="pdTerm3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+																			placeholder="(일)" name="pdTerm3" class="form-control">
 																	</div>
 																	<div class="form-group col-md-12">
 																		<label>서비스설명</label>
@@ -776,8 +778,8 @@
 																	</div>
 
 																	<div class="form-group col-md-6">
-																		<label>수정횟수</label> <input type="text" id="editCount3"
-																			name="editCount3" class="form-control">
+																		<label>수정횟수</label> <input type="text" id="editCount3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+																			placeholder="(회)" name="editCount3" class="form-control">
 																	</div>
 
 																	<div class="form-group col-md-12">
@@ -795,13 +797,13 @@
 																		</label>
 																		<hr>
 																		<input id="codeSupply3" class="checkbox-custom"
-																			name="codeSupply3" type="checkbox" checked> <label
+																			name="codeSupply3" type="checkbox" > <label
 																			for="codeSupply3" class="checkbox-custom-label">소스코드
 																			제공<i></i>
 																		</label>
 																		<hr>
 																		<input id="customize3" class="checkbox-custom"
-																			name="customize3" type="checkbox" checked> <label
+																			name="customize3" type="checkbox" > <label
 																			for="customize3" class="checkbox-custom-label">맞춤
 																			디자인<i></i>
 																		</label>
