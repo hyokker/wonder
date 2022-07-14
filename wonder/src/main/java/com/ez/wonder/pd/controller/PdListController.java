@@ -138,11 +138,11 @@ public class PdListController {
 				if(search.getPdTermMax() == 0) {
 					isPdTerm = true;
 				}
-				
-				if (search.getEditCount() == pdDetail.getEditCount())	{
+				if (search.getEditCount() == 0) {
+					  isEditCount = true;
+					} else if (search.getEditCount() == pdDetail.getEditCount()) {
 					isEditCount = true;
-				}
-				
+					}
 				if(search.getPdTermMin() <= pdDetail.getPdTerm() && pdDetail.getPdTerm()<= search.getPdTermMax()) {
 					isPdTerm = true;
 				}
