@@ -4,6 +4,7 @@ import javax.mail.MessagingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,6 +66,11 @@ public class EmailController {
 	public int sendPwd(String receiver, String pwd) {
 		logger.info("이메일 발송 처리 페이지");
 		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		logger.info("pwd={}",pwd);
+
+		String security = encoder.encode(pwd);
+		logger.info("해싱 된 비밀번호 security={}",security)	;
 		int result=0;
 		
 		String subject= "임시 비밀번호 발송";
@@ -81,7 +87,7 @@ public class EmailController {
 			result = 1;
 			MemberVO vo = new MemberVO();
 			vo.setEmail(receiver);
-			vo.setPwd(pwd);
+			vo.setPwd(security);
 			logger.info("받는사람 이메일 receiver={},임시비밀번호 pwd={}",receiver,pwd);
 			int cnt = memberService.updatePwd(vo);
 			

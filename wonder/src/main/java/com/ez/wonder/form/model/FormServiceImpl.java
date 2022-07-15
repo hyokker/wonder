@@ -43,5 +43,10 @@ public class FormServiceImpl implements FormService{
 	public int checkForm(int pdNo) {
 		return formDao.checkForm(pdNo);
 	}
+
+	@Override
+	public int payDone(int formNo) {
+		return formDao.payDone(formNo);
+	}
 	
 }

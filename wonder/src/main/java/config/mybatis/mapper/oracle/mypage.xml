@@ -209,12 +209,14 @@ select * from
     select rownum as RNUM, Z.*
     from
         (
-		select A.pd_no,B.form_no, A.user_id as s_user_id, B.user_id as b_user_id, A.pd_title, TO_CHAR(D.introduction) as introduction,B.price, A.regdate, A.read_count, C.pd_term, B.pay_flag, E.file_name
-		from (((product A join form B
+		select A.pd_no,B.form_no, A.user_id as s_user_id, B.user_id as b_user_id, A.pd_title, TO_CHAR(D.introduction) as introduction,B.price, 
+		A.regdate, A.read_count, C.pd_term, B.pay_flag, E.file_name, M.name, M.tel, M.email
+		from ((((product A join form B
 		on A.pd_no=B.pd_no) join pd_detail C
 		on B.pd_no=C.pd_no and B.price=C.pd_price) join expert_info D
 		on A.user_id=D.user_id) join pd_image E
-		on A.pd_no = E.pd_no
+		on A.pd_no = E.pd_no) join member M
+		on B.user_id = M.user_id
 		where B.user_id=#{userId}
 		<include refid="searchWhere"></include>
         ) Z

@@ -121,7 +121,7 @@
 											class="fas fa-user-circle fa-lg"></i>
 										</a>
 									</c:if> <c:if test="${userId!='admin' }">
-										<a href="<c:url value='/mypage/dashboard'/>" class=""> <i
+										<a href="<c:url value='/mypage/profile'/>" class=""> <i
 											class="fas fa-user-circle fa-lg"></i>
 										</a>
 									</c:if></li>

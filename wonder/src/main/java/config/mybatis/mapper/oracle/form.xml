@@ -11,24 +11,28 @@
 	</insert>
 	
 	<select id="selectFormByUserId" parameterType="string" resultType="formVo">
-		select * from form where p_user_id=#{userId} and pay_flag='Y'
+		select * from form where p_user_id=#{userId} and pay_flag in ('Y','P')
 	</select>
 	
 	<select id="checkPayFlag" parameterType="reviewVo" resultType="string">
 		select pay_flag from 
 			(select pay_flag from form 
-			where pd_no=#{pdNo} and user_id=#{userId} and pay_flag != 'C' 
+			where pd_no=#{pdNo} and user_id=#{userId}
 			order by form_regdate desc) 
 		where rownum = 1
 	</select>
 	
 	<select id="formConfirm" parameterType="formVo" resultType="map">
-		select * from formConfirmView where pd_no=#{pdNo} and user_id=#{userId} and pay_flag in ('Y','N')
+		select * from formConfirmView where pd_no=#{pdNo} and user_id=#{userId} and pay_flag in ('Y','N','P')
 	</select>
 	
 	<select id="checkForm" parameterType="int" resultType="int">
-		select count(*) from form where pd_no=#{pdNo} and pay_flag in ('Y','N')
+		select count(*) from form where pd_no=#{pdNo} and pay_flag in ('Y','N','P')
 	</select>
+	
+	<update id="payDone" parameterType="int">
+		update form set pay_flag='P' where form_no=#{formNo}
+	</update>
 </mapper>
 
 <!-- 

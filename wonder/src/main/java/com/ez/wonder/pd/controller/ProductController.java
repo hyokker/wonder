@@ -135,7 +135,7 @@ public class ProductController {
 		if(result != null) {
 			if(result.equals("N")) { // N : 의뢰 수락 대기
 				msg="아직 판매자가 의뢰서를 수락하지 않았습니다.";
-			}else if(result.equals("Y")) { // Y : 의뢰 수락
+			}else if(result.equals("Y") || result.equals("P")) { // Y, P : 의뢰 수락, 결제 완료
 				msg="아직 의뢰가 완료되지 않았습니다.";
 			}else if(result.equals("D")) { // D : 의뢰 완료
 				int reviewCount=reviewService.reviewCount(reviewVo);

@@ -14,4 +14,5 @@ public interface FormDAO {
 	String checkPayFlag(ReviewVO vo);
 	Map<String, Object> formConfirm(FormVo vo);
 	int checkForm(int pdNo);
+	int payDone(int formNo);
 }
