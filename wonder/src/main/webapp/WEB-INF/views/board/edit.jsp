@@ -3,13 +3,54 @@
 <%@ include file="../inc/top.jsp"%>
  <!--  
 	<해결과제>
+	1. session 정리
+	
 	-에디터 수정사항 반영하기
 -->
 <link rel="stylesheet" type="text/css"  href="<c:url value='/css/board.css'/>" />
-
 <title>wonder - 자유게시판 수정하기</title>
 <script type="text/javascript">
 
+</script>
+<!--테스트용  -->
+<script type="text/javascript">
+/* 	테스트
+	
+*/
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
+	
+	$(function(){
+		alert('${vo.userId}');
+		//alert(adminId);
+
+
+	});
+	
+	//유효성검사
+	function validateForm(){
+
+		var boardTitle=$(event.target).find('#boardTitle').val();
+		var boardContent=myEditor.getData();
+		var pwd=$(event.target).find('#pwd').val();
+		//alert(boardTitle);
+		//alert(boardContent);
+		//alert(pwd);
+		
+		if($.trim(boardTitle).length<1){
+			alert("제목을 입력하세요.");
+			$(this).focus();
+			return false;
+		}
+		
+		if($.trim(boardContent).length< 1){
+			alert("내용을 입력하세요");
+			$(boardContent).focus();
+			return false;
+		}
+		
+
+	}
 </script>
 <section>
 	<div class="container">
@@ -82,7 +123,7 @@
 									<div class="form-group" id="submitlist">
 										<div class="col-lg-12 col-md-12">
 											<button class="btn btn-theme" type="submit" id="btedit">
-												<i class="fa fa-pen-nib"></i> 수정
+												<i class="fa fa-pen-nib"></i> 수정완료
 											</button>
 											<button class="btn btn-theme" type="button" id="btlist"
 												onclick="location.href='<c:url value='list'/>'">

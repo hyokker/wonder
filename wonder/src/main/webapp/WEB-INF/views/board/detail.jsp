@@ -20,13 +20,6 @@ $(function(){
 	});
 	
 	
-	$('#noUser').click(function(){
-			alert("로그인이 필요합니다");
-			$('#topLogin').get(0).click();
-	});
-	
-	
-	
 	//대댓글 등록
 	$(".reReplyForm").hide();
 	
@@ -111,47 +104,7 @@ function replyEditView(replyNo){
 	});
 }
 
-//댓글 입력, 수정 유효성검사
-function validateForm(){
-	//var frm = $(event.target).find('textarea').closest('form').attr('name');
-	//alert(frm);
-	var taVal=$(event.target).find('textarea').val();
-	var userId="<c:out value='${sessionScope.userId}'/>";
-	//alert(taVal);
-	if($.trim(taVal).length< 1){
-		alert("댓글 내용을 입력하세요");
-		$(taVal).focus();
-		return false;
-	}
-	
-	if(userId==""){
-		alert("로그인이 필요합니다");
-		//location.href= '<c:url value="/"/>';
-		$('#topLogin').get(0).click();
-	}
-}
-
-// 공유 - url 복사
-function clip(){
-    var url = window.document.location.href; //현재 주소값
-    var textarea = document.createElement("textarea");  
-    //url 변수 생성 후, textarea라는 변수에 textarea의 요소를 생성
-    
-    document.body.appendChild(textarea); //</body> 바로 위에 textarea를 추가(임시 공간)
-    textarea.value = url;  // textarea 값에 url를 대입
-    textarea.select();  //textarea를 선택
-    document.execCommand("copy"); // 복사
-    document.body.removeChild(textarea); //복사 후 textarea 요소를 없애줌
-    
-    alert("URL이 복사되었습니다.")  // 알림창
-}
-
-
-</script>
-
-<!-- 테스트용 js -->
-<script type="text/javascript">
-
+//댓글 수정취소
 function getReplylist(replyNo){
 	
 	//alert("getReplylist테스트");
@@ -195,6 +148,104 @@ function getReplylist(replyNo){
 		}
 	});
 }
+
+//댓글 입력, 수정 유효성검사
+function validateForm(){
+	//var frm = $(event.target).find('textarea').closest('form').attr('name');
+	//alert(frm);
+	var taVal=$(event.target).find('textarea').val();
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var cateType= "<c:out value='${vo.cateType}'/>";
+	
+	//alert(cateType);
+
+	
+	if(userId!="" && $.trim(taVal).length< 1){
+		alert("댓글 내용을 입력하세요.");
+		$(taVal).focus();
+		return false;
+	}
+	
+	if(userId=="" && cateType!='N'){
+		alert("로그인이 필요합니다.");
+		//location.href= '<c:url value="/"/>';
+		$('#topLogin').get(0).click();
+		return false;
+	}
+	
+	if(cateType=='N'){
+		alert("공지사항 댓글 입력불가!");
+		location.reload();
+		return false;
+	}
+
+}
+
+
+// 공유 - url 복사
+function clip(){
+    var url = window.document.location.href; //현재 주소값
+    var textarea = document.createElement("textarea");  
+    //url 변수 생성 후, textarea라는 변수에 textarea의 요소를 생성
+    
+    document.body.appendChild(textarea); //</body> 바로 위에 textarea를 추가(임시 공간)
+    textarea.value = url;  // textarea 값에 url를 대입
+    textarea.select();  //textarea를 선택
+    document.execCommand("copy"); // 복사
+    document.body.removeChild(textarea); //복사 후 textarea 요소를 없애줌
+    
+    alert("URL이 복사되었습니다.")  // 알림창
+}
+
+//CRUD - 글쓰기
+function toEdit(){
+	alert("테스트중");
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var adminId="<c:out value='${sessionScope.adminId}'/>";
+
+
+	if(adminId!=""){
+		alert("공지 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+		
+	}else if(userId!=""){
+		alert("게시글 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+	}else{
+		alert("로그인이 필요합니다.");
+		//location.href= '<c:url value="/"/>';
+		$('#topLogin').get(0).click();
+		return false;
+	}
+}
+
+
+</script>
+
+<!-- 테스트용 js -->
+<script type="text/javascript">
+function toWrite(){
+	alert("테스트중");
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var adminId="<c:out value='${sessionScope.adminId}'/>";
+
+
+	if(adminId!=""){
+		alert("공지 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+		
+	}else if(userId!=""){
+		alert("게시글 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+	}else{
+		alert("로그인이 필요합니다.");
+		//location.href= '<c:url value="/"/>';
+		$('#topLogin').get(0).click();
+		return false;
+	}
+}
+
+
 
 </script>
 
@@ -271,7 +322,7 @@ function getReplylist(replyNo){
 
 					<div class="btn center">
 						<button class="btn btn-theme" type="button" id=""
-							onclick="location.href='<c:url value='write'/>'">
+							onclick="toWrite();">
 							<i class="fas fa-edit"></i> 글쓰기
 						</button>
 						<button class="btn btn-theme" type="button" id="btedit"
@@ -290,17 +341,15 @@ function getReplylist(replyNo){
 <!-- 댓글 등록  -->
 <div class="comment-box submit-form">
 	<form name="frmReply" method="post" action="<c:url value='/board/detail/reply'/>" onsubmit="return validateForm();">
-<c:choose>
-	<c:when test="${!empty sessionScope.userId}">
-		<!--부모테이블 memVo 외래키 제약조건 재생성 및 값 적용
-		<input type="hidden" name="userId" value="${vo.userId}" />
-		  -->
-		<input type="hidden" name="userId" value="testUser" />
-		<!-- 접속계정의 닉네임으로 처리  변경
-		<input type="hidden" name="nickname" value="${sessionScope.nickname}" />
-		-->
-		<input type="hidden" name="nickname" value="testNick" />
-		<input type="hidden" name="boardNo" value="${param.boardNo }" />
+		<c:choose>
+			<c:when test="${!empty sessionScope.userId}">
+				<input type="hidden" name="userId" value="testUser" />
+				<!-- 접속계정의 닉네임으로 처리  변경
+				<input type="hidden" name="userId" value="${sessionScope.userId}" />
+				<input type="hidden" name="nickname" value="${sessionScope.nickname}" />
+				-->
+				<input type="hidden" name="nickname" value="testNick" />
+				<input type="hidden" name="boardNo" value="${param.boardNo }" />
 				<div class="form-group">
 					<h5 class="comments-title black">댓글 ${totalComment }개</h5>
 					<textarea class="reply comments form-control" name="replyContent" id="" placeholder="댓글을 입력하세요"></textarea>
@@ -308,18 +357,25 @@ function getReplylist(replyNo){
 						<i class="fas fa-edit"></i> 등록
 					</button>
 				</div>
-	</form>
-</div>
-	</c:when>
-			<c:otherwise>
+			</c:when>
+			<c:when test="${vo.cateType=='N'}">
 				<div class="form-group">
-					<h5 class="comments-title black">댓글 ${totalComment }개</h5>
-					<textarea class="reply comments form-control" name="replyContent" id="noUserTa" placeholder="회원만 이용가능합니다"></textarea>
-					<button class="btn btn-theme comments_write" type="button" id="noUser">
+					<h5 class="comments-title black">댓글</h5>
+					<textarea class="reply comments form-control" name="replyContent" id="noUserTa" placeholder="공지사항 댓글 입력불가" readonly></textarea>
+					<button class="btn btn-theme comments_write" type="button" onclick="validateForm()">
 						<i class="fas fa-edit"></i> 등록
 					</button>
 				</div>
-			</c:otherwise>
+			</c:when>
+				<c:otherwise>
+					<div class="form-group">
+						<h5 class="comments-title black">댓글 ${totalComment }개</h5>
+						<textarea class="reply comments form-control" name="replyContent" id="noUserTa" placeholder="회원만 이용가능합니다"></textarea>
+						<button class="btn btn-theme comments_write" type="button" id="noUser"  onclick="validateForm()">
+							<i class="fas fa-edit"></i> 등록
+						</button>
+					</div>
+				</c:otherwise>
 		</c:choose>
 	</form>
 </div>
@@ -419,7 +475,8 @@ function getReplylist(replyNo){
 					<!--대댓등 등록양식 끝-->
 			</c:if>
 		</div>
-	</c:forEach>	
+	</c:forEach>
+</div>	
 </c:if>
 </c:if>	<!-- 공지가 아닌 경우 노출 끝 -->
 <!-- 댓글리스트 종료 -->

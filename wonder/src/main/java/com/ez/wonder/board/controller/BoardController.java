@@ -224,7 +224,13 @@ public class BoardController {
 	public String edit_get(@RequestParam(defaultValue = "0") int boardNo,
 			Model model) {
 		logger.info("글 수정 페이지, 파라미터 boardNo = {}", boardNo);
-
+		//테스트용
+		String userId="testUserId";
+		String adminId="testAdminId";
+		
+		model.addAttribute("userId", userId);
+		model.addAttribute("adminId", adminId);
+		
 		if(boardNo == 0) {
 			model.addAttribute("msg", "잘못된 접근입니다");
 			model.addAttribute("url", "/board/list");
@@ -233,6 +239,7 @@ public class BoardController {
 
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("수정할 글 상세보기 vo={}", vo);
+
 
 		model.addAttribute("vo", vo);
 

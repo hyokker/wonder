@@ -14,10 +14,10 @@
  -->
 <title>wonder - 자유게시판 글쓰기</title>
 <script type="text/javascript">
-/* 	
-	
+/* 	테스트
 	var adminId="<c:out value='${adminId}'/>";
 	var userId="<c:out value='${userId}'/>";
+	
 */
 	var userId="<c:out value='${sessionScope.userId}'/>";
 	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
@@ -43,9 +43,9 @@
 		var boardTitle=$(event.target).find('#boardTitle').val();
 		var boardContent=myEditor.getData();
 		var pwd=$(event.target).find('#pwd').val();
-		alert(boardTitle);
-		alert(boardContent);
-		alert(pwd);
+		//alert(boardTitle);
+		//alert(boardContent);
+		//alert(pwd);
 		
 		if($.trim(boardTitle).length<1){
 			alert("제목을 입력하세요.");
@@ -58,7 +58,7 @@
 			$(boardContent).focus();
 			return false;
 		}
-
+		
 
 	}
 </script>
@@ -118,7 +118,7 @@ empty sessionScope.userId && !empty sessionScope.adminId
 											<label for="nickname">작성자</label>
 									<c:choose>
 									<c:when test="${!empty sessionScope.userId}">
-											<input type="text" name="nickname" value="tester" class="form-control" readonly="readonly" id="nickname">
+											<input type="text" name="nickname" value="${sessionScope.nickname }" class="form-control" readonly="readonly" id="nickname">
 											<input type="hidden" name="cateType" value="B" />
 											<input type="hidden" name="userId" value="${sessionScope.userId }">
 											<input type="hidden" name="adminId" value="N" />
@@ -130,7 +130,7 @@ empty sessionScope.userId && !empty sessionScope.adminId
 											<input type="hidden" name="adminId" value="${sessionScope.adminId }">
 									</c:when>
 									<c:otherwise>
-										<input type="text" name="nickname" value="비회원" class="form-control" readonly="readonly" id="nickname">
+										<input type="text" name="nickname" value="로그인하세요" class="form-control" readonly="readonly" id="nickname">
 										<input type="hidden" name="cateType" value="B" />
 										<input type="hidden" name="userId" value="${sessionScope.userId }" />
 										<input type="hidden" name="adminId" value="${sessionScope.adminId }">
@@ -177,7 +177,7 @@ empty sessionScope.userId && !empty sessionScope.adminId
 									<div class="form-group" id="submitlist">
 										<div class="col-lg-12 col-md-12">
 											<button class="btn btn-theme" type="submit">
-												<i class="fas fa-edit"></i> 등록
+												<i class="fas fa-edit"></i> 등록완료
 											</button>
 											<button class="btn btn-theme" type="button" id="btlist"
 												onclick="location.href='<c:url value='/board/list'/>'">
