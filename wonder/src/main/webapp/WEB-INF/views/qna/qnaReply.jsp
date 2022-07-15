@@ -6,7 +6,7 @@
 <script
 	src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/board.css'/>" />
+	href="<c:url value='/css/qna.css'/>" />
 
 <title>wonder - QNA게시판 답변하기</title>
 

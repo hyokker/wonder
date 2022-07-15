@@ -8,7 +8,7 @@
   .ck-editor__editable { height: 300px; }
 </style>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/board.css'/>" />
+	href="<c:url value='/css/qna.css'/>" />
 
 <title>wonder - QNA 게시판 수정하기</title>
 <script type="text/javascript"
