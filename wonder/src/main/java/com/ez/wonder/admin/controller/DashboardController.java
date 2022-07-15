@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ez.wonder.admin.model.AdminService;
-import com.ez.wonder.admin.model.PaymentVO;
 import com.ez.wonder.form.model.FormVo;
+import com.ez.wonder.payment.model.PaymentVO;
 import com.ez.wonder.pd.model.ProductVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

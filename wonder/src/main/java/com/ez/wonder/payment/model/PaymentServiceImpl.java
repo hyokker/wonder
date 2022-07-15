@@ -10,7 +10,7 @@ public class PaymentServiceImpl implements PaymentService{
 	private final PaymentDAO paymentDao;
 
 	@Override
-	public int insertPayment(PaymentVO2 vo) {
+	public int insertPayment(PaymentVO vo) {
 		return paymentDao.insertPayment(vo);
 	}
 

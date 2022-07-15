@@ -29,6 +29,10 @@
 	<select id="checkForm" parameterType="int" resultType="int">
 		select count(*) from form where pd_no=#{pdNo} and pay_flag in ('Y','N','P')
 	</select>
+	
+	<update id="payDone" parameterType="int">
+		update form set pay_flag='P' where form_no=#{formNo}
+	</update>
 </mapper>
 
 <!-- 

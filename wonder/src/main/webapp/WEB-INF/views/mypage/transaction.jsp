@@ -18,21 +18,13 @@
 		 });
 	 });
 	 
-	 /* $('.fa-credit-card').click(function(){
+	 $('.fa-credit-card').click(function(){
 		 var flag = $(this).parent().next().val();
 		 if(flag == 'N'){
 			 alert('아직 의뢰를 수락하지 않았습니다.');
 			 return false;
-		 }else if(flag == 'P'){
-			 alert('이미 결제한 의뢰입니다.');
-			 return false;
-		 }else if(flag == 'D'){
-			 alert('이미 완료된 의뢰입니다.');
-			 return false;
-		 }else if(flag == 'C'){
-			 alert('취소된 의뢰입니다.');
 		 }
-	 }); */
+	 });
 	 
  });
  
@@ -238,7 +230,12 @@ IMP.init("imp71307268"); // Example: imp00000000
 																	</td>
 																	<td class="center">
 																		<div class="_leads_action">
-																			<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
+																			<c:if test="${map.PAY_FLAG == 'N' && map.PAY_FLAG == 'Y'}">
+																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
+																			</c:if>
+																			<c:if test="${map.PAY_FLAG == 'P'}">
+																				<a href="#">환불 신청</a>
+																			</c:if>
 																			<input type="text" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>
 																	</td>

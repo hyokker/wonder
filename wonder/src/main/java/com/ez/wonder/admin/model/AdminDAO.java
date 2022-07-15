@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.payment.model.PaymentVO;
 import com.ez.wonder.pd.model.ProductVO;
 
 @Mapper

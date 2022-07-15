@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class PaymentVO2 {
+public class PaymentVO {
 	private int payNo;
 	private String payCode;
 	private String payMethod;
