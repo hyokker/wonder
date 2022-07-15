@@ -198,7 +198,7 @@
 		}
 		function findPwd(){
 			window.open("/wonder/member/findPwd","findPwd",
-		"width=500,height=450,location=yes,resizable=yes,top=100,left=50");	
+		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
 		}
 </script>
 	
@@ -209,7 +209,7 @@
 			</div>
 			<div class="eltio_k2">
 				<a href='#' onclick="findUserId();">아이디 찾기</a>
-				<a href="#" onclick="findPwd();" style="margin-left: 232px;">비밀번호 찾기</a>
+				<a href="#" onclick="findPwd();" style="margin-left: 225px;">비밀번호 찾기</a>
 			</div>
 		</div>
 	</div>
@@ -286,6 +286,10 @@
 		} else if ($("#pwd").val() != $("#pwd2").val()) {
 			alert("비밀번호가 일치하지 않습니다.");
 			$("#pwd2").focus();
+			event.preventDefault();
+		} else if ($("#tel").val().length < 1) {
+			alert("전화번호를 입력해 주세요");
+			$("#tel").focus();
 			event.preventDefault();
 		}  else if ($('#chkId').val() != 'Y') {
 			alert("아이디 중복확인해야 합니다");
@@ -383,11 +387,11 @@
 		<div class="form-group">
 			<label>연락처</label>
 			<div class="input-with-icon">
-				<input type="text" class="form-control" name="tel" id="tel">
+				<input type="text" class="form-control" name="tel" id="tel" placeholder="공백 없이 - 를 사용해서 작성하세요.">
 				<i class="ti-user"></i>
 			</div>
 		</div>
-				<input type="text" name="chkId" id="chkId">
+				<input type="hidden" name="chkId" id="chkId">
 		<!-- <div class="form-group">
 			<div class="eltio_ol9">
 				<div class="eltio_k1">

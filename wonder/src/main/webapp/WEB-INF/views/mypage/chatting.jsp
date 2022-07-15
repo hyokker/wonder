@@ -51,10 +51,10 @@
 				$('#chatCommentContainer').scrollTop($('.dash-msg-content').innerHeight());
 				
 				$('.messages-headline h4').empty();
-				$('.messages-headline h4').append(rNickname+"(<span id='r_Id'>"+rUserId+"</span>) 님과의 채팅입니다");
+				$('.messages-headline h4').append(rNickname+"(<span id='r_Id'>"+rUserId+"</span>) 님과의 메세지함입니다");
 			},
 			error : function(xhr, status, error) {
-				alert("채팅 불러오기 실패, rUserId = "+rUserId);
+				alert("메세지 불러오기 실패, rUserId = "+rUserId);
 			}
 		});
 	} //function
@@ -79,7 +79,7 @@
 					getChatDetail(rUserId);
 				},
 				error : function(xhr, status, error) {
-					alert("test채팅 입력 실패, content = "+content);
+					alert("test메세지 입력 실패, content = "+content);
 				}
 			}); //ajax
 		} //else
@@ -183,7 +183,7 @@
 							<!-- Convershion -->
 							<div class="messages-container margin-top-0">
 								<div class="messages-headline">
-									<h4>채팅상대를 선택해주세요</h4>
+									<h4>메세지를 보낼 상대를 선택해주세요</h4>
 									<a href="#" class="message-action"><i class="ti-trash"></i> Delete Conversation</a>
 								</div>
 
@@ -225,7 +225,7 @@
 										<div id="chatMessageTextArea">
 											<div class="clearfix"></div>
 											<div class="message-reply">
-												<textarea cols="40" rows="3" class="form-control with-light" placeholder="채팅방을 선택해주세요" 
+												<textarea cols="40" rows="3" class="form-control with-light" placeholder="상대방을 선택해주세요" 
 													id="chatSendArea" readonly="readonly"></textarea>
 												<button type="submit" class="btn theme-bg" id="chatSendBt">전송</button>
 											</div>

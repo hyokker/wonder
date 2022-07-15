@@ -186,6 +186,20 @@
 		   
 
 		$('#submitBt').click(function(){
+			var email=$('input[name=email]').val();
+			var nick=$('input[name=nickname]').val();
+			console.log(email);
+			console.log(nick);
+			
+			if(email=="" || email==null){
+				alert("이메일 주소를 입력해주세요");
+				return false;
+			}else if(nick=="" || nick==null){
+				alert("닉네임을 입력해주세요");
+				return false;
+				
+			}
+			
 			if(!confirm('정보를 수정하시겠습니까?')){
 				return false;
 			}
@@ -512,7 +526,7 @@
 														</ul>
 													</div>
 													<div id="checked">
-														<input type="button" value="체크 테스트" class="checkBt">
+														<input type="hidden" value="체크 테스트" class="checkBt">
 													</div>
 																
 													<!-- <script type="text/javascript">
@@ -532,9 +546,9 @@
 														<p>모두 취소</p>
 													</div>
 													 -->
-													<input type="text" name="lang" id="usableLanguage"  style="width:100%">
-													<input type="text" name="frame" id="usableFramework"  style="width:100%">
-													<input type="text" id="langArr" style="width:100%"">
+													<input type="hidden" name="lang" id="usableLanguage"  style="width:100%">
+													<input type="hidden" name="frame" id="usableFramework"  style="width:100%">
+													<input type="hidden" id="langArr" style="width:100%"">
 													
 												</div>
 												<div class="form-group col-md-12">

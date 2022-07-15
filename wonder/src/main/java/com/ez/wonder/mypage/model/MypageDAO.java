@@ -44,4 +44,6 @@ public interface MypageDAO {
 	List<HashMap<String, Object>> selectFormExpert(HashMap<String, Object> map);
 	int getTotalRecordTS(HashMap<String, Object> map);
 	int getTotalRecordTSExpert(HashMap<String, Object> map);
+	FormVo selectFormByNo(int formNo);
+	int updateForm(int formNo);
 }

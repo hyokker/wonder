@@ -273,5 +273,16 @@ select * from
 
 </select>
 
+<!-- 의뢰서 번호로 조회 -->
+<select id="selectFormByNo" parameterType="int" resultType="formVo">	
+	select * from form
+	where form_no=#{formNo}
+</select>
 
+<!-- 의뢰서 타입 Y로 변경(거래 승인) -->
+<update id="updateForm" parameterType="int" >
+	update form
+	set PAY_FLAG='Y'
+	where FORM_NO=#{formNo}
+</update>
 </mapper>

@@ -179,6 +179,16 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDao.getTotalRecordTSExpert(map);
 	}
 
+	@Override
+	public FormVo selectFormByNo(int formNo) {
+		return mypageDao.selectFormByNo(formNo);
+	}
+
+	@Override
+	public int updateForm(int formNo) {
+		return mypageDao.updateForm(formNo);
+	}
+
 
 
 

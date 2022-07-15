@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,11 +116,11 @@ body {
 <!-- Bootstrap core JavaScript -->
 <script src="jquery/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="<c:url value='/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 
 	$(function(){
-		$('#findUserId').click(function(){
+		$("#findUserId").click(function(){
 			var name = $("#userName").val();
 			var email = $("#userEmail").val();
 			
@@ -135,12 +135,13 @@ body {
 						console.log(res);
 
 						output=res.msg;
-						document.querySelector("#chkId").innerText = output;
+						var text1="찾으시는 아이디는 ";
+						var text2=" 입니다."
+						document.querySelector("#chkId").innerText =output;
 						if(res.SUCCESS) {
 							$("#resBtn").html("<button onClick=resIdPass()>사용하기</button>");
 						}else{
 							$("#resBtn").html("");
-							
 						}
 						
 					},
@@ -173,7 +174,9 @@ body {
 
 		<div class="form-label-group" style="text-align: center">
 			<button type="button" id="findUserId" class="btn btn-md full-width pop-login">아이디 찾기</button>
+			<p id="text1"></p>
 			<p id="chkId"></p>
+			<p id="text2"></p>
 			<span id="resBtn"></span>
 		</div>
 </body>

@@ -31,6 +31,7 @@ import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.form.model.FormService;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -213,6 +214,12 @@ public class MypageController {
 						fileName=(String) fileMap.get("fileName");
 						fileSize=(long)fileMap.get("fileSize");
 						logger.info("파일 업로드 성공, fileName={}, fileSize={}",fileName, fileSize);
+						
+						if(fileSize>10*1024*1024) {
+							String msg="이미지는 10MB를 초과할 수 없습니다.",
+									url="/mypage/profile";
+							return "/common/message";
+						}
 					
 						//프로필사진 DB로 넣는부분
 						profileVo.setUserId(userId);
@@ -761,6 +768,31 @@ public class MypageController {
 		return "/mypage/transaction";
 	}
 	
+	@GetMapping("/transactionFormUpdate")
+	public String transactionFormUpdate(@RequestParam(required =  false) int formNo,HttpSession session,Model model) {
+		logger.info("의뢰서 승인 처리 파라미터 formNo={}",formNo);
+		
+		FormVo formVo = mypageService.selectFormByNo(formNo);
+		logger.info("의뢰서 승인 페이지 vo = {}",formVo);
+		
+		
+		String msg="잘못된 접근입니다", url="/mypage/transaction";
+		
+		if(formVo.getPayFlag().equals("N")) {
+			int formCnt = mypageService.updateForm(formNo);
+			if(formCnt>0) {
+				msg="거래승인이 완료되었습니다";
+			}
+		}else {
+			msg="이미 거래중인 의뢰입니다";
+		}
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";	}
+	
 	@GetMapping("/chatting")
 	public String mypage_chatting_get(@RequestParam(name = "userId" ,required = false) String otherUserId,HttpSession session,Model model) {
 		logger.info("채팅 페이지");
@@ -877,7 +909,6 @@ public class MypageController {
 		return "/mypage/testChat"; 
 	}
 	
-	
 	@ResponseBody
 	@PostMapping("/payment")
 	public int payment(@RequestBody PaymentVO vo) {
@@ -895,6 +926,11 @@ public class MypageController {
 		}
 		
 		return result;
+	}
+
+	@RequestMapping("/calendar")
+	public String calender() {
+		return "/mypage/expert_calendar";
 	}
 	
 }
