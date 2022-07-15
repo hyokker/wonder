@@ -190,21 +190,29 @@
 				}
 			});
 		});
+
 	});
+		function findUserId(){
+			window.open("/wonder/member/findUserId","findUserId",
+		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
+		}
+		function findPwd(){
+			window.open("/wonder/member/findPwd","findPwd",
+		"width=400,height=350,location=yes,resizable=yes,top=100,left=50");	
+		}
 </script>
-<!-- 
+	
 	<div class="form-group">
 		<div class="eltio_ol9">
-			<div class="eltio_k1">
-				<input id="dd" class="checkbox-custom"
-					type="checkbox"> <label for="dd"
-					class="checkbox-custom-label">아이디 기억</label>
+			<div class="eltio_k2">
+			
 			</div>
 			<div class="eltio_k2">
-				<a href="#">비밀번호를 잊어버리셨나요?</a>
+				<a href='#' onclick="findUserId();">아이디 찾기</a>
+				<a href="#" onclick="findPwd();" style="margin-left: 225px;">비밀번호 찾기</a>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- e001f5b6437ab5c78a358d107808c37c -->
 	<!-- 카카오 로그인 api 어떻게 사용하징? -->
@@ -278,6 +286,10 @@
 		} else if ($("#pwd").val() != $("#pwd2").val()) {
 			alert("비밀번호가 일치하지 않습니다.");
 			$("#pwd2").focus();
+			event.preventDefault();
+		} else if ($("#tel").val().length < 1) {
+			alert("전화번호를 입력해 주세요");
+			$("#tel").focus();
 			event.preventDefault();
 		}  else if ($('#chkId').val() != 'Y') {
 			alert("아이디 중복확인해야 합니다");
@@ -375,11 +387,11 @@
 		<div class="form-group">
 			<label>연락처</label>
 			<div class="input-with-icon">
-				<input type="text" class="form-control" name="tel" id="tel">
+				<input type="text" class="form-control" name="tel" id="tel" placeholder="공백 없이 - 를 사용해서 작성하세요.">
 				<i class="ti-user"></i>
 			</div>
 		</div>
-				<input type="text" name="chkId" id="chkId">
+				<input type="hidden" name="chkId" id="chkId">
 		<!-- <div class="form-group">
 			<div class="eltio_ol9">
 				<div class="eltio_k1">

@@ -17,25 +17,30 @@
 			type : 'GET',
 			data : "rUserId="+rUserId,
 			success : function(response) {
-				console.log(response); //response = list
 				var sUserId = "<c:out value='${vo.userId}'/>";
 				var html="";
 				var rNickname = "";
 				var rUserId = "";
 				
 				for(var i =0;i<response.length;i++){
+				console.log(response[i].CONTENT); //response = list
+				console.log(response[i], i);
 					if(response[i].S_USER_ID===sUserId) {
+						var content = response[i].CONTENT.trim();
+						var replace = content.replace('\n', '<br />');
 						html += "<div class='message-plunch me'>";
-						html += "	<div class='dash-msg-avatar margin-top-10 right'><i class='fa fa-user' style='font-size: 3em'></i></div>";
-						html += "	<div class='dash-msg-text right'><p>"+response[i].CONTENT+"</p></div>";
+						//html += "	<div class='dash-msg-avatar margin-top-10 right'><i class='fa fa-user' style='font-size: 3em'></i></div>";
+						html += "	<div class='dash-msg-text right'><p>"+replace+"</p></div>";
 						
 						rNickname =response[i].R_NICKNAME;
 						rUserId =response[i].R_USER_ID;
 					}else if(!(response[i].S_USER_ID===sUserId)) {
+						var content = response[i].CONTENT
+						var replace = content.replace('\n', '<br />');
 						html += "<div class='message-plunch '>";
 						//html += "	<div class='dash-msg-avatar margin-top-10 left'><img src=\"<c:url value='/img/mypage/expert_profile/"+filename+"' />\" alt=\"프로필사진\"></div>";
 						html += "	<div class='dash-msg-avatar margin-top-10 left'><i class='fa fa-user' style='font-size: 3em'></i></div>";
-						html += "	<div class='dash-msg-text left'><p>"+response[i].CONTENT+"</p></div>";
+						html += "	<div class='dash-msg-text left'><p>"+replace+"</p></div>";
 					}
 					html += "</div>";
 					html += "";
@@ -46,29 +51,42 @@
 				$('#chatCommentContainer').scrollTop($('.dash-msg-content').innerHeight());
 				
 				$('.messages-headline h4').empty();
-				$('.messages-headline h4').append(rNickname+"(<span id='r_Id'>"+rUserId+"</span>) 님과의 채팅입니다");
+				$('.messages-headline h4').append(rNickname+"(<span id='r_Id'>"+rUserId+"</span>) 님과의 메세지함입니다");
 			},
 			error : function(xhr, status, error) {
-				alert("채팅 불러오기 실패, rUserId = "+rUserId);
+				alert("메세지 불러오기 실패, rUserId = "+rUserId);
 			}
 		});
 	} //function
 	
-	function showOtherNickName(rUserId){
-		$.ajax({
-			url : "<c:url value='/chat/chatOtherSide'/>", //컨트롤러 만들어서 닉네임가져오기
-			type : 'GET',
-			data : "rUserId="+rUserId,
-			success : function(response) {
-				console.log(response); //response = 닉네임+아이디 hashmap (rUserId, rNickName)
-				
-				
-			},
-			error : function(xhr, status, error) {
-				alert("닉네임 불러오기 실패, rUserId = "+rUserId);
-			}
-		});
+	function sendChat(){
+		var content = $('#chatSendArea').val().trim();
+		
+		/* 
+		content = content.replaceAll("\n","<br>");
+		console.log(content);
+		 */
+		var rUserId = $('#r_Id').text();
+		
+		if(content.length===0){
+			alert("내용을 입력하세요");
+		}else{
+			$.ajax({
+				url : "<c:url value='/chat/insertChat'/>",
+				type : 'POST',
+				data : {"content":content},
+				success : function() {
+					getChatDetail(rUserId);
+				},
+				error : function(xhr, status, error) {
+					alert("test메세지 입력 실패, content = "+content);
+				}
+			}); //ajax
+		} //else
+		$('#chatSendArea').val('');
 	} //function
+	
+	
 
 	$(function(){
 		$('.dash-msg-inbox li').each(function(item,idx){
@@ -87,30 +105,27 @@
 		
 		
 		$('#chatSendBt').click(function(){
-			var content = $('#chatSendArea').val();
-			var rUserId = $('#r_Id').text();
-			
-			if(content.length===0){
-				alert("내용을 입력하세요");
-			}else{
-				console.log(content);
-
-				$.ajax({
-					url : "<c:url value='/chat/insertChat'/>",
-					type : 'GET',
-					data : "content="+content,
-					success : function() {
-						getChatDetail(rUserId);
-						
-					},
-					error : function(xhr, status, error) {
-						alert("test채팅 입력 실패, content = "+content);
-					}
-				}); //ajax
-				
-			} //else
-			$('#chatSendArea').val('');
+			sendChat();
 		}); //보내기 버튼 클릭함수
+		
+		
+		
+		$("#chatSendArea").on("keyup",function(e){
+			e.preventDefault();
+			var code = e.keyCode ? e.keyCode : e.which;
+			if (code == 13) // EnterKey
+			{
+				if (e.shiftKey === true){
+					// shift 키가 눌려진 상태에서는 new line 입력
+				}else	{
+					sendChat();
+				}
+
+				return false;
+			}
+		});
+		
+		
 		
 		
 		
@@ -168,7 +183,7 @@
 							<!-- Convershion -->
 							<div class="messages-container margin-top-0">
 								<div class="messages-headline">
-									<h4>채팅상대를 선택해주세요</h4>
+									<h4>메세지를 보낼 상대를 선택해주세요</h4>
 									<a href="#" class="message-action"><i class="ti-trash"></i> Delete Conversation</a>
 								</div>
 
@@ -210,7 +225,7 @@
 										<div id="chatMessageTextArea">
 											<div class="clearfix"></div>
 											<div class="message-reply">
-												<textarea cols="40" rows="3" class="form-control with-light" placeholder="채팅방을 선택해주세요" 
+												<textarea cols="40" rows="3" class="form-control with-light" placeholder="상대방을 선택해주세요" 
 													id="chatSendArea" readonly="readonly"></textarea>
 												<button type="submit" class="btn theme-bg" id="chatSendBt">전송</button>
 											</div>

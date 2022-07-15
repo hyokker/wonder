@@ -31,15 +31,7 @@ public class FormServiceImpl implements FormService{
 
 	@Override
 	public String checkPayFlag(ReviewVO vo) {
-		String result="";
-		int cnt=formDao.selectCount(vo);
-		if(cnt>0) {
-			result="Y";
-		}else {
-			result="N";
-		}
-		
-		return result;
+		return formDao.checkPayFlag(vo);
 	}
 
 	@Override
@@ -50,6 +42,11 @@ public class FormServiceImpl implements FormService{
 	@Override
 	public int checkForm(int pdNo) {
 		return formDao.checkForm(pdNo);
+	}
+
+	@Override
+	public int payDone(int formNo) {
+		return formDao.payDone(formNo);
 	}
 	
 }

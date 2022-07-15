@@ -1,15 +1,17 @@
 package com.ez.wonder.member.controller;
 
-import javax.servlet.http.Cookie;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,7 +82,7 @@ public class MemberController {
 		session.removeAttribute("userName");
 		
 		//임시
-		session.removeAttribute("adminId");
+		//session.removeAttribute("adminId");
 		
 		
 		return "redirect:/";
@@ -90,8 +92,14 @@ public class MemberController {
 	public String join(@ModelAttribute MemberVO vo, 
 			Model model) {
 		logger.info("회원가입 처리, 파라미터 vo={}",vo);
-
-
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		String security = encoder.encode(vo.getPwd());
+		
+		logger.info("비밀번호 암호화 pwd={},security={}",vo.getPwd(),security);
+		vo.setPwd(security);
+		
 		int cnt=memberService.insertMember(vo);
 		logger.info("회원가입 결과, cnt={}", cnt);
 
@@ -236,6 +244,55 @@ public class MemberController {
 		model.addAttribute("url", url);
 		
 		return "/common/message";
+	}
+	@RequestMapping("/member/findUserId")
+	public void findUserId() {
+		logger.info("아이디 찾기 화면");
+	}
+	
+	@RequestMapping("/member/ajaxFindUserId")
+	@ResponseBody
+	public Map<String, Object> ajaxFindUserId(@ModelAttribute MemberVO vo) {
+		logger.info("ajax 아이디 조회 파라미터 vo={}",vo);
 		
+		MemberVO vo2=memberService.findUserId(vo);
+		logger.info("찾은 아이디 vo2={}",vo2);
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("msg", "찾으시는 아이디가 없습니다..");
+		map.put("SUCCESS", false);
+		if(vo2!=null) {
+			map.put("msg", vo2.getUserId());
+			map.put("SUCCESS", true);
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping("/member/findPwd")
+	public void findPwd() {
+		logger.info("비밀번호 찾기 화면");
+	}
+	
+	@RequestMapping("/member/ajaxFindPwd")
+	@ResponseBody
+	public int ajaxFindPwd( String userId,  String name,
+			 String email) {
+		logger.info("비밀번호 찾기 처리 파라미터 userId={},name={},email={}",userId,name,email);
+		MemberVO vo = new MemberVO();
+		vo.setUserId(userId);
+		vo.setName(name);
+		vo.setEmail(email);
+		
+		String pwd=memberService.findPwd(vo);
+		logger.info("비밀번호 찾기 결과 pwd={}",pwd);
+		int result=0;
+		
+		if(pwd!=null && !pwd.isEmpty()) {
+			logger.info("if문 내용");
+			result=1;
+		}
+		return result;
 	}
 }

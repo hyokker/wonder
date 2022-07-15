@@ -17,7 +17,7 @@
 			<div class="col-lg-8 col-md-7 col-sm-12">
 				<div class="mySlick">
 					<c:forEach var="pdImageVo" items="${imgList }">
-			        	<div><img src="<c:url value='/img/pdupload/${pdImageVo.fileName }'/>" class="img-fluid mx-auto" alt="" /></div>
+			        	<div><img src="<c:url value='/img/pdupload/${pdImageVo.fileName }'/>" class="img-fluid mx-auto" alt="상품 이미지" style="max-height: 490px;"/></div>
 			        </c:forEach>
 			        <!-- <div><img src="https://via.placeholder.com/800x500" class="img-fluid mx-auto" alt="" /></div> -->
 			    </div>
@@ -30,7 +30,7 @@
 							<img src="<c:url value='/img/mypage/expert_profile/${expertVoImg.fileName }'/>" class="img-fluid avater" alt="">
 						</c:if>
 						<c:if test="${empty expertVoImg }">					
-							<img src="" class="img-fluid avater" alt="">
+							<img src="<c:url value='/img/mypage/expert_profile/default_profile.png'/>" class="img-fluid avater" alt="">
 						</c:if>
 						<h4>${expertVo.nickname }</h4>
 					</div>
@@ -82,6 +82,10 @@
 											<li><a href="#" style="color: #2a2f3a;" id="pdDelete"><i class="fa fa-trash" style="font-size: 18px; color: #d72121;"></i>&nbsp;삭제하기</a></li>
 											</c:if>
 										</ul>
+										<form name="frmHeart" method="post">
+											<input type="hidden" value="${pdVo.pdNo }" name="pdNo">
+											<input type="hidden" value="${userId }" name="userId">
+										</form> 
 									</div>
 								</div>
 							</div>
@@ -416,27 +420,27 @@
 											<span style="margin: 0 auto;">등록된 리뷰가 없습니다.</span>
 										</c:if>
 										<c:if test="${!empty reviewList }">
-												<span class="avgScore">AvgScore</span>
-												<div class="rating-overview-box">
-													<div class="rating">
-													    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													    </span>
-													    <span class="rating-lower">
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													        <span>★</span>
-													    </span>
-													</div>
+											<span class="avgScore">AvgScore</span>
+											<div class="rating-overview-box">
+												<div class="rating">
+												    <span class="rating-upper" style="width: ${map['AVGSCORE'] * 20}%">
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												    </span>
+												    <span class="rating-lower">
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												        <span>★</span>
+												    </span>
 												</div>
-												<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
-												<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
+											</div>
+											<span class="bigScore"><fmt:formatNumber value="${map['AVGSCORE'] }" pattern="#.##" /></span>
+											<span style="margin: 12px 0 0 15px">out of 5.0 (${map['TOTAL'] }개)</span>
 										</c:if>
 									</div>
 							
@@ -454,7 +458,14 @@
 																<div class="comment-details">
 																	<div class="comment-meta">
 																		<div class="comment-left-meta">
-																			<h4 class="author-name">${reviewVo.userId } <span class="regdate"><fmt:formatDate value="${reviewVo.regdate}" pattern="yyyy-MM-dd HH:mm" /></span></h4>
+																			<h4 class="author-name">${reviewVo.userId } 
+																				<span class="regdate">
+																					<c:if test="${reviewVo.userId == userId }">
+																						<span style="margin-right: 7px;"><a href="<c:url value='/pd/reviewDel?reviewNo=${reviewVo.reviewNo }&pdNo=${pdVo.pdNo }' />" class="reviewDel">삭제</a></span>
+																					</c:if>
+																					<fmt:formatDate value="${reviewVo.regdate}" pattern="yyyy-MM-dd HH:mm" />
+																				</span>
+																			</h4>
 																			<span class="rating" style="font-size: 15px;top: -2px">
 																				<span class="rating-upper" style="width: ${reviewVo.rating * 20 }%">
 																			        <span>★</span>
@@ -547,7 +558,7 @@
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<button class="btn theme-bg rounded" type="submit">등록</button>
+												<button class="btn theme-bg rounded" type="submit" id="reviewBtn">등록</button>
 												<input type="hidden" value="${param.pdNo }" name="pdNo">
 												<input type="hidden" value="${userId }" name="userId">
 											</div>
@@ -721,7 +732,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <input type="button" class="btn theme-bg rounded" data-target="#exampleModalToggleA${status.index }" data-toggle="modal" name="modelButton2" style="margin-right: 20.5rem;" value="제작자 일정보기">
-				<button class="btn theme-bg rounded" type="submit">의뢰서 전송</button>
+				<button class="btn theme-bg rounded" type="submit" name="frmBSubmit">의뢰서 전송</button>
 				<input type="hidden" name="userId" value="${userId }">
 				<input type="hidden" value="${expertVo.userId }" name="pUserId">
 				<input type="hidden" value="${param.pdNo }" name="pdNo">
@@ -733,12 +744,12 @@
 	</div>
 </c:forEach>
 <!-- Modal C -->
-	<div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+	<div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" id="modalC">
 	  <div class="modal-dialog modal-lg modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
 	        <h5 class="modal-title" id="exampleModalToggleLabel">의뢰서</h5>
-	        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+	        <span class="mod-close confirm" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
 	      </div>
 	      <div class="modal-body">
 	      	<c:import url="/pd/formConfirm">
@@ -747,7 +758,7 @@
 	      	</c:import>
 	      </div>
 	      <div class="modal-footer d-flex justify-content-center">
-	      	<button type="button" class="btn theme-bg rounded" data-dismiss="modal">확인</button>
+	      	<button type="button" class="btn theme-bg rounded confirm" data-dismiss="modal">확인</button>
 	      </div>
 	    </div>
 	  </div>
@@ -779,6 +790,9 @@
         		$('#topLogin').click();
         		return false;
         	}
+     		//모달 뒷 배경 스크롤 고정
+     		$('body').css('overflow', 'hidden');
+     		
      		date = new Date();
      		var today=getDate(date, 0);
      		$('input[name="orderstart"]').val(today);
@@ -810,6 +824,14 @@
         	$('.modalB').modal('hide');
         });
         
+        //모달 닫으면 뒷 배경 스크롤 가능
+        $('.mod-close').click(function(){
+        	$('body').css('overflow', 'auto');
+        });
+        $('.confirm').click(function(){
+        	$('body').css('overflow', 'auto');
+        });
+        
         //리뷰 더 보기
         var bool=false;
         $('.more_review').hide();
@@ -825,12 +847,29 @@
         	bool=!bool;
         });
         
-        //로그인 체크
+        //리뷰 로그인 체크 및 유효성 검사
         $('form[name=frm]').submit(function(){
         	if($('input[name=userId]').val().length<1){
         		event.preventDefault();
         		alert("먼저 로그인하세요");
         		$('#topLogin').click();
+        	}else{
+        		if($.trim($('input[name=reviewTitle]').val()).length < 1 ){
+        			event.preventDefault();
+            		alert("제목을 입력해주세요");
+            		$('input[name=reviewTitle]').focus();
+            	}else if($.trim($('textarea[name=reviewContent]').val()).length < 1){
+            		event.preventDefault();
+            		alert("내용을 입력해주세요");
+            		$('textarea[name=reviewContent]').focus();
+            	}
+        	}
+        });
+        
+        //리뷰 삭제
+        $('.reviewDel').click(function(){
+        	if(!confirm('리뷰를 삭제하시겠습니까?')){
+        		return false;
         	}
         });
         
@@ -842,8 +881,8 @@
         		$('#topLogin').click();
         		return false;
         	}
-        	$('form[name=frmB]').attr('action','<c:url value="/pd/noneDup"/>');
-        	$('form[name=frmB]').submit();
+        	$('form[name=frmHeart]').attr('action','<c:url value="/pd/noneDup"/>');
+        	$('form[name=frmHeart]').submit();
         });
         
         //상품 삭제
@@ -854,31 +893,53 @@
         });
         
         //의뢰서 ajax
-        $('form[name=frmB]').submit(function(){
-	        var form = $(this).serialize();
+        $('button[name=frmBSubmit]').on('click', function(e) {
+        	e.preventDefault();
+        	//유효성 검사
+        	if($.trim($(this).parent().parent().find('input[name=formTitle]').val()).length < 1 ){
+    			event.preventDefault();
+        		alert("제목을 입력해주세요");
+        		$('input[name=formTitle]').focus();
+        		return false;
+        	}else if($.trim($(this).parent().parent().find('textarea[name=formContent]').val()).length < 1){
+        		event.preventDefault();
+        		alert("내용을 입력해주세요");
+        		$('textarea[name=formContent]').focus();
+        		return false;
+        	}
+        	
+	        var form = $(this).parent().parent().serializeArray();
         	
 	        $.ajax({
-	        	type:"POST", 
-	        	url:"<c:url value='/pd/ajaxForm' />", 
-	        	contentType: 'application/json',
-	        	data:JSON.stringify(form),
-	        	dataType:"json",
+	        	url:"<c:url value='/pd/ajaxForm'/>",
+	        	type:"POST",
+	        	data: form,
 	        	success: function (res) {
+	        		$('.modalB').modal('hide');
 		        	if(res==0){
 			        	alert("의뢰서 전송에 실패하였습니다.");
+		        		location.reload();
 		        	}else if(res==1){
 		        		alert("의뢰서를 전송하였습니다.");
-		        		$('.modalC').modal('show');
+		        		location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}&confirm=1"/>';
 		        	}else if(res==2){
 		        		alert("현재 진행중인 의뢰가 있을 경우 재의뢰는 불가능합니다.");
+			        	location.reload();
 		        	}
 	        	},
 	        	error:function(xhr, status, error){
-					alert('error:'+error);
+					alert('error:'+form);
 				}
 	        });
         });
         
+        //의뢰확인서
+        if(${confirm == 1}){
+        	$('.modalC').modal('show');
+        }
+        $('.confirm').click(function(){
+        	location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}"/>';
+        });
         
         
     });
@@ -899,7 +960,7 @@
 		}
 		return date;
 	}
-
+    
 </script>
 
 

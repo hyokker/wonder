@@ -43,4 +43,9 @@ public class ChatServiceImpl implements ChatService{
 	public int insertChat(ChatVO vo) {
 		return chatDao.insertChat(vo);
 	}
+
+	@Override
+	public int insertDefaultChat(ChatVO vo) {
+		return chatDao.insertDefaultChat(vo);
+	}
 }

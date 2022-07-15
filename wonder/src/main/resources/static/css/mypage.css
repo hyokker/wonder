@@ -120,6 +120,12 @@
 	max-height: 150px;	
 }
 
+/* 포트폴리오 파일 이름 input */
+#reviewProtfolioName{ 
+	border: 1px solid #e7eaf1;
+	border-top: 0;
+}
+
 
 .checkBt{ /* 체크 선택/취소 버튼 */
 	width: 100px;
@@ -183,14 +189,17 @@
 	
 }
 
+
 .message-plunch{
-	height: 50px;
+	min-height: 50px;
+	overflow: hidden;
 }
 
 .right{
 	display: inline-block;
 	float: right;
 	text-align: right;
+	margin-right: 0;
 }
 
 .left{
@@ -232,4 +241,44 @@
 /************* Bookmark *************/
 .bookmarkImg{
 	height: 100px;
+}
+
+
+/************* Transaction *************/
+.transactionTd{
+	width: 10%;
+}
+
+.transactionTdIcon{
+	width:6%;
+}
+
+.greenLabel{
+	    height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #27ae60;
+    border-radius: 0.2rem;
+    width: 215px;
+}
+
+.noneList{
+	text-align: center;
+}
+
+.center{
+	text-align: center;
+}
+
+input.form-control.transSearch{
+	width: 100%;
+}
+
+#formConfirm{
+	text-align: left;
 }

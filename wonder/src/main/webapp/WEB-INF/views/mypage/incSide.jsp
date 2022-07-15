@@ -15,12 +15,18 @@
 		$('#out').click(function(){
 			location.href="<c:url value='/mypage/dashboard/out' />";
 		});
+		
+		$('.linkFreeWrite').click(function(){
+			open("<c:url value='/mypage/freeDetailWrite' />", "중복확인","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+		});
 
 		var page=$('#pageCheck').val();
-		
+		/* 
 		if(page=='dashboard'){
 			$('#li_00').addClass("active");
-		}else if(page=='profile'){
+		}else 
+			 */
+		if(page=='profile'){
 			$('#li_01').addClass("active");
 		}else if(page=='portfolio'){
 			$('#li_02').addClass("active");
@@ -77,10 +83,15 @@
 								</div>
 								<div class="dash_user_avater">
 										<c:if test="${profileVo.fileName !=null && profileVo.fileName != ''}">
-											<img src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" class="img-fluid avater" alt="프로필이미지">
+											<a class="linkFreeWrite">
+												<img src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" class="img-fluid avater" alt="프로필이미지">
+											</a>
 										</c:if>
 										<c:if test="${profileVo.fileName ==null || profileVo.fileName == ''}">
-											<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="프로필이미지">
+											<%-- <a href="<c:url value='/mypage/freeDetailWrite' />"> --%>
+											<a class="linkFreeWrite">
+												<img src="<c:url value='/img/mypage/default_profile.png' />" class="img-fluid avater" alt="프로필이미지">
+											</a>
 										</c:if>
 									<h4>${userId }</h4>
 									<span>${vo.email }</span>
@@ -88,7 +99,7 @@
 
 								<div class="dash_user_menues">
 									<ul>
-										<li id="li_00"><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드<span class="notti_coun style-1">4</span></a></li>
+										<%-- <li id="li_00"><a href="<c:url value='/mypage/dashboard' />"><i class="fa fa-tachometer-alt"></i>대시보드</a></li> --%>
 										<li id="li_01"><a href="<c:url value='/mypage/profile' />"><i class="fa fa-user-tie"></i>내 정보</a></li>
 										<c:if test="${memVo.type=='프리랜서' }">
 											<li id="li_02"><a href="<c:url value='/mypage/portfolio' />">　└ 포트폴리오 관리</a></li>
@@ -99,9 +110,9 @@
 										<c:if test="${memVo.type=='승인대기' }">
 											<li id="li_02"><a href="<c:url value='/mypage/application' />">　└ 프리랜서 등록 신청</a></li>
 										</c:if>
-										<li id="li_03"><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품<span class="notti_coun style-2">7</span></a></li>
+										<li id="li_03"><a href="<c:url value='/mypage/bookmark' />"><i class="fa fa-bookmark"></i>찜해둔 상품</a></li>
 										<li id="li_04"><a href="<c:url value='/mypage/transaction' />"><i class="fa fa-tasks"></i>거래내역</a></li>
-										<li id="li_05"><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-envelope"></i>채팅<span class="notti_coun style-3">3</span></a></li>
+										<li id="li_05"><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-envelope"></i>메세지</a></li>
 										<li id="li_06"><a href="<c:url value='/mypage/changePwd' />"><i class="fa fa-unlock-alt"></i>암호변경</a></li>
 									</ul>
 								</div>

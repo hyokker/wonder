@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -39,4 +40,10 @@ public interface MypageDAO {
 	List<HashMap<String, Object>> selectBookmark(HashMap<String, Object> map);
 	int deleteBookmark(HashMap<String, Object> map);
 	int getTotalRecordBM(HashMap<String, Object> map);
+	List<HashMap<String, Object>> selectForm(HashMap<String, Object> map);
+	List<HashMap<String, Object>> selectFormExpert(HashMap<String, Object> map);
+	int getTotalRecordTS(HashMap<String, Object> map);
+	int getTotalRecordTSExpert(HashMap<String, Object> map);
+	FormVo selectFormByNo(int formNo);
+	int updateForm(int formNo);
 }

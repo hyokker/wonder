@@ -186,6 +186,20 @@
 		   
 
 		$('#submitBt').click(function(){
+			var email=$('input[name=email]').val();
+			var nick=$('input[name=nickname]').val();
+			console.log(email);
+			console.log(nick);
+			
+			if(email=="" || email==null){
+				alert("이메일 주소를 입력해주세요");
+				return false;
+			}else if(nick=="" || nick==null){
+				alert("닉네임을 입력해주세요");
+				return false;
+				
+			}
+			
 			if(!confirm('정보를 수정하시겠습니까?')){
 				return false;
 			}
@@ -326,10 +340,18 @@
 
 												<script type="text/javascript">
 												$(function(){
+													
 													/* 실제 제출용 */
 													$('#submitBt').click(function(){
 														$('#usableLanguage').val("");
 														$('#usableFramework').val("");
+														
+														/*
+														var introduction = $('#introduction').val();
+														introduction = introduction.replaceAll("\n","<br>");
+														$('#introduction').val(introduction);
+														*/
+
 
 														$('.langLi').each(function(idx,item){
 															var before = $(this).find('input[type="checkbox"]:checked').attr('name');
@@ -504,7 +526,7 @@
 														</ul>
 													</div>
 													<div id="checked">
-														<input type="button" value="체크 테스트" class="checkBt">
+														<input type="hidden" value="체크 테스트" class="checkBt">
 													</div>
 																
 													<!-- <script type="text/javascript">
@@ -524,14 +546,20 @@
 														<p>모두 취소</p>
 													</div>
 													 -->
-													<input type="text" name="lang" id="usableLanguage"  style="width:100%">
-													<input type="text" name="frame" id="usableFramework"  style="width:100%">
-													<input type="text" id="langArr" style="width:100%"">
+													<input type="hidden" name="lang" id="usableLanguage"  style="width:100%">
+													<input type="hidden" name="frame" id="usableFramework"  style="width:100%">
+													<input type="hidden" id="langArr" style="width:100%"">
 													
 												</div>
 												<div class="form-group col-md-12">
 													<label>소개</label>
-													<textarea class="form-control" name="introduction">${expertVo.introduction }</textarea>
+													<% pageContext.setAttribute("newLine","\n"); %>
+													<textarea class="form-control" name="introduction" id="introduction">${expertVo.introduction }</textarea>
+													<%-- 
+													${fn:escapeXml(expertVo.introduction) }
+													${fn:replace(expertVo.introduction, newLine, "<br/>") }
+													<c:out value='${expertVo.introduction }' escapeXml="false" />
+													 --%>
 												</div>	
 												
 												

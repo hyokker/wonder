@@ -12837,9 +12837,11 @@ ul.packages-lists-list li {
     color: #39b36e;
     background-color: rgba(57, 179, 110,0.1);
 }
+
+/* 마이페이지 - 채팅 - 우측여백변경 - 오지훈 */
 .message-plunch.me .dash-msg-text {
     margin-left: 0;
-    margin-right: 70px;
+    margin-right: 0;
 	border-radius: 4px;
     padding: 20px;
     position: relative;
@@ -13057,6 +13059,7 @@ table.property-table-wrap .dashboard_propert_wrapper .title .table-property-pric
     font-size:16px;
     line-height: 1.2;
 }
+/* mypage 거래내역 수정 오지훈 */
 .prt_dashb_lot {
     font-size: 13px;
     color: #667094;
@@ -14246,6 +14249,7 @@ h1, .h1 {
 	.m2_hide {
 		display: none;
 	}
+
 	.resp_log_caption {
 		flex: 1;
 		padding: 2rem 1.5rem;

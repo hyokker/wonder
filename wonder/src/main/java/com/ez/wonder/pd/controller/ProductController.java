@@ -50,7 +50,7 @@ public class ProductController {
 	
 	@RequestMapping("/pdDetail")
 	public String pdDetail_get(@RequestParam(defaultValue = "0") int pdNo,
-			HttpSession session, Model model) {
+			@RequestParam(defaultValue = "0") int confirm, HttpSession session, Model model) {
 		String userId=(String) session.getAttribute("userId");
 		//userId="hong";	//test
 		logger.info("상품 상세 화면, 파라미터 pdNo={}, userId={}", pdNo, userId);
@@ -94,6 +94,7 @@ public class ProductController {
 		model.addAttribute("expertVo", expertVo);
 		model.addAttribute("expertVoImg", expertVoImg);
 		model.addAttribute("heartCount", heartCount);
+		model.addAttribute("confirm", confirm);
 		
 		return "/pd/pdDetail";
 	}
@@ -128,25 +129,49 @@ public class ProductController {
 		logger.info("리뷰 등록 처리, 파라미터 reviewVo={}", reviewVo);
 		
 		String result=formService.checkPayFlag(reviewVo);
-		logger.info("상품 구매여부 조회, result={}", result);
+		logger.info("상품 결제 여부 조회, result={}", result);
 		
 		String msg="리뷰 등록 실패했습니다.", url="/pd/pdDetail?pdNo="+reviewVo.getPdNo();
-		if(result.equals("Y")) {
-			int reviewCount=reviewService.reviewCount(reviewVo);
-			if(reviewCount>0) {
-				msg="이미 리뷰를 등록하셨습니다.";
-			}else {
-				int cnt=reviewService.writeReview(reviewVo);
-				logger.info("리뷰 등록 결과, cnt={}", cnt);
-				
-				if(cnt>0) {
-					msg="리뷰가 등록되었습니다.";
+		if(result != null) {
+			if(result.equals("N")) { // N : 의뢰 수락 대기
+				msg="아직 판매자가 의뢰서를 수락하지 않았습니다.";
+			}else if(result.equals("Y") || result.equals("P")) { // Y, P : 의뢰 수락, 결제 완료
+				msg="아직 의뢰가 완료되지 않았습니다.";
+			}else if(result.equals("D")) { // D : 의뢰 완료
+				int reviewCount=reviewService.reviewCount(reviewVo);
+				if(reviewCount>0) {
+					msg="이미 리뷰를 등록하셨습니다.";
+				}else {
+					int cnt=reviewService.writeReview(reviewVo);
+					logger.info("리뷰 등록 결과, cnt={}", cnt);
+					
+					if(cnt>0) {
+						msg="리뷰가 등록되었습니다.";
+					}
 				}
 			}
-		}else {
+		}else { // C, null : 의뢰 취소, 미구매
 			msg="상품을 구매하시지 않았습니다.";
 		}
 		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
+	
+	@GetMapping("/reviewDel")
+	public String reviewDel(@RequestParam int reviewNo, @RequestParam int pdNo,
+			Model model) {
+		logger.info("리뷰 삭제 처리, 파라미터 reviewNo={}", reviewNo);
+		
+		int cnt=reviewService.deleteReview(reviewNo);
+		logger.info("리뷰 삭제 결과, cnt={}", cnt);
+		
+		String msg="리뷰 삭제를 실패하였습니다.", url="/pd/pdDetail?pdNo="+pdNo;
+		if(cnt>0) {
+			msg="리뷰를 삭제하였습니다.";
+		}
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -156,7 +181,7 @@ public class ProductController {
 	
 	@ResponseBody
 	@PostMapping("/ajaxForm")
-	public int form(@RequestBody FormVo formVo) {
+	public int form(FormVo formVo) {
 		logger.info("의뢰서 등록 처리, 파라미터 formVo={}", formVo);
 		//formVo.setUserId("kim");	//test
 		

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
@@ -157,6 +158,37 @@ public class MypageServiceImpl implements MypageService{
 	public int insertDefaultExpertProfile(ExpertImageVO expertVo){
 		return mypageDao.insertDefaultExpertProfile(expertVo);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> selectForm(HashMap<String, Object> map) {
+		return mypageDao.selectForm(map);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectFormExpert(HashMap<String, Object> map) {
+		return mypageDao.selectFormExpert(map);
+	}
+
+	@Override
+	public int getTotalRecordTS(HashMap<String, Object> map) {
+		return mypageDao.getTotalRecordTS(map);
+	}
+
+	@Override
+	public int getTotalRecordTSExpert(HashMap<String, Object> map) {
+		return mypageDao.getTotalRecordTSExpert(map);
+	}
+
+	@Override
+	public FormVo selectFormByNo(int formNo) {
+		return mypageDao.selectFormByNo(formNo);
+	}
+
+	@Override
+	public int updateForm(int formNo) {
+		return mypageDao.updateForm(formNo);
+	}
+
 
 
 

@@ -4,12 +4,16 @@ import javax.mail.MessagingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.wonder.common.EmailSender;
+import com.ez.wonder.member.model.MemberService;
+import com.ez.wonder.member.model.MemberVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +25,7 @@ public class EmailController {
 	=LoggerFactory.getLogger(EmailSender.class);
 	
 	private final EmailSender emailSender;
+	private final MemberService memberService;
 	@RequestMapping("/send")
 	public void send() {
 		logger.info("이메일 연습 화면");
@@ -54,5 +59,44 @@ public class EmailController {
 		model.addAttribute("url", url);
 		
 		return "/common/message";
+	}
+	
+	@RequestMapping("/pwdEmail")
+	@ResponseBody
+	public int sendPwd(String receiver, String pwd) {
+		logger.info("이메일 발송 처리 페이지");
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		logger.info("pwd={}",pwd);
+
+		String security = encoder.encode(pwd);
+		logger.info("해싱 된 비밀번호 security={}",security)	;
+		int result=0;
+		
+		String subject= "임시 비밀번호 발송";
+		String content="임시 비밀번호는 "+pwd+"입니다.";
+		String sender = "hyokker@naver.com";//보내는 사람의 이메일 주소
+		//앞서 설정한 본인의 naver email
+		
+		
+		try {
+			emailSender.sendEmail(subject, content, receiver, sender);
+			logger.info("이메일 발송 성공");
+			
+			
+			result = 1;
+			MemberVO vo = new MemberVO();
+			vo.setEmail(receiver);
+			vo.setPwd(security);
+			logger.info("받는사람 이메일 receiver={},임시비밀번호 pwd={}",receiver,pwd);
+			int cnt = memberService.updatePwd(vo);
+			
+			return result;
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			logger.info("이메일 발송 실패! : " + e.getMessage());
+		}
+		return result;
 	}
 }

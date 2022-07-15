@@ -13,4 +13,5 @@ public interface ChatDAO {
 	List<HashMap<String, Object>> selectChatById(HashMap<String, Object> map);
 	String selectNickById(String rUserId);
 	int insertChat(ChatVO vo);
+	int insertDefaultChat(ChatVO vo);
 }

@@ -44,6 +44,7 @@
 		select
 		<include refid="PdColsRaw" />
 		from product
+		order by pd_No desc
 	</select>
 
 	<select id="selectAllPdByUserId" resultType="pdListVo">
@@ -62,10 +63,12 @@
 				, T2.DUP_FLAG AS DUP_FLAG
 			FROM PRODUCT T1 LEFT OUTER JOIN NONE_DUP T2
 				ON T1.PD_NO = T2.PD_NO AND T2.USER_ID = #{userId}
+				order by T1.pd_No desc
 			</when>
 			<otherwise>
 				, NULL AS DUP_FLAG
 			FROM PRODUCT T1
+			order by T1.pd_No desc
 			</otherwise>
 		</choose>
 	</select>

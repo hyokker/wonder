@@ -12,6 +12,14 @@ public interface MemberDAO {
 	public MemberVO selectByUserid(String userid);
 	public int updateMember(MemberVO vo);
 	public int deleteMember(String userid);
+	
+	//아이디 찾기 메서드
+	MemberVO findUserId(MemberVO vo);
+	
+	//비밀번호 찾기 메서드
+	String findPwd(MemberVO vo);
+	int updatePwd(MemberVO vo);
+	
 	//public
 	ExpertVO selectSeller(String userid);
 	ExpertVO selectSellerImg(String userid);

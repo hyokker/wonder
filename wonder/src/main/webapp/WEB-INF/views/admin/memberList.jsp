@@ -3,6 +3,17 @@
 <%@taglib prefix="u" uri="/WEB-INF/customTag/Utility.tld"%>
 <%@ include file="../inc/top.jsp"%>
 <script src="${pageContext.request.contextPath}/js/adminpaging.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#delOk').click(function() {
+			if (!confirm('삭제하시면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')) {
+				return false;
+			}else if(confirm('삭제하시면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')){
+				loaction.href="<c:url value='/admin/delMember?userId=' />" + $(#deleteparameter).text();
+			}
+		});
+	});
+</script>
 <style type="text/css">
 #img {
 	padding-left: 10px;
@@ -48,62 +59,8 @@ div#srchTitBar {
 	<div class="container-fluid">
 
 		<div class="row">
-
-			<div class="col-lg-3 col-md-4 col-sm-12">
-				<div class="property_dashboard_navbar">
-
-					<div class="dash_user_avater">
-						<img src="https://via.placeholder.com/500x500"
-							class="img-fluid avater" alt="">
-						<h4>${adminVo.adminId }</h4>
-						<span>관리자 계정</span>
-					</div>
-
-					<div class="dash_user_menues">
-
-						<ul>
-							<li><a href="<c:url value='/admin/dashboard'/>"><i
-									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li class="active"><a
-								href="<c:url value='/admin/memberList'/>"><i
-									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
-							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
-									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
-							<li><a href="<c:url value='/admin/pdList'/>"><i
-									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
-							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
-									class="fa fa-bookmark"></i>거래대기 목록<span
-									class="notti_coun style-2">7</span></a></li>
-							<li><a href="<c:url value='/admin/subadminList'/>"><i
-									class="fa fa-id-badge"></i>부서별 관리자 관리<span
-									class="notti_coun style-3">3</span></a></li>
-							<li><a href="<c:url value='/admin/editAccount'/>"><i
-									class="fa fa-user-tie"></i>내 정보</a></li>
-							<li><a href="<c:url value='/admin/createAdmin'/>"><i
-									class="fa fa-plus-circle"></i>부서별 관리자 생성</a></li>
-						</ul>
-					</div>
-					<div class="dash_user_footer">
-						<ul>
-							<li><a href="<c:url value='/admin/logout'/>"><i
-									class="fa fa-power-off"></i></a></li>
-							<li><a href="<c:url value='/admin/email'/>"><i
-									class="fa fa-envelope"></i></a></li>
-							<li><a href="#"><i class="fa fa-cog"></i></a></li>
-						</ul>
-					</div>
-
-				</div>
-			</div>
-
-			<%-- 			<c:if test="${!empty param.searchKeyword }">
-				<div class="tit" id="srchTitBar">
-					<p>
-						"${param.searchKeyword}" 검색 결과 총 <strong class="tit_cnt">${pagingInfo.totalRecord}</strong>
-						건 검색되었습니다.
-					</p>
-				</div>
-			</c:if> --%>
+			<input type="hidden" id="link" value="memberList">
+			<%@ include file="../admin/menubar.jsp"%>
 
 			<form action="<c:url value='/admin/memberList'/>" method="post"
 				name="frmPage">
@@ -190,12 +147,20 @@ div#srchTitBar {
 														<td>
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb" id="img">
-																	<img
-																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
-																	class="img-fluid" alt="프로필 사진" />
+																	<c:if
+																		test="${memberVo.type eq '일반회원' || memberVo.type eq '승인대기'}">
+																		<img
+																			src="${pageContext.request.contextPath}/img/mypage/default_profile.png"
+																			class="img-fluid" alt="일반회원 프로필 사진" />
+																	</c:if>
+																	<c:if test="${memberVo.type eq '프리랜서'}">
+																		<img
+																			src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName}"
+																			class="img-fluid" alt="프리랜서 프로필 사진" />
+																	</c:if>
 																</div>
 																<div class="dash_prt_caption">
-																	<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
+																	<div class="prt_dashb_lot">${memberVo.memNo }</div>
 																	<h5>${memberVo.userId}</h5>
 																</div>
 															</div>
@@ -225,9 +190,6 @@ div#srchTitBar {
 																		pattern="yyyy-MM-dd HH:mm" />
 																</h5>
 															</div>
-															<div class="_leads_view_title">
-																<%-- <span>${u:diffOfDate(${memberVo.regdate})}</span> --%>
-															</div>
 														</td>
 														<td><c:if test="${memberVo.type eq '일반회원' }">
 																<div class="_leads_status" id="type1">
@@ -237,17 +199,14 @@ div#srchTitBar {
 																<div class="_leads_status" id="type1">
 																	<span class="expire" id="type">프리랜서</span>
 																</div>
-															</c:if>
-															<c:if test="${memberVo.type eq '승인대기' }">
+															</c:if> <c:if test="${memberVo.type eq '승인대기' }">
 																<div class="_leads_status" id="type1">
 																	<span class="active" id="type">승인대기</span>
 																</div>
-															</c:if>
-															</td>
+															</c:if></td>
 														<td>
 															<div class="_leads_action">
-																<a href="delMember?memNo=${memberVo.memNo }"><i
-																	class="fas fa-trash"></i></a>
+																<a href="#" id="delMem"><i class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

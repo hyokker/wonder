@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,10 +30,14 @@ import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormService;
+import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.mypage.model.MypageService;
+import com.ez.wonder.payment.model.PaymentService;
+import com.ez.wonder.payment.model.PaymentVO;
 import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
 
@@ -45,6 +51,8 @@ public class MypageController {
 	private final MypageService mypageService;
 	private final ChatService chatService ;
 	private final FileUploadUtil fileUploadUtil;
+	private final PaymentService paymentService;
+	private final FormService formService;
 	
 	@RequestMapping("/incSide")
 	public void mypage_incSide(HttpSession session, Model model) {
@@ -115,16 +123,28 @@ public class MypageController {
 	}
 	
 	@GetMapping("/profile")
-	public void mypage_profile_get(HttpSession session, Model model) {
+	public String mypage_profile_get(HttpSession session, Model model) {
 		logger.info("프로필 페이지");
+		
+		if((String)session.getAttribute("userId")==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
 		
 		String userId=(String) session.getAttribute("userId");
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
+		
 
 		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
-
+		
 		ExpertVO vo = null;
+		
 		if(type.equals("프리랜서")) {
 			vo = mypageService.selectExpertById(userId);
 			logger.info("프로필 페이지 프리랜서 정보조회 expertVo={}", vo);
@@ -156,6 +176,8 @@ public class MypageController {
 		
 		model.addAttribute("expertVo", vo);
 		model.addAttribute("memVo",memVo);
+		
+		return "/mypage/profile";
 	}
 	
 	@PostMapping("/profile")
@@ -192,6 +214,12 @@ public class MypageController {
 						fileName=(String) fileMap.get("fileName");
 						fileSize=(long)fileMap.get("fileSize");
 						logger.info("파일 업로드 성공, fileName={}, fileSize={}",fileName, fileSize);
+						
+						if(fileSize>10*1024*1024) {
+							String msg="이미지는 10MB를 초과할 수 없습니다.",
+									url="/mypage/profile";
+							return "/common/message";
+						}
 					
 						//프로필사진 DB로 넣는부분
 						profileVo.setUserId(userId);
@@ -271,6 +299,38 @@ public class MypageController {
 		
 		
 		return "/common/message";
+	}
+	
+	@GetMapping("/freeDetailWrite")
+	public String mypage_feeDetail_get(HttpSession session, Model model) {
+		logger.info("프리랜서 명함 작성 페이지");
+		
+		String userId=(String) session.getAttribute("userId");
+		MemberVO memVo = mypageService.selectMemberById(userId);
+		String type = memVo.getType();
+		
+		if(userId==null) {
+			String msg="로그인해야 이용하실 수 있습니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+		}
+		
+
+		ExpertVO expertVo = mypageService.selectExpertById(userId);
+		ExpertImageVO ExpertProfileVo = mypageService.selectExpertProfileById(userId);
+		logger.info("expertVo={}",expertVo);
+		logger.info("profileVo={}",ExpertProfileVo);
+		logger.info("memVo={}",memVo);
+		model.addAttribute("expertVo", expertVo);
+		model.addAttribute("profileVo", ExpertProfileVo);
+		model.addAttribute("memVo",memVo);
+		
+
+		return "/mypage/freeDetailWrite";
 	}
 	
 	
@@ -388,7 +448,7 @@ public class MypageController {
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
-		
+
 		return "/common/message";
 	}
 	
@@ -396,10 +456,11 @@ public class MypageController {
 	
 	
 	@GetMapping("/applicationCheck")
-	public void mypage_applicationCheck_get(HttpSession session, Model model) {
+	public String mypage_applicationCheck_get(@RequestParam("userId") String userIdGet,HttpSession session, Model model) {
 		logger.info("프리랜서 등록 확인 페이지");
 		
-		String userId=(String) session.getAttribute("userId");
+		String ssUserId=(String) session.getAttribute("userId");
+		String userId=userIdGet;
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
 
@@ -433,8 +494,20 @@ public class MypageController {
 		}
 		logger.info("프로필 페이지 memVo={}",memVo);
 		
-		model.addAttribute("expertVo", vo);
-		model.addAttribute("memVo",memVo);
+		if(ssUserId.equals(userId)) {
+			model.addAttribute("expertVo", vo);
+			model.addAttribute("memVo",memVo);
+			
+			return "/mypage/applicationCheck";
+		}
+		
+		String msg="잘못된 접근입니다", url="/mypage/application";
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";
+
 	}
 	
 	
@@ -622,31 +695,155 @@ public class MypageController {
 		return list;
 	}
 	
-	@RequestMapping("/transaction")
-	public void mypage_transaction(HttpSession session,Model model) {
-		logger.info("거래 페이지");
-		
+	@RequestMapping(value =  "/transaction", method = {RequestMethod.GET, RequestMethod.POST})
+	public String mypage_transaction(@ModelAttribute SearchVO searchVo ,HttpSession session,Model model) {
+		logger.info("거래 페이지 searchVo={}",searchVo);
+		logger.info("현재 페이지 currentPage={}",searchVo.getCurrentPage());
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		String type = vo.getType();
+		
+
+		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
+		
+		
+		PaginationInfo paging = new PaginationInfo();
+		paging.setBlockSize(ConstUtil.BLOCKSIZE5);
+		paging.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		paging.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setFirstRecordIndex(paging.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+		
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("searchCondition", searchVo.getSearchCondition());
+		map.put("searchKeyword", searchVo.getSearchKeyword());
+		map.put("firstRecordIndex", searchVo.getFirstRecordIndex());
+		map.put("recordCountPerPage", searchVo.getRecordCountPerPage());
+		
+		
+		
+		List<HashMap<String, Object>> list = null;
+		if(type.equals("프리랜서")) {
+			logger.info("현재 로그인중인 type={}",type);
+			map.put("userId", userId);
+			
+			list = mypageService.selectFormExpert(map);
+			logger.info("전문가용 의뢰서 갯수 list.size()={}", list.size());
+			
+			int totalRecord = mypageService.getTotalRecordTSExpert(map);
+			logger.info("프리랜서 토탈레코드 totalRecord={}",totalRecord);
+			paging.setTotalRecord(totalRecord);
+			
+			for(int i=0; i<list.size();i++) {
+				HashMap<String, Object> testMap=list.get(i);
+				logger.info("테스트용 map체크={}",testMap);
+			}
+		}else {
+			logger.info("현재 로그인중인 type={}",type);
+			map.put("userId", userId);
+			
+			list = mypageService.selectForm(map);
+			logger.info("의뢰서 갯수 list.size()={}", list.size());
+
+			int totalRecord = mypageService.getTotalRecordTS(map);
+			logger.info("일반회원 토탈레코드 totalRecord={}",totalRecord);
+			paging.setTotalRecord(totalRecord);
+			
+			for(int i=0; i<list.size();i++) {
+				HashMap<String, Object> testMap=list.get(i);
+				logger.info("테스트용 map체크={}",testMap);
+			}
+		}
+		
+		logger.info("페이징용 pagingInfo={}",paging);
+		
+		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
+		model.addAttribute("pagingInfo",paging);
+
+		return "/mypage/transaction";
 	}
 	
-	@GetMapping("/chatting")
-	public void mypage_chatting_get(HttpSession session,Model model) {
-		logger.info("채팅 페이지");
+	@GetMapping("/transactionFormUpdate")
+	public String transactionFormUpdate(@RequestParam(required =  false) int formNo,HttpSession session,Model model) {
+		logger.info("의뢰서 승인 처리 파라미터 formNo={}",formNo);
 		
+		FormVo formVo = mypageService.selectFormByNo(formNo);
+		logger.info("의뢰서 승인 페이지 vo = {}",formVo);
+		
+		
+		String msg="잘못된 접근입니다", url="/mypage/transaction";
+		
+		if(formVo.getPayFlag().equals("N")) {
+			int formCnt = mypageService.updateForm(formNo);
+			if(formCnt>0) {
+				msg="거래승인이 완료되었습니다";
+			}
+		}else {
+			msg="이미 거래중인 의뢰입니다";
+		}
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";	}
+	
+	@GetMapping("/chatting")
+	public String mypage_chatting_get(@RequestParam(name = "userId" ,required = false) String otherUserId,HttpSession session,Model model) {
+		logger.info("채팅 페이지");
 		String userId=(String) session.getAttribute("userId");
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
+		if(otherUserId!=null) {
+			logger.info("상대방 아이디={}",otherUserId);
+			
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("rUserId", userId);
+			map.put("sUserId", otherUserId);
+			logger.info("파라미터 map={}",map);
+	
+			List<HashMap<String, Object>> otherList = chatService.selectChatById(map);
+			logger.info("거래대상과의 채팅수={}",otherList.size());
+			
+			if(otherList.size()==0) {
+				ChatVO chatVo = new ChatVO();
+				chatVo.setSUserId(userId);
+				chatVo.setRUserId(otherUserId);
+				int cnt = chatService.insertDefaultChat(chatVo);
+				chatVo.setSUserId(otherUserId);
+				chatVo.setRUserId(userId);
+				int otherCnt = chatService.insertDefaultChat(chatVo);
+				
+				logger.info("기본채팅 메세지 출력 성공 cnt={}",cnt);
+				
+				String msg="기본 메세지 등록에 실패하였습니다", url="/mypage/chatting";
+				if(cnt>0 && otherCnt>0) {
+					msg="기본 메세지 등록에 성공하였습니다";
+					
+					model.addAttribute("msg",msg);
+					model.addAttribute("url",url);
+					
+				}
+				return "/common/message";
+			}
+		
+		}
+		
 		List<HashMap<String, Object>> list = chatService.selectMyChat(userId);
+		
 		logger.info("현재 채팅중인 채팅방 list={}", list);
 		
 		
 		model.addAttribute("list",list);
 		model.addAttribute("vo",vo);
+		
+		return "/mypage/chatting";
 	}
 	
 	@GetMapping("/changePwd")
@@ -710,6 +907,30 @@ public class MypageController {
 		logger.info("채팅테스트화면");
 		
 		return "/mypage/testChat"; 
+	}
+	
+	@ResponseBody
+	@PostMapping("/payment")
+	public int payment(@RequestBody PaymentVO vo) {
+		logger.info("결제 처리, 파라미터 vo={}", vo);
+		
+		int cnt=paymentService.insertPayment(vo);
+		logger.info("결제 결과, cnt={}", cnt);
+		
+		int cnt2=formService.payDone(Integer.parseInt(vo.getFormNo()));
+		logger.info("pay_flag 변경 결과, cnt2={}", cnt2);
+		
+		int result=0;
+		if(cnt==cnt2) {
+			result=1;
+		}
+		
+		return result;
+	}
+
+	@RequestMapping("/calendar")
+	public String calender() {
+		return "/mypage/expert_calendar";
 	}
 	
 }

@@ -59,11 +59,13 @@ public class PdListController {
 
 
 		String userId= (String)session.getAttribute("userId");
-
+		String userType=(String)session.getAttribute("type");
+		
 		List<PdListItem> pdList = getPdList(userId);
 		
 		int totalCnt = pdList.size();
 		int maxpage = totalCnt/pageCnt + ((totalCnt%pageCnt)>0?1:0);
+		model.addAttribute("userType", userType);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("pageCnt", pageCnt);
 		model.addAttribute("maxpage", maxpage);
@@ -117,7 +119,7 @@ public class PdListController {
 	@PostMapping("/pdSearch")
 	@ResponseBody
 	public PdList pdSearch(@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo,
-			@RequestParam(value = "pageCnt", required = true, defaultValue = "2") int pageCnt,
+			@RequestParam(value = "pageCnt", required = true, defaultValue = "7") int pageCnt,
 			@RequestBody SearchWrapper search, HttpServletRequest httpServletRequest, HttpSession session) {
 		String userId= (String)session.getAttribute("userId");
 		List<PdListVO> products = productService.searchPd(search.getPdTitle(), userId);
@@ -130,12 +132,17 @@ public class PdListController {
 			
 			boolean isPdTerm = false;
 			boolean isPdPrice = false;
+			boolean isEditCount = false;
 			
 			for(PdDetailVO pdDetail : pdDetails) {
 				if(search.getPdTermMax() == 0) {
 					isPdTerm = true;
 				}
-				
+				if (search.getEditCount() == 0) {
+					  isEditCount = true;
+					} else if (search.getEditCount() == pdDetail.getEditCount()) {
+					isEditCount = true;
+					}
 				if(search.getPdTermMin() <= pdDetail.getPdTerm() && pdDetail.getPdTerm()<= search.getPdTermMax()) {
 					isPdTerm = true;
 				}
@@ -157,7 +164,7 @@ public class PdListController {
 			
 			boolean isFrame = false;
 			for (String frame : search.getPdFrame()) {
-				if (product.getLang().indexOf(frame) >= 0) {
+				if (product.getFrame().indexOf(frame) >= 0) {
 					isFrame = true;
 				}
 			}
@@ -166,7 +173,7 @@ public class PdListController {
 				isFrame = true;
 
 			
-			if (isLang && isFrame && !pdDetails.isEmpty() && isPdTerm && isPdPrice) {
+			if (isLang && isFrame && !pdDetails.isEmpty() && isPdTerm && isPdPrice && isEditCount) {
 				List<PdImageVO> pdImages = productService.selectPdImage(pdNo);
 				item.setPdImages(pdImages);
 				item.setPdDetail(pdDetails.get(0));

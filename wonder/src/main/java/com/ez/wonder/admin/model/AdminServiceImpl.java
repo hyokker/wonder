@@ -6,10 +6,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.payment.model.PaymentVO;
 import com.ez.wonder.pd.model.ProductVO;
 
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int deleteMember(int memNo) {
-		return adminDao.deleteMember(memNo);
+	public int deleteMember(String userId) {
+		return adminDao.deleteMember(userId);
 	}
 	
 	@Override
@@ -58,13 +60,21 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public 	int grantExpert(int memNo) {
-		return adminDao.grantExpert(memNo);
+	@Transactional
+	public 	int grantExpert(String userId) {
+		int grantExpert = adminDao.grantExType(userId);
+		int grantExFlag = adminDao.grantExFlag(userId);
+		
+		return grantExFlag;
 	}
 	
 	@Override
+	@Transactional
 	public int deleteExpert(String userId) {
-		return adminDao.deleteExpert(userId);
+		int deleteExType = adminDao.deleteExType(userId);
+		int deleteExFlag = adminDao.deleteExFlag(userId);
+		
+		return deleteExFlag;
 	}
 	
 	@Override
@@ -149,12 +159,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int sumAllSales() {
+	public Integer sumAllSales() {
 		return adminDao.sumAllSales();
 	}
 	
 	@Override
-	public int monthlySales(){
+	public Integer monthlySales(){
 		return adminDao.monthlySales();
 	}
 	
@@ -186,6 +196,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<FormVo> selectForm(){
 		return adminDao.selectForm();
+	}
+	
+	@Override
+	public List<ProductVO> selectReadCount(){
+		return adminDao.selectReadCount();
 	}
 	
 	@Override

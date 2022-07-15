@@ -15,52 +15,9 @@
 	<div class="container-fluid">
 
 		<div class="row">
+			<input type="hidden" id="link" value="dashboard">
+			<%@ include file="../admin/menubar.jsp"%>
 
-			<div class="col-lg-3 col-md-4">
-				<div class="property_dashboard_navbar">
-
-					<div class="dash_user_avater">
-						<img src="https://via.placeholder.com/500x500"
-							class="img-fluid avater" alt="">
-						<h4>${adminVo.adminId }</h4>
-						<span>관리자 계정</span>
-					</div>
-
-					<div class="dash_user_menues">
-
-						<ul>
-							<li class="active"><a
-								href="<c:url value='/admin/dashboard'/>"><i
-									class="fa fa-tachometer-alt"></i>매출현황 통계</a></li>
-							<li><a href="<c:url value='/admin/memberList'/>"><i
-									class="fa fa-users"></i>회원 관리<span class="notti_coun style-1">4</span></a></li>
-							<li><a href="<c:url value='/admin/nonApprovalEx'/>"><i
-									class="fa fa-check-square"></i>전문가 승인 대기 목록</a></li>
-							<li><a href="<c:url value='/admin/pdList'/>"><i
-									class="fa fa-tasks"></i>게시글 관리<span class="notti_coun style-1">5</span></a></li>
-							<li><a href="<c:url value='/admin/nonApprovalList'/>"><i
-									class="fa fa-bookmark"></i>거래대기 목록<span
-									class="notti_coun style-2">7</span></a></li>
-							<li><a href="<c:url value='/admin/subadminList'/>"><i
-									class="fa fa-id-badge"></i>부서별 관리자 관리<span
-									class="notti_coun style-3">3</span></a></li>
-							<li><a href="<c:url value='/admin/editAccount'/>"><i
-									class="fa fa-user-tie"></i>내 정보</a></li>
-							<li><a href="<c:url value='/admin/createAdmin'/>"><i
-									class="fa fa-plus-circle"></i>부서별 관리자 생성</a></li>
-						</ul>
-					</div>
-					<div class="dash_user_footer">
-						<ul>
-							<li><a href="<c:url value='/admin/logout'/>"><i
-									class="fa fa-power-off"></i></a></li>
-							<li><a href="<c:url value='/admin/email'/>"><i
-									class="fa fa-envelope"></i></a></li>
-							<li><a href="#"><i class="fa fa-cog"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
 
 			<div class="col-lg-9 col-md-8">
 				<div class="dashboard-body">
@@ -260,7 +217,7 @@
 					<!-- row -->
 
 					<div class="row">
-						<div class="col-lg-12 col-md-12">
+						<div class="col-lg-7 col-md-12">
 							<div class="card">
 								<div class="card-header">
 									<h4 class="mb-0">최근 의뢰서 목록</h4>
@@ -283,9 +240,12 @@
 												<c:if test="${!empty list}">
 													<c:forEach var="formVo" items="${list }">
 														<tr>
-															<td><a href="#"><img
-																	src="https://via.placeholder.com/800x500"
-																	class="avatar avatar-30 mr-2" alt="Avatar">${formVo.formTitle }</a></td>
+															<td><a href="#"><c:if
+																		test="${fn:length(formVo.formTitle)>20}">
+																		<a href="../mypage/form?formNo=${formVo.formNo}">${fn:substring(formVo.formTitle,0,19) }...</a>
+																	</c:if> <c:if test="${fn:length(formVo.formTitle)<=20}">
+																		<a href="../mypage/form?formNo=${formVo.formNo}">${formVo.formTitle}</a>
+																	</c:if></a></td>
 															<td>${formVo.PUserId}</td>
 															<td><c:if test="${formVo.payFlag eq 'Y'}">
 																	<div class="label text-success bg-success-light">결제완료</div>
@@ -293,7 +253,47 @@
 																	<div class="label text-danger bg-danger-light">결제전</div>
 																</c:if></td>
 															<td>${formVo.price }원</td>
-															<td>${formVo.formRegdate }</td>
+															<td><fmt:formatDate value="${formVo.formRegdate}"
+																	pattern="yyyy-MM-dd HH:mm" /></td>
+														</tr>
+													</c:forEach>
+												</c:if>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5 col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="mb-0">조회수순 게시글 목록 (이번달 기준)</h4>
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<table class="table table-lg table-hover">
+											<thead>
+												<tr>
+													<th>제목</th>
+													<th>프리랜서명</th>
+													<th>조회수</th>
+													<th>등록일</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:if test="${!empty listbyread}">
+													<c:forEach var="productVo" items="${listbyread }">
+														<tr>
+															<td><a href="#"><c:if test="${fn:length(productVo.pdTitle)>15}"> <a
+																	href="../pd/pdDetail?PdNo=${productVo.pdNo}">${fn:substring(productVo.pdTitle,0,14) }...</a>
+												</c:if> <c:if
+																		test="${fn:length(productVo.pdTitle)<=15}">
+																		<a href="../pd/pdDetail?PdNo=${productVo.pdNo}">${productVo.pdTitle}</a>
+																	</c:if> </a></td>
+															<td>${productVo.userId}</td>
+															<td>${productVo.readCount}</td>
+															<td><fmt:formatDate value="${productVo.regdate }"
+																	pattern="yyyy-MM-dd" /></td>
 														</tr>
 													</c:forEach>
 												</c:if>
