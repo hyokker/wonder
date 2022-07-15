@@ -207,6 +207,11 @@ public class AdminServiceImpl implements AdminService{
 	public 	List<PaymentVO> payChart(){
 		return adminDao.payChart();
 	}
+	
+	@Override
+	public List<MemberVO> excelMember(){
+		return adminDao.excelMember();
+	}
 }
 
 
