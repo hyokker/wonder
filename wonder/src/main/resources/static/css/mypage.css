@@ -282,3 +282,12 @@ input.form-control.transSearch{
 #formConfirm{
 	text-align: left;
 }
+
+._prt_filt_add_new{
+	float: right;
+	margin: 0 10px;
+}
+
+.greenLabel:hover{
+	color:white;
+}

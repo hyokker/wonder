@@ -8,9 +8,14 @@
 <script type="text/javascript">
 
  $(function(){
-	 $('.modalA').each(function(item,idx){
+	 $('#modalC').each(function(item,idx){
 		 $(this).click(function(){
 			 $(this).find('.modalC').modal('show');
+		 });
+	 });
+	 $('#modalA').each(function(item,idx){
+		 $(this).click(function(){
+			 $(this).find('.modalA').modal('show');
 		 });
 	 });
 	 
@@ -65,6 +70,28 @@ function pageProc(curPage){
 												<div class="_prt_filt_add_new">
 													<a href="<c:url value='/pd/pdList' />" class="greenLabel"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　더 많은 상품 보러가기</span></a>
 												</div>
+												<div class="_prt_filt_add_new">
+													<a href="#" class="greenLabel" id="modalA"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　내 일정 보기</span></a>
+												</div>
+												<!-- Modal A -->
+													<c:forEach var="detailVo" items="${list }" varStatus="status">
+														<div class="modal fade modalA" id="exampleModalToggleA${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+														  <div class="modal-dialog modal-xl modal-dialog-centered">
+														    <div class="modal-content">
+														      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
+														        <h5 class="modal-title" id="exampleModalToggleLabel">제작자 일정</h5>
+														        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+														      </div>
+														      <div class="modal-body">
+																<iframe src="<c:url value='/pd/calendar?userId=${expertVo.userId }'/>" width="790px" height="650px" style="border:none"></iframe>
+														      </div>
+														      <div class="modal-footer">
+														        <button class="btn theme-bg rounded" data-target="#exampleModalToggleB${status.index }" data-toggle="modal" name="modelButton1">의뢰서 작성하기</button>
+														      </div>
+														    </div>
+														  </div>
+														</div>
+													</c:forEach>
 											</div>
 										</div>
 									</div>
@@ -180,7 +207,7 @@ function pageProc(curPage){
 																			</c:if>
 																		</div>
 																	</td>
-																	<td class="center modalA"> <!-- 의뢰서 -->
+																	<td class="center" id="modalC"> <!-- 의뢰서 -->
 																		<div class="_leads_action">
 																			<a href="#"><i class="fas fa-edit"></i></a>
 																				<!-- Modal C -->
