@@ -290,6 +290,7 @@ public class MemberController {
 		int result=0;
 		
 		if(pwd!=null && !pwd.isEmpty()) {
+			logger.info("if문 내용");
 			result=1;
 		}
 		return result;
