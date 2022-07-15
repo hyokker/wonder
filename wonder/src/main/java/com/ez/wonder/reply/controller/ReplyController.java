@@ -34,6 +34,9 @@ public class ReplyController {
 	public String reply_post(@ModelAttribute ReplyVO replyVo) {
 		logger.info("댓글 등록처리, 파라미터 replyVo={}", replyVo);
 		
+		int replyNo = replyVo.getReplyNo();
+		replyVo.setReplyNo(replyNo);
+		
 		int cnt=replyService.reply(replyVo);
 		logger.info("댓글 등록결과, cnt={}", cnt);
 		
@@ -41,7 +44,7 @@ public class ReplyController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/getReplylist")
+	@RequestMapping("/getReplylist")
 	public ReplyVO getReplylist(@RequestParam(defaultValue = "0") int replyNo,
 			Model model) {
 		logger.info("댓글리스트 초기화, 파라미터 replyNo={}", replyNo);
@@ -77,41 +80,56 @@ public class ReplyController {
 		
 	}
 			
-	/*
 	@PostMapping("/replyEdit")
-	public String replyEdit(@ModelAttribute ReplyVO replyVo) {
-		logger.info("대댓글 등록처리, 파라미터 replyVo={}", replyVo);
+	public String replyEdit(@ModelAttribute ReplyVO replyVo
+			, Model model) {
+		logger.info("댓글 수정처리, 파라미터 replyVo={}", replyVo);
 		
-		int cnt=replyService.reReply(replyVo);
-		logger.info("대댓글 등록 결과, cnt={}", cnt);
+		String replyContent = replyVo.getReplyContent();
+		if(replyContent==null ||replyContent.isEmpty() ) {
+			replyContent="";
+		}
+		replyVo.setReplyContent(replyContent);
 		
-		return "redirect:/board/detail?boardNo="+replyVo.getBoardNo();
-	}
-	
-	@PostMapping("/replyEdit")
-	public String replyEdit(@RequestParam(defaultValue = "0") int replyNo,
-			@ModelAttribute ReplyVO replyVo, Model model) {
-		logger.info("댓글 수정 처리, 파라미터 replyNo={}, replyVo={}",replyNo, replyVo);
-		
+		String msg="", url="/board/detail?boardNo="+replyVo.getBoardNo();
 		int cnt=replyService.updateReply(replyVo);
-		logger.info("댓글 수정 처리 결과, cnt={}", cnt);
+		logger.info("댓글 수정 결과, cnt={}", cnt);
 		
-		String msg= "수정되었습니다.";
-		String url= "/board/detail?boardNo="+replyVo.getBoardNo();
 		if(cnt>0) {
-
+			msg="댓글이 수정되었습니다.";
 		}else {
-			msg="댓글 수정실패!";
+			msg="수정 실패!";
 		}
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
+
 		
+		//return "redirect:/board/detail?boardNo="+replyVo.getBoardNo();
 		return "/common/message";
 	}
+	/*
+	 * @PostMapping("/replyEdit") public String replyEdit(@RequestParam(defaultValue
+	 * = "0") int replyNo,
+	 * 
+	 * @ModelAttribute ReplyVO replyVo, Model model) {
+	 * logger.info("댓글 수정 처리, 파라미터 replyNo={}, replyVo={}",replyNo, replyVo);
+	 * 
+	 * int cnt=replyService.updateReply(replyVo); logger.info("댓글 수정 처리 결과, cnt={}",
+	 * cnt);
+	 * 
+	 * String msg= "수정되었습니다."; String url=
+	 * "/board/detail?boardNo="+replyVo.getBoardNo(); if(cnt>0) {
+	 * 
+	 * }else { msg="댓글 수정실패!"; }
+	 * 
+	 * model.addAttribute("msg", msg); model.addAttribute("url", url);
+	 * 
+	 * return "/common/message"; }
+	 */
 	
-	*/
 	
+	@ResponseBody
 	@RequestMapping("/replyDelete")
 	public void deleteReply(@RequestParam(defaultValue = "0") int replyNo,
 			Model model) {
@@ -132,17 +150,16 @@ public class ReplyController {
 			
 			replyService.deleteReply(map);
 			logger.info("댓글 삭제 완료");
-			
 		/*
-		}else {
-			logger.info("권한없음");
-		}
-
-			model.addAttribute("msg",msg);
-			model.addAttribute("url",url);
+			}else {
+				logger.info("권한없음");
+			}
+				
 		*/	
-			//return "/common/message";
 	}
+			
+		
+
 		
 	/*
 	@PostMapping("/replyDelete")

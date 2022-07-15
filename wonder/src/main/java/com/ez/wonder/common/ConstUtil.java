@@ -3,9 +3,12 @@ package com.ez.wonder.common;
 public interface ConstUtil {
 	//게시판 페이징 관련 상수
 	public static final int RECORD_COUNT=5;
-	int BLOCKSIZE=10;
 	int BLOCKSIZE5=5;
-
+	
+	//자유게시판 페이징 관련 상수
+	public static final int BOARD_RECORD=10;
+	int BLOCKSIZE=5;
+	
 	//파일 업로드 관련 상수
 	String FILE_UPLOAD_TYPE="test";   //테스트시
 	//String FILE_UPLOAD_TYPE="deploy"; //배포시
