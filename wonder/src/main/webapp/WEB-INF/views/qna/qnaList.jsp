@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/board.css'/>" />
+	href="<c:url value='/css/qna.css'/>" />
 <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function pageProc(currentPage) {
