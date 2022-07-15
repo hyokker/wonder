@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.PaymentVO;
@@ -30,9 +29,14 @@ public class DashboardController {
 
 	@RequestMapping("/dashboard")
 	public String dashboard(Model model) {
-		
-		int sumAllSales = adminService.sumAllSales();
-		int monthlySales = adminService.monthlySales();
+		Integer sumAllSales = adminService.sumAllSales();
+		if(sumAllSales == null) {
+			sumAllSales = 0;
+		}
+		Integer monthlySales = adminService.monthlySales();
+		if(monthlySales == null) {
+			monthlySales = 0;
+		}
 		int countMembers = adminService.countMembers();
 		int countExperts = adminService.countExperts();
 		int countProduct = adminService.countProduct();

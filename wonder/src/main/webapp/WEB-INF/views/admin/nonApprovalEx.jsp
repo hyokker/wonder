@@ -92,126 +92,129 @@ div#srchTitBar {
 												</div>
 											</div>
 										</div>
+									</form>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<c:if test="${!empty param.searchKeyword }">
-						<p id="searchment">
-							"${param.searchKeyword}" 검색 결과 총 <strong class="tit_cnt">${pagingInfo.totalRecord}</strong>
-							건 검색되었습니다.
-						</p>
-					</c:if>
+						<c:if test="${!empty param.searchKeyword }">
+							<p id="searchment">
+								"${param.searchKeyword}" 검색 결과 총 <strong class="tit_cnt">${pagingInfo.totalRecord}</strong>
+								건 검색되었습니다.
+							</p>
+						</c:if>
 
-					<div class="col-lg-12 col-md-12">
-						<div class="dashboard_property">
-							<div class="table-responsive">
-								<table class="table" id="memList">
-									<thead class="thead-dark">
-										<tr>
-											<th scope="col">회원번호 / 아이디</th>
-											<th scope="col" class="m2_hide">이름</th>
-											<th scope="col" class="m2_hide">닉네임</th>
-											<th scope="col" class="m2_hide">메일</th>
-											<th scope="col" class="m2_hide">가입일</th>
-											<th scope="col">회원분류</th>
-											<th scope="col">승인 / 삭제</th>
-										</tr>
-									</thead>
-									<tbody>
-										<!-- tr block -->
-										<c:if test="${empty list }">
+						<div class="col-lg-12 col-md-12">
+							<div class="dashboard_property">
+								<div class="table-responsive">
+									<table class="table" id="memList">
+										<thead class="thead-dark">
 											<tr>
-												<td colspan="5">승인 대기 신청이 존재하지 않습니다.</td>
+												<th scope="col">회원번호 / 아이디</th>
+												<th scope="col" class="m2_hide">이름</th>
+												<th scope="col" class="m2_hide">닉네임</th>
+												<th scope="col" class="m2_hide">메일</th>
+												<th scope="col" class="m2_hide">가입일</th>
+												<th scope="col">회원분류</th>
+												<th scope="col">승인 / 삭제</th>
 											</tr>
-										</c:if>
-										<c:if test="${!empty list}">
-											<!--게시판 내용 반복문 시작  -->
-											<c:forEach var="memberVo" items="${list }">
+										</thead>
+										<tbody>
+											<!-- tr block -->
+											<c:if test="${empty list }">
 												<tr>
-													<td>
-														<div class="dash_prt_wrap">
-															<div class="dash_prt_thumb" id="img">
-																<a href="../mypage/applicationCheck?userId=${memberVo.userId}"><img
-																	src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
-																	class="img-fluid" alt="프로필 사진" /></a>
-															</div>
-															<div class="dash_prt_caption">
-																<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
-																<a href="../mypage/applicationCheck?userId=${memberVo.userId}"><h5>${memberVo.userId}</h5></a>
-															</div>
-														</div>
-													</td>
-													<td class="m2_hide">
-														<div class="prt_leads">
-															<a href="../mypage/applicationCheck?userId=${memberVo.userId}"><h6>${memberVo.name }</h6></a>
-														</div>
-													</td>
-													<td class="m2_hide">
-														<div class="prt_leads">
-															<h6>${memberVo.nickname }</h6>
-														</div>
-													</td>
-													<td class="m2_hide">
-														<div class="_leads_view">
-															<h5>${memberVo.email }</h5>
-														</div>
-														<div class="_leads_view_title">
-															<span>mail account</span>
-														</div>
-													</td>
-													<td class="m2_hide">
-														<div class="_leads_posted">
-															<h5>
-																<fmt:formatDate value="${memberVo.regdate }"
-																	pattern="yyyy-MM-dd HH:mm" />
-															</h5>
-														</div>
-														<div class="_leads_view_title">
-															<span>며칠전으로 계산</span>
-														</div>
-													</td>
-													<td><c:if test="${memberVo.type eq '일반회원' }">
-															<div class="_leads_status" id="type1">
-																<span class="active" id="type">일반회원</span>
-															</div>
-														</c:if> <c:if test="${memberVo.type eq '프리랜서' }">
-															<div class="_leads_status" id="type1">
-																<span class="expire" id="type">프리랜서</span>
-															</div>
-														</c:if> <c:if test="${memberVo.type eq '승인대기'}">
-															<div class="_leads_status" id="type1">
-																<span class="active" id="type">승인대기</span>
-															</div>
-														</c:if></td>
-													<td>
-														<div class="_leads_action">
-															<a href="grantEx?userId=${memberVo.userId}"><i
-																class="fas fa-edit"></i></a> <a
-																href="delnonApEx?userId=${memberVo.userId}"><i
-																class="fas fa-trash"></i></a>
-														</div>
-													</td>
+													<td colspan="5">승인 대기 신청이 존재하지 않습니다.</td>
 												</tr>
-											</c:forEach>
-										</c:if>
-										<!-- tr block -->
-									</tbody>
-								</table>
+											</c:if>
+											<c:if test="${!empty list}">
+												<!--게시판 내용 반복문 시작  -->
+												<c:forEach var="memberVo" items="${list }">
+													<tr>
+														<td>
+															<div class="dash_prt_wrap">
+																<div class="dash_prt_thumb" id="img">
+																	<a
+																		href="../mypage/applicationCheck?userId=${memberVo.userId}"><img
+																		src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
+																		class="img-fluid" alt="프로필 사진" /></a>
+																</div>
+																<div class="dash_prt_caption">
+																	<div class="prt_dashb_lot">No. ${memberVo.memNo }</div>
+																	<a
+																		href="../mypage/applicationCheck?userId=${memberVo.userId}"><h5>${memberVo.userId}</h5></a>
+																</div>
+															</div>
+														</td>
+														<td class="m2_hide">
+															<div class="prt_leads">
+																<a
+																	href="../mypage/applicationCheck?userId=${memberVo.userId}"><h6>${memberVo.name }</h6></a>
+															</div>
+														</td>
+														<td class="m2_hide">
+															<div class="prt_leads">
+																<h6>${memberVo.nickname }</h6>
+															</div>
+														</td>
+														<td class="m2_hide">
+															<div class="_leads_view">
+																<h5>${memberVo.email }</h5>
+															</div>
+															<div class="_leads_view_title">
+																<span>mail account</span>
+															</div>
+														</td>
+														<td class="m2_hide">
+															<div class="_leads_posted">
+																<h5>
+																	<fmt:formatDate value="${memberVo.regdate }"
+																		pattern="yyyy-MM-dd HH:mm" />
+																</h5>
+															</div>
+															<div class="_leads_view_title">
+																<span>며칠전으로 계산</span>
+															</div>
+														</td>
+														<td><c:if test="${memberVo.type eq '일반회원' }">
+																<div class="_leads_status" id="type1">
+																	<span class="active" id="type">일반회원</span>
+																</div>
+															</c:if> <c:if test="${memberVo.type eq '프리랜서' }">
+																<div class="_leads_status" id="type1">
+																	<span class="expire" id="type">프리랜서</span>
+																</div>
+															</c:if> <c:if test="${memberVo.type eq '승인대기'}">
+																<div class="_leads_status" id="type1">
+																	<span class="active" id="type">승인대기</span>
+																</div>
+															</c:if></td>
+														<td>
+															<div class="_leads_action">
+																<a href="grantEx?userId=${memberVo.userId}"><i
+																	class="fas fa-edit"></i></a> <a
+																	href="delnonApEx?userId=${memberVo.userId}"><i
+																	class="fas fa-trash"></i></a>
+															</div>
+														</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+											<!-- tr block -->
+										</tbody>
+									</table>
 
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- row -->
+						<!-- row -->
 
-					<%@ include file="../adminInc/pagination.jsp"%>
+						<%@ include file="../adminInc/pagination.jsp"%>
+					</div>
+
 				</div>
 
 			</div>
-
 		</div>
-	</div>
 </section>
 <!-- ============================ User Dashboard End ================================== -->
 <%@ include file="../inc/bottom.jsp"%>

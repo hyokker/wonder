@@ -218,9 +218,9 @@ $(function() {
 	 $(".js-range-slider").ionRangeSlider({
       type: "double",
       min: 0,
-      max: 200000,
+      max: 400000,
       from: 0,
-      to: 200000,
+      to: 400000,
       grid: true
    });
 	

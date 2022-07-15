@@ -200,3 +200,19 @@ th.next.available:hover, th.prev.available:hover {
     font-family: arial;
     font-weight: 200;
 }
+
+.reviewDel{
+	color: #cccccc;
+    font-size: 14px;
+    font-family: arial;
+    font-weight: 200;
+}
+
+.regdate a:focus{
+	color: #cccccc;
+}
+
+.reviewDel:hover{
+	color: red;
+}
+
