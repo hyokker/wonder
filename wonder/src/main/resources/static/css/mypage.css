@@ -120,6 +120,12 @@
 	max-height: 150px;	
 }
 
+/* 포트폴리오 파일 이름 input */
+#reviewProtfolioName{ 
+	border: 1px solid #e7eaf1;
+	border-top: 0;
+}
+
 
 .checkBt{ /* 체크 선택/취소 버튼 */
 	width: 100px;
