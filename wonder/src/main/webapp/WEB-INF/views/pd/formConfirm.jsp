@@ -46,7 +46,7 @@
 	</div>
 	<div class="col-lg-12 col-md-12 col-sm-12">
 	    <div class="form-group">
-			<span class="title">결제 여부 : </span>
+			<span class="title">의뢰 상태 : </span>
 			<input type="text" class="form-control confirm" name="formTitle" readonly="readonly" style="width: 105px;" value="${map['PAY_FLAG'] }">
 			<span style="margin-left: 15px;" class="title">작 업 일 : </span>
 			<input type="text" class="form-control confirm" name="formTitle" readonly="readonly" style="width: 105px;" value="${map['PD_TERM'] } 일">

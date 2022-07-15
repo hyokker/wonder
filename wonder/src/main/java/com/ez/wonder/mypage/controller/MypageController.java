@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,11 +30,14 @@ import com.ez.wonder.common.ConstUtil;
 import com.ez.wonder.common.FileUploadUtil;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
+import com.ez.wonder.form.model.FormService;
 import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.ExpertVO;
 import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.mypage.model.MypageService;
+import com.ez.wonder.payment.model.PaymentService;
+import com.ez.wonder.payment.model.PaymentVO;
 import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
 
@@ -47,6 +51,8 @@ public class MypageController {
 	private final MypageService mypageService;
 	private final ChatService chatService ;
 	private final FileUploadUtil fileUploadUtil;
+	private final PaymentService paymentService;
+	private final FormService formService;
 	
 	@RequestMapping("/incSide")
 	public void mypage_incSide(HttpSession session, Model model) {
@@ -903,6 +909,25 @@ public class MypageController {
 		return "/mypage/testChat"; 
 	}
 	
+	@ResponseBody
+	@PostMapping("/payment")
+	public int payment(@RequestBody PaymentVO vo) {
+		logger.info("결제 처리, 파라미터 vo={}", vo);
+		
+		int cnt=paymentService.insertPayment(vo);
+		logger.info("결제 결과, cnt={}", cnt);
+		
+		int cnt2=formService.payDone(Integer.parseInt(vo.getFormNo()));
+		logger.info("pay_flag 변경 결과, cnt2={}", cnt2);
+		
+		int result=0;
+		if(cnt==cnt2) {
+			result=1;
+		}
+		
+		return result;
+	}
+
 	@RequestMapping("/calendar")
 	public String calender() {
 		return "/mypage/expert_calendar";

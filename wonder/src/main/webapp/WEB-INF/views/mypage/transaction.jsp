@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/mypage/incSide" />
+
+ <!-- iamport.payment.js -->
+<script src ="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js" type="text/javascript"></script> 
+ 
 <%-- <%@ include file="incSide.jsp" %> --%>
 <script type="text/javascript">
 
@@ -14,13 +18,19 @@
 		 });
 	 });
 	 
+	 $('.fa-credit-card').click(function(){
+		 var flag = $(this).parent().next().val();
+		 if(flag == 'N'){
+			 alert('아직 의뢰를 수락하지 않았습니다.');
+			 return false;
+		 }
+	 });
 	 
 	 $('#formTypeUpdate').click(function(){
 			if(!confirm('해당 의뢰를 수락하시겠습니까?')){
 				return false;
 			}
 		});
-	 
  });
  
  
@@ -28,10 +38,62 @@ function pageProc(curPage){
 	$('input[name=currentPage]').val(curPage);
 	$('form[name=frmPage]').submit();
 }
+
+
+//결제 시스템
+const IMP = window.IMP; // 생략 가능
+IMP.init("imp71307268"); // Example: imp00000000
+
+<c:forEach var="map" items="${list }" varStatus="status">
+	function requestPay${status.index }() {
+	    // IMP.request_pay(param, callback) 결제창 호출
+	    IMP.request_pay({ // param
+	        pg: "html5_inicis",
+	        pay_method: "card",
+	        merchant_uid: "${map.FORM_NO }",
+	       	name: "${map.PD_TITLE }",
+	        amount: ${map.PRICE },
+	        buyer_email: "${map.EMAIL }",
+	        buyer_name: "${map.NAME }",
+	        buyer_tel: "${map.TEL }"
+	    }, function (rsp) { // callback
+	    	if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+	            // jQuery로 HTTP 요청
+	            jQuery.ajax({
+	            	url: "<c:url value='/mypage/payment' />", 
+	                method: "POST",
+	                headers: { "Content-Type": "application/json" },
+	                data: JSON.stringify({
+	                    payCode: rsp.imp_uid, //결제번호
+	                    formNo: rsp.merchant_uid, //주문번호
+	                    payMethod: rsp.pay_method,
+	                    pdName: rsp.name,
+	                    price: ${map.PRICE },
+	                    buyerName: rsp.buyer_name,
+	                    buyerTel: rsp.buyer_tel
+	                }),
+	                success: function(res){
+			          if(res == 1){
+						alert('결제 성공')	;		           
+			          }
+			        },
+			        error:function(xhr, status, error){
+			          console.log("error : ajax 통신 실패!!!");
+			        }
+				}) //ajax
+			} else {
+	            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+			}
+	    	m_redirect_url: "<c:url value='/mypage/transaction' />";
+	    });
+	  }
+</c:forEach>  
+
 </script>
 <input type="hidden" id="pageCheck" value="transaction">
 
 <link href="${pageContext.request.contextPath}/css/mypage.css" rel="stylesheet">
+
 
 						
 						<div class="col-lg-9 col-md-8 col-sm-12">
@@ -102,7 +164,7 @@ function pageProc(curPage){
 														 </td>
 														</c:when>
 														<c:otherwise>
-															<c:forEach var="map" items="${list }">
+															<c:forEach var="map" items="${list }" varStatus="status">
 																<!-- tr block -->
 																<tr>
 																	<td>
@@ -207,7 +269,13 @@ function pageProc(curPage){
 																	</td>
 																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
-																			<a href="#"><i class="fas fa-credit-card"></i></a>
+																			<c:if test="${map.PAY_FLAG == 'N' || map.PAY_FLAG == 'Y'}">
+																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
+																			</c:if>
+																			<c:if test="${map.PAY_FLAG == 'P'}">
+																				<a href="#">환불 신청</a>
+																			</c:if>
+																			<input type="text" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>
 																	</td>
 																</tr>
