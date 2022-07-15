@@ -1,14 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<!--  
+	<해결과제>
+	
+	-페이징처리
+		test="${pagingInfo.firstPage>1 } 부터 제거
+	-게시글 암호화
+	-앞뒤 공백제거
+-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/board.css'/>" />
-<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	function pageProc(currentPage) {
 		$('input[name=currentPage]').val(currentPage);
 		$('form[name=frmPage]').submit();
 	}
+	
+	
+	$(function (){
+		var selectedText = $('#searchCondition option:selected').text();
+			if(selectedText=="전체"){
+					$('#searchKeyword').attr("readonly","readonly");
+					$('#searchKeyword').removeAttr("placeholder");
+			}		
+		//<input type="text" class="form-control" name="searchKeyword" readonly value="" id="searchKeyword">
+	});
+	
+
+	
+
+	
+	
+</script>
+<!--  테스트  -->
+<script type="text/javascript">
+//검색바 설정
+$(function (){
+	$('#searchCondition').change(function() {
+		var selectedText = $('#searchCondition option:selected').text();
+		
+		$.ajax({
+			success:function(){
+				if(selectedText!="전체"){
+					$('#searchKeyword').attr("placeholder","검색어 입력");
+					$('#searchKeyword').removeAttr("readonly");
+				}else{
+					$('#searchKeyword').val("");
+					$('#btnSearch').get(0).click();
+				} 	
+			},
+			error:function(xhr, status, error){
+				alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
+			}
+		});
+	});
+});
 </script>
 <title>wonder - 자유게시판</title>
 
@@ -26,23 +73,23 @@
 		</div>
 	</c:if>
 
-	<form action="<c:url value='/board/list'/>" method="post"
-		name="frmPage">
+	<form action="<c:url value='/board/list'/>" method="post" name="frmPage">
 		<input type="hidden" name="searchKeyword"
-			value="${param.searchKeyword }"> <input type="hidden"
+			value="${param.searchKeyword }">
+		<input type="hidden"
 			name="searchCondition" value="${param.searchCondition }">
 		<input type="hidden" name="currentPage">
 	</form>
 
 	<div class="container-fluid">
-		<div class="row">
+		<div class="list row">
 			<div class="col-lg-9 col-md-8 col-sm-12">
 				<div class="dashboard-body">
-					<div class="row">
+					<div class="list row">
 						<div class="col-lg-12 col-md-12">
 							<div class="dashboard_property">
-								<div class="table-responsive">
-									<table class="table">
+								<div class="table-responsive margin-o">
+									<table class="table margin-o">
 										<colgroup>
 											<col style="width: 10%;" />
 											<col style="width: 50%;" />
@@ -55,7 +102,7 @@
 												<th scope="col" class="m2_hide">번호</th>
 												<th scope="col">제목</th>
 												<th scope="col" class="m2_hide">작성자</th>
-												<th scope="col" class="m2_hide">날짜</th>
+												<th scope="col" class="m2_hide">작성일</th>
 												<th scope="col">조회수</th>
 											</tr>
 										</thead>
@@ -71,7 +118,7 @@
 														<!--번호  -->
 														<td class="m2_hide">
 															<div class="prt_leads">
-																<span>${vo.boardNo}</span>
+																<span class="bold">${vo.boardNo}</span>
 															</div>
 														</td>
 														<!--제목  -->
@@ -81,20 +128,29 @@
 																	<div class="prt_dash_rate">
 																		<!--공지인 경우  -->
 																		<c:if test="${vo.cateType=='N'}">
-																			<span class="notice">공지</span>
+																			<a class="notice" href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
+																				<span class="notice">공지</span>
+																				<c:if test="${fn: length(vo.boardTitle)>20}">
+																                  <span class="boardTitle">${fn:substring(vo.boardTitle,0,20) }...</span>            
+																            	</c:if>
+																	            <c:if test="${fn: length(vo.boardTitle)<=20}">
+																	            	<span class="boardTitle">${vo.boardTitle }</span>            
+																	            </c:if>
+																			</a>
 																		</c:if>
-																		<a
-																			href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
-																			<c:if test="${fn: length(vo.boardTitle)>20}">
-															                  ${fn:substring(vo.boardTitle,0,20) }...            
-															            </c:if>
-															            <c:if
-																				test="${fn: length(vo.boardTitle)<=20}">
-															                  ${vo.boardTitle }           
-															            </c:if>
-																		</a>
+																		<c:if test="${vo.cateType!='N'}">
+																			<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo}'/>">
+																				<c:if test="${fn: length(vo.boardTitle)>20}">
+																                  <span class="boardTitle">${fn:substring(vo.boardTitle,0,20) }...</span>             
+																            	</c:if>
+																	            <c:if test="${fn: length(vo.boardTitle)<=20}">
+																	            	<span class="boardTitle">${vo.boardTitle }</span>           
+																	            </c:if>
+																	            <span class="totalComment">(${vo.totalComment})</span>
+																			</a>
+																		</c:if>
 																		<c:if test="${!empty vo.fileName }">
-																			<img src='<c:url value="/img/file.gif"/>'>
+																			<em class="ic ic_list_file"></em>
 																		</c:if>
 																		<c:if test="${vo.dateTerm<24 }">
 																			<span class="new">new</span>
@@ -131,8 +187,8 @@
 							</div>
 						</div>
 				
-						<div class="col-lg-12 col-md-12">
-							<div class="_prt_filt_dash">
+						<div class="search col-lg-12 col-md-12">
+							<div class="list _prt_filt_dash">
 							<!-- 검색바  -->
 								<div class="divSearch">
 								<div class="divSearch_bar">
@@ -140,8 +196,12 @@
 										action='<c:url value="/board/list"/>'>
 										<div class="_prt_filt_dash_flex">
 											<div class="foot-news-last">
-												<div class="form-group col-md-4" id="searchCondition">
-													<select name="searchCondition" class="form-control">
+												<div class="form-group col-md-4">
+													<select name="searchCondition" class="form-control" id="searchCondition">
+														<option value=""
+															<c:if test="${param.searchCondition=='' }">
+											            		selected="selected"
+											            	</c:if>>전체</option>
 														<option value="board_title"
 															<c:if test="${param.searchCondition=='board_title' }">
 											            		selected="selected"
@@ -158,11 +218,13 @@
 												</div>
 												<div class="input-group">
 													<input type="text" class="form-control"
-														name="searchKeyword" placeholder="검색어 입력"
-														value="${param.searchKeyword}">
+															name="searchKeyword" placeholder="검색어 입력"
+															value="${param.searchKeyword}"
+															id="searchKeyword">
+													
 													<div class="input-group-append">
-														<button type="submit" title="검색"
-															class="input-group-text theme-bg b-0 text-light">
+														<button type="submit" title="검색" id="btnSearch"
+															class="btn input-group-text theme-bg b-0 text-light">
 															<i class="fas fa-search"></i>
 														</button>
 													</div>
@@ -183,11 +245,13 @@
 								<ul class="pagination p-center">
 									<!-- 이전 블럭으로 -->
 									<c:if test="${pagingInfo.firstPage>1 }">
-										<li class="page-item"><a class="page-link" href="#"
+										<li class="page-item">
+											<a class="page-link" href="#"
 											aria-label="Previous"
 											onclick="pageProc(${pagingInfo.firstPage-1})"> <span
 												class="">◀</span>
-										</a></li>
+											</a>
+										</li>
 									</c:if>
 									<!-- 페이지 번호-->
 									<c:forEach var="i" begin="${pagingInfo.firstPage }"

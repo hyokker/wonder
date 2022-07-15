@@ -3,92 +3,42 @@
 <%@ include file="../inc/top.jsp"%>
 <!--  
 	<해결과제>
-	새창 -> modal 변경이나 창 크기 조절
+	-세션별 기능 제한(공지)
+	-삭제 -> modal 변경이나 창 크기 조절
+	- 삭제는 본인계정과 관리자만("관리자에 의해 삭제된 게시물입니다")
+	-대댓글 ~개 댓글 보이기 구현
+	-수정유무 editType 추가 replyRegdate는 그대로 =>("--에 수정됨")
+	-공유(url복사만 구현된 상태)
+	-첨부파일 이미지 제거
 -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/board.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/board.css'/>" />
 <script type="text/javascript">
-	$(function(){
-	
-		//getReplylist();
-		
-		//게시글 삭제(미완)
-		$('#btdelete').click(function(){
-			window.open("<c:url value='delete?boardNo=${param.boardNo}&fileName=${vo.fileName }'/>",'width=500, height=400');
-		});
-		
-		//대댓글 등록
-		$(".reReplyForm").hide();
-	
-		$(".btRereply").click(function(){
-			if($(this).text()=="답글쓰기"){
-				$(this).text("작성취소");
-			}else{
-				$(this).text("답글쓰기");
-			}
-			
-			$(this).closest(".comment-details").find(".reReplyForm").toggle();
-			//var groupNo = $(this).attr("id");
-			//$(this).closest(".comment-details").find(".reReplyForm").attr("id",toggle_id);
-		});
-		
-		
-		
+$(function(){
+	//게시글 삭제(미완)
+	$('#btdelete').click(function(){
+		window.open("<c:url value='delete?boardNo=${param.boardNo}&fileName=${vo.fileName }'/>","",'width=500, height=400');
 	});
 	
-
+	
+	//대댓글 등록
+	$(".reReplyForm").hide();
+	
+	$(".btnRereply").click(function(){
+		if($(this).text()=="답글쓰기"){
+			$(this).text("작성취소");
+		}else{
+			$(this).text("답글쓰기");
+		}
+		
+		$(this).closest(".comment-details").find(".reReplyForm").toggle();
+		//var groupNo = $(this).attr("id");
+		//$(this).closest(".comment-details").find(".reReplyForm").attr("id",toggle_id);
+	});
 	
 	
-	
+});
 </script>
 <script type="text/javascript">
-//댓글 리스트(미완- boardNo없이 넘아가는 문제는 editView에 input hidden 삽입으로 해결했으나 reload됨)
-function getReplylist(replyNo){
-	alert("getReplylist");
-	
-	$.ajax({
-		async:'false',
-		url:'<c:url value="/board/detail/getReplylist"/>',
-		type:'GET',
-		data:"replyNo="+replyNo,
-		success:function(res){
-			alert("테스트중2");
-			var replyList = "";
-			/*등록된 댓글 내용 */
-				replyList +=						'<div class="comment-reply" id="'+replyNo+'comment-reply">';
-				/*댓글 수정, 댓글 삭제 */
-				//replyList +=							'<c:if test="">
-				//replyList +=							'</c:if>';
-				replyList +=							'<div class="replyButtons" id="'+replyNo+'replyButtons">';
-				replyList +=								'<button class="btReplyEditOpen"';
-				replyList +=									'onclick="replyEditView('+replyNo+')">수정</button>';
-				replyList +=									'|';
-				replyList +=								'<button class="replyDelete"';
-				replyList +=									'onclick="replyDelete('+replyNo+')">삭제</button>';
-				replyList +=							'</div>';
-				replyList +=							'<div class="boardReply" id="'+replyNo+'boardReply">';
-				replyList +=								'<p class="comments">';
-				replyList +=									'<span id="'+replyNo+'replyContent">'+res.replyContent+'</span>';
-												/*24시간 이내 작성 댓글 */
-				replyList +=									'<c:if test="'+res.dateTerm+'<24">';
-				replyList +=										'&nbsp;<span class="new">new</span>';
-				replyList +=									'</c:if>';
-				replyList +=								'</p>';
-											/*답글쓰기(대댓글은 불가)  */
-				replyList +=								'<c:if test="'+res.step+'==0">';
-				replyList +=									'<button class="btRereply">답글쓰기</button>';
-				replyList +=								'</c:if>';
-				replyList +=							'</div>';
-				replyList +=						'</div>';
-				/*등록된 댓글 끝*/
-			$('#'+replyNo+'comment-reply').replaceWith(editView);
-		},
-		
-		error:function(xhr, status, error){
-			alert('error:'+error);
-		}
-	});
-}
 
 //댓글삭제(완료)
 function replyDelete(replyNo){
@@ -98,63 +48,208 @@ function replyDelete(replyNo){
 			url:'<c:url value="/board/detail/replyDelete"/>',
 			type:'GET',
 			data:"replyNo="+replyNo,
-			/*
-			dataType:'json',
-			*/
 			success:function(res){
 				alert("해당 댓글이 삭제되었습니다");
 				location.reload();
 			},
-			
 			error:function(xhr, status, error){
-				alert('error:'+error);
+				//alert('error:'+error);
+				alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
 			}
 		});
 	}
 }
-
-function replyEditView(replyNo) {
+ 	
+//댓글 수정폼 열기
+function replyEditView(replyNo){
 	$.ajax({
 		url:'<c:url value="/board/detail/replyEditView"/>',
 		type:'GET',
 		data:"replyNo="+replyNo,
-		
 		//dataType:'json',
-		
 		success:function(res){
-			alert('${param.boardNo}');
+			//alert(res.replyContent);
+			var editView1 = "";
+			var editView2 = "";
+			/*댓글 수정취소 */
+			editView1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
+			editView1 +=	'<button class="btnReplyEditOpen"';
+			editView1 +=		'onclick="getReplylist('+replyNo+')">수정취소</button>';
+			editView1 +='</div>';
+			/*등록된 댓글 내용 */
+			editView2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';
+			editView2 +=	'<form name="frmReplyEdit" method="post" action="<c:url value="/board/detail/replyEdit"/>" onsubmit="validateForm()" ';
+			editView2 +=		'onsubmit="return validateForm();">';
+			editView2 +=			'<input type="hidden" name="replyNo"  value="'+replyNo+'" />';
+			editView2 +=			'<input type="hidden" name="boardNo" value="${param.boardNo }" />';
+			editView2 +=			'<div class="boardReply" id="'+replyNo+'boardReply" style="margin-top:10px;">';
+			editView2 += 				'<textarea name="replyContent" class="comments form-control" id="replyContent" placeholder="댓글을 입력하세요">';
+			editView2 += 					res.replyContent;
+			editView2 += 				'</textarea>';
+			editView2 +=			'</div>';
+			editView2 +=			'<div class="ReplyEditSubmit">';
+			editView2 += 				'<button class="btReplyEdit btn btn-theme" type="submit" id="comment_edit" ';
+			editView2 += 			'>수정완료</button>';
+			editView2 +=		'</div>';
+			editView2 +=	'</form>';
+			editView2 +='</div>';
 			
-			var editView = "";
-			editView +=					'<div class="comment-reply" id="'+replyNo+'comment-reply">';
-			editView += 					'<form name="frmReplyEdit" >';
-			editView +='<input type="hidden" name="boardNo" value="${param.boardNo }" />';
-										/*댓글 수정취소 */
-			editView +=							'<div class="replyButtons" id="'+replyNo+'replyButtons">';
-			editView +=								'<button class="btReplyEditOpen"';
-			editView +=									'onclick="getReplylist('+replyNo+')">수정취소</button>';
-			editView +=								'</div>';
-			editView +=							'<div class="boardReply" id="'+replyNo+'boardReply">';
-			editView += 								'<textarea class="comments form-control" id="'+replyNo+'replyContent" placeholder="댓글을 입력하세요">';
-			editView += 								res.replyContent;
-			editView += 								'</textarea>';
-			editView += 							'<button class="btn btn-theme comments_edit" type="submit" id="comment_edit"';
-			editView += 								'onclick="#">';
-			editView += 								'수정완료';
-			editView += 							'</button>';
-			editView +=							'</div>';
-			editView += 					'</form>';
-			editView +=					'</div>';
-			//
-			
-			$('#'+replyNo+'comment-reply').replaceWith(editView);
+			$('#'+replyNo+'replyButtons').replaceWith(editView1);
+			$('#'+replyNo+'comment-reply').replaceWith(editView2);
 		},
 		
 		error:function(xhr, status, error){
-			alert('error:'+error);
+			alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
 		}
 	});
 }
+
+//댓글 수정취소
+function getReplylist(replyNo){
+	
+	//alert("getReplylist테스트");
+	$.ajax({
+		url:'<c:url value="/board/detail/getReplylist"/>',
+		type:'GET',
+		data:"replyNo="+replyNo,
+		success:function(res){
+			//alert(res.replyContent);
+			var replyList1 = "";
+			var replyList2 = "";
+			replyList1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
+			replyList1 +=	'<button class="btnReplyEditOpen"';
+			replyList1 +=		' onclick="replyEditView('+replyNo+')">수정</button>';
+			replyList1 +=	'<button class="btnReplyDelete"';
+			replyList1 +=		' onclick="replyDelete('+replyNo+')">삭제</button>';
+			replyList1 +='</div>';
+			
+			replyList2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';	
+			replyList2 +=	'<div class="boardReply" id="'+replyNo+'boardReply">';
+			replyList2 +=		'<p class="comments"><br>';
+			replyList2 +=			'<span id="'+replyNo+'replyContent">'+res.replyContent+'</span>';
+										/*24시간 이내 작성 댓글 */
+			replyList2 +=			'<c:if test="'+res.dateTerm+'<24">';
+			replyList2 +=				'&nbsp;<span class="new">new</span>';
+			replyList2 +=			'</c:if><br>';
+			replyList2 +=		'</p>';
+										/*답글쓰기(대댓글은 불가)  */
+			replyList2 +=		'<c:if test="'+res.step+'==0">';
+			replyList2 +=			'<button class="btnRereply">답글쓰기</button>';
+			replyList2 +=		'</c:if>';
+			replyList2 +=	'</div>';
+			replyList2 +='</div>';
+			/*등록된 댓글 끝*/
+			
+			$('#'+replyNo+'replyButtons').replaceWith(replyList1);
+			$('#'+replyNo+'comment-reply').replaceWith(replyList2);
+		},
+		error:function(xhr, status, error){
+			alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
+		}
+	});
+}
+
+//댓글 입력, 수정 유효성검사
+function validateForm(){
+	//var frm = $(event.target).find('textarea').closest('form').attr('name');
+	//alert(frm);
+	var taVal=$(event.target).find('textarea').val();
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var cateType= "<c:out value='${vo.cateType}'/>";
+	
+	//alert(cateType);
+
+	
+	if(userId!="" && $.trim(taVal).length< 1){
+		alert("댓글 내용을 입력하세요.");
+		$(taVal).focus();
+		return false;
+	}
+	
+	if(userId=="" && cateType!='N'){
+		alert("로그인이 필요합니다.");
+		//location.href= '<c:url value="/"/>';
+		$('#topLogin').get(0).click();
+		return false;
+	}
+	
+	if(cateType=='N'){
+		alert("공지사항 댓글 입력불가!");
+		location.reload();
+		return false;
+	}
+
+}
+
+
+// 공유 - url 복사
+function clip(){
+    var url = window.document.location.href; //현재 주소값
+    var textarea = document.createElement("textarea");  
+    //url 변수 생성 후, textarea라는 변수에 textarea의 요소를 생성
+    
+    document.body.appendChild(textarea); //</body> 바로 위에 textarea를 추가(임시 공간)
+    textarea.value = url;  // textarea 값에 url를 대입
+    textarea.select();  //textarea를 선택
+    document.execCommand("copy"); // 복사
+    document.body.removeChild(textarea); //복사 후 textarea 요소를 없애줌
+    
+    alert("URL이 복사되었습니다.")  // 알림창
+}
+
+//CRUD - 글쓰기
+function toEdit(){
+	alert("테스트중");
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var adminId="<c:out value='${sessionScope.adminId}'/>";
+
+
+	if(adminId!=""){
+		alert("공지 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+		
+	}else if(userId!=""){
+		alert("게시글 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+	}else{
+		alert("로그인이 필요합니다.");
+		//location.href= '<c:url value="/"/>';
+		$('#topLogin').get(0).click();
+		return false;
+	}
+}
+
+
 </script>
+
+<!-- 테스트용 js -->
+<script type="text/javascript">
+function toWrite(){
+	alert("테스트중");
+	var userId="<c:out value='${sessionScope.userId}'/>";
+	var adminId="<c:out value='${sessionScope.adminId}'/>";
+
+
+	if(adminId!=""){
+		alert("공지 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+		
+	}else if(userId!=""){
+		alert("게시글 작성 페이지로 이동합니다.");
+		location.href='<c:url value='/board/write'/>';
+	}else{
+		alert("로그인이 필요합니다.");
+		//location.href= '<c:url value="/"/>';
+		$('#topLogin').get(0).click();
+		return false;
+	}
+}
+
+
+
+</script>
+
+
 <title>wonder - 자유게시판 상세보기</title>
 
 <section class="gray">
@@ -173,10 +268,10 @@ function replyEditView(replyNo) {
 							<h4 class="black">
 								<c:choose>
 									<c:when test="${vo.cateType=='N'}">
-										<em class="board_category red">[공지]</em>
+										<span class="notice">공지</span>
 									</c:when>
 									<c:otherwise>
-										<em class="board_category color_gray">[일반]</em>
+										<span class="normal">일반</span>
 									</c:otherwise>
 								</c:choose>
 								${vo.boardTitle}
@@ -187,24 +282,28 @@ function replyEditView(replyNo) {
 							<span class=""><i class="ti-user theme-cl">
 								${vo.nickname}</i></span> |
 						<!-- 작성일 -->	
-							<span class="black"><em class="ic ic_calendar"></em>
-									<fmt:formatDate value="${vo.regdate}"
-										pattern="yyyy-MM-dd HH:mm:ss" />
+							<span class="black">
+								<em class="ic ic_regdate"></em>
+								<fmt:formatDate value="${vo.regdate}"
+									pattern="yyyy-MM-dd HH:mm:ss" />
 							</span> | 
 						<!--  조회수-->
-							<span class="color_gray"><em class="ic ic_view"></em>${vo.readCount}</span> | 
+							<span class="color_gray">
+								<em class="ic ic_view"></em>
+									${vo.readCount}
+							</span> | 
 						<!--  공유하기-->
-							<span class="bold navy"><em class="ic ic_share"></em>공유</span> <em
-								class="ic ic_more"></em>
+							<a href="#" class="bold navy" onclick="clip();"><em class="ic ic_share"></em>URL복사</a> 
+							<em class="ic ic_more"></em>
 						</div>
 						<hr>
 					</div>
 					<div class="block-body">
 						<div class="right">
-							<em class="ic ic_file"></em>
-							<span class="upfile">첨부파일&nbsp;</span>
 							<c:if test="${!empty vo.fileName }">
-								<span> 
+							<em class="ic ic_list_file"></em>
+							<span class="upfile">첨부파일&nbsp;</span>
+								<span class="fileInfo"> 
 									<a href="<c:url value='/board/download?boardNo=${param.boardNo}&fileName=${vo.fileName}'/>">
 										${fileInfo} 
 									</a></span>
@@ -214,7 +313,7 @@ function replyEditView(replyNo) {
 							</c:if>
 						</div>
 						<%
-						pageContext.setAttribute("newLine", "\r\n");
+							pageContext.setAttribute("newLine", "\r\n");
 						%>
 						<div class="lastDiv">
 							<p class="content black">${fn:replace(vo.boardContent, newLine, "<br>")}</p>
@@ -223,7 +322,7 @@ function replyEditView(replyNo) {
 
 					<div class="btn center">
 						<button class="btn btn-theme" type="button" id=""
-							onclick="location.href='<c:url value='write'/>'">
+							onclick="toWrite();">
 							<i class="fas fa-edit"></i> 글쓰기
 						</button>
 						<button class="btn btn-theme" type="button" id="btedit"
@@ -241,91 +340,119 @@ function replyEditView(replyNo) {
 
 <!-- 댓글 등록  -->
 <div class="comment-box submit-form">
-	<div class="property_block_wrap">
-		<form name="frmReply" method="post" action="<c:url value='/board/detail/reply'/>">
-<!--부모테이블 memVo 외래키 제약조건 재생성 및 값 적용
-<input type="hidden" name="userId" value="${vo.userId}" />
-  -->
-<input type="hidden" name="userId" value="testUser" />
-<!-- 접속계정의 닉네임으로 처리  변경
-<input type="hidden" name="nickname" value="${sessionScope.nickname}" />
--->
-<input type="hidden" name="nickname" value="testNick" />
-<input type="hidden" name="boardNo" value="${param.boardNo }" />
-								<div class="form-group">
-									<h5 class="comments-title black">댓글 ${totalComment }개</h5>
-									<textarea class="comments form-control" name="replyContent"  placeholder="댓글을 입력하세요"></textarea>
-									<button class="btn btn-theme comments_write" type="submit">
-										<i class="fas fa-edit"></i> 등록
-									</button>
-								</div>
-							</form>
-
+	<form name="frmReply" method="post" action="<c:url value='/board/detail/reply'/>" onsubmit="return validateForm();">
+		<c:choose>
+			<c:when test="${!empty sessionScope.userId}">
+				<input type="hidden" name="userId" value="testUser" />
+				<!-- 접속계정의 닉네임으로 처리  변경
+				<input type="hidden" name="userId" value="${sessionScope.userId}" />
+				<input type="hidden" name="nickname" value="${sessionScope.nickname}" />
+				-->
+				<input type="hidden" name="nickname" value="testNick" />
+				<input type="hidden" name="boardNo" value="${param.boardNo }" />
+				<div class="form-group">
+					<h5 class="comments-title black">댓글 ${totalComment }개</h5>
+					<textarea class="reply comments form-control" name="replyContent" id="" placeholder="댓글을 입력하세요"></textarea>
+					<button class="btn btn-theme comments_write" type="submit">
+						<i class="fas fa-edit"></i> 등록
+					</button>
+				</div>
+			</c:when>
+			<c:when test="${vo.cateType=='N'}">
+				<div class="form-group">
+					<h5 class="comments-title black">댓글</h5>
+					<textarea class="reply comments form-control" name="replyContent" id="noUserTa" placeholder="공지사항 댓글 입력불가" readonly></textarea>
+					<button class="btn btn-theme comments_write" type="button" onclick="validateForm()">
+						<i class="fas fa-edit"></i> 등록
+					</button>
+				</div>
+			</c:when>
+				<c:otherwise>
+					<div class="form-group">
+						<h5 class="comments-title black">댓글 ${totalComment }개</h5>
+						<textarea class="reply comments form-control" name="replyContent" id="noUserTa" placeholder="회원만 이용가능합니다"></textarea>
+						<button class="btn btn-theme comments_write" type="button" id="noUser"  onclick="validateForm()">
+							<i class="fas fa-edit"></i> 등록
+						</button>
+					</div>
+				</c:otherwise>
+		</c:choose>
+	</form>
+</div>
+<!--공지가 아닌 경우 노출하기  -->
+<c:if test="${vo.cateType!='N'}">	
 <!-- 댓글 리스트(replyList) -->
-<div id="replyList">
-<c:if test="${empty replyList }">
+<c:if test="${empty replyList}">
+<div id="replyList" style="background: #ffffff;">
 	<p class="NoReply">아직 댓글이 없습니다</p>
 </c:if>
 <c:if test="${!empty replyList }">
+<div id="replyList">
 	<c:forEach var="replyVo" items="${replyList }">
-		<div class="comment-details">
+		<div class="reply comment-details">
 			<c:if test="${replyVo.delType=='Y'}">
-       			<p class="color_gray">삭제된 댓글입니다.</p>
+				<div class="deleted comment-meta">
+       				<p class="">(삭제된 댓글입니다)</p>
+     			</div>
      		</c:if>
 			<c:if test="${replyVo.delType!='Y'}">
-			<!-- 대댓글의 경우 들여쓰기 -->
+				<!-- 대댓글의 경우 들여쓰기 -->
 				<c:if test="${replyVo.step>0}">
-					<div class="reReply comment-meta" style="padding-left:40px" 
+					<div class="reReply comment-meta" 
 						id='${replyVo.replyNo}comment-meta'
 						onclick="replyDetail(${replyVo.replyNo})">
 				</c:if>
 				<!--  1차댓글의 경우 -->
 				<c:if test="${replyVo.step==0}">
-					<div class="original comment-meta" 
+					<div class="original comment-meta " 
 						id='${replyVo.replyNo}comment-meta'
 						onclick="replyDetail(${replyVo.replyNo})">
 				</c:if>
-				<!-- 등록된 댓글 작성자&등록일-->
-						<div class="comment-left-meta">
-							<span class="author-name" id="">
-								<i class="ti-user theme-cl"> ${replyVo.nickname}</i>
-							</span>
-							<span class="comment-date">&nbsp;<fmt:formatDate
-									value="${replyVo.replyRegdate}" type="both" />
-							</span>
+					<!-- 등록된 댓글 작성자&등록일-->
+						<div class="comment-info flex-space">
+							<div class="list comment-left-meta">
+								<c:if test="${replyVo.step>0}">
+									<em class="ic ic_reReply"></em>
+								</c:if>
+								<span class="author-name" id="">
+									<i class="ti-user theme-cl"> ${replyVo.nickname}</i>
+								</span>
+								<span class="comment-date">&nbsp;
+									<fmt:formatDate
+										value="${replyVo.replyRegdate}" type="both" />
+								</span>
+							</div>
+					<!-- 댓글 수정, 댓글 삭제 -->
+							<div class="replyButtons" id="${replyVo.replyNo}replyButtons">
+								<button class="btnReplyEditOpen"
+									onclick="replyEditView(${replyVo.replyNo})">수정</button>
+								<button class="btnReplyDelete"
+									onclick="replyDelete(${replyVo.replyNo})">삭제</button>
+							</div>
 						</div>
 				<!--등록된 댓글 내용-->
 						<div class="comment-reply" id='${replyVo.replyNo}comment-reply'>
-				<!-- 댓글 수정, 댓글 삭제 -->
-						<!--  접속계정에만 보이도록
-						<c:if test=""></c:if>
-						-->
-							<div class="replyButtons" id="${replyVo.replyNo}replyButtons">
-								<button class="btReplyEditOpen"
-									onclick="replyEditView(${replyVo.replyNo})">수정</button>
-								|
-								<button class="replyDelete"
-									onclick="replyDelete(${replyVo.replyNo})">삭제</button>
-							</div>
 							<div class="boardReply" id="${replyVo.replyNo}boardReply">
 								<p class="comments">
+									<br>
 									<span id="${replyVo.replyNo}replyContent">${replyVo.replyContent }</span>
 									<!-- 24시간 이내 작성 댓글 -->
 									<c:if test="${replyVo.dateTerm<24 }">
 										&nbsp;<span class="new">new</span>
 									</c:if>
+									<br>
 								</p>
 									<!-- 답글쓰기(대댓글은 불가) -->
 								<c:if test="${replyVo.step==0}">
-									<button class="btRereply">답글쓰기</button>
+									<button class="btnRereply">답글쓰기</button>
 								</c:if>
 							</div>
-						</div><!-- 등록된 댓글 끝-->
+						</div>
 					</div>
-						
+		<!-- 등록된 댓글 끝-->	
 						<!--  대댓글 등록-->
 					<div class="reReplyForm" id="${replyVo.groupNo}reReplyForm" style="padding-left:30px">
-						<form name="frmReReply" method="post" action="<c:url value='/board/detail/reReply'/>">
+						<form name="frmReReply" method="post" action="<c:url value='/board/detail/reReply'/>" onsubmit="return validateForm();">
 <!-- 접속계정정보 처리  변경
 <input type="hidden" name="userId" value="${sessionScope.userId}" />
 <input type="hidden" name="nickname" value="${sessionScope.nickname}" />
@@ -338,7 +465,7 @@ function replyEditView(replyNo) {
 <input type="hidden" name="sortNo" value="${replyVo.sortNo }">
 							<div class="form-group">
 								<h5 class="comments-title">댓글</h5>
-								<textarea class="comments form-control" name="replyContent" placeholder="댓글을 입력하세요"></textarea>
+								<textarea class="reReply comments form-control" name="replyContent" placeholder="댓글을 입력하세요"></textarea>
 								<button class="btn btn-theme comments_write" type="submit">
 									<i class="fas fa-edit"></i> 등록
 								</button>
@@ -348,17 +475,16 @@ function replyEditView(replyNo) {
 					<!--대댓등 등록양식 끝-->
 			</c:if>
 		</div>
-	</c:forEach>	
+	</c:forEach>
+</div>	
 </c:if>
+</c:if>	<!-- 공지가 아닌 경우 노출 끝 -->
 <!-- 댓글리스트 종료 -->
 						</div>
 						<!--  -->
 					</div>
 				</div>
 			</div>
-
-
-		</div>
 		<!-- /row -->
 	</div>
 

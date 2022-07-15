@@ -10,7 +10,7 @@ public class ReplyVO {
 	private int boardNo;  /* 자유게시판번호 */
 	private String userId;	  /* 회원아이디 */
 	private String replyContent;	/* 댓글내용 */
-	private Timestamp replyRegdate; /* 등록일 */
+	private Timestamp replyRegdate; /* 등록일 *//* 수정일 */
 	
 	//
 	private int groupNo;	//그룹번호
