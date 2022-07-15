@@ -78,25 +78,35 @@
 									<table class="property-table-wrap responsive-table bkmark">
 										<tbody>
 											<!-- Item #1 -->
-											<c:forEach var="map" items="${list }">
-											<tr>
-												<td class="dashboard_propert_wrapper">
-													<img src="<c:url value='/img/pdupload/${map.FILE_NAME }' />" alt="찜목록 사진" class="bookmarkImg">
-													<div class="title">
-														<h4><a href="<c:url value='/pd/pdDetail?pdNo=${map.PD_NO}'/>">${map.PD_TITLE }</a></h4>
-														<span>${map.INTRODUCTION }</span>
-														
-														<span class="table-property-price">
-															<fmt:formatNumber value="${map.PD_PRICE }" pattern="#,###" />
-															 원 부터~</span>
-													</div>
-												</td>
-												<td class="action">
-													<a class="delete pointer"><i class="ti-close"></i> 찜 취소</a>
-													<input type="text" value="${map.PD_NO }" class="pdNo">
-												</td>
-											</tr>
-											</c:forEach>
+											<c:choose>
+												<c:when test="${fn:length(list) == 0 }" >
+													 <td colspan="8">
+													 	<br>
+													 	<h5 class="noneList">찜 목록이 비어있습니다</h5>
+													 </td>
+													</c:when>
+													<c:otherwise>
+														<c:forEach var="map" items="${list }">
+														<tr>
+															<td class="dashboard_propert_wrapper">
+																<img src="<c:url value='/img/pdupload/${map.FILE_NAME }' />" alt="찜목록 사진" class="bookmarkImg">
+																<div class="title">
+																	<h4><a href="<c:url value='/pd/pdDetail?pdNo=${map.PD_NO}'/>">${map.PD_TITLE }</a></h4>
+																	<span>${map.INTRODUCTION }</span>
+																	
+																	<span class="table-property-price">
+																		<fmt:formatNumber value="${map.PD_PRICE }" pattern="#,###" />
+																		 원 부터~</span>
+																</div>
+															</td>
+															<td class="action">
+																<a class="delete pointer"><i class="ti-close"></i> 찜 취소</a>
+																<input type="hidden" value="${map.PD_NO }" class="pdNo">
+															</td>
+														</tr>
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
 <%-- 
 
 

@@ -91,17 +91,18 @@ div#srchTitBar {
 												</div>
 											</div>
 										</div>
+									</form>
 
 
-										<div class="_prt_filt_dash_last m2_hide">
-											<div class="_prt_filt_radius"></div>
-											<div class="_prt_filt_add_new">
-												<a href="<c:url value='/admin/createAdmin'/>"
-													class="prt_submit_link" id="createbtn"><i
-													class="fas fa-plus-circle"></i><span
-													class="d-none d-lg-block d-md-block">부서별 관리자 생성</span></a>
-											</div>
+									<div class="_prt_filt_dash_last m2_hide">
+										<div class="_prt_filt_radius"></div>
+										<div class="_prt_filt_add_new">
+											<a href="<c:url value='/admin/createAdmin'/>"
+												class="prt_submit_link" id="createbtn"><i
+												class="fas fa-plus-circle"></i><span
+												class="d-none d-lg-block d-md-block">부서별 관리자 생성</span></a>
 										</div>
+									</div>
 								</div>
 							</div>
 						</div>

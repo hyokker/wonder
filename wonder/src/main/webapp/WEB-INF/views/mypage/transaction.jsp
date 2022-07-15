@@ -13,6 +13,14 @@
 			 $(this).find('.modalC').modal('show');
 		 });
 	 });
+	 
+	 
+	 $('#formTypeUpdate').click(function(){
+			if(!confirm('해당 의뢰를 수락하시겠습니까?')){
+				return false;
+			}
+		});
+	 
  });
  
  
@@ -73,6 +81,12 @@ function pageProc(curPage){
 														  <th scope="col" class="m2_hide transactionTd center">조회수</th>
 														  <th scope="col" class="m2_hide transactionTd center">작업기간</th>
 														  <th scope="col" class="transactionTd center">상태</th>
+														  <c:if test="${vo.type == '일반회원' || vo.type == '승인대기' }">
+														  	<th scope="col" class="transactionTd center">거래취소</th>
+														  </c:if>
+														  <c:if test="${vo.type=='프리랜서' }">
+														  	<th scope="col" class="transactionTd center">프리랜서</th>
+														  </c:if>
 														  <th scope="col" class="transactionTdIcon center">메세지</th>
 														  <th scope="col" class="transactionTdIcon center">의뢰서</th>
 														  <th scope="col" class="transactionTdIcon center">결제</th>
@@ -82,7 +96,7 @@ function pageProc(curPage){
 													
 													<c:choose>
 														<c:when test="${fn:length(list) == 0 }" >
-														 <td colspan="7">
+														 <td colspan="8">
 														 	<br>
 														 	<h5 class="noneList">거래내역이 없습니다</h5>
 														 </td>
@@ -119,16 +133,44 @@ function pageProc(curPage){
 																	<td class="m2_hide transactionTd center">
 																		<div class="_leads_posted"><h5>${map.PD_TERM }일 소요</h5></div>
 																	</td>
-																	<td class="center">
+																	<td class="center"> <!-- 거래성태 -->
 																		<c:if test="${map.PAY_FLAG=='N'}">
-																			<div class="_leads_status"><span class="active">거래중</span></div>
+																			<div class="_leads_status"><span class="expire">의뢰대기</span></div>
 																		</c:if>
 																		<!-- 여기에 거래중 다른 조건 걸기 -->
 																		<c:if test="${map.PAY_FLAG=='Y'}">
-																			<div class="_leads_status"><span class="active">거래중</span></div>
+																			<div class="_leads_status"><span class="application">의뢰수락</span></div>
+																		</c:if>
+																		<c:if test="${map.PAY_FLAG=='P'}">
+																			<div class="_leads_status"><span class="application">결제완료</span></div>
+																		</c:if>
+																		<c:if test="${map.PAY_FLAG=='D'}">
+																			<div class="_leads_status"><span class="active">의뢰완료</span></div>
 																		</c:if>
 																	</td>
-																	<td class="center">
+																	
+																	
+																	<td class="center"> <!-- 수락/취소 -->
+																		<div class="_leads_action">
+																		
+																			<c:if test="${vo.type=='프리랜서' }">
+																				<a href="<c:url value='/mypage/transactionFormUpdate?formNo=${map.FORM_NO}'/>"  id="formTypeUpdate"><span style="font-weight: bold;">O</span></a>
+																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><span style="font-weight: bold;">X</span></a>
+																			</c:if>
+																		
+																			<c:if test="${vo.type=='일반회원' or '승인대기'}">
+																				<a href="<c:url value='/mypage/transactionFormUpdate?formNo=${map.FORM_NO}'/>"  id="formTypeUpdate"><span style="font-weight: bold;">O</span></a>
+																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><span style="font-weight: bold;">X</span></a>
+																			</c:if>
+																		
+																		
+																		</div>
+																	</td>
+																	
+																	
+																	
+																	
+																	<td class="center"> <!-- 메세지 -->
 																		<div class="_leads_action">
 																			<c:if test="${vo.type=='프리랜서' }">
 																				<a href="<c:url value='/mypage/chatting?userId=${map.B_USER_ID}'/>"><i class="fas fa-envelope"></i></a>
@@ -138,7 +180,7 @@ function pageProc(curPage){
 																			</c:if>
 																		</div>
 																	</td>
-																	<td class="center modalA">
+																	<td class="center modalA"> <!-- 의뢰서 -->
 																		<div class="_leads_action">
 																			<a href="#"><i class="fas fa-edit"></i></a>
 																				<!-- Modal C -->
@@ -163,7 +205,7 @@ function pageProc(curPage){
 																			   </div>
 																		</div>
 																	</td>
-																	<td class="center">
+																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
 																			<a href="#"><i class="fas fa-credit-card"></i></a>
 																		</div>
@@ -211,9 +253,9 @@ function pageProc(curPage){
 									</div>
 							
 							<form action="<c:url value='/mypage/transaction' />" method="post" name="frmPage">
-								<input type="text" name="searchKeyword" value="${param.searchKeyword }">
-								<input type="text" name="searchCondition" value="${param.searchCondition }">
-								<input type="text" name="currentPage" >	
+								<input type="hidden" name="searchKeyword" value="${param.searchKeyword }">
+								<input type="hidden" name="searchCondition" value="${param.searchCondition }">
+								<input type="hidden" name="currentPage" >	
 							</form>
 							
 									

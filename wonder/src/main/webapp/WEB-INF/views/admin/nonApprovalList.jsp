@@ -81,15 +81,10 @@ div#srchTitBar {
 												<input type="text" class="form-control" id="searchinput"
 													name="searchKeyword" placeholder="아이디로 조회"
 													value="${param.searchKeyword}">
-												<!-- 													<div class="input-group-append">
-														<btton type="submit"
-															class="input-group-text theme-bg b-0 text-light">
-														<i class="fas fa-search"></i>
-														</button>
-													</div> -->
 											</div>
 										</div>
 									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -118,8 +113,10 @@ div#srchTitBar {
 									<c:forEach var="formVo" items="${list }">
 										<!-- Item #1 -->
 										<tr>
-											<td class="dashboard_propert_wrapper"><a href="../mypage/form?formNo=${formVo.formNo}"><img
-												src="${pageContext.request.contextPath}/img/adminImg/formImg.jpg" alt="상품 사진"/></a>
+											<td class="dashboard_propert_wrapper"><a
+												href="../mypage/form?formNo=${formVo.formNo}"><img
+													src="${pageContext.request.contextPath}/img/adminImg/formImg.jpg"
+													alt="상품 사진" /></a>
 												<div class="title">
 													<c:if test="${fn:length(formVo.formTitle)>40}">
 														<h4>
