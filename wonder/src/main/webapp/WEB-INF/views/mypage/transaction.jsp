@@ -269,7 +269,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																	</td>
 																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
-																			<c:if test="${map.PAY_FLAG == 'N' && map.PAY_FLAG == 'Y'}">
+																			<c:if test="${map.PAY_FLAG == 'N' || map.PAY_FLAG == 'Y'}">
 																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">
