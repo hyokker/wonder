@@ -12,14 +12,19 @@
 <script type="text/javascript">
 
  $(function(){
-	 $('#modalC').each(function(item,idx){
+	 $('.CModalContainer').each(function(item,idx){
 		 $(this).click(function(){
-			 $(this).find('.modalC').modal('show');
+			 $(this).find('.modalD').modal('show');
+		 });
+		 
+		 $(this).find('.mod-close').click(function(){
+			 $(this).modal('hide');
 		 });
 	 });
+	 
 	 $('#modalA').each(function(item,idx){
 		 $(this).click(function(){
-			 $(this).find('.modalA').modal('show');
+			 $('.modalA').modal('show');
 		 });
 	 });
 	 
@@ -36,7 +41,12 @@
 				return false;
 			}
 		});
- });
+	 
+     //모달 닫으면 뒷 배경 스크롤 가능
+
+ 
+	 
+ }); //function.ready
  
  
 function pageProc(curPage){
@@ -136,7 +146,6 @@ IMP.init("imp71307268"); // Example: imp00000000
 													<a href="#" class="greenLabel" id="modalA"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　내 일정 보기</span></a>
 												</div>
 												<!-- Modal A -->
-													<c:forEach var="detailVo" items="${list }" varStatus="status">
 														<div class="modal fade modalA" id="exampleModalToggleA${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 														  <div class="modal-dialog modal-xl modal-dialog-centered">
 														    <div class="modal-content">
@@ -145,15 +154,11 @@ IMP.init("imp71307268"); // Example: imp00000000
 														        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
 														      </div>
 														      <div class="modal-body">
-																<iframe src="<c:url value='/pd/calendar?userId=${expertVo.userId }'/>" width="790px" height="650px" style="border:none"></iframe>
-														      </div>
-														      <div class="modal-footer">
-														        <button class="btn theme-bg rounded" data-target="#exampleModalToggleB${status.index }" data-toggle="modal" name="modelButton1">의뢰서 작성하기</button>
+																<iframe src="<c:url value='/pd/calendar?userId=${vo.userId }'/>" width="790px" height="650px" style="border:none"></iframe>
 														      </div>
 														    </div>
 														  </div>
 														</div>
-													</c:forEach>
 											</div>
 										</div>
 									</div>
@@ -269,11 +274,11 @@ IMP.init("imp71307268"); // Example: imp00000000
 																			</c:if>
 																		</div>
 																	</td>
-																	<td class="center" id="modalC"> <!-- 의뢰서 -->
-																		<div class="_leads_action">
+																	<td class="center"> <!-- 의뢰서 -->
+																		<div class="_leads_action CModalContainer">
 																			<a href="#"><i class="fas fa-edit"></i></a>
 																				<!-- Modal C -->
-																			   <div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" id="modalC">
+																			   <div class="modal fade modalD" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 																			     <div class="modal-dialog modal-lg modal-dialog-centered">
 																			       <div class="modal-content">
 																			         <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
@@ -296,7 +301,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																	</td>
 																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
-																			<c:if test="${map.PAY_FLAG == 'N' && map.PAY_FLAG == 'Y'}">
+																			<c:if test="${map.PAY_FLAG == 'N' or map.PAY_FLAG == 'Y'}">
 																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">

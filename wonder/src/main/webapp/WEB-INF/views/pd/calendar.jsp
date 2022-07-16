@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	                start:'${formVo.orderstart }',
 	                end:'${formVo.orderend }',
 	                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
-	            }
+	            },
 	        </c:forEach>
 	        </c:if>
         ],
