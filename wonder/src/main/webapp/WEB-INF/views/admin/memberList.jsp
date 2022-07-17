@@ -3,17 +3,6 @@
 <%@taglib prefix="u" uri="/WEB-INF/customTag/Utility.tld"%>
 <%@ include file="../inc/top.jsp"%>
 <script src="${pageContext.request.contextPath}/js/adminpaging.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#delOk').click(function() {
-			if (!confirm('삭제하시면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')) {
-				return false;
-			}else if(confirm('삭제하시면 복구할수 없습니다.\n정말로 삭제하시겠습니까?')){
-				loaction.href="<c:url value='/admin/delMember?userId=' />" + $(#deleteparameter).text();
-			}
-		});
-	});
-</script>
 <style type="text/css">
 #img {
 	padding-left: 10px;
@@ -105,8 +94,9 @@ div#srchTitBar {
 										</div>
 
 
-										<input type="submit" class="btn btn-outline-theme"
-											value="excel 저장"></input>
+										<a href="<c:url value='/admin/export'/>">엑셀로저장</a>
+										<!-- <input type="submit" class="btn btn-outline-theme"
+											value="excel 저장"></input> -->
 								</div>
 							</div>
 						</div>
@@ -206,7 +196,10 @@ div#srchTitBar {
 															</c:if></td>
 														<td>
 															<div class="_leads_action">
-																<a href="#" id="delMem"><i class="fas fa-trash"></i></a>
+																<a
+																	href="<c:url value='/admin/delMember?userId=${memberVo.userId }'/>"
+																	onclick="return confirm('해당회원을 탈퇴처리 하시겠습니까?');"><i
+																	class="fas fa-trash"></i></a>
 															</div>
 														</td>
 													</tr>

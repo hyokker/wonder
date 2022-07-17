@@ -131,7 +131,7 @@ public class ProductController {
 		String result=formService.checkPayFlag(reviewVo);
 		logger.info("상품 결제 여부 조회, result={}", result);
 		
-		String msg="리뷰 등록 실패했습니다.", url="/pd/pdDetail?pdNo="+reviewVo.getPdNo();
+		String msg="상품을 구매하시지 않았습니다.", url="/pd/pdDetail?pdNo="+reviewVo.getPdNo(); // null, C : 미구매, 의뢰 취소
 		if(result != null) {
 			if(result.equals("N")) { // N : 의뢰 수락 대기
 				msg="아직 판매자가 의뢰서를 수락하지 않았습니다.";
@@ -150,8 +150,6 @@ public class ProductController {
 					}
 				}
 			}
-		}else { // C, null : 의뢰 취소, 미구매
-			msg="상품을 구매하시지 않았습니다.";
 		}
 		
 		model.addAttribute("msg", msg);
