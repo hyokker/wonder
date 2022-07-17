@@ -3,6 +3,8 @@ package com.ez.wonder.admin.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.ez.wonder.common.SearchVO;
 import com.ez.wonder.form.model.FormVo;
 import com.ez.wonder.member.model.MemberVO;
@@ -45,6 +47,7 @@ public interface AdminService {
 	Integer monthlySales();
 	int countMembers();
 	int countExperts();
+	int countNormal();
 	int countProduct();
 	int countPayment();
 	
@@ -53,6 +56,6 @@ public interface AdminService {
 	List<FormVo> selectForm();
 	List<ProductVO> selectReadCount();
 	List<PaymentVO> payChart();
-	
-	List<MemberVO> excelMember();
+	List<ProductVO> productPerDay();
+	ArrayList<PaymentVO> payCountPerMethod();
 }

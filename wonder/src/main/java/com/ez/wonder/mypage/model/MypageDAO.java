@@ -46,4 +46,5 @@ public interface MypageDAO {
 	int getTotalRecordTSExpert(HashMap<String, Object> map);
 	FormVo selectFormByNo(int formNo);
 	int updateForm(int formNo);
+	int updateFormCancle(int formNo);
 }

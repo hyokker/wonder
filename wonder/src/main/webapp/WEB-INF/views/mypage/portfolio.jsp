@@ -182,9 +182,6 @@
 							
 							</div>
 						</div>
-						
-						<input type="button" value="일반회원"/>
-						<input type="button" value="전문가"/>
 					</div>
 				</div>
 			</section>

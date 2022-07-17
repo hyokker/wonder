@@ -3,9 +3,9 @@
 <%@ include file="../inc/top.jsp"%>
 <!--  
 	<해결과제>
+	-getReplyList 답글쓰기 제대로
 	-관리자에 의한 삭제시 비밀번호자동입력이나 미입력 처리
 	-내용 출력 제대로하기
-	-getReplyList 답글쓰기 제대로
 	
 	-삭제 -> modal 변경이나 창 크기 조절
 	- 삭제는 본인계정과 관리자만("관리자에 의해 삭제된 게시물입니다")
@@ -70,102 +70,6 @@ function replyDelete(replyNo){
 	}
 }
  	
-//댓글 수정폼 열기
-function replyEditView(replyNo){
-	//var userId = '<c:out value="${userId}" />';
-	var userId = '<c:out value="${sessionScope.userId}" />';
-	var dbUserId = '<c:out value="${vo.userId}" />';
-	if(userId==dbUserId){
-		$.ajax({
-			url:'<c:url value="/board/detail/replyEditView"/>',
-			type:'GET',
-			data:"replyNo="+replyNo,
-			//dataType:'json',
-			success:function(res){
-				//alert(res.replyContent);
-				var editView1 = "";
-				var editView2 = "";
-				/*댓글 수정취소 */
-				editView1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
-				editView1 +=	'<button class="btnReplyEditOpen"';
-				editView1 +=		'onclick="getReplylist('+replyNo+')">수정취소</button>';
-				editView1 +='</div>';
-				/*등록된 댓글 내용 */
-				editView2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';
-				editView2 +=	'<form name="frmReplyEdit" method="post" action="<c:url value="/board/detail/replyEdit"/>" onsubmit="validateForm()" ';
-				editView2 +=		'onsubmit="return validateForm();">';
-				editView2 +=			'<input type="hidden" name="replyNo"  value="'+replyNo+'" />';
-				editView2 +=			'<input type="hidden" name="boardNo" value="${param.boardNo }" />';
-				editView2 +=			'<div class="boardReply" id="'+replyNo+'boardReply" style="margin-top:10px;">';
-				editView2 += 				'<textarea name="replyContent" class="comments form-control" id="replyContent" placeholder="댓글을 입력하세요">';
-				editView2 += 					res.replyContent;
-				editView2 += 				'</textarea>';
-				editView2 +=			'</div>';
-				editView2 +=			'<div class="ReplyEditSubmit">';
-				editView2 += 				'<button class="btReplyEdit btn btn-theme" type="submit" id="comment_edit" ';
-				editView2 += 			'>수정완료</button>';
-				editView2 +=		'</div>';
-				editView2 +=	'</form>';
-				editView2 +='</div>';
-				
-				$('#'+replyNo+'replyButtons').replaceWith(editView1);
-				$('#'+replyNo+'comment-reply').replaceWith(editView2);
-			},
-			
-			error:function(xhr, status, error){
-				alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
-			}
-		});
-	}
-}
-
-//댓글 수정취소
-function getReplylist(replyNo){
-	//alert("getReplylist테스트");
-	$.ajax({
-		url:'<c:url value="/board/detail/getReplylist"/>',
-		type:'GET',
-		data:"replyNo="+replyNo,
-		success:function(res){
-			//alert(res.replyContent);
-			var replyList1 = "";
-			var replyList2 = "";
-			replyList1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
-			replyList1 +=	'<c:if test="${vo.userId==sessionScope.userId}">';
-			replyList1 +=	'<button class="btnReplyEditOpen"';
-			replyList1 +=		' onclick="replyEditView('+replyNo+')">수정</button>';
-			replyList1 +=	'</c:if>';
-			replyList1 +=	'<c:if test="${vo.userId==sessionScope.userId || !empty sessionScope.adminId }">';
-			replyList1 +=	'<button class="btnReplyDelete"';
-			replyList1 +=		' onclick="replyDelete('+replyNo+')">삭제</button>';
-			replyList1 +=	'</c:if>';
-			replyList1 +='</div>';
-			
-			replyList2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';	
-			replyList2 +=	'<div class="boardReply" id="'+replyNo+'boardReply">';
-			replyList2 +=		'<p class="comments"><br>';
-			replyList2 +=			'<span id="'+replyNo+'replyContent">'+res.replyContent+'</span>';
-										/*24시간 이내 작성 댓글 */
-			replyList2 +=			'<c:if test="'+res.dateTerm+'<24">';
-			replyList2 +=				'&nbsp;<span class="new">new</span>';
-			replyList2 +=			'</c:if><br>';
-			replyList2 +=		'</p>';
-										/*답글쓰기(대댓글은 불가)  */
-			replyList2 +=		'<c:if test="'+res.step+'==0">';
-			replyList2 +=			'<button class="btnRereply">답글쓰기</button>';
-			replyList2 +=		'</c:if>';
-			replyList2 +=	'</div>';
-			replyList2 +='</div>';
-			/*등록된 댓글 끝*/
-			
-			$('#'+replyNo+'replyButtons').replaceWith(replyList1);
-			$('#'+replyNo+'comment-reply').replaceWith(replyList2);
-		},
-		error:function(xhr, status, error){
-			alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
-		}
-	});
-}
 
 //댓글 입력, 수정 유효성검사
 function validateForm(){
@@ -173,7 +77,7 @@ function validateForm(){
 	//alert(frm);
 	var taVal=$(event.target).find('textarea').val();
 	var userId="<c:out value='${sessionScope.userId}'/>";
-	var dbUserId="<c:out value='${vo.userId}'/>";
+	//var dbUserId="<c:out value='${replyVo.userId}'/>";
 	var cateType= "<c:out value='${vo.cateType}'/>";
 	
 	
@@ -239,6 +143,105 @@ function toWrite(){
 
 <!-- 테스트용 js -->
 <script type="text/javascript">
+//댓글 수정폼 열기
+function replyEditView(replyNo){
+	var userId = '<c:out value="${sessionScope.userId}" />';
+	if(userId!=""){
+		//alert(userId);
+		$.ajax({
+			url:'<c:url value="/board/detail/replyEditView"/>',
+			type:'GET',
+			data:"replyNo="+replyNo,
+			//dataType:'json',
+			success:function(res){
+				//alert(res.replyContent);
+				var editView1 = "";
+				var editView2 = "";
+				/*댓글 수정취소 */
+				editView1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
+				editView1 +=	'<button class="btnReplyEditOpen"';
+				editView1 +=		'onclick="getReplylist('+replyNo+')">수정취소</button>';
+				editView1 +='</div>';
+				/*등록된 댓글 내용 */
+				editView2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';
+				editView2 +=	'<form name="frmReplyEdit" method="post" action="<c:url value="/board/detail/replyEdit"/>" onsubmit="validateForm()" ';
+				editView2 +=		'onsubmit="return validateForm();">';
+				editView2 +=			'<input type="hidden" name="replyNo"  value="'+replyNo+'" />';
+				editView2 +=			'<input type="hidden" name="boardNo" value="${param.boardNo }" />';
+				editView2 +=			'<div class="boardReply" id="'+replyNo+'boardReply" style="margin-top:10px;">';
+				editView2 += 				'<textarea name="replyContent" class="comments form-control" id="replyContent" placeholder="댓글을 입력하세요">';
+				editView2 += 					res.replyContent;
+				editView2 += 				'</textarea>';
+				editView2 +=			'</div>';
+				editView2 +=			'<div class="ReplyEditSubmit">';
+				editView2 += 				'<button class="btReplyEdit btn btn-theme" type="submit" id="comment_edit" ';
+				editView2 += 			'>수정완료</button>';
+				editView2 +=		'</div>';
+				editView2 +=	'</form>';
+				editView2 +='</div>';
+				
+				$('#'+replyNo+'replyButtons').replaceWith(editView1);
+				$('#'+replyNo+'comment-reply').replaceWith(editView2);
+			},
+			
+			error:function(xhr, status, error){
+				alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
+			}
+		});
+	}
+}
+
+//댓글 수정취소
+function getReplylist(replyNo){
+	//var userId = '<c:out value="${sessionScope.userId}" />';
+	$.ajax({
+		url:'<c:url value="/board/detail/getReplylist"/>',
+		type:'GET',
+		data:"replyNo="+replyNo,
+		success:function(res){
+			//alert(res.replyContent);
+			alert(userId);
+			var replyList1 = "";
+			var replyList2 = "";
+			//alert(dbUserId);
+			replyList1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
+			replyList1 = '<c:set var="userId" value="${sessionScope.userId}" />';
+			replyList1 = '<c:set var="dbUserId" value="'+res.userId+'" />';
+			replyList1 +=	'<c:if test="${userId==dbUserId}">';
+			replyList1 +=	'<button class="btnReplyEditOpen"';
+			replyList1 +=		' onclick="replyEditView('+replyNo+')">수정</button>';
+			replyList1 +=	'</c:if>';
+			replyList1 +=	'<c:if test="'+res.userId+'=='+userId+' || '+userId+'">';
+			replyList1 +=	'<button class="btnReplyDelete"';
+			replyList1 +=		' onclick="replyDelete('+replyNo+')">삭제</button>';
+			replyList1 +=	'</c:if>';
+			replyList1 +='</div>';
+			
+			replyList2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';	
+			replyList2 +=	'<div class="boardReply" id="'+replyNo+'boardReply">';
+			replyList2 +=		'<p class="comments"><br>';
+			replyList2 +=			'<span id="'+replyNo+'replyContent">'+res.replyContent+'</span>';
+										/*24시간 이내 작성 댓글 */
+			replyList2 +=			'<c:if test="'+res.dateTerm+'<24">';
+			replyList2 +=				'&nbsp;<span class="new">new</span>';
+			replyList2 +=			'</c:if><br>';
+			replyList2 +=		'</p>';
+										/*답글쓰기(대댓글은 불가)  */
+			replyList2 +=		'<c:if test="'+res.step+'==0">';
+			replyList2 +=			'<button class="btnRereply">답글쓰기</button>';
+			replyList2 +=		'</c:if>';
+			replyList2 +=	'</div>';
+			replyList2 +='</div>';
+			/*등록된 댓글 끝*/
+			$('#'+replyNo+'comment-reply').replaceWith(replyList2);
+			
+			$('#'+replyNo+'replyButtons').replaceWith(replyList1);
+		},
+		error:function(xhr, status, error){
+			alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
+		}
+	});
+}
 
 </script>
 
@@ -421,11 +424,11 @@ function toWrite(){
 							</div>
 					<!-- 댓글 수정, 댓글 삭제 -->
 							<div class="replyButtons" id="${replyVo.replyNo}replyButtons">
-								<c:if test="${vo.userId==sessionScope.userId }" >
+								<c:if test="${replyVo.userId==sessionScope.userId }" >
 								<button class="btnReplyEditOpen"
 									onclick="replyEditView(${replyVo.replyNo})">수정</button>
 								</c:if>
-								<c:if test="${vo.userId==sessionScope.userId || !empty sessionScope.adminId}" >
+								<c:if test="${replyVo.userId==sessionScope.userId || !empty sessionScope.adminId}" >
 								<button class="btnReplyDelete"
 									onclick="replyDelete(${replyVo.replyNo})">삭제</button>
 								</c:if>

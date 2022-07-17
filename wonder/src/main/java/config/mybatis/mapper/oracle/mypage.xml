@@ -285,4 +285,14 @@ select * from
 	set PAY_FLAG='Y'
 	where FORM_NO=#{formNo}
 </update>
+
+<!-- 의뢰서 타입 C로 변경(거래취소) -->
+<update id="updateFormCancle" parameterType="int" >
+	update form
+	set PAY_FLAG='C'
+	where FORM_NO=#{formNo}
+</update>
+
+
+
 </mapper>
