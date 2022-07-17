@@ -12,10 +12,16 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.ez.wonder.excel.controller.SheetController;
 import com.ez.wonder.member.model.MemberVO;
 
 public class UserExcelExporter {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserExcelExporter.class);
+	
 	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
 
@@ -24,7 +30,7 @@ public class UserExcelExporter {
 	public UserExcelExporter(List<MemberVO> listUsers) {
 		this.listUsers = listUsers;
 		workbook = new XSSFWorkbook();
-		sheet = workbook.createSheet("MemberVO");
+		sheet = workbook.createSheet("회원목록");
 	}
 	
 	private void writeHeaderRow() {
@@ -32,8 +38,7 @@ public class UserExcelExporter {
 		
 		CellStyle style = workbook.createCellStyle();
 		XSSFFont font = workbook.createFont();
-		font.setBold(true);
-		font.setFontHeight(16);
+		font.setFontHeight(14);
 		style.setFont(font);
 		
 		Cell cell = row.createCell(0);
@@ -88,7 +93,7 @@ public class UserExcelExporter {
 			cell.setCellStyle(style);
 			
 			cell = row.createCell(4);
-			cell.setCellValue(memberVo.getRegdate());
+			cell.setCellValue(memberVo.getRegdate().toString());
 			sheet.autoSizeColumn(4);
 			cell.setCellStyle(style);
 			

@@ -31,6 +31,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public List<MemberVO> allMember(){
+		return adminDao.allMember();
+	}
+	
+	@Override
 	public int deleteMember(String userId) {
 		return adminDao.deleteMember(userId);
 	}

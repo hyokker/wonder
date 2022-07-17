@@ -135,7 +135,8 @@ div#srchTitBar {
 																<div class="dash_prt_thumb" id="img">
 																	<a
 																		href="../mypage/applicationCheck?userId=${memberVo.userId}"><img
-																		src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />"
+																		<%-- src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" --%>
+																		src="${pageContext.request.contextPath}/img/mypage/default_profile.png"
 																		class="img-fluid" alt="프로필 사진" /></a>
 																</div>
 																<div class="dash_prt_caption">
@@ -171,9 +172,6 @@ div#srchTitBar {
 																		pattern="yyyy-MM-dd HH:mm" />
 																</h5>
 															</div>
-															<div class="_leads_view_title">
-																<span>며칠전으로 계산</span>
-															</div>
 														</td>
 														<td><c:if test="${memberVo.type eq '일반회원' }">
 																<div class="_leads_status" id="type1">
@@ -190,9 +188,9 @@ div#srchTitBar {
 															</c:if></td>
 														<td>
 															<div class="_leads_action">
-																<a href="grantEx?userId=${memberVo.userId}"><i
+																<a href="grantEx?userId=${memberVo.userId}" onclick="return confirm('해당회원을 승인 처리 하시겠습니까?');"><i
 																	class="fas fa-edit"></i></a> <a
-																	href="delnonApEx?userId=${memberVo.userId}"><i
+																	href="delnonApEx?userId=${memberVo.userId}" onclick="return confirm('해당회원을 승인거부 처리 하시겠습니까?');"><i
 																	class="fas fa-trash"></i></a>
 															</div>
 														</td>

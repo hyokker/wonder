@@ -38,7 +38,7 @@ public class DashboardController {
 	private final AdminService adminService;
 
 	@RequestMapping("/dashboard")
-	public String dashboard(Model model) {
+	public String dashboard(Locale locale, Model model) {
 		Integer sumAllSales = adminService.sumAllSales();
 		if (sumAllSales == null) {
 			sumAllSales = 0;
@@ -51,6 +51,8 @@ public class DashboardController {
 		int countExperts = adminService.countExperts();
 		int countProduct = adminService.countProduct();
 		int countPayment = adminService.countPayment();
+		int NormalMem = adminService.countNormal();
+		int ExpertMem = adminService.countExperts();
 
 		logger.info(
 				"누적매출 sumAllSales={}, 월매출 monthlySales={}, 누적회원수 countMembers={}, 전문가수 countExperts={}, 누적상품수 countProduct= {},누적거래건수 countPayment= {}",
@@ -69,66 +71,9 @@ public class DashboardController {
 		model.addAttribute("countPayment", countPayment);
 		model.addAttribute("list", list);
 		model.addAttribute("listbyread", listbyread);
-
-		return "/admin/dashboard";
-	}
-
-	@RequestMapping("/chartjs")
-	public void chartjs(Model model) {
-		List<PaymentVO> paymethodList = adminService.payChart();
-		logger.info("결제방식 조회 결과 paymethodList.size={}", paymethodList.size());
-
-		Gson gson = new Gson();
-		JsonArray jArray = new JsonArray();
-
-		Iterator<PaymentVO> iterator = paymethodList.iterator();
-		while (iterator.hasNext()) {
-			PaymentVO paymentVo = iterator.next();
-			JsonObject object = new JsonObject();
-			String method = paymentVo.getPayMethod();
-			int price = paymentVo.getPrice();
-
-			object.addProperty("method", method);
-			object.addProperty("price", price);
-			jArray.add(object);
-		}
-
-		String json = gson.toJson(jArray);
-		model.addAttribute("json", json);
-		logger.info("이건 로거다!!!!!!!!!!!!!!!! json={}", json);
-	}
-
-	@RequestMapping("/ajaxChart")
-	@ResponseBody
-	public String ajaxChart(HttpServletRequest request, @ModelAttribute ProductVO productVo) {
-		List<ProductVO> list = adminService.productPerDay();
-		logger.info("제발 되게 해주세요!!!!!!!!! list={}", list);
-		request.setAttribute("list", list);
-		HashMap map = new HashMap();
-		map.put("list", list);
-		String json = null;
-		try {
-			json = new ObjectMapper().writeValueAsString(map);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return json;
-	}
-
-	@RequestMapping("/cccccccccc")
-	public String cccccccccc() {
-		return "/admin/cccccccccc";
-	}
-
-	@RequestMapping("/memberRate")
-	public String memberRate(Locale locale, Model model) throws Exception {
-
-		int NormalMem = adminService.countNormal();
-		int ExpertMem = adminService.countExperts();
-
 		model.addAttribute("NormalMem", NormalMem);
 		model.addAttribute("ExpertMem", ExpertMem);
 
-		return "/admin/memberRate";
+		return "/admin/dashboard";
 	}
 }

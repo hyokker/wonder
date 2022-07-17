@@ -37,12 +37,12 @@ public class SheetController {
 		
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String CurrentDateTime = dateFormatter.format(new Date());
-		String fileName = "memberList_" + CurrentDateTime + ".xlsx";
+		String fileName = "Wonder_memberList_" + CurrentDateTime + ".xlsx";
 		String headerValue = "attachment; filename=" + fileName;
 		
 		response.setHeader(headerKey, headerValue);
 		
-		List<MemberVO> listUsers = adminService.selectMember(searchVo);
+		List<MemberVO> listUsers = adminService.allMember();
 		
 		UserExcelExporter excelExporter = new UserExcelExporter(listUsers);
 		excelExporter.export(response);

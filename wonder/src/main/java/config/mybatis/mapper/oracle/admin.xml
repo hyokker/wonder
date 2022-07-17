@@ -29,6 +29,10 @@
 		<![CDATA[
 		and RNUM<=#{firstRecordIndex} + #{recordCountPerPage}]]>
 	</select>
+	
+	<select id="allMember" resultType="memberVo">
+		select * from member
+	</select>
 
 	<delete id="deleteMember" parameterType="String">
 		delete

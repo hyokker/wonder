@@ -172,7 +172,7 @@ div#srchTitBar {
 													</td>
 													<td>
 														<div class="_leads_action">
-															<a href="delSubAdmin?adminNo=${adminVo.adminNo }"><i
+															<a href="delSubAdmin?adminNo=${adminVo.adminNo }" onclick="return confirm('해당관리자를 삭제 처리 하시겠습니까?');"><i
 																class="fas fa-trash"></i></a>
 														</div>
 													</td>

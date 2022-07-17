@@ -132,7 +132,7 @@ div#srchTitBar {
 														class="table-property-price">${formVo.price } 만원</span>
 												</div></td>
 											<td class="action"><a
-												href="deleteForm?formNo=${formVo.formNo}" class="delete"><i
+												href="deleteForm?formNo=${formVo.formNo}" class="delete" onclick="return confirm('해당의뢰서를 삭제처리 하시겠습니까?');"><i
 													class="ti-close"></i> Delete</a></td>
 										</tr>
 									</c:forEach>
