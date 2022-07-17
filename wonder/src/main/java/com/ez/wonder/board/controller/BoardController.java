@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,7 +74,6 @@ public class BoardController {
 	
 	@PostMapping("/write")
 	public String write_ok(@ModelAttribute BoardVO vo,
-			//@ModelAttribute MemberVO memberVo,
 			HttpServletRequest request, Model model) {
 		logger.info("글쓰기 처리, 파라미터 vo={}",vo);
 		
@@ -171,6 +169,14 @@ public class BoardController {
 		logger.info("게시글 상세보기, 파라미터 boardNo={}", boardNo);
 		logger.info("댓글 목록 파라미터, boardNo={}", boardNo);
 
+		//테스트용
+		String userId="testUserId";
+		String adminId="testAdminId";
+		logger.info("파라미터 userId={}, adminId={}", userId, adminId);
+				
+		model.addAttribute("userId", userId);
+		model.addAttribute("adminId", adminId);
+		
 		if(boardNo==0) {
 			model.addAttribute("msg", "잘못된 url 접근입니다");
 			model.addAttribute("url", "/board/list");
@@ -240,7 +246,6 @@ public class BoardController {
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("수정할 글 상세보기 vo={}", vo);
 
-
 		model.addAttribute("vo", vo);
 
 		return "board/edit";
@@ -298,10 +303,10 @@ public class BoardController {
 					}
 				}
 			}else {
-				msg="게시글 수정 실패";
+				msg="수정 실패!";
 			}
 		}else {
-			msg="비밀번호가 틀렸습니다";
+			msg="비밀번호를 확인해주세요.";
 		}
 		
 		model.addAttribute("msg", msg);
@@ -312,15 +317,21 @@ public class BoardController {
 	
 	
 	@GetMapping("/delete")
-	public String delete_get(@RequestParam(defaultValue = "0") int boardNo,
-			@ModelAttribute BoardVO vo, Model model) {
-		logger.info("삭제 처리 화면 보기, 파라미터 boardNo={}, vo={}",boardNo, vo);
+	public String delete_get(@RequestParam(defaultValue = "0") int boardNo
+			, Model model) {
+		logger.info("삭제 처리 화면 보기, 파라미터 boardNo={}",boardNo);
 		
 		if(boardNo==0) {
 			model.addAttribute("msg", "잘못된 접근입니다");
 			model.addAttribute("url", "/board/list");
 			return "/common/message";
 		}
+		
+		BoardVO vo = boardService.selectByNo(boardNo);
+		logger.info("삭제 대상 상세보기 vo={}", vo);
+
+
+		model.addAttribute("vo", vo);
 		
 		return "board/delete";
 	}
@@ -339,7 +350,7 @@ public class BoardController {
 			logger.info("글 삭제처리 결과 cnt={}",cnt);
 			
 			if(cnt>0) {
-				msg="게시글 삭제 완료";
+				msg="게시물이 삭제되었습니다.";
 				url="/board/list";
 				
 				String uploadPath = fileUploadUtil.getUploadPath(request, 
@@ -349,11 +360,16 @@ public class BoardController {
 					boolean bool=delFile.delete();
 					logger.info("파일 삭제 여부: {}", bool);
 				}
+				model.addAttribute("msg",msg);
+				model.addAttribute("url",url);
+
+				return "common/refresh";
+				
 			}else {
-				msg="삭제 실패";
+				msg="삭제에 실패하였습니다.";
 			}//안쪽
 		}else {
-			msg="비밀번호 불일치";
+			msg="비밀번호를 다시 확인해주세요.";
 		}//바깥쪽
 
 		model.addAttribute("msg",msg);

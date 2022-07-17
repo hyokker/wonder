@@ -116,6 +116,7 @@ label {
 
 #submitlist {
 	margin: 0;
+	padding-left: 10px;
 	display: flex;
 	justify-content: space-evenly;
 }
@@ -142,7 +143,7 @@ section {
 }
 
 #byte {
-	padding: 40px 15px 0 0;
+	padding: 45px 15px 0 0;
 }
 
 textarea.form-control {
@@ -420,6 +421,10 @@ span.fileInfo img{
 
 #noUserTa{
 	background: #a1a7ad6b !important;
+}
+
+div.writeEdit >div >div{
+	margin: 15px 0 15px 0;
 }
 
 

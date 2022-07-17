@@ -4,20 +4,18 @@
 
 <link rel="stylesheet" type="text/css" 	href="<c:url value='/css/board.css'/>" />
 <!-- 해결과제
-	1.session 적용
-		//세션에 닉네임도 저장
-		HttpSession session = request.getSession();
-		session.setAttribute("nickname", nickname);
+	1. user 테스트
 
+	
 	3. 제목, 비밀번호4자리설정, 내용 ajax
+	
 		
  -->
 <title>wonder - 자유게시판 글쓰기</title>
 <script type="text/javascript">
 /* 	테스트
-	var adminId="<c:out value='${adminId}'/>";
-	var userId="<c:out value='${userId}'/>";
 	
+	var userId="<c:out value='${userId}'/>";
 */
 	var userId="<c:out value='${sessionScope.userId}'/>";
 	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
@@ -29,6 +27,7 @@
 			alert("로그인이 필요합니다");
 			//location.href= '<c:url value="/" />';
 			$('#topLogin').get(0).click();
+			return false;
 		}else if(adminId!=""  && userId==""){
 			alert("공지 작성이 가능합니다");
 		}else if(adminId==""  && userId!=""){
@@ -106,7 +105,7 @@ empty sessionScope.userId && !empty sessionScope.adminId
 							<div class="frm_submit_block">
 								<h2>글쓰기</h2>
 								<hr>
-								<div class="frm_submit_wrap">
+								<div class="frm_submit_wrap writeEdit">
 									<div class="form-row">
 									<!--제목-->
 										<div class="form-group col-md-7" id="">
@@ -118,6 +117,9 @@ empty sessionScope.userId && !empty sessionScope.adminId
 											<label for="nickname">작성자</label>
 									<c:choose>
 									<c:when test="${!empty sessionScope.userId}">
+									<!--  
+											<input type="text" name="nickname" value="회원1" class="form-control" readonly="readonly" id="nickname">
+									-->
 											<input type="text" name="nickname" value="${sessionScope.nickname }" class="form-control" readonly="readonly" id="nickname">
 											<input type="hidden" name="cateType" value="B" />
 											<input type="hidden" name="userId" value="${sessionScope.userId }">
@@ -143,13 +145,13 @@ empty sessionScope.userId && !empty sessionScope.adminId
 										<div class="form-group col-md-2" id="">
 											<label for="pwd">비밀번호</label>
 											<input type="password" name="pwd" id="pwd" class="form-control" placeholder="(최대 4자리)" maxlength="4"/>
-										</div><div class="form-group col-md-7 box"></div>
+										</div>
+										<div class="form-group col-md-7 box"></div>
 									</c:if>
 									<!-- 첨부파일  -->	
 										<div class="form-group col-md-5">
 											<label for="upfile">첨부파일</label>
-											<input type="file"
-												id="upfile" name="upfile" class="form-control" />
+											<input type="file" id="upfile" name="upfile" class="form-control" />
 										</div>
 										<div class="form-group col-md-3" id="byte">
 											<span>(최대 2MB)</span>
