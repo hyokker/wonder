@@ -94,8 +94,9 @@ div#srchTitBar {
 										</div>
 
 
-										<input type="submit" class="btn btn-outline-theme"
-											value="excel 저장"></input>
+										<a href="<c:url value='/admin/export'/>">엑셀로저장</a>
+										<!-- <input type="submit" class="btn btn-outline-theme"
+											value="excel 저장"></input> -->
 								</div>
 							</div>
 						</div>
