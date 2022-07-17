@@ -20,7 +20,8 @@
          var pdList = pdInfo.pdLists;
          console.log('length :' + pdList.length);
          if(pdList.length == 0) {
-            ;
+            alert("검색한 상품이 없습니다!"); 
+            location.href = "/wonder/pd/pdList"
          } else {
             $('#ProductList').empty();
             var html = '';

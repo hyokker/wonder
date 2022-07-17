@@ -18,10 +18,10 @@
 				action="<c:url value='/qna/qnaWrite'/>">
 <c:choose>
 <c:when test="${!empty sessionScope.userId}">
-<input type="text" name="cateType" value="Q" />
+<input type="hidden" name="cateType" value="Q" />
 </c:when>
 <c:otherwise>
-<input type="text" name="cateType" value="Q" />
+<input type="hidden" name="cateType" value="Q" />
 </c:otherwise>
 </c:choose>
 
