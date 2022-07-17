@@ -92,6 +92,7 @@ div#srchTitBar {
 												</div>
 											</div>
 										</div>
+										</form>
 
 										<a href="<c:url value='/admin/export'/>">엑셀로저장</a>
 								</div>
@@ -142,7 +143,7 @@ div#srchTitBar {
 																	</c:if>
 																	<c:if test="${memberVo.type eq '프리랜서'}">
 																		<img
-																			src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName}"
+																			src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />"
 																			class="img-fluid" alt="프리랜서 프로필 사진" />
 																	</c:if>
 																</div>

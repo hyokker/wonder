@@ -135,7 +135,7 @@ div#srchTitBar {
 																<div class="dash_prt_thumb" id="img">
 																	<a
 																		href="../mypage/applicationCheck?userId=${memberVo.userId}"><img
-																		src="${pageContext.request.contextPath}/img/mypage/expert_profile/${expertVoImg.fileName }"
+																		src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />"
 																		class="img-fluid" alt="프로필 사진" /></a>
 																</div>
 																<div class="dash_prt_caption">

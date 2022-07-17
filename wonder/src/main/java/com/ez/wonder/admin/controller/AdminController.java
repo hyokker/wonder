@@ -20,8 +20,9 @@ import com.ez.wonder.admin.model.AdminService;
 import com.ez.wonder.admin.model.AdminVO;
 import com.ez.wonder.common.PaginationInfo;
 import com.ez.wonder.common.SearchVO;
-import com.ez.wonder.member.model.ExpertImageVO;
 import com.ez.wonder.member.model.MemberVO;
+import com.ez.wonder.pd.model.PdImageVO;
+import com.ez.wonder.pd.model.ProductService;
 import com.ez.wonder.pd.model.ProductVO;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	private final AdminService adminService;
+	private final ProductService prdouctService;
 
 	// 1. 회원 목록 조회
 	@RequestMapping("/memberList")
@@ -81,30 +83,35 @@ public class AdminController {
 	}
 
 	@RequestMapping("/pdList")
-	public String pdList(@ModelAttribute SearchVO searchVo, Model model) {
-		logger.info("게시글 목록 화면, 파라미터 searchVo={}", searchVo);
+	   public String pdList(@ModelAttribute SearchVO searchVo, Model model,
+	         @ModelAttribute ProductVO productVo) {
+	      logger.info("게시글 목록 화면, 파라미터 searchVo={}", searchVo);
 
-		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(5);
-		pagingInfo.setRecordCountPerPage(9);
-		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+	      PaginationInfo pagingInfo = new PaginationInfo();
+	      pagingInfo.setBlockSize(5);
+	      pagingInfo.setRecordCountPerPage(9);
+	      pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 
-		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(9);
+	      searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	      searchVo.setRecordCountPerPage(9);
 
-		List<ProductVO> list = adminService.selectProduct(searchVo);
-		logger.info("게시글 목록 조회 결과, 파라미터 list.size={}", list.size());
+	      List<ProductVO> list = adminService.selectProduct(searchVo);
+	      logger.info("게시글 목록 조회 결과, 파라미터 list.size={}", list.size());
 
-		int totalRecord = adminService.getPdTotalRecord(searchVo);
-		logger.info("게시글 목록 totalRecord={}", totalRecord);
+	      int totalRecord = adminService.getPdTotalRecord(searchVo);
+	      logger.info("게시글 목록 totalRecord={}", totalRecord);
+	      
+	      List<PdImageVO> imgList=prdouctService.selectPdImage(productVo.getPdNo());
+	      logger.info("상품 이미지 조회 결과, imgList.size={}", imgList.size());
 
-		pagingInfo.setTotalRecord(totalRecord);
+	      pagingInfo.setTotalRecord(totalRecord);
 
-		model.addAttribute("list", list);
-		model.addAttribute("pagingInfo", pagingInfo);
+	      model.addAttribute("list", list);
+	      model.addAttribute("pagingInfo", pagingInfo);
+	      model.addAttribute("imgList",imgList);
 
-		return "/admin/pdList";
-	}
+	      return "/admin/pdList";
+	   }
 
 	@RequestMapping("/delProduct")
 	public String deleteProduct(@RequestParam int pdNo, Model model) {
