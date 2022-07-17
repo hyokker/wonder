@@ -4,7 +4,7 @@
 <body class="yellow-skin">
 	<!-- ============================ Page Title Start================================== -->
 	<section class="image-cover faq-sec text-center"
-		style="background: url(https://via.placeholder.com/1920x980) no-repeat;"
+		style="background: url(<c:url value='/img/sliderss-1-1920x980.jpg' />) no-repeat;"
 		data-overlay="6">
 		<div class="container">
 			<div class="row">
@@ -111,24 +111,16 @@
 											<button class="btn btn-link" type="button"
 												data-toggle="collapse" data-target="#collapseeight"
 												aria-expanded="true" aria-controls="collapseeight">
-												How do i widthraw my money in my account?</button>
+												고객과의 연락은 어떻게 이루어지나요?</button>
 										</h2>
 									</div>
 
 									<div id="collapseeight" class="collapse show"
 										aria-labelledby="headingEight" data-parent="#account">
 										<div class="card-body">
-											<p class="ac-para">Anim pariatur cliche reprehenderit,
-												enim eiusmod high life accusamus terry richardson ad squid.
-												3 wolf moon officia aute, non cupidatat skateboard dolor
-												brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-												wolf moon tempor, sunt aliqua put a bird on it squid
-												single-origin coffee nulla assumenda shoreditch et. Nihil
-												anim keffiyeh helvetica, craft beer labore wes anderson cred
-												nesciunt sapiente ea proident. Ad vegan excepteur butcher
-												vice lomo. Leggings occaecat craft beer farm-to-table, raw
-												denim aesthetic synth nesciunt you probably haven't heard of
-												them accusamus labore sustainable VHS.</p>
+											<p class="ac-para">전문가 께서는 고객분이 의뢰를 신청하면, 의뢰서를 받고 
+											채팅 혹은 쪽지, 유선상 연락을 주고 받을 수 있습니다.
+											좋은 작품 부탁드립니다!</p>
 										</div>
 									</div>
 								</div>
@@ -138,23 +130,14 @@
 											<button class="btn btn-link collapsed" type="button"
 												data-toggle="collapse" data-target="#collapsenine"
 												aria-expanded="false" aria-controls="collapsenine">
-												Ho do i delete my account?</button>
+												거래를 취소 하고 싶어요.</button>
 										</h2>
 									</div>
 									<div id="collapsenine" class="collapse"
 										aria-labelledby="headingNine" data-parent="#account">
 										<div class="card-body">
-											<p class="ac-para">Anim pariatur cliche reprehenderit,
-												enim eiusmod high life accusamus terry richardson ad squid.
-												3 wolf moon officia aute, non cupidatat skateboard dolor
-												brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-												wolf moon tempor, sunt aliqua put a bird on it squid
-												single-origin coffee nulla assumenda shoreditch et. Nihil
-												anim keffiyeh helvetica, craft beer labore wes anderson cred
-												nesciunt sapiente ea proident. Ad vegan excepteur butcher
-												vice lomo. Leggings occaecat craft beer farm-to-table, raw
-												denim aesthetic synth nesciunt you probably haven't heard of
-												them accusamus labore sustainable VHS.</p>
+											<p class="ac-para">
+											취소하고 싶으시다면, 진행중인 거래 목록에서 거래를 취소 하시면 됩니다!</p>
 										</div>
 									</div>
 								</div>
@@ -164,23 +147,15 @@
 											<button class="btn btn-link collapsed" type="button"
 												data-toggle="collapse" data-target="#collapseten"
 												aria-expanded="false" aria-controls="collapseten">
-												How do i change my email id?</button>
+												제 이메일은 어떻게 변경 하나요?</button>
 										</h2>
 									</div>
 									<div id="collapseten" class="collapse"
 										aria-labelledby="headingTen" data-parent="#account">
 										<div class="card-body">
-											<p class="ac-para">Anim pariatur cliche reprehenderit,
-												enim eiusmod high life accusamus terry richardson ad squid.
-												3 wolf moon officia aute, non cupidatat skateboard dolor
-												brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-												wolf moon tempor, sunt aliqua put a bird on it squid
-												single-origin coffee nulla assumenda shoreditch et. Nihil
-												anim keffiyeh helvetica, craft beer labore wes anderson cred
-												nesciunt sapiente ea proident. Ad vegan excepteur butcher
-												vice lomo. Leggings occaecat craft beer farm-to-table, raw
-												denim aesthetic synth nesciunt you probably haven't heard of
-												them accusamus labore sustainable VHS.</p>
+											<p class="ac-para">오른쪽 위의 마이페이지에 들어가시면
+											정보 변경할수 있는 창이 뜹니다.
+											그쪽으로 정보를 변경 하시면 됩니다!</p>
 										</div>
 									</div>
 								</div>
@@ -190,23 +165,15 @@
 											<button class="btn btn-link collapsed" type="button"
 												data-toggle="collapse" data-target="#collapseele"
 												aria-expanded="false" aria-controls="collapseele">
-												Can i pay using paypal or payoneer?</button>
+												주요 기능</button>
 										</h2>
 									</div>
 									<div id="collapseele" class="collapse"
 										aria-labelledby="headingEle" data-parent="#account">
 										<div class="card-body">
-											<p class="ac-para">Anim pariatur cliche reprehenderit,
-												enim eiusmod high life accusamus terry richardson ad squid.
-												3 wolf moon officia aute, non cupidatat skateboard dolor
-												brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-												wolf moon tempor, sunt aliqua put a bird on it squid
-												single-origin coffee nulla assumenda shoreditch et. Nihil
-												anim keffiyeh helvetica, craft beer labore wes anderson cred
-												nesciunt sapiente ea proident. Ad vegan excepteur butcher
-												vice lomo. Leggings occaecat craft beer farm-to-table, raw
-												denim aesthetic synth nesciunt you probably haven't heard of
-												them accusamus labore sustainable VHS.</p>
+											<p class="ac-para">
+											원더를 사랑해주셔서 감사합니다.
+											모두 건강하시고 행복하세요.</p>
 										</div>
 									</div>
 								</div>

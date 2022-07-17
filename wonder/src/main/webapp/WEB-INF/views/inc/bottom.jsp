@@ -44,7 +44,7 @@
 								<ul class="footer-menu">
 									<li><a href="<c:url value='/aboutUs/aboutUs'/>">서비스소개</a></li>
 									<li><a href="<c:url value='/faq/faq'/>"">FAQ</a></li>
-									<li><a href="<c:url value='/contactUs/contactUs'/>">고객센터</a></li>
+									<%-- <li><a href="<c:url value='/contactUs/contactUs'/>">고객센터</a></li> --%>
 								</ul>
 							</div>
 						</div>
@@ -53,8 +53,8 @@
 							<div class="footer_widget">
 								<h4 class="widget_title">Company</h4>
 								<ul class="footer-menu">
-									<li><a href="#">회사소개</a></li>
-									<li><a href="<c:url value='/contactUs/contactUs'/>">제휴제안</a></li>
+									<!-- <li><a href="#">회사소개</a></li> -->
+									<li><a href="<c:url value='/contactUs/contactUs'/>">고객센터 및 제휴제안</a></li>
 								</ul>
 							</div>
 						</div>
