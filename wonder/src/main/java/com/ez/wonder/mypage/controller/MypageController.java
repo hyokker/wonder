@@ -320,21 +320,11 @@ public class MypageController {
 	public String mypage_feeDetail_get(@RequestParam String sellUserId  ,HttpSession session, Model model) {
 		logger.info("프리랜서 명함 작성 페이지");
 		
-		String userId=(String) session.getAttribute("userId");
+		//String userId=(String) session.getAttribute("userId");
 		MemberVO memVo = mypageService.selectMemberById(sellUserId);
 		String type = memVo.getType();
-		logger.info("로그인중인 아이디={}",userId);
 		logger.info("파라미터 아이디={}",sellUserId);
 		
-		if(userId==null) {
-			String msg="로그인이 필요한 서비스입니다";
-			String url="/";
-			
-			model.addAttribute("msg",msg);
-			model.addAttribute("url",url);
-			
-			return "/common/message";
-		}
 		
 		logger.info("해당 유저 타입={}",type);
 		if(!type.equals("프리랜서")) {
@@ -358,7 +348,7 @@ public class MypageController {
 		logger.info("리뷰 목록 조회, reviewList.size={}", reviewList.size());
 		Map<String, Object> map=reviewService.getAvgScoreByUserId(sellUserId);
 		logger.info("리뷰 평점 조회, map={}", map);
-		List<ExpertImageVO> portfolioList = mypageService.selectExpertPortfolioById(userId);
+		List<ExpertImageVO> portfolioList = mypageService.selectExpertPortfolioById(sellUserId);
 		
 		model.addAttribute("list", portfolioList);
 		model.addAttribute("expertVo", expertVo);
