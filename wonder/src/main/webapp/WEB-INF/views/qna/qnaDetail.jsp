@@ -3,7 +3,7 @@
 <%@ include file="../inc/top.jsp"%>
 
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/board.css'/>" />
+	href="<c:url value='/css/qna.css'/>" />
 <title>wonder - QNA게시판 상세보기</title>
 
 <section class="gray">
