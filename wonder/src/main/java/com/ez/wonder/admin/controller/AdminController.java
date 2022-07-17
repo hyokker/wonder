@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -272,6 +273,13 @@ public class AdminController {
 	public String post_createAdmin(@ModelAttribute AdminVO adminVo, Model model) {
 		logger.info("부서별 관리자 생성, 파라미터 adminVo={}", adminVo);
 
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		String security = encoder.encode(adminVo.getAdminPwd());
+		
+		logger.info("비밀번호 암호화 adminPwd={}, security={}", adminVo.getAdminPwd(), security);
+		adminVo.setAdminPwd(security);
+		
 		int cnt = adminService.insertAdmin(adminVo);
 		logger.info("부서별 관리자 생성 결과, cnt={}", cnt);
 
@@ -415,5 +423,12 @@ public class AdminController {
 		AdminVO adminVo = adminService.selectByAdminId(adminId);
 		logger.info("관리자 정보 조회 결과, adminVo={}", adminVo);
 		model.addAttribute("adminVo", adminVo);
+	}
+	
+	@GetMapping("/home")
+	public String home() {
+		logger.info("엑셀 다운 화면");
+
+		return "/admin/home";
 	}
 }

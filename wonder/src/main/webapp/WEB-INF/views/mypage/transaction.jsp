@@ -313,7 +313,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">
-																				<a href="#">환불 신청</a>
+																				<a href="<c:url value='/contactUs/contactUs' />" style="border: 0;">환불 문의</a>
 																			</c:if>
 																			<input type="hidden" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>

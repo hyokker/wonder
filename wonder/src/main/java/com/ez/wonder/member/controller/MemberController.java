@@ -173,6 +173,9 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", userId);
 			session.setAttribute("userName", memVo.getName());
+			
+			session.setAttribute("nickname", memVo.getNickname());
+			
 			session.setAttribute("type", memVo.getType()); //로그인 회원의 타입(1.일반회원, 2.프리랜서)
 			
 			
@@ -219,6 +222,8 @@ public class MemberController {
 					HttpSession session=request.getSession();
 					session.setAttribute("userId", email);
 					session.setAttribute("userName", nick);
+					session.setAttribute("nickname", nick);
+					
 					session.setAttribute("LoginType", "kakao");//카카오 회원 로그인 타입 카카오
 					logger.info("회원 가입 후 로그인 세션 email={},nick={}",email,nick);
 					
@@ -234,6 +239,9 @@ public class MemberController {
 		HttpSession session=request.getSession();
 		session.setAttribute("userId", email);
 		session.setAttribute("userName", nick);
+		
+		session.setAttribute("nickname", nick);
+
 		session.setAttribute("LoginType", "kakao");//카카오 회원 로그인 타입 카카오
 		
 		logger.info("회원 가입 후 패스 후 로그인 세션 email={},nick={}",email,nick);

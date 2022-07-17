@@ -46,7 +46,7 @@
 					
 					<div class="dash_user_footer">
 						<ul>
-							<li style="margin: 0 auto"><a href="#">MORE</a></li>
+							<li style="margin: 0 auto"><a href="<c:url value='/mypage/freeDetailWrite?sellUserId=${expertVo.userId }' />">MORE</a></li>
 						</ul>
 					</div>
 				</div>

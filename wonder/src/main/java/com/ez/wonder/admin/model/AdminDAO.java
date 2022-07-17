@@ -46,6 +46,7 @@ public interface AdminDAO {
 	Integer monthlySales();
 	int countMembers();
 	int countExperts();
+	int countNormal();
 	int countProduct();
 	int countPayment();
 
@@ -54,6 +55,6 @@ public interface AdminDAO {
 	List<FormVo> selectForm();
 	List<ProductVO> selectReadCount();
 	List<PaymentVO> payChart();
-	
-	List<MemberVO> excelMember();
+	List<ProductVO> productPerDay();
+	ArrayList<PaymentVO> payCountPerMethod();
 }

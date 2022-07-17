@@ -18,11 +18,11 @@
 	var userId="<c:out value='${userId}'/>";
 */
 	var userId="<c:out value='${sessionScope.userId}'/>";
+	var nickname="<c:out value='${sessionScope.nickname}'/>";
 	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
 	
+		alert(nickname);
 	$(function(){
-		//alert(userId);
-		//alert(adminId);
 		if(userId=="" && adminId==""){
 			alert("로그인이 필요합니다");
 			//location.href= '<c:url value="/" />';
