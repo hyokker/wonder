@@ -30,7 +30,9 @@
 	 
 	 $('.fa-credit-card').click(function(){
 		 var flag = $(this).parent().next().val();
+		 console.log('바깥');
 		 if(flag == 'N'){
+			 console.log('안쪽');
 			 alert('아직 의뢰를 수락하지 않았습니다.');
 			 return false;
 		 }
@@ -148,9 +150,14 @@ IMP.init("imp71307268"); // Example: imp00000000
 												<div class="_prt_filt_add_new">
 													<a href="<c:url value='/pd/pdList' />" class="greenLabel"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　더 많은 상품 보러가기</span></a>
 												</div>
+												
+												
+											  <c:if test="${vo.type=='프리랜서' }">
 												<div class="_prt_filt_add_new">
 													<a href="#" class="greenLabel" id="modalA"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　내 일정 보기</span></a>
 												</div>
+												</c:if>
+												
 												<!-- Modal A -->
 														<div class="modal fade modalA" id="exampleModalToggleA${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 														  <div class="modal-dialog modal-xl modal-dialog-centered">
