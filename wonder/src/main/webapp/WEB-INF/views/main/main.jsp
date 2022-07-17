@@ -194,8 +194,8 @@ class="item">
 											<div class="listing-short-detail-wrap">
 												<div class="_card_list_flex mb-2">
 													<div class="_card_flex_01">
-														<span class="_list_blickes _netork" style="width: 52px">기한 :${vo.pdTerm }</span>
-														<span class="_list_blickes types" style="width: 52px">수정: ${vo.editCount }</span>
+														<span class="_list_blickes _netork" style="width: 80px">기한 :${vo.pdTerm }</span>
+														<span class="_list_blickes types" style="width: 80px">수정: ${vo.editCount }</span>
 													</div>
 													<div class="_card_flex_last">
 														<h4 class="listing-name verified">
@@ -217,14 +217,10 @@ class="item">
 										<div class="price-features-wrapper">
 									 			<div class="list-fx-features">
 													<div class="">
-														<!-- <div class="inc-fleat-icon"> -->
 														<p>${vo.lang}</p>
-														<!-- </div> -->
 													</div>
 													<div class="">
-														<!-- <div class="inc-fleat-icon"> -->
-														<p>${vo.frame}</p>
-														<!-- </div> -->
+														<p>&nbsp;||${vo.frame}</p>
 													</div>
 
 												</div> 
