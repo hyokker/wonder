@@ -28,16 +28,7 @@
 		 });
 	 });
 	 
-	 $('.fa-credit-card').click(function(){
-		 var flag = $(this).parent().next().val();
-		 console.log('바깥');
-		 if(flag == 'N'){
-			 console.log('안쪽');
-			 alert('아직 의뢰를 수락하지 않았습니다.');
-			 return false;
-		 }
-	 });
-	 
+
 	 $('#formTypeUpdate').click(function(){
 			if(!confirm('해당 의뢰를 수락하시겠습니까?')){
 				return false;
@@ -316,7 +307,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																	</td>
 																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
-																			<c:if test="${map.PAY_FLAG == 'N' or map.PAY_FLAG == 'Y'}">
+																			<c:if test="${map.PAY_FLAG == 'Y'}">
 																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">

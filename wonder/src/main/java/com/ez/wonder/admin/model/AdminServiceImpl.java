@@ -125,7 +125,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		int result = 0;
 		if(dbPwd!=null && !dbPwd.isEmpty()) {
-			if(dbPwd.equals(adminPwd)) {
+			if(encoder.matches(adminPwd, dbPwd)) {
 				result=AdminService.LOGIN_OK;
 			}else {
 				result=AdminService.DISAGREE_PWD;
