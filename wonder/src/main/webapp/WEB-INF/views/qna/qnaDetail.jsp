@@ -153,11 +153,11 @@
 							</button>
 						</c:if>
 					</div>
-					<input type="text" id="sessionAdmin"value="${sessionScope.adminId }"> 
-					<input type="text" id="sessionId" value="${sessionScope.userId }">
-					<input type="text" id="userId" value="${vo.userId }">
+					<input type="hidden" id="sessionAdmin"value="${sessionScope.adminId }"> 
+					<input type="hidden" id="sessionId" value="${sessionScope.userId }">
+					<input type="hidden" id="userId" value="${vo.userId }">
 					
-					<input type="text" id="qnaNo" value="${vo.qnaNo }">
+					<input type="hidden" id="qnaNo" value="${vo.qnaNo }">
 				</div>
 
 			</div>
