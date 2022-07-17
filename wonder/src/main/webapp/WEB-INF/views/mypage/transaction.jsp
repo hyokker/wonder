@@ -42,6 +42,12 @@
 			}
 		});
 	 
+	 $('.formCancle').click(function(){
+			if(!confirm('해당 의뢰를 취소하시겠습니까?')){
+				return false;
+			}
+		});
+	 
      //모달 닫으면 뒷 배경 스크롤 가능
 
  
@@ -241,6 +247,9 @@ IMP.init("imp71307268"); // Example: imp00000000
 																		<c:if test="${map.PAY_FLAG=='D'}">
 																			<div class="_leads_status"><span class="active">의뢰완료</span></div>
 																		</c:if>
+																		<c:if test="${map.PAY_FLAG=='C'}">
+																			<div class="_leads_status"><span class="expire">의뢰취소</span></div>
+																		</c:if>
 																	</td>
 																	
 																	
@@ -249,12 +258,11 @@ IMP.init("imp71307268"); // Example: imp00000000
 																		
 																			<c:if test="${vo.type=='프리랜서' }">
 																				<a href="<c:url value='/mypage/transactionFormUpdate?formNo=${map.FORM_NO}'/>"  id="formTypeUpdate"><span style="font-weight: bold;">O</span></a>
-																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><span style="font-weight: bold;">X</span></a>
+																				<a href="<c:url value='/mypage/transactionFormCancle?formNo=${map.FORM_NO}'/>" class="formCancle"><span style="font-weight: bold;">X</span></a>
 																			</c:if>
 																		
 																			<c:if test="${vo.type=='일반회원' or '승인대기'}">
-																				<a href="<c:url value='/mypage/transactionFormUpdate?formNo=${map.FORM_NO}'/>"  id="formTypeUpdate"><span style="font-weight: bold;">O</span></a>
-																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><span style="font-weight: bold;">X</span></a>
+																				<a href="<c:url value='/mypage/transactionFormCancle?formNo=${map.FORM_NO}'/>" class="formCancle"><span style="font-weight: bold;">X</span></a>
 																			</c:if>
 																		
 																		
@@ -307,7 +315,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																			<c:if test="${map.PAY_FLAG == 'P'}">
 																				<a href="#">환불 신청</a>
 																			</c:if>
-																			<input type="text" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
+																			<input type="hidden" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>
 																	</td>
 																</tr>

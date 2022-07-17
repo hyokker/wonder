@@ -92,6 +92,7 @@
 		$('.dash-msg-inbox li').each(function(item,idx){
 			$(this).click(function(){
 				var rUserId = $(this).find('.message-by-headline input').val();
+				$('#nowId').val(rUserId);
 				
 				getChatDetail(rUserId);
 				
@@ -101,6 +102,14 @@
 				$('#chatCommentContainer').scrollTop($('#chatCommentContainer').height());
 				
 			});
+			
+			
+		});
+		
+		$('.refresh').click(function(){
+			var rUserId = $('#nowId').val();
+			
+			getChatDetail(rUserId);
 		});
 		
 		
@@ -184,7 +193,8 @@
 							<div class="messages-container margin-top-0">
 								<div class="messages-headline">
 									<h4>메세지를 보낼 상대를 선택해주세요</h4>
-									<a href="#" class="message-action"><i class="ti-trash"></i> Delete Conversation</a>
+									<span class="message-action refresh">새로고침</span>
+									<input type="hidden" id="nowId">
 								</div>
 
 								<div class="messages-container-inner">
@@ -237,13 +247,6 @@
 
 							</div>
 						</div>
-						
-						
-						<div>
-							<button class="createTest">test</button>
-							<button class="createTest">highzess</button>
-						</div>
-						
 						
 					</div>
 				</div>

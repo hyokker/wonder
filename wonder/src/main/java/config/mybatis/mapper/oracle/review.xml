@@ -27,4 +27,20 @@
 		delete from review where review_no=#{reviewNo}
 	</delete>
 	
+	<!-- 오지훈 - 아이디로 전체 점수 조회 -->
+	<select id="getAvgScoreByUserId" parameterType="string" resultType="map">
+		select sum(rating)/count(*) as avgScore, count(*) as total from review 
+		where pd_no in (
+		select pd_no from product where user_id=#{userId}
+		)
+	</select>
+	
+		<!-- 오지훈 - 아이디로 전체 리뷰 조회 -->
+	<select id="selectReviewByUserId" parameterType="string" resultType="reviewVo">
+		select * from review
+		where pd_no in (
+		select pd_no from product where user_id=#{userId}
+		)
+	</select>
+	
 </mapper>

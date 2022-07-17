@@ -43,6 +43,8 @@
         	}
         	bool=!bool;
         });
+        
+        
 	});
 </script>
 <body class="yellow-skin">
@@ -85,10 +87,26 @@
 					</div>
 					
 					<div class="freeDetailCareer">
-					<h5 class="bold">프리랜서 경력</h5><br/>
+					<h5 class="bold">프리랜서 경력</h5>
 						<span>
-							<% pageContext.setAttribute("newLine","\n"); %>
-							${fn:replace(expertVo.introduction, newLine, "<br/>") }
+							<c:set var="career" value="${expertVo.career }" />
+							<c:choose>
+								<c:when test="${career=='1,3' }">
+									<span>1 - 3년</span>							
+								</c:when>
+								<c:when test="${career=='3,5' }">
+									<span>3 - 5년</span>							
+								</c:when>
+								<c:when test="${career=='5,10' }">
+									<span>5 - 10년</span>							
+								</c:when>
+								<c:when test="${career=='10,over' }">
+									<span>10년이상</span>							
+								</c:when>
+								<c:otherwise>
+									<span></span>					
+								</c:otherwise>
+							</c:choose>
 						</span>
 					</div>
 				</div>
@@ -96,19 +114,79 @@
 				<div class="freeDetailRight">
 					<div class="freeDetailSkill">
 						<h5 class="bold">보유 기술</h5><br/>
-							<span>
-								<% pageContext.setAttribute("newLine","\n"); %>
-								${fn:replace(expertVo.introduction, newLine, "<br/>") }
-							</span>
-						</div>
+							<c:set var="originLang" value="${expertVo.lang }" />
+							<c:forEach var="lang" items="${fn:split(originLang,',') }" end="10">
+							<span>${lang }　</span>
+							</c:forEach>
+							<br><br><br><br>
+							<c:set var="originFrame" value="${expertVo.frame }" />
+							<c:forEach var="frame" items="${fn:split(originFrame,',') }" end="10">
+							<span>${frame }　</span>
+							</c:forEach>
+					</div>
 					
 				</div>
 			</div>
 			
-		</div> <!-- 아바타 컨테이너 -->
+		</div> 
+		<!-- 아바타 컨테이너 끝-->
 		
+		
+		
+		<!-- 포트폴리오 / 리뷰 컨테이너 시작 -->
 		<div class="freeDetailReviewContainer">
 			<div class="property_block_wrap">
+			
+		<!-- 포트폴리오 시작 -->
+				<div class="uploadBox freeDetailWritePortfolio" style="width:100%; height: 300px;" id="portfolioBox">
+					<div id="titleWrap">
+						<div class="property_block_wrap_header">
+							<h4 class="property_block_title">포트폴리오</h4>
+						</div>
+					</div>			
+					<c:forEach var="vo" items="${list }" varStatus="vs">
+					<div class="portfolioBox_outter">
+						<div class="portfolioBox_innerRight align_c">
+							
+							<img alt="포트폴리오 이미지" src="<c:url value='/img/mypage/expert_portfolio/${vo.fileName }' />" 
+								class="portfolioImg" id="portfolioImg${vs.index }">
+								
+							<div class="portfolioModal" id="portfolioModal${vs.index }">
+							  <div class="portfolioModal_content" title="클릭하면 창이 닫힙니다.">
+							  	<img alt="포트폴리오 모달 이미지" src="<c:url value='/img/mypage/expert_portfolio/${vo.fileName }' />"
+							  		 id="mordalImg">
+							  </div>
+							</div>
+																								
+						</div>
+						<div>
+							<p class="align_c">클릭시 확대</p>
+						</div>
+					</div>
+					
+					<script type="text/javascript">
+						$(function(){
+							 $("#portfolioImg${vs.index }").click(function(){
+								var imgSrc = $('#portfolioBox_innerRight img').attr("src");
+								var jstl = "<c:out value='${vs.index }' />";
+								$('#portfolioModal_content img').attr("src",imgSrc);
+							    $(".portfolioModal").eq(jstl).fadeIn();
+							 });
+								  
+							  $(".portfolioModal_content img").click(function(){
+								var jstl = "<c:out value='${vs.index }' />";
+							    $(".portfolioModal").eq(jstl).fadeOut();
+							 });
+						});
+					</script>
+					
+			
+					</c:forEach>
+				</div>
+			<!-- 포트폴리오  끝 -->
+			
+			<!-- 리뷰 시작 -->
+			
 				<div class="property_block_wrap_header">
 					<h4 class="property_block_title">리뷰</h4>
 				</div>
@@ -197,11 +275,14 @@
 						</div>
 					</div>
 					<c:if test="${reviewList.size() > 3 }">
-						<a href="#more" class="reviews-checked">리뷰 더 보기</a>
+						<a class="reviews-checked" style="cursor: pointer;">리뷰 더 보기</a>
 					</c:if>
 				</div>
 			</div>
 		</div>
+		<!-- 리뷰 끝 -->
+		<!-- 포트폴리오 / 리뷰 컨테이너 끝 -->
+		<br><br>
 		
 	</div>
 </div>
