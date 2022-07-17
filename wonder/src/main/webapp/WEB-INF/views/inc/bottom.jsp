@@ -173,6 +173,15 @@
 		$('#CallLogin').click(function(){
 			var userId = $("#loginId").val();
 			var userPwd = $("#loingPwd").val();
+/* 			if($.trim($('#loginId').val()) == "") {
+				alert("아이디를 입력해주세요.");
+				$('#loginId').focus();
+				event.preventDefault();
+			} else if ($("#loingPwd").val().length < 1) {
+				alert("비밀번호를 입력하세요");
+				$("#loingPwd").focus();
+				event.preventDefault();
+			} */
 			
 			$.ajax({
 				type: "post",
@@ -182,10 +191,11 @@
 				success : function(data){
 					console.log(data);
 					if (data == 1){
+						 alert('로그인 되었습니다.'); 
 						location.reload();
 						return false;
 					} else {
-						alert('아이디 비밀번호를 확인하세요');
+						 alert('계정 정보를 확인하세요.'); 
 					}
 				}
 			});
