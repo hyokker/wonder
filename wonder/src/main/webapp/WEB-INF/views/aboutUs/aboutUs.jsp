@@ -322,7 +322,7 @@
 <!-- =============================== Our Team ================================== -->
 
 <!-- ============================ Smart Testimonials ================================== -->
-<section class="gray-simple">
+<!-- <section class="gray-simple">
 	<div class="container">
 
 		<div class="row justify-content-center">
@@ -341,7 +341,7 @@
 			<div class="col-lg-12 col-md-12">
 				<div class="item-slide space">
 
-					<!-- Single Item -->
+					Single Item
 					<div class="single_items">
 						<div class="_testimonial_wrios">
 							<div class="_testimonial_flex">
@@ -375,7 +375,7 @@
 						</div>
 					</div>
 
-					<!-- Single Item -->
+					Single Item
 					<div class="single_items">
 						<div class="_testimonial_wrios">
 							<div class="_testimonial_flex">
@@ -409,7 +409,7 @@
 						</div>
 					</div>
 
-					<!-- Single Item -->
+					Single Item
 					<div class="single_items">
 						<div class="_testimonial_wrios">
 							<div class="_testimonial_flex">
@@ -444,7 +444,7 @@
 						</div>
 					</div>
 
-					<!-- Single Item -->
+					Single Item
 					<div class="single_items">
 						<div class="_testimonial_wrios">
 							<div class="_testimonial_flex">
@@ -479,7 +479,7 @@
 						</div>
 					</div>
 
-					<!-- Single Item -->
+					Single Item
 					<div class="single_items">
 						<div class="_testimonial_wrios">
 							<div class="_testimonial_flex">
@@ -519,11 +519,11 @@
 		</div>
 
 	</div>
-</section>
+</section> --> 
 <!-- ============================ Smart Testimonials End ================================== -->
-
+<hr>
 <!-- ============================ article Start ================================== -->
-<section class="min">
+<!-- <section class="min">
 	<div class="container">
 
 		<div class="row justify-content-center">
@@ -538,7 +538,7 @@
 
 		<div class="row">
 
-			<!-- Single blog Grid -->
+			Single blog Grid
 			<div class="col-lg-4 col-md-6">
 				<div class="grid_blog_box">
 
@@ -577,7 +577,7 @@
 				</div>
 			</div>
 
-			<!-- Single blog Grid -->
+			Single blog Grid
 			<div class="col-lg-4 col-md-6">
 				<div class="grid_blog_box">
 
@@ -617,7 +617,7 @@
 				</div>
 			</div>
 
-			<!-- Single blog Grid -->
+			Single blog Grid
 			<div class="col-lg-4 col-md-6">
 				<div class="grid_blog_box">
 
@@ -661,6 +661,6 @@
 
 	</div>
 </section>
-<div class="clearfix"></div>
+<div class="clearfix"></div> -->
 <!-- ============================ article End ================================== -->
 <%@ include file="../inc/bottom.jsp" %>

@@ -44,7 +44,7 @@
 								<ul class="footer-menu">
 									<li><a href="<c:url value='/aboutUs/aboutUs'/>">서비스소개</a></li>
 									<li><a href="<c:url value='/faq/faq'/>"">FAQ</a></li>
-									<li><a href="<c:url value='/contactUs/contactUs'/>">고객센터</a></li>
+									<%-- <li><a href="<c:url value='/contactUs/contactUs'/>">고객센터</a></li> --%>
 								</ul>
 							</div>
 						</div>
@@ -53,8 +53,8 @@
 							<div class="footer_widget">
 								<h4 class="widget_title">Company</h4>
 								<ul class="footer-menu">
-									<li><a href="#">회사소개</a></li>
-									<li><a href="<c:url value='/contactUs/contactUs'/>">제휴제안</a></li>
+									<!-- <li><a href="#">회사소개</a></li> -->
+									<li><a href="<c:url value='/contactUs/contactUs'/>">고객센터 및 제휴제안</a></li>
 								</ul>
 							</div>
 						</div>
@@ -173,6 +173,15 @@
 		$('#CallLogin').click(function(){
 			var userId = $("#loginId").val();
 			var userPwd = $("#loingPwd").val();
+/* 			if($.trim($('#loginId').val()) == "") {
+				alert("아이디를 입력해주세요.");
+				$('#loginId').focus();
+				event.preventDefault();
+			} else if ($("#loingPwd").val().length < 1) {
+				alert("비밀번호를 입력하세요");
+				$("#loingPwd").focus();
+				event.preventDefault();
+			} */
 			
 			$.ajax({
 				type: "post",
@@ -182,10 +191,11 @@
 				success : function(data){
 					console.log(data);
 					if (data == 1){
+						 alert('로그인 되었습니다.'); 
 						location.reload();
 						return false;
 					} else {
-						alert('아이디 비밀번호를 확인하세요');
+						 alert('계정 정보를 확인하세요.'); 
 					}
 				}
 			});
