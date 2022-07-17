@@ -111,6 +111,8 @@
 											}
 										</script> <input type="hidden" name="sessionDel" id="sessionDel"
 									value="${sessionScope.userId }" />
+									<input type="hidden" name="sessionNick" id="sessionNick"
+									value="${sessionScope.nickname }" />
 
 
 
