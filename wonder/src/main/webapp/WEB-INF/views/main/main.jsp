@@ -217,12 +217,12 @@ class="item">
 					
 										<div class="price-features-wrapper">
 									 			<div class="list-fx-features">
-													<div class="listing-card-info-icon">
+													<div class="">
 														<!-- <div class="inc-fleat-icon"> -->
 														<p>${vo.lang}</p>
 														<!-- </div> -->
 													</div>
-													<div class="listing-card-info-icon">
+													<div class="">
 														<!-- <div class="inc-fleat-icon"> -->
 														<p>${vo.frame}</p>
 														<!-- </div> -->
