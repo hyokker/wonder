@@ -3,9 +3,9 @@
 <%@ include file="../inc/top.jsp"%>
  <!--  
 	<해결과제>
-	1. session 정리
+	1. user 테스트
+	1. admin 테스트
 	
-	-에디터 수정사항 반영하기
 -->
 <link rel="stylesheet" type="text/css"  href="<c:url value='/css/board.css'/>" />
 <title>wonder - 자유게시판 수정하기</title>
@@ -15,15 +15,16 @@
 <!--테스트용  -->
 <script type="text/javascript">
 /* 	테스트
-	
+	var userId="<c:out value='${userId}'/>";
 */
 	var userId="<c:out value='${sessionScope.userId}'/>";
 	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
 	
 	$(function(){
-		alert('${vo.userId}');
+		//alert('${vo.userId}');
 		//alert(adminId);
 
+		
 
 	});
 	
@@ -55,51 +56,46 @@
 <section>
 	<div class="container">
 		<div class="row">
-			<form name="frmWrite" method="post" enctype="multipart/form-data"
+			<form name="frmEdit" method="post" enctype="multipart/form-data"
 				action="<c:url value='/board/edit'/>">
 				<input type="hidden" name="boardNo" value="${param.boardNo}" />
-			   <input type="hidden" name="oldFileName" value="${vo.fileName}"/>
+			
 				<fieldset>
 					<div class="col-lg-12 col-md-12">
 						<div class="submit-page p-0">
 							<div class="frm_submit_block">
 								<h2>게시글 수정</h2>
 								<hr>
-								<div class="frm_submit_wrap">
+								<div class="frm_submit_wrap writeEdit">
 									<div class="form-row">
 									<!--제목  -->
 										<div class="form-group col-md-7" id="">
 											<label for="boardTitle">제목</label>
-											<input type="text"
-												class="form-control" name="boardTitle" id="boardTitle"
-												value="${vo.boardTitle}" />
-										</div>
-										<div class="form-group col-md-4 box"></div>
+											<input type="text" class="form-control" name="boardTitle" id="boardTitle" value="${vo.boardTitle}" />
+										</div><div class="form-group col-md-4 box"></div>
 									<!--작성자  -->
 										<div class="form-group col-md-4" id="">
 											<label for="nickname">작성자</label>
-											<input type="text"
-												class="form-control" readonly="readonly" name="nickname"
-												id="nickname" value="${vo.nickname}">
+											<input type="text" name="nickname" id="nickname" value="${vo.nickname}" class="form-control" readonly="readonly">
 										</div>
 										<div class="form-group col-md-7 box"></div>
 									<!--비밀번호  -->	
+									<c:if test="${!empty sessionScope.userId}">
 										<div class="form-group col-md-4" id="">
 											<label for="pwd">비밀번호확인</label>
-											<input type="password"
-												name="pwd" maxlength="4" class="form-control" id="pwd">
+											<input type="password" name="pwd" maxlength="4" class="form-control" id="pwd">
 										</div>
 										<div class="form-group col-md-7 box"></div>
+									</c:if>
 									<!--첨부파일  -->	
-										<div class="form-group col-md-5">
+									   <input type="hidden" name="oldFileName" value="${vo.fileName}"/>
+										<div class="form-group col-md-6">
 											<label for="upfile">첨부파일</label>
-											<input type="file"
-												id="upfile" name="upfile" class="form-control" value="" />
+											<input type="file" id="upfile" name="upfile" class="form-control" value="" />
 											<c:if test="${!empty vo.fileName}">
 												<span class="red" style="font-size: 14px"> 
-												새로운 파일을 첨부하는 경우,<br>
-												기존 파일 <img src="<c:url value='/img/file.gif'/>" />
-												 ${vo.originalFileName} 은(는) 삭제됩니다.
+												새로운 파일을 첨부하는 경우,&nbsp;&nbsp;기존 파일&nbsp;
+												'&nbsp;${vo.originalFileName}&nbsp;'은(는) 삭제됩니다.
 												</span>
 											</c:if>
 										</div>
@@ -115,6 +111,13 @@
 													<label for="boardContent">내용</label>
 													<textarea class="form-control ht-120" rows="50" cols="50"
 														id="boardContent" name="boardContent">${vo.boardContent}</textarea>
+												<!--ckEditor  -->		
+													<script
+														src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+													<script
+														src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+													<script type="text/javascript"
+														src="<c:url value='/js/board.js'/>"></script>
 												</div>
 											</div>
 										</div>
@@ -129,10 +132,8 @@
 												onclick="location.href='<c:url value='list'/>'">
 												<span class="ti-view-list"></span> 목록
 											</button>
-
 										</div>
 									</div>
-
 								</div>
 							</div>
 
@@ -140,10 +141,6 @@
 					</div>
 				</fieldset>
 			</form>
-			<!--ckEditor  -->
-			<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-			<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-			<script type="text/javascript" src="<c:url value='/js/board.js'/>"></script>
 		</div>
 	</div>
 </section>

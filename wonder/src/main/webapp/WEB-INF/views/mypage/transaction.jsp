@@ -12,9 +12,19 @@
 <script type="text/javascript">
 
  $(function(){
-	 $('.modalA').each(function(item,idx){
+	 $('.CModalContainer').each(function(item,idx){
 		 $(this).click(function(){
-			 $(this).find('.modalC').modal('show');
+			 $(this).find('.modalD').modal('show');
+		 });
+		 
+		 $(this).find('.mod-close').click(function(){
+			 $(this).modal('hide');
+		 });
+	 });
+	 
+	 $('#modalA').each(function(item,idx){
+		 $(this).click(function(){
+			 $('.modalA').modal('show');
 		 });
 	 });
 	 
@@ -31,7 +41,12 @@
 				return false;
 			}
 		});
- });
+	 
+     //모달 닫으면 뒷 배경 스크롤 가능
+
+ 
+	 
+ }); //function.ready
  
  
 function pageProc(curPage){
@@ -127,6 +142,23 @@ IMP.init("imp71307268"); // Example: imp00000000
 												<div class="_prt_filt_add_new">
 													<a href="<c:url value='/pd/pdList' />" class="greenLabel"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　더 많은 상품 보러가기</span></a>
 												</div>
+												<div class="_prt_filt_add_new">
+													<a href="#" class="greenLabel" id="modalA"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　내 일정 보기</span></a>
+												</div>
+												<!-- Modal A -->
+														<div class="modal fade modalA" id="exampleModalToggleA${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+														  <div class="modal-dialog modal-xl modal-dialog-centered">
+														    <div class="modal-content">
+														      <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
+														        <h5 class="modal-title" id="exampleModalToggleLabel">제작자 일정</h5>
+														        <span class="mod-close" data-dismiss="modal" aria-hidden="true" style="border-radius: 50%;"><i class="ti-close"></i></span>
+														      </div>
+														      <div class="modal-body">
+																<iframe src="<c:url value='/pd/calendar?userId=${vo.userId }'/>" width="790px" height="650px" style="border:none"></iframe>
+														      </div>
+														    </div>
+														  </div>
+														</div>
 											</div>
 										</div>
 									</div>
@@ -242,11 +274,11 @@ IMP.init("imp71307268"); // Example: imp00000000
 																			</c:if>
 																		</div>
 																	</td>
-																	<td class="center modalA"> <!-- 의뢰서 -->
-																		<div class="_leads_action">
+																	<td class="center"> <!-- 의뢰서 -->
+																		<div class="_leads_action CModalContainer">
 																			<a href="#"><i class="fas fa-edit"></i></a>
 																				<!-- Modal C -->
-																			   <div class="modal fade modalC" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" id="modalC">
+																			   <div class="modal fade modalD" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 																			     <div class="modal-dialog modal-lg modal-dialog-centered">
 																			       <div class="modal-content">
 																			         <div class="modal-header" style="margin: 0 auto; border-bottom: 3px solid #27ae60;">
@@ -269,13 +301,13 @@ IMP.init("imp71307268"); // Example: imp00000000
 																	</td>
 																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
-																			<c:if test="${map.PAY_FLAG == 'N' || map.PAY_FLAG == 'Y'}">
+																			<c:if test="${map.PAY_FLAG == 'N' or map.PAY_FLAG == 'Y'}">
 																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">
-																				<a href="#">환불 신청</a>
+																				<a href="<c:url value='/contactUs/contactUs' />" style="border: 0;">환불 문의</a>
 																			</c:if>
-																			<input type="text" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
+																			<input type="hidden" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>
 																	</td>
 																</tr>

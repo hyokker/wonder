@@ -282,3 +282,50 @@ input.form-control.transSearch{
 #formConfirm{
 	text-align: left;
 }
+
+._prt_filt_add_new{
+	float: right;
+	margin: 0 10px;
+}
+
+.greenLabel:hover{
+	color:white;
+}
+
+
+/********* freeDetailWrite*********/
+
+.freeDetailAveterContainer{
+	overflow: hidden;
+	height: 300px;
+}
+
+.freeDetailAvater{
+	float: left;
+	width: 20%;
+}
+.freeDetailIntroContainer{
+	float:right;
+	width: 75%;
+	height: 100%;
+	
+}
+.freeDetailIntro{
+	display: inline-block;
+	height: 70%;
+}
+
+.freeDetailCareer{
+	height: 30%;
+}
+
+.bold{
+	color: black;
+	font-weight: blod;
+}
+
+.freeDetailLeft, .freeDetailRight{
+	float:left;
+	width: 49%;
+	height: 100%;
+}

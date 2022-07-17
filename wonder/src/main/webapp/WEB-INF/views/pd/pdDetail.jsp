@@ -46,7 +46,7 @@
 					
 					<div class="dash_user_footer">
 						<ul>
-							<li style="margin: 0 auto"><a href="#">MORE</a></li>
+							<li style="margin: 0 auto"><a href="<c:url value='/mypage/freeDetailWrite?sellUserId=${expertVo.userId }' />">MORE</a></li>
 						</ul>
 					</div>
 				</div>
@@ -762,7 +762,7 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div>	
 
 <!-- slick -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
