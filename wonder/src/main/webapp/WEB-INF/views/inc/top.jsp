@@ -9,6 +9,18 @@
 
 <html lang="ko">
 <head>
+<style type="text/css">
+button.api-btn {
+    color: white;
+    background-color: #27ae60;
+    border: 0px solid;
+    padding: 5px;
+    border-radius: 10px;
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+</style>
 <meta charset="utf-8" />
 <meta name="author" content="Themezhub" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -82,7 +94,7 @@
 							<ul class="nav-menu nav-menu-social align-to-right">
 								<li>${sessionScope.userId }님환영합니다!<%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
 									<%-- <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li> --%>
-									<button class="api-btn" onclick="unlinkApp()">로그아웃</button> <script
+									<button class="api-btn" onclick="unlinkApp()" style="">로그아웃</button> <script
 										src="https://developers.kakao.com/sdk/js/kakao.js"></script> <script
 										type="text/javascript">
 											function unlinkApp() {
