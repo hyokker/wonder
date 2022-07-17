@@ -182,9 +182,9 @@ class="item">
 									<div class="listing-img-wrapper">
 										<div class=""></div>
 										<div class="list-img-slide">
-											<a href="single-property-1.html"><img
-													src="${pageContext.request.contextPath}/img/pdupload/${vo.fileName}"
-													class="img-fluid mx-auto" alt="" /></a>
+											<a href="single-property-1.html">
+											<img src="${pageContext.request.contextPath}/img/pdupload/${vo.fileName}" class="img-fluid mx-auto" alt="" />
+											</a>
 										</div>
 									</div>
 					
