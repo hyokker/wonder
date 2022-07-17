@@ -515,10 +515,10 @@
 
                               <div class="price-features-wrapper">
                                  <div class="list-fx-features">
-                                    <div class="listing-card-info-icon">
+                                    <div class="">
                                        <div class="inc-fleat-icon">${pdListVo.lang}</div>
                                     </div>
-                                    <div class="listing-card-info-icon">
+                                    <div class="">||
                                        <div class="inc-fleat-icon">${pdListVo.frame}</div>
                                     </div>
 

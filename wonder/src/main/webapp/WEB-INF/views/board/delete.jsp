@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <!--  
 	<해결과제>
-	- 로그인 쪽 모달 카피
+	- 모달 카피
 -->
 <title>게시글 삭제</title>
 <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet">
@@ -17,30 +17,21 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
 $(function(){
-	$('form[name=frmDelete]').submit(function(){
-		if($.trim($('#pwd').val()).length<1){
-				alert('비밀번호를 입력하세요!');
-				$('#pwd').focus();
-				event.preventDefault();
-		}
-	});
-	/* 
-	$('#btcancle').click(function(){
-		self.close();
-	});
-	 */
+	//var dbPwd= "<c:out value='${vo.pwd}'/>";
+	//var pwd = $('#pwd').val();
+	
 });
 </script>
 </head>
 <body>
-	<section class="pt-0">
+	<section class="">
 	<form name="frmDelete" method="post"  
 		action="<c:url value='/board/delete'/>" >
 		<input type="hidden" name="boardNo" value="${param.boardNo}" />
 		<input type="hidden" name="fileName" value="${param.fileName}" />
-		<div class="row">
-			<div class="col-lg-8 col-md-7">
-				<div class="property_block_wrap" id="delete_wrap">
+		<div class="">
+			<div class="">
+				<div class="" id="delete_wrap">
 					<div class="delete_header">
 						<p class="center black">${param.boardNo}번 글을 삭제하시겠습니까?</p>
 					</div>

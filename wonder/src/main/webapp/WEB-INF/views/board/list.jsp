@@ -7,7 +7,7 @@
 	-페이징처리
 		test="${pagingInfo.firstPage>1 } 부터 제거
 	-게시글 암호화
-	-앞뒤 공백제거
+	-옵션없는 전체검색? 앞뒤 공백제거
 -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/board.css'/>" />

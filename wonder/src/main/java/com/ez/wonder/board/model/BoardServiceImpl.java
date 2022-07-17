@@ -53,6 +53,11 @@ public class BoardServiceImpl implements BoardService{
 		String dbPwd=boardDao.selectPwd(boardNo);
 		
 		boolean result=false;
+		
+		if(dbPwd==null) {
+			dbPwd="";
+		}
+		
 		if(dbPwd.equals(pwd)){
 			result=true;
 		}

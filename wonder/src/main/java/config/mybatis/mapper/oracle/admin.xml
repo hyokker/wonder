@@ -171,9 +171,11 @@
 		(select
 		p.pd_no,p.user_id,p.cate_type,p.pd_title,p.regdate, p.del_type,
 		p.read_count, p.lang, p.frame, f.form_no,
-		f.form_title, f.form_content, f.form_regdate, f.price, f.pay_flag ,f.orderstart,
+		f.form_title, f.form_content,
+		f.form_regdate, f.price, f.pay_flag ,f.orderstart,
 		f.orderend
-		from product p, form f
+		from
+		product p, form f
 		where p.pd_no = f.pd_no) A
 		<include refid="searchWhere"></include>
 		<if test="searchKeyword ==null or searchKeyword ==''"> where
@@ -272,5 +274,12 @@
 	<select id="dupAdminId" parameterType="String" resultType="int">
 		select count(*) from admin
 		where admin_Id=#{adminId}
+	</select>
+
+	<select id="excelMember" resultType="memberVo">
+		select *
+		from member
+		order by
+		mem_No desc
 	</select>
 </mapper>

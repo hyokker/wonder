@@ -38,6 +38,8 @@ import com.ez.wonder.member.model.MemberVO;
 import com.ez.wonder.mypage.model.MypageService;
 import com.ez.wonder.payment.model.PaymentService;
 import com.ez.wonder.payment.model.PaymentVO;
+import com.ez.wonder.review.model.ReviewService;
+import com.ez.wonder.review.model.ReviewVO;
 import com.ez.wonder.skill.model.FrameworkVO;
 import com.ez.wonder.skill.model.LanguageVO;
 
@@ -53,6 +55,8 @@ public class MypageController {
 	private final FileUploadUtil fileUploadUtil;
 	private final PaymentService paymentService;
 	private final FormService formService;
+	private final ReviewService reviewService;
+
 	
 	@RequestMapping("/incSide")
 	public void mypage_incSide(HttpSession session, Model model) {
@@ -75,7 +79,7 @@ public class MypageController {
 		
 		String userId=(String) session.getAttribute("userId");
 		if(userId==null) {
-			String msg="로그인해야 이용하실 수 있습니다";
+			String msg="로그인이 필요한 서비스입니다";
 			String url="/";
 			
 			model.addAttribute("msg",msg);
@@ -126,17 +130,17 @@ public class MypageController {
 	public String mypage_profile_get(HttpSession session, Model model) {
 		logger.info("프로필 페이지");
 		
-		if((String)session.getAttribute("userId")==null) {
-			String msg="로그인해야 이용하실 수 있습니다";
+		
+		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
 			String url="/";
 			
 			model.addAttribute("msg",msg);
 			model.addAttribute("url",url);
 			
-			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+			return "/common/message";
 		}
-		
-		String userId=(String) session.getAttribute("userId");
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
 		
@@ -184,6 +188,16 @@ public class MypageController {
 	public String mypage_profile_post(@ModelAttribute ExpertImageVO profileVo ,@ModelAttribute MemberVO memberVo, 
 			@ModelAttribute ExpertVO expertVo,  HttpServletRequest request, HttpSession session,Model model) {
 		String userId = (String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		memberVo.setUserId(userId);
 		logger.info("멤버프로필 수정 처리, memberVo={}",memberVo);
 		int cnt=mypageService.updateMember(memberVo);
@@ -310,13 +324,13 @@ public class MypageController {
 		String type = memVo.getType();
 		
 		if(userId==null) {
-			String msg="로그인해야 이용하실 수 있습니다";
+			String msg="로그인이 필요한 서비스입니다";
 			String url="/";
 			
 			model.addAttribute("msg",msg);
 			model.addAttribute("url",url);
 			
-			return "/common/message";  //테스트용으로 잠궈놨음! 나중에 풀것
+			return "/common/message";
 		}
 		
 
@@ -325,20 +339,38 @@ public class MypageController {
 		logger.info("expertVo={}",expertVo);
 		logger.info("profileVo={}",ExpertProfileVo);
 		logger.info("memVo={}",memVo);
+		
+		List<ReviewVO> reviewList=reviewService.selectReviewByPdNo(57);
+		logger.info("리뷰 목록 조회, reviewList.size={}", reviewList.size());
+		Map<String, Object> map=reviewService.getAvgScore(57);
+		logger.info("리뷰 평점 조회, map={}", map);
+		
+		
 		model.addAttribute("expertVo", expertVo);
 		model.addAttribute("profileVo", ExpertProfileVo);
 		model.addAttribute("memVo",memVo);
-		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("map", map);
 
 		return "/mypage/freeDetailWrite";
 	}
 	
 	
 	@GetMapping("/application")
-	public void mypage_application_get(HttpSession session, Model model) {
+	public String mypage_application_get(HttpSession session, Model model) {
 		logger.info("프리랜서 등록 신청 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
 		
@@ -364,6 +396,8 @@ public class MypageController {
 		
 		model.addAttribute("expertVo", vo);
 		model.addAttribute("memVo",memVo);
+		
+		return "/mypage/application";
 	}
 	
 	
@@ -371,6 +405,16 @@ public class MypageController {
 	public String mypage_application_post(@ModelAttribute ExpertImageVO profileVo ,@ModelAttribute MemberVO memberVo, 
 			@ModelAttribute ExpertVO expertVo,  HttpServletRequest request, HttpSession session,Model model) {
 		String userId = (String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		memberVo.setUserId(userId);
 		logger.info("멤버프로필 등록신청 처리, memberVo={}",memberVo);
 		
@@ -456,10 +500,20 @@ public class MypageController {
 	
 	
 	@GetMapping("/applicationCheck")
-	public String mypage_applicationCheck_get(@RequestParam("userId") String userIdGet,HttpSession session, Model model) {
+	public String mypage_applicationCheck_get(@RequestParam(value =  "userId", required = false) String userIdGet,HttpSession session, Model model) {
 		logger.info("프리랜서 등록 확인 페이지");
 		
 		String ssUserId=(String) session.getAttribute("userId");
+		if(ssUserId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		String userId=userIdGet;
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
@@ -517,6 +571,16 @@ public class MypageController {
 		logger.info("전문가용 포트폴리오 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		MemberVO memVo = mypageService.selectMemberById(userId);
 		String type = memVo.getType();
 
@@ -556,6 +620,16 @@ public class MypageController {
 		
 		MultipartHttpServletRequest mtfRequest = (MultipartHttpServletRequest)request;
 		String userId = (String)session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		List<MultipartFile> fileList = mtfRequest.getFiles("portfolioFile");
 		logger.info("포트폴리오 등록 처리 fileList.size={}, 접속중인 유저 아이디 ={}",fileList.size(),userId);
 		logger.info("테스트={}",reviewProtfolioName);
@@ -628,10 +702,20 @@ public class MypageController {
 	
 
 	@RequestMapping("/bookmark")
-	public void mypage_bookmark(@ModelAttribute SearchVO searchVo, HttpSession session,Model model) {
+	public String mypage_bookmark(@ModelAttribute SearchVO searchVo, HttpSession session,Model model) {
 		logger.info("찜(북마크) 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
@@ -662,6 +746,8 @@ public class MypageController {
 		model.addAttribute("list",list);
 		model.addAttribute("pagingInfo",paging);
 		model.addAttribute("vo",vo);
+		
+		return "/mypage/bookmark";
 	}
 	
 	@ResponseBody
@@ -700,13 +786,20 @@ public class MypageController {
 		logger.info("거래 페이지 searchVo={}",searchVo);
 		logger.info("현재 페이지 currentPage={}",searchVo.getCurrentPage());
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
 		String type = vo.getType();
-		
-
-		//세션아이디가 없을때(로그인 안되어있을때) 로그인창으로 이동시키는것 추가해야함 (테스트시에는 없음)
 		
 		
 		PaginationInfo paging = new PaginationInfo();
@@ -797,6 +890,16 @@ public class MypageController {
 	public String mypage_chatting_get(@RequestParam(name = "userId" ,required = false) String otherUserId,HttpSession session,Model model) {
 		logger.info("채팅 페이지");
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
@@ -847,14 +950,26 @@ public class MypageController {
 	}
 	
 	@GetMapping("/changePwd")
-	public void mypage_changePwd_get(HttpSession session,Model model) {
+	public String mypage_changePwd_get(HttpSession session,Model model) {
 		logger.info("암호 변경 페이지");
 		
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("프로필 페이지 vo={}",vo);
 		
 		model.addAttribute("vo",vo);
+		
+		return "/mypage/changePwd";
 	}
 	
 	@ResponseBody
@@ -880,6 +995,17 @@ public class MypageController {
 	public String mypage_changePwd_post(@RequestParam String newPwd,HttpSession session,Model model) {
 		logger.info("암호 변경 처리, 파라미터 newPwd={}",newPwd);
 		String userId=(String) session.getAttribute("userId");
+		if(userId==null) {
+			String msg="로그인이 필요한 서비스입니다";
+			String url="/";
+			
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			
+			return "/common/message";
+		}
+		
+		
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("현재 로그인중인 아이디 vo={}",vo);
 		

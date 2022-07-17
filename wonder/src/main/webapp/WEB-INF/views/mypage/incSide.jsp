@@ -75,12 +75,6 @@
 						
 						<div class="col-lg-3 col-md-4">
 							<div class="property_dashboard_navbar">
-								<div>
-									<input type="button" value="일반회원" id="genaral">
-									<input type="button" value="프리랜서" id="free">
-									<input type="button" value="세션out" id="out">
-
-								</div>
 								<div class="dash_user_avater">
 										<c:if test="${profileVo.fileName !=null && profileVo.fileName != ''}">
 											<a class="linkFreeWrite">
