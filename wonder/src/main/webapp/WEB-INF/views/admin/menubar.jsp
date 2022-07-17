@@ -65,7 +65,7 @@
 						class="fa fa-power-off"></i></a></li>
 				<li><a href="<c:url value='/admin/email'/>"><i
 						class="fa fa-envelope"></i></a></li>
-				<li><a href="#"><i class="fa fa-cog"></i></a></li>
+				<li><a href="<c:url value='/admin/editAccount'/>"><i class="fa fa-cog"></i></a></li>
 			</ul>
 		</div>
 	</div>
