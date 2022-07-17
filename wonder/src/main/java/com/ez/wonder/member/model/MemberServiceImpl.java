@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.ez.wonder.admin.model.AdminVO;
 
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -41,6 +42,7 @@ public class MemberServiceImpl implements MemberService {
 		if (dbPwd != null && !dbPwd.isEmpty()) {
 			
 			if (encoder.matches(pwd, dbPwd)) {
+				
 				result = MemberService.LOGIN_OK;
 			} else {
 				result = MemberService.DISAGREE_PWD;

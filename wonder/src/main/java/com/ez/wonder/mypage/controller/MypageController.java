@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -316,15 +317,18 @@ public class MypageController {
 	}
 	
 	@GetMapping("/freeDetailWrite")
-	public String mypage_feeDetail_get(HttpSession session, Model model) {
+	public String mypage_feeDetail_get(@RequestParam String sellUserId  ,HttpSession session, Model model) {
 		logger.info("프리랜서 명함 작성 페이지");
 		
-		String userId=(String) session.getAttribute("userId");
-		MemberVO memVo = mypageService.selectMemberById(userId);
+		//String userId=(String) session.getAttribute("userId");
+		MemberVO memVo = mypageService.selectMemberById(sellUserId);
 		String type = memVo.getType();
+		logger.info("파라미터 아이디={}",sellUserId);
 		
-		if(userId==null) {
-			String msg="로그인이 필요한 서비스입니다";
+		
+		logger.info("해당 유저 타입={}",type);
+		if(!type.equals("프리랜서")) {
+			String msg="잘못된 접근입니다";
 			String url="/";
 			
 			model.addAttribute("msg",msg);
@@ -334,18 +338,19 @@ public class MypageController {
 		}
 		
 
-		ExpertVO expertVo = mypageService.selectExpertById(userId);
-		ExpertImageVO ExpertProfileVo = mypageService.selectExpertProfileById(userId);
+		ExpertVO expertVo = mypageService.selectExpertById(sellUserId);
+		ExpertImageVO ExpertProfileVo = mypageService.selectExpertProfileById(sellUserId);
 		logger.info("expertVo={}",expertVo);
 		logger.info("profileVo={}",ExpertProfileVo);
 		logger.info("memVo={}",memVo);
 		
-		List<ReviewVO> reviewList=reviewService.selectReviewByPdNo(57);
+		List<ReviewVO> reviewList=reviewService.selectReviewByUserId(sellUserId);
 		logger.info("리뷰 목록 조회, reviewList.size={}", reviewList.size());
-		Map<String, Object> map=reviewService.getAvgScore(57);
+		Map<String, Object> map=reviewService.getAvgScoreByUserId(sellUserId);
 		logger.info("리뷰 평점 조회, map={}", map);
+		List<ExpertImageVO> portfolioList = mypageService.selectExpertPortfolioById(sellUserId);
 		
-		
+		model.addAttribute("list", portfolioList);
 		model.addAttribute("expertVo", expertVo);
 		model.addAttribute("profileVo", ExpertProfileVo);
 		model.addAttribute("memVo",memVo);
@@ -750,6 +755,31 @@ public class MypageController {
 		return "/mypage/bookmark";
 	}
 	
+	@GetMapping("/bookmarkDel")
+	public String mypage_bookmarkDel_get(@RequestParam(defaultValue = "0") String no,HttpSession session) {
+		int pdNo=Integer.parseInt(no);
+		logger.info("북마크 삭제 페이지, 삭제할 번호={}",pdNo);
+		String userId=(String) session.getAttribute("userId");
+		MemberVO vo = mypageService.selectMemberById(userId);
+		logger.info("프로필 페이지 vo={}",vo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("pdNo", pdNo);
+		
+		logger.info("삭제 파라미터 map={}", map);
+		
+		int cnt = mypageService.deleteBookmark(map);
+		if(cnt>0) {
+			logger.info("북마크 삭제완료");
+			
+		}else {
+			logger.info("북마크 삭제실패");
+		}
+		
+		return "redirect:/mypage/bookmark";
+	}
+	
 	@ResponseBody
 	@GetMapping("/bookmark/delBookmark") //ajax
 	public List<HashMap<String, Object>> mypage_delBookmark_get(@RequestParam String deleteNo, HttpSession session) {
@@ -884,7 +914,43 @@ public class MypageController {
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		
-		return "/common/message";	}
+		return "/common/message";	
+	}
+	
+	@GetMapping("/transactionFormCancle")
+	public String transactionFormCancle(@RequestParam(required =  false) int formNo,HttpSession session,Model model) {
+		logger.info("의뢰서 취소 처리 파라미터 formNo={}",formNo);
+		
+		FormVo formVo = mypageService.selectFormByNo(formNo);
+		logger.info("의뢰서 취소 페이지 vo = {}",formVo);
+		
+		
+		String msg="잘못된 접근입니다", url="/mypage/transaction";
+		
+		if(formVo.getPayFlag().equals("N")) {
+			int formCnt = mypageService.updateFormCancle(formNo);
+			if(formCnt>0) {
+				msg="거래취소가 완료되었습니다";
+			}
+		}else if(formVo.getPayFlag().equals("Y")){
+			int formCnt = mypageService.updateFormCancle(formNo);
+			if(formCnt>0) {
+				msg="거래취소가 완료되었습니다";
+			}
+		}else if(formVo.getPayFlag().equals("P")){
+				msg="결제가 완료된 상품은 취소할 수 없습니다";
+		}else if(formVo.getPayFlag().equals("D")){
+				msg="이미 종료된 거래입니다";
+		}else if(formVo.getPayFlag().equals("C")){
+				msg="이미 취소된 거래입니다";
+		}
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";	
+	}
 	
 	@GetMapping("/chatting")
 	public String mypage_chatting_get(@RequestParam(name = "userId" ,required = false) String otherUserId,HttpSession session,Model model) {
@@ -1008,13 +1074,19 @@ public class MypageController {
 		
 		MemberVO vo = mypageService.selectMemberById(userId);
 		logger.info("현재 로그인중인 아이디 vo={}",vo);
-		
-		
-		String msg="비밀번호 수정 실패", url="/mypage/changePwd";
 		vo.setPwd(newPwd);
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		String msg="비밀번호 수정 실패", url="/mypage/changePwd";
+		String security = encoder.encode(vo.getPwd());
+		
+		logger.info("비밀번호 암호화 pwd={},security={}",vo.getPwd(),security);
+		vo.setPwd(security);
+		
 		logger.info("수정예정 비밀번호 vo.pwd={}",vo.getPwd());
 		int pwdCnt = mypageService.updatePwd(vo);
-		logger.info("삭제처리 완료 cnt={}",pwdCnt);
+		logger.info("수정처리 완료 cnt={}",pwdCnt);
 		if(pwdCnt>0) {
 			msg="비밀번호 수정 성공!";
 		}

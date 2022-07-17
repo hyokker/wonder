@@ -17,7 +17,10 @@
 		});
 		
 		$('.linkFreeWrite').click(function(){
-			open("<c:url value='/mypage/freeDetailWrite' />", "중복확인","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+			var type = "<c:out value='${memVo.type}' />";
+			if(type=='프리랜서'){
+				open("<c:url value='/mypage/freeDetailWrite?sellUserId=${memVo.userId}' />", "중복확인","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+			}			
 		});
 
 		var page=$('#pageCheck').val();
@@ -41,6 +44,14 @@
 		}else if(page=='changePwd'){
 			$('#li_06').addClass("active");
 		}
+		/* 
+		$('.sideBt').click(function(){
+			if(!confirm('로그아웃 하시겠습니까??')){
+				return false;
+			}
+		});
+		 */
+		
 	});
 </script>
     
@@ -113,9 +124,9 @@
 								
 								<div class="dash_user_footer">
 									<ul>
-										<li><a href="#"><i class="fa fa-power-off"></i></a></li>
-										<li><a href="#"><i class="fa fa-comment"></i></a></li>
-										<li><a href="#"><i class="fa fa-cog"></i></a></li>
+										<li><span onclick="unlinkApp()" class="sideBt"><i class="fa fa-power-off"></i></span></li>
+										<li><a href="<c:url value='/mypage/chatting' />"><i class="fa fa-comment"></i></a></li>
+										<li><a href="<c:url value='/mypage/profile' />"><i class="fa fa-cog"></i></a></li>
 									</ul>
 								</div>
 							</div>

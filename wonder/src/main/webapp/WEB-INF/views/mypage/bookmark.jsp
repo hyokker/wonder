@@ -10,48 +10,13 @@
 		
 		$('.action').each(function(item,idx){
 			$(this).find('.delete').click(function(){
-				if(!confirm('정보를 수정하시겠습니까?')){
+				if(!confirm('찜 목록에서 제거하시겠습니까?')){
 					return false;
 				}else{
 					var deleteNo = $(this).next().val();
 					
-					$.ajax({
-						url : "<c:url value='/mypage/bookmark/delBookmark'/>",
-						type : 'GET',
-						data : "deleteNo="+deleteNo,
-						success : function(response) {
-							console.log(response); //response = list
-							
-							$('.bkmark tbody').empty();
-							
-							for(var i=0;i<response.length;i++){
-							var html ='';
-							var price = response[i].PD_PRICE.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-							
-							html += '<tr>';
-							html += '<td class="dashboard_propert_wrapper">';
-							html += '	<img src="/wonder/img/pdupload/'+response[i].FILE_NAME+'" alt="찜목록 사진" class="bookmarkImg">';
-							html += '	<div class="title">';
-							html += '		<h4><a href="#">'+response[i].PD_TITLE+'</a></h4>';
-							html += '		<span>'+response[i].INTRODUCTION+'</span>';
-							html += '		<span class="table-property-price">'+price+'원 부터~</span>';
-							html += '	</div>';
-							html += '</td>';
-							html += '<td class="action">';
-							html += '	<a class="delete pointer"><i class="ti-close"></i> 찜 취소</a>';
-							html += '	<input type="text" value="'+response[i].PD_NO+'" class="pdNo">';
-							html += '</td>';
-							html += '</tr>';
-							
-							console.log(html);
-								
-							$('.bkmark tbody').append(html);
-							}
-						},
-						error : function(xhr, status, error) {
-							alert("채팅 불러오기 실패, deleteNo = "+deleteNo);
-						}
-					});
+					location.href="<c:url value='/mypage/bookmarkDel?no="+deleteNo+"' />"
+					
 				}//컨펌
 			}); //삭제버튼 클릭 이벤트
 		});
@@ -219,10 +184,9 @@
 			<!-- ============================ User Dashboard End ================================== -->
 <form action="<c:url value='/mypage/bookmark'/>" 
 	method="post" name="frmPage">
-	<input type="text" name="searchKeyword" value="${param.searchKeyword }">
-	<input type="text" name="searchCondition" 
-		value="${param.searchCondition }">
-	<input type="text" name="currentPage" >	
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword }">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition }">
+	<input type="hidden" name="currentPage" >	
 </form>
 
 <%@ include file="../inc/bottom.jsp" %>

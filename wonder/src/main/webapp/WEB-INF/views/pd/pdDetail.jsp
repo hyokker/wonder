@@ -46,7 +46,7 @@
 					
 					<div class="dash_user_footer">
 						<ul>
-							<li style="margin: 0 auto"><a href="#">MORE</a></li>
+							<li style="margin: 0 auto"><a href="#" id="more">MORE</a></li>
 						</ul>
 					</div>
 				</div>
@@ -498,7 +498,7 @@
 										</div>
 									</div>
 									<c:if test="${reviewList.size() > 3 }">
-										<a href="#more" class="reviews-checked">리뷰 더 보기</a>
+										<a href="#" class="reviews-checked">리뷰 더 보기</a>
 									</c:if>
 								</div>
 							</div>
@@ -941,6 +941,10 @@
         	location.href='<c:url value="/pd/pdDetail?pdNo=${pdVo.pdNo}"/>';
         });
         
+        //전문가 포트폴리오
+        $('#more').click(function(){
+			open("<c:url value='/mypage/freeDetailWrite?sellUserId=${expertVo.userId}' />", "중복확인","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+         });
         
     });
     

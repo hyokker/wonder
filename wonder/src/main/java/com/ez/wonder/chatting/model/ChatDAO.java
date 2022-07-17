@@ -14,4 +14,5 @@ public interface ChatDAO {
 	String selectNickById(String rUserId);
 	int insertChat(ChatVO vo);
 	int insertDefaultChat(ChatVO vo);
+	int insertCancleChat(ChatVO vo);
 }

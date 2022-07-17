@@ -94,7 +94,15 @@ select A.* from
 	</selectKey>
 	insert into chat
 	values (#{chatNo}, #{sUserId},#{rUserId},'상대방과의 대화를 시작합니다','O','N',systimestamp)
+</insert>
 
+<!-- 거래취소시 취소 채팅메세지 보내기 -->
+<insert id="insertCancleChat" parameterType="chatVo">
+	<selectKey resultType="int" keyProperty="chatNo" order="BEFORE">
+		select chat_seq.nextval from dual
+	</selectKey>
+	insert into chat
+	values (#{chatNo}, #{sUserId},#{rUserId},'상대방과의 거래가 취소되었습니다','O','N',systimestamp)
 </insert>
 
 

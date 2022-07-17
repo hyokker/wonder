@@ -41,5 +41,15 @@ public class ReviewServiceImpl implements ReviewService{
 	public int deleteReview(int reviewNo) {
 		return reviewDao.deleteReview(reviewNo);
 	}
+
+	@Override
+	public List<ReviewVO> selectReviewByUserId(String userId) {
+		return reviewDao.selectReviewByUserId(userId);
+	}
+
+	@Override
+	public Map<String, Object> getAvgScoreByUserId(String userId) {
+		return reviewDao.getAvgScoreByUserId(userId);
+	}
 	
 }

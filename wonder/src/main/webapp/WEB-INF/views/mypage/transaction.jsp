@@ -28,16 +28,15 @@
 		 });
 	 });
 	 
-	 $('.fa-credit-card').click(function(){
-		 var flag = $(this).parent().next().val();
-		 if(flag == 'N'){
-			 alert('아직 의뢰를 수락하지 않았습니다.');
-			 return false;
-		 }
-	 });
-	 
+
 	 $('#formTypeUpdate').click(function(){
 			if(!confirm('해당 의뢰를 수락하시겠습니까?')){
+				return false;
+			}
+		});
+	 
+	 $('.formCancle').click(function(){
+			if(!confirm('해당 의뢰를 취소하시겠습니까?')){
 				return false;
 			}
 		});
@@ -142,9 +141,14 @@ IMP.init("imp71307268"); // Example: imp00000000
 												<div class="_prt_filt_add_new">
 													<a href="<c:url value='/pd/pdList' />" class="greenLabel"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　더 많은 상품 보러가기</span></a>
 												</div>
+												
+												
+											  <c:if test="${vo.type=='프리랜서' }">
 												<div class="_prt_filt_add_new">
 													<a href="#" class="greenLabel" id="modalA"><i class="fas fa-plus-circle"></i><span class="d-none d-lg-block d-md-block">　내 일정 보기</span></a>
 												</div>
+												</c:if>
+												
 												<!-- Modal A -->
 														<div class="modal fade modalA" id="exampleModalToggleA${status.index }" data-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 														  <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -241,6 +245,9 @@ IMP.init("imp71307268"); // Example: imp00000000
 																		<c:if test="${map.PAY_FLAG=='D'}">
 																			<div class="_leads_status"><span class="active">의뢰완료</span></div>
 																		</c:if>
+																		<c:if test="${map.PAY_FLAG=='C'}">
+																			<div class="_leads_status"><span class="expire">의뢰취소</span></div>
+																		</c:if>
 																	</td>
 																	
 																	
@@ -249,12 +256,11 @@ IMP.init("imp71307268"); // Example: imp00000000
 																		
 																			<c:if test="${vo.type=='프리랜서' }">
 																				<a href="<c:url value='/mypage/transactionFormUpdate?formNo=${map.FORM_NO}'/>"  id="formTypeUpdate"><span style="font-weight: bold;">O</span></a>
-																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><span style="font-weight: bold;">X</span></a>
+																				<a href="<c:url value='/mypage/transactionFormCancle?formNo=${map.FORM_NO}'/>" class="formCancle"><span style="font-weight: bold;">X</span></a>
 																			</c:if>
 																		
 																			<c:if test="${vo.type=='일반회원' or '승인대기'}">
-																				<a href="<c:url value='/mypage/transactionFormUpdate?formNo=${map.FORM_NO}'/>"  id="formTypeUpdate"><span style="font-weight: bold;">O</span></a>
-																				<a href="<c:url value='/mypage/chatting?userId=${map.S_USER_ID}'/>"><span style="font-weight: bold;">X</span></a>
+																				<a href="<c:url value='/mypage/transactionFormCancle?formNo=${map.FORM_NO}'/>" class="formCancle"><span style="font-weight: bold;">X</span></a>
 																			</c:if>
 																		
 																		
@@ -301,13 +307,13 @@ IMP.init("imp71307268"); // Example: imp00000000
 																	</td>
 																	<td class="center"> <!-- 결제 -->
 																		<div class="_leads_action">
-																			<c:if test="${map.PAY_FLAG == 'N' or map.PAY_FLAG == 'Y'}">
+																			<c:if test="${map.PAY_FLAG == 'Y'}">
 																				<a href="#" onclick="requestPay${status.index }()"><i class="fas fa-credit-card"></i></a>
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">
-																				<a href="#">환불 신청</a>
+																				<a href="<c:url value='/contactUs/contactUs' />" style="border: 0;">환불 문의</a>
 																			</c:if>
-																			<input type="text" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
+																			<input type="hidden" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>
 																	</td>
 																</tr>

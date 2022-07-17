@@ -3,6 +3,7 @@ package com.ez.wonder.mypage.model;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -113,11 +114,12 @@ public class MypageServiceImpl implements MypageService{
 
 	@Override
 	public int checkPwd(String userId, String pwd) {
-		String userPwd = mypageDao.selectPwd(userId);
-		
+		String userPwd = mypageDao.selectPwd(userId); //암호화된 pwd
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
 		int result=0;
 		if(userPwd!=null && !userPwd.isEmpty()) {
-			if(userPwd.equals(pwd)) {
+			if(encoder.matches(pwd, userPwd)) {
 				result=MypageService.LOGIN_SUCCESS;
 			}else {
 				result=MypageService.DISAGREE_PWD;
@@ -187,6 +189,11 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int updateForm(int formNo) {
 		return mypageDao.updateForm(formNo);
+	}
+
+	@Override
+	public int updateFormCancle(int formNo) {
+		return mypageDao.updateFormCancle(formNo);
 	}
 
 

@@ -1,66 +1,76 @@
-/*
- * package com.ez.wonder.excel.controller;
- * 
- * import java.util.ArrayList; import java.util.HashMap; import java.util.List;
- * import java.util.Map;
- * 
- * import org.slf4j.Logger; import org.slf4j.LoggerFactory; import
- * org.springframework.stereotype.Controller; import
- * org.springframework.web.bind.annotation.RequestMapping;
- * 
- * import com.ez.wonder.admin.model.AdminService; import
- * com.ez.wonder.member.model.MemberVO;
- * 
- * import lombok.RequiredArgsConstructor;
- * 
- * @Controller
- * 
- * @RequiredArgsConstructor
- * 
- * @RequestMapping("/admin") public class ExcelController { private static final
- * Logger logger = LoggerFactory.getLogger(ExcelController.class);
- * 
- * private final AdminService adminService;
- * 
- * public Map<String, Object> get_excel(){ List<MemberVO> memberList = new
- * ArrayList<MemberVO>(); memberList = adminService.excelMember();
- * List<HashMap<String, String>> list = new ArrayList<HashMap<String,
- * String>>(); HashMap<String, Object> row = new HashMap<String, Object>();
- * 
- * if(memberList.size()>0) { int rowName = 1; for(int
- * i=0;i<memberList.size();i++) { HashMap<String, String> cell = new
- * HashMap<String, String>(); int idx = 1;
- * 
- * cell.put("cell"+idx++, String.valueOf(rowName)); cell.put("cell"+idx++,
- * memberList.get(i).getType()); cell.put("cell"+idx++,
- * memberList.get(i).getName()); cell.put("cell"+idx++,
- * memberList.get(i).getUserId()); cell.put("cell"+idx++,
- * memberList.get(i).getNickname()); cell.put("cell"+idx++,
- * memberList.get(i).getEmail()); cell.put("cell"+idx++,
- * memberList.get(i).getTel()); list.add(cell); rowName++; }
- * 
- * row.put("memberList", list);
- * 
- * int cellCnt = 7;
- * 
- * String labels[]; String styleInfo[];
- * 
- * String colName[] = {"No", "회원분류", "회원명", "아이디", "닉네임", "이메일", "전화번호"}; String
- * style[] = {"center", "center", "center", "center", "center", "center",
- * "center"};
- * 
- * labels = colName; styleInfo = style;
- * 
- * Map<String, Object> excelModel = new HashMap<String, Object>();
- * excelModel.put("fileName", "회원목록"); excelModel.put("dataLength", cellCnt);
- * excelModel.put("dataMap", list); excelModel.put("Labels", labels);
- * excelModel.put("styleInfo", styleInfo); excelModel.put("BASEPATH", "");
- * excelModel.put("filePath", "excel");
- * 
- * ExcelUtil excel = new ExcelUtil();
- * 
- * } }
- * 
- * 
- * }
- */
+package com.ez.wonder.excel.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.ez.wonder.admin.model.AdminService;
+import com.ez.wonder.member.model.MemberVO;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/admin")
+public class ExcelController {
+	private static final Logger logger = LoggerFactory.getLogger(ExcelController.class);
+
+	private final AdminService adminService;
+	
+	  @GetMapping("/excelUpload")
+	  public String excelUpload() { 
+	    return "/admin/excelUpload";
+	  }
+	  
+	  @PostMapping("/excelRead")
+	  public String excelRead(@RequestParam("file") MultipartFile file, Model model) throws IOException { 
+	    List<MemberVO> dataList = new ArrayList<>();
+
+	    String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
+	    if (!extension.equals("xlsx") && !extension.equals("xls")) {
+	      throw new IOException("Excel 파일 전용입니다.");
+	    }
+
+	    Workbook workbook = null;
+
+	    if (extension.equals("xlsx")) {
+	      workbook = new XSSFWorkbook(file.getInputStream());
+	    } else if (extension.equals("xls")) {
+	      workbook = new HSSFWorkbook(file.getInputStream());
+	    }
+
+	    Sheet worksheet = workbook.getSheetAt(0);
+
+	    for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+	      Row row = worksheet.getRow(i);
+
+	      MemberVO memberVo = null;
+
+	      memberVo.setMemNo((int) row.getCell(0).getNumericCellValue());
+	      memberVo.setUserId(row.getCell(1).getStringCellValue());
+	      
+	      dataList.add(memberVo);
+	    }
+
+	    model.addAttribute("datas", dataList); 
+
+	    return "excelList";
+	  }
+}

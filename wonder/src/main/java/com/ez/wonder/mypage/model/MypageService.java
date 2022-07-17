@@ -46,5 +46,6 @@ public interface MypageService {
 	int getTotalRecordTSExpert(HashMap<String, Object> map);
 	FormVo selectFormByNo(int formNo);
 	int updateForm(int formNo);
+	int updateFormCancle(int formNo);
 
 }

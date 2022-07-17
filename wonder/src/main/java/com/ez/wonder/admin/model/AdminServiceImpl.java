@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,9 +121,11 @@ public class AdminServiceImpl implements AdminService{
 	public int checkLogin(String adminId, String adminPwd) {
 		String dbPwd = adminDao.selectPwd(adminId); //DB에서 admin아이디로 비번 조회
 		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		int result = 0;
 		if(dbPwd!=null && !dbPwd.isEmpty()) {
-			if(dbPwd.equals(adminPwd)) {
+			if(encoder.matches(adminPwd, dbPwd)) {
 				result=AdminService.LOGIN_OK;
 			}else {
 				result=AdminService.DISAGREE_PWD;
@@ -179,6 +182,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+	public int countNormal() {
+		return adminDao.countNormal();
+	}
+	
+	@Override
 	public 	int countProduct() {
 		return adminDao.countProduct();
 	}
@@ -209,8 +217,13 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public List<MemberVO> excelMember(){
-		return adminDao.excelMember();
+	public List<ProductVO> productPerDay(){
+		return adminDao.productPerDay();
+	}
+	
+	@Override
+	public ArrayList<PaymentVO> payCountPerMethod(){
+		return adminDao.payCountPerMethod();
 	}
 }
 

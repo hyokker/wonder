@@ -21,6 +21,10 @@
 		select count(*) from member
 		where type ='프리랜서'
 	</select>
+	<select id="countNormal" resultType="int">
+		select count(*) from member
+		where type ='일반회원'
+	</select>
 	<select id="countProduct" resultType="int">
 		select count(*) from
 		product
@@ -53,9 +57,28 @@
 		where rownum
 		between 1 and 5
 	</select>
+	<select id="productPerDay" resultType="hashmap">
+		select COUNT(*) as count,
+		TO_CHAR(regdate,'YYYY-MM-DD') as reg_date
+		from (select *
+		from
+		product
+		where regdate
+		between (SELECT TRUNC(SYSDATE, 'MM') FROM
+		DUAL)
+		and (SELECT
+		LAST_DAY(SYSDATE)
+		FROM DUAL))
+		GROUP BY TO_CHAR(regdate,'YYYY-MM-DD')
+	</select>
 	<select id="payChart" resultType="paymentVo">
 		select pay_method, sum(price)
 		from payment
 		group by pay_method order by sum(price) desc
+	</select>
+	<select id="payCountPerMethod" resultType="paymentVo">
+		select pay_method, count(*)
+		from payment
+		group by pay_method
 	</select>
 </mapper>

@@ -240,7 +240,7 @@
 
 /************* Bookmark *************/
 .bookmarkImg{
-	height: 100px;
+	height: 200px;
 }
 
 
@@ -312,7 +312,7 @@ input.form-control.transSearch{
 }
 .freeDetailIntro{
 	display: inline-block;
-	height: 70%;
+	height: 65%;
 }
 
 .freeDetailCareer{
@@ -328,4 +328,21 @@ input.form-control.transSearch{
 	float:left;
 	width: 49%;
 	height: 100%;
+	margin-top: 10px;
+}
+
+#mordalImg{
+	height: 100%;
+	width: 100%;
+}
+
+.freeDetailWritePortfolio{
+	border: none;
+}
+
+
+/*******incSide*******/
+.sideBt{
+	color:white;
+	cursor: pointer;
 }
