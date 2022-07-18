@@ -14,6 +14,7 @@ import com.ez.wonder.pd.model.ProductVO;
 @Mapper
 public interface AdminDAO {
 	List<MemberVO> selectMember(SearchVO searchVo);
+	List<MemberVO> allMember();
 	int deleteMember(String userId);
 	List<AdminVO> selectAdmin(SearchVO searchVo);
 	int deleteSubAdmin(int adminNo);

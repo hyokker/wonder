@@ -31,8 +31,6 @@
 						</div>
 					</div>
 
-					<div class="countMembers"></div>
-
 					<div class="row">
 
 						<div class="col-lg-4 col-md-6 col-sm-12">
@@ -106,118 +104,11 @@
 								</div>
 							</div>
 						</div>
-
-
 					</div>
-					<!--  row -->
+
 
 					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="mb-0">년도별 매출 비교</h4>
-								</div>
-								<!-- 대시보드 -->
-
-								<canvas id="line-chart" width="100" height="30"></canvas>
-								<script>
-									new Chart(
-											document
-													.getElementById("line-chart"),
-											{
-												type : 'line',
-												data : {
-													labels : [ 1500, 1600,
-															1700, 1750, 1800,
-															1850, 1900, 1950,
-															1999, 2050 ],
-													datasets : [
-															{
-																data : [ 86,
-																		114,
-																		106,
-																		106,
-																		107,
-																		111,
-																		133,
-																		221,
-																		783,
-																		2478 ],
-																label : "Africa",
-																borderColor : "#3e95cd",
-																fill : false
-															},
-															{
-																data : [ 282,
-																		350,
-																		411,
-																		502,
-																		635,
-																		809,
-																		947,
-																		1402,
-																		3700,
-																		5267 ],
-																label : "Asia",
-																borderColor : "#8e5ea2",
-																fill : false
-															},
-															{
-																data : [ 168,
-																		170,
-																		178,
-																		190,
-																		203,
-																		276,
-																		408,
-																		547,
-																		675,
-																		734 ],
-																label : "Europe",
-																borderColor : "#3cba9f",
-																fill : false
-															},
-															{
-																data : [ 40,
-																		20, 10,
-																		16, 24,
-																		38, 74,
-																		167,
-																		508,
-																		784 ],
-																label : "Latin America",
-																borderColor : "#e8c3b9",
-																fill : false
-															},
-															{
-																data : [ 6, 3,
-																		2, 2,
-																		7, 26,
-																		82,
-																		172,
-																		312,
-																		433 ],
-																label : "North America",
-																borderColor : "#c45850",
-																fill : false
-															} ]
-												},
-												options : {
-													title : {
-														display : true,
-														text : 'World population per region (in millions)'
-													}
-												}
-											});
-								</script>
-
-							</div>
-						</div>
-					</div>
-					<!-- row -->
-
-					<div class="row">
-						<div class="col-lg-7 col-md-12">
+						<div class="col-lg-8 col-md-12">
 							<div class="card">
 								<div class="card-header">
 									<h4 class="mb-0">최근 의뢰서 목록</h4>
@@ -264,7 +155,64 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-5 col-md-12">
+
+						<div class="col-lg-3 col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="mb-0">회원 분포율</h4>
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<canvas id="logChart" style="width: 310px; height: 310px;"></canvas>
+										<script>
+											var ctx = document.getElementById(
+													"logChart")
+													.getContext('2d');
+											var myChart = new Chart(
+													ctx,
+													{
+														type : 'doughnut',
+														data : {
+															labels : [
+																	"일반회원(명)",
+																	"프리랜서(명)" ],
+															datasets : [ {
+																data : [
+																		'${NormalMem}',
+																		'${ExpertMem}' ],
+																backgroundColor : [
+																		'rgba(39, 174, 96, 0.2)',
+																		'rgba(206, 2, 75, 0.2)'
+
+																],
+																borderColor : [
+																		'rgba(39,174,96,1)',
+																		'rgba(206,2,75,1)'
+
+																],
+																borderWidth : 1
+															} ]
+														},
+														options : {
+															responsive : false,
+															plugins : {
+																legend : {
+																	labels : {
+																		font : {
+																			size : 17,
+																		}
+																	}
+																}
+															}
+														}
+													});
+										</script>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-8 col-md-12">
 							<div class="card">
 								<div class="card-header">
 									<h4 class="mb-0">조회수순 게시글 목록 (이번달 기준)</h4>
@@ -284,10 +232,10 @@
 												<c:if test="${!empty listbyread}">
 													<c:forEach var="productVo" items="${listbyread }">
 														<tr>
-															<td><a href="#"><c:if test="${fn:length(productVo.pdTitle)>15}"> <a
-																	href="../pd/pdDetail?PdNo=${productVo.pdNo}">${fn:substring(productVo.pdTitle,0,14) }...</a>
-												</c:if> <c:if
-																		test="${fn:length(productVo.pdTitle)<=15}">
+															<td><a href="#"><c:if
+																		test="${fn:length(productVo.pdTitle)>30}">
+																		<a href="../pd/pdDetail?PdNo=${productVo.pdNo}">${fn:substring(productVo.pdTitle,0,29) }...</a>
+																	</c:if> <c:if test="${fn:length(productVo.pdTitle)<=30}">
 																		<a href="../pd/pdDetail?PdNo=${productVo.pdNo}">${productVo.pdTitle}</a>
 																	</c:if> </a></td>
 															<td>${productVo.userId}</td>
@@ -305,12 +253,7 @@
 						</div>
 					</div>
 					<!-- row -->
-
 				</div>
-			</div>
-
-		</div>
-	</div>
 </section>
 <!-- ============================ User Dashboard End ================================== -->
 <%@ include file="../inc/bottom.jsp"%>

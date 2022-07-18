@@ -20,6 +20,7 @@ public interface AdminService {
 	public static final int UNUSABLE_ID=1; //존재하는 아이디
 
 	List<MemberVO> selectMember(SearchVO searchVo);
+	List<MemberVO> allMember();
 	int deleteMember(String userId);
 	List<AdminVO> selectAdmin(SearchVO searchVo);
 	int deleteSubAdmin(int adminNo);

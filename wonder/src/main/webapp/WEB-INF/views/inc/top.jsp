@@ -11,14 +11,14 @@
 <head>
 <style type="text/css">
 button.api-btn {
-    color: white;
-    background-color: #27ae60;
-    border: 0px solid;
-    padding: 5px;
-    border-radius: 10px;
-    width: 80px;
-    margin-left: 10px;
-    margin-right: 10px;
+	color: white;
+	background-color: #27ae60;
+	border: 0px solid;
+	padding: 5px;
+	border-radius: 10px;
+	width: 80px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 </style>
 <meta charset="utf-8" />
@@ -33,6 +33,7 @@ button.api-btn {
 </head>
 <script type="text/javascript"
 	src="<c:url value='/js/jquery-3.6.0.min.js'/>"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body class="yellow-skin">
 
 	<!-- ============================================================== -->
@@ -94,36 +95,35 @@ button.api-btn {
 							<ul class="nav-menu nav-menu-social align-to-right">
 								<li>${sessionScope.userId }님환영합니다!<%-- <input type="text" name="sessionDel" id="sessionDel" value="${sessionScope.userId }"/> --%>
 									<%-- <li><a href="<c:url value='/member/logout'/>" onclick="unlinkApp()">로그아웃</a></li> --%>
-									<button class="api-btn" onclick="unlinkApp()" style="">로그아웃</button> <script
-										src="https://developers.kakao.com/sdk/js/kakao.js"></script> <script
-										type="text/javascript">
-											function unlinkApp() {
-												var loginType = "${sessionScope.LoginType}";
-												/* alert(loginType); */
-												if (loginType == "normal") {
-													location.href = "<c:url value='/member/logout'/>";
-												}
-
-												Kakao
-														.init('e001f5b6437ab5c78a358d107808c37c');
-												Kakao.API
-														.request({
-															url : '/v1/user/unlink',
-															success : function(
-																	res) {
-																/* alert ('success: '
-																		+ JSON.stringify(res)); */
-																window.location = "/wonder/member/logout";
-															},
-															fail : function(err) {
-																window.location = "/wonder/";
-																/* alert('fail: '+ JSON.stringify(err)); */
-															},
-														})
+									<button class="api-btn" onclick="unlinkApp()" style="">로그아웃</button>
+									<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+									<script type="text/javascript">
+										function unlinkApp() {
+											var loginType = "${sessionScope.LoginType}";
+											/* alert(loginType); */
+											if (loginType == "normal") {
+												location.href = "<c:url value='/member/logout'/>";
 											}
-										</script> <input type="hidden" name="sessionDel" id="sessionDel"
-									value="${sessionScope.userId }" />
-									<input type="hidden" name="sessionNick" id="sessionNick"
+
+											Kakao
+													.init('e001f5b6437ab5c78a358d107808c37c');
+											Kakao.API
+													.request({
+														url : '/v1/user/unlink',
+														success : function(res) {
+															/* alert ('success: '
+																	+ JSON.stringify(res)); */
+															window.location = "/wonder/member/logout";
+														},
+														fail : function(err) {
+															window.location = "/wonder/";
+															/* alert('fail: '+ JSON.stringify(err)); */
+														},
+													})
+										}
+									</script> <input type="hidden" name="sessionDel" id="sessionDel"
+									value="${sessionScope.userId }" /> <input type="hidden"
+									name="sessionNick" id="sessionNick"
 									value="${sessionScope.nickname }" />
 
 

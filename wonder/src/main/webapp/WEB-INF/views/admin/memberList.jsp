@@ -34,6 +34,11 @@ div#srchTitBar {
 #searchment {
 	padding-left: 20px;
 }
+
+#ExcelDown{
+	padding-top: 20px;
+	font-weight: bold;
+}
 </style>
 <!-- ============================================================== -->
 <!-- Top header  -->
@@ -92,9 +97,9 @@ div#srchTitBar {
 												</div>
 											</div>
 										</div>
-										</form>
-
-										<a href="<c:url value='/admin/export'/>">엑셀로저장</a>
+									</form>
+									<a href="<c:url value='/admin/export'/>"
+										class="btn btn-theme-2" id="ExcelDown">Excel 저장</a>
 								</div>
 							</div>
 						</div>
@@ -143,7 +148,8 @@ div#srchTitBar {
 																	</c:if>
 																	<c:if test="${memberVo.type eq '프리랜서'}">
 																		<img
-																			src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />"
+																			<%-- src="<c:url value='/img/mypage/expert_profile/${profileVo.fileName }' />" --%>
+																			src="${pageContext.request.contextPath}/img/mypage/default_profile.png"
 																			class="img-fluid" alt="프리랜서 프로필 사진" />
 																	</c:if>
 																</div>

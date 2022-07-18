@@ -97,6 +97,13 @@ div#srchTitBar {
 						</div>
 					</div>
 
+					<c:if test="${!empty param.searchKeyword }">
+						<p id="searchment">
+							"${param.searchKeyword}" 검색 결과 총 <strong class="tit_cnt">${pagingInfo.totalRecord}</strong>
+							건 검색되었습니다.
+						</p>
+					</c:if>
+
 					<div class="row">
 						<div class="col-lg-12 col-md-12">
 							<div class="dashboard_property">
@@ -126,7 +133,8 @@ div#srchTitBar {
 															<div class="dash_prt_wrap">
 																<div class="dash_prt_thumb">
 																	<a href="../pd/pdDetail?pdNo=${productVo.pdNo}"><img
-																		src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }"
+																		<%-- src="${pageContext.request.contextPath}/img/pdupload/${pdImageVo.fileName }" --%>
+																		src="${pageContext.request.contextPath}/img/adminImg/formImg.jpg"
 																		class="img-fluid" alt="상품 사진" /></a>
 																</div>
 																<div class="dash_prt_caption">
@@ -193,7 +201,7 @@ div#srchTitBar {
 														</td>
 														<td>
 															<div class="_leads_action">
-																<a href="delProduct?pdNo=${productVo.pdNo }"><i
+																<a href="delProduct?pdNo=${productVo.pdNo }" onclick="return confirm('해당상품을 삭제처리 하시겠습니까?');"><i
 																	class="fas fa-trash"></i></a>
 															</div>
 														</td>
