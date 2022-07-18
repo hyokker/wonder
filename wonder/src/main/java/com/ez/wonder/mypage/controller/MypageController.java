@@ -952,6 +952,43 @@ public class MypageController {
 		return "/common/message";	
 	}
 	
+	
+	@GetMapping("/transactionDone")
+	public String transactionDone(@RequestParam(required =  false) int formNo,HttpSession session,Model model) {
+		logger.info("의뢰서 완료 처리 파라미터 formNo={}",formNo);
+		
+		FormVo formVo = mypageService.selectFormByNo(formNo);
+		logger.info("의뢰서 완료 페이지 vo = {}",formVo);
+		
+		String freeId = formVo.getPUserId();
+		logger.info("판매자아이디 ={}",freeId);
+		
+		String msg="잘못된 접근입니다", url="/mypage/transaction";
+		
+		if(formVo.getPayFlag().equals("N")) {
+			msg="해당 거래단계에서는 완료할 수 없습니다.";
+		}else if(formVo.getPayFlag().equals("Y")){
+			msg="해당 거래단계에서는 완료할 수 없습니다.";
+		}else if(formVo.getPayFlag().equals("P")){
+			int formCnt = mypageService.updateFormDone(formNo);
+			if(formCnt>0) {
+				msg="거래가 완료되었습니다";
+				int plusCnt=mypageService.updateExpertWorkPlus(freeId);
+				logger.info("프리랜서 작업량 추가 cnt={}", plusCnt);
+			}
+		}else if(formVo.getPayFlag().equals("D")){
+			msg="이미 종료된 거래입니다";
+		}else if(formVo.getPayFlag().equals("C")){
+			msg="이미 취소된 거래입니다";
+		}
+		
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "/common/message";	
+	}
+	
 	@GetMapping("/chatting")
 	public String mypage_chatting_get(@RequestParam(name = "userId" ,required = false) String otherUserId,HttpSession session,Model model) {
 		logger.info("채팅 페이지");

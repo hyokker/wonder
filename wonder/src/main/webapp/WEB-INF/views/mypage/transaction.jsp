@@ -39,7 +39,13 @@
 			if(!confirm('해당 의뢰를 취소하시겠습니까?')){
 				return false;
 			}
-		});
+	});
+
+	 $('#applicationDone').click(function(){
+			if(!confirm('해당 의뢰를 완료처리하시겠습니까?')){
+				return false;
+			}
+	});
 	 
      //모달 닫으면 뒷 배경 스크롤 가능
 
@@ -188,13 +194,14 @@ IMP.init("imp71307268"); // Example: imp00000000
 														  <th scope="col" class="transactionTdIcon center">메세지</th>
 														  <th scope="col" class="transactionTdIcon center">의뢰서</th>
 														  <th scope="col" class="transactionTdIcon center">결제</th>
+														  <th scope="col" class="transactionTdIcon center">완료</th>
 														</tr>
 													</thead>
 													<tbody>
 													
 													<c:choose>
 														<c:when test="${fn:length(list) == 0 }" >
-														 <td colspan="8">
+														 <td colspan="9">
 														 	<br>
 														 	<h5 class="noneList">거래내역이 없습니다</h5>
 														 </td>
@@ -312,6 +319,16 @@ IMP.init("imp71307268"); // Example: imp00000000
 																			</c:if>
 																			<c:if test="${map.PAY_FLAG == 'P'}">
 																				<a href="<c:url value='/contactUs/contactUs' />" style="border: 0;">환불 문의</a>
+																			</c:if>
+																			<input type="hidden" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
+																		</div>
+																	</td>
+																	
+																	<!-- 거래완료버튼 -->
+																	<td class="center"> 
+																		<div class="_leads_action">
+																			<c:if test="${map.PAY_FLAG == 'P'}">
+																				<a href="<c:url value='/mypage/transactionDone?formNo=${map.FORM_NO}'/>" id="applicationDone"><i class="fas fa-check"></i></a>
 																			</c:if>
 																			<input type="hidden" name="formTitle" readonly="readonly" value="${map.PAY_FLAG }">
 																		</div>
