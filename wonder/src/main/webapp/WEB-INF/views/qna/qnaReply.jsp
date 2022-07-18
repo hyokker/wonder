@@ -27,10 +27,10 @@
 <div class="col-lg-12 col-md-12">
 
 	<!-- 히든으로 넘길 값들 -->
-	<input type="text" name="groupNo" value="${vo.groupNo }"/>
-	<input type="text" name="step" value="${vo.step }"/>
-	<input type="text" name="sortNo" value="${vo.sortNo }"/>
-	<input type="text" name="cateType" value="A"/>
+	<input type="hidden" name="groupNo" value="${vo.groupNo }"/>
+	<input type="hidden" name="step" value="${vo.step }"/>
+	<input type="hidden" name="sortNo" value="${vo.sortNo }"/>
+	<input type="hidden" name="cateType" value="A"/>
 	
 	<div class="submit-page p-0">
 
