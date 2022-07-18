@@ -10,8 +10,8 @@
 							<div class="text-center">
 								
 								<img src="<c:url value='/img/404.png'/>" class="img-fluid" alt="">
-								<p>Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</p>
-								<a class="btn btn-theme" href="index.html">Back To Home</a>
+								<p></p>
+								<a class="btn btn-theme" href="<c:url value='/'/>">메인으로 돌아가기</a>
 								
 							</div>
 						</div>
