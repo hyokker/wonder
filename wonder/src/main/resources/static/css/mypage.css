@@ -208,6 +208,10 @@
 	text-align: left;
 }
 
+.refresh{
+	cursor: pointer;
+}
+
 /************** Application ************/
 .appCheckDiv{
 	height: 100px;
@@ -302,8 +306,13 @@ input.form-control.transSearch{
 
 .freeDetailAvater{
 	float: left;
-	width: 20%;
+	min-width: 150px;
 }
+
+.freeDetailAvater img{
+	width: 100%;
+}
+
 .freeDetailIntroContainer{
 	float:right;
 	width: 75%;

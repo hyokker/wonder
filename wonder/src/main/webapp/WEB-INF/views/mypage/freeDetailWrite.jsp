@@ -73,7 +73,7 @@
 					</a>
 				</c:if>
 			<h3>${memVo.nickname }</h3>
-			<h4>${userId }</h4>
+			<h4>${memVo.userId }</h4>
 			<span>${memVo.email }</span>
 			</div>
 			<div class="freeDetailIntroContainer">
