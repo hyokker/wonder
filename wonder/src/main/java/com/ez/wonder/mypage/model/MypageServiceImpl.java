@@ -196,6 +196,21 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDao.updateFormCancle(formNo);
 	}
 
+	@Override
+	public int updateFormDone(int formNo) {
+		return mypageDao.updateFormDone(formNo);
+	}
+
+	@Override
+	public int updateExpertWorkReset(String userId) {
+		return mypageDao.updateExpertWorkReset(userId);
+	}
+
+	@Override
+	public int updateExpertWorkPlus(String userId) {
+		return mypageDao.updateExpertWorkPlus(userId);
+	}
+
 
 
 

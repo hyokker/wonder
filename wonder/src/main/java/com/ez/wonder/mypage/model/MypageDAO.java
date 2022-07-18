@@ -47,4 +47,7 @@ public interface MypageDAO {
 	FormVo selectFormByNo(int formNo);
 	int updateForm(int formNo);
 	int updateFormCancle(int formNo);
+	int updateFormDone(int formNo);
+	int updateExpertWorkReset(String userId);
+	int updateExpertWorkPlus(String userId);
 }
