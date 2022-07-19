@@ -86,7 +86,10 @@
 		$('#chatSendArea').val('');
 	} //function
 	
-	
+	var chatInterval = function(){
+		
+		
+	}
 
 	$(function(){
 		$('.dash-msg-inbox li').each(function(item,idx){

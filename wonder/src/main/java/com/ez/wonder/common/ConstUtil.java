@@ -15,7 +15,8 @@ public interface ConstUtil {
 	
 	//게시판 - 파일 저장 경로
 	String FILE_UPLOAD_PATH="board_upload";
-	String FILE_UPLOAD_PATH_TEST="C:\\Users\\seo\\git\\wonder\\wonder\\src\\main\\resources\\static\\upload\\board_upload";
+	String FILE_UPLOAD_PATH_TEST="board_upload";
+	//String FILE_UPLOAD_PATH_TEST="C:\\Users\\seo\\git\\wonder\\wonder\\src\\main\\resources\\static\\upload\\board_upload";
 	
 	//관리자 페이지 - 상품 등록시 상품 이미지 저장 경로		
 	String IMAGE_FILE_UPLOAD_PATH="";
@@ -23,11 +24,13 @@ public interface ConstUtil {
 	
 	//전문가 페이지 - 프로필사진 업로드
 	String EXPERT_PROFILE_IMAGE_PATH="img\\mypage\\expert_profile";
-	String EXPERT_PROFILE_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_profile";
+	String EXPERT_PROFILE_IMAGE_PATH_TEST="img\\mypage\\expert_profile";
+	//String EXPERT_PROFILE_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_profile";
 
 	//전문가 페이지 - 포트폴리오사진 업로드
 	String EXPERT_PORTFOLIO_IMAGE_PATH="img\\mypage\\expert_portfolio";
-	String EXPERT_PORTFOLIO_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_portfolio";
+	String EXPERT_PORTFOLIO_IMAGE_PATH_TEST="img\\mypage\\expert_portfolio";
+	//String EXPERT_PORTFOLIO_IMAGE_PATH_TEST="C:\\Users\\zess\\git\\wonder\\wonder\\src\\main\\resources\\static\\img\\mypage\\expert_portfolio";
 	
 	//업로드 구분값
 	int UPLOAD_FILE_FLAG=1;  //게시판 업로드
