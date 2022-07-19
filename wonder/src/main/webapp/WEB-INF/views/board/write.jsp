@@ -3,14 +3,6 @@
 <%@ include file="../inc/top.jsp"%>
 
 <link rel="stylesheet" type="text/css" 	href="<c:url value='/css/board.css'/>" />
-<!-- 해결과제
-	1. user 테스트
-
-	
-	3. 제목, 비밀번호4자리설정, 내용 ajax
-	
-		
- -->
 <title>wonder - 자유게시판 글쓰기</title>
 <script type="text/javascript">
 /* 	테스트
@@ -21,7 +13,7 @@
 	var nickname="<c:out value='${sessionScope.nickname}'/>";
 	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
 	
-		alert(nickname);
+	//alert(nickname);
 	$(function(){
 		if(userId=="" && adminId==""){
 			alert("로그인이 필요합니다");
@@ -141,7 +133,7 @@ empty sessionScope.userId && !empty sessionScope.adminId
 
 										</div><div class="form-group col-md-7 box"></div>
 									<!-- 비밀번호 -->
-									<c:if test="${!empty sessionScope.userId}">
+									<c:if test="${empty sessionScope.adminId}">
 										<div class="form-group col-md-2" id="">
 											<label for="pwd">비밀번호</label>
 											<input type="password" name="pwd" id="pwd" class="form-control" placeholder="(최대 4자리)" maxlength="4"/>

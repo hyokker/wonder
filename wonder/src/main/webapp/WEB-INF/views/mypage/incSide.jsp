@@ -19,7 +19,7 @@
 		$('.linkFreeWrite').click(function(){
 			var type = "<c:out value='${memVo.type}' />";
 			if(type=='프리랜서'){
-				open("<c:url value='/mypage/freeDetailWrite?sellUserId=${memVo.userId}' />", "상세보기","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+				open("<c:url value='/mypage/freeDetailWrite?sellUserId=${memVo.userId}' />", "상세보기","width=1000, height=1000,location=yes, resizable=yes, top=300px, left=300px");
 			}			
 		});
 

@@ -10,8 +10,8 @@ public interface ConstUtil {
 	int BLOCKSIZE=5;
 	
 	//파일 업로드 관련 상수
-	String FILE_UPLOAD_TYPE="test";   //테스트시
-	//String FILE_UPLOAD_TYPE="deploy"; //배포시
+	//String FILE_UPLOAD_TYPE="test";   //테스트시
+	String FILE_UPLOAD_TYPE="deploy"; //배포시
 	
 	//게시판 - 파일 저장 경로
 	String FILE_UPLOAD_PATH="board_upload";

@@ -25,7 +25,7 @@
 				select B.*, (sysdate-reply_regdate)*24 as dateTerm
 				from reply B
 				where board_no=#{boardNo}
-				order by group_no, step, reply_no
+				order by reply_no, step 
 			)A
 		)
 	</select>

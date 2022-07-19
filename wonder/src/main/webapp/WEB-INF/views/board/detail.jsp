@@ -3,12 +3,10 @@
 <%@ include file="../inc/top.jsp"%>
 <!--  
 	<해결과제>
-	-getReplyList 답글쓰기 제대로
-	-관리자에 의한 삭제시 비밀번호자동입력이나 미입력 처리
+	
 	-내용 출력 제대로하기
 	
-	-삭제 -> modal 변경이나 창 크기 조절
-	- 삭제는 본인계정과 관리자만("관리자에 의해 삭제된 게시물입니다")
+	-("관리자에 의해 삭제된 게시물입니다")
 	-대댓글 ~개 댓글 보이기 구현
 	-수정유무 editType 추가 replyRegdate는 그대로 =>("--에 수정됨")
 	-공유(url복사만 구현된 상태)
@@ -194,27 +192,21 @@ function replyEditView(replyNo){
 //댓글 수정취소
 function getReplylist(replyNo){
 	//var userId = '<c:out value="${sessionScope.userId}" />';
+	//alert(userId);
+	
 	$.ajax({
 		url:'<c:url value="/board/detail/getReplylist"/>',
 		type:'GET',
 		data:"replyNo="+replyNo,
 		success:function(res){
 			//alert(res.replyContent);
-			alert(userId);
 			var replyList1 = "";
 			var replyList2 = "";
-			//alert(dbUserId);
 			replyList1 +='<div class="replyButtons" id="'+replyNo+'replyButtons">';
-			replyList1 = '<c:set var="userId" value="${sessionScope.userId}" />';
-			replyList1 = '<c:set var="dbUserId" value="'+res.userId+'" />';
-			replyList1 +=	'<c:if test="${userId==dbUserId}">';
 			replyList1 +=	'<button class="btnReplyEditOpen"';
 			replyList1 +=		' onclick="replyEditView('+replyNo+')">수정</button>';
-			replyList1 +=	'</c:if>';
-			replyList1 +=	'<c:if test="'+res.userId+'=='+userId+' || '+userId+'">';
 			replyList1 +=	'<button class="btnReplyDelete"';
 			replyList1 +=		' onclick="replyDelete('+replyNo+')">삭제</button>';
-			replyList1 +=	'</c:if>';
 			replyList1 +='</div>';
 			
 			replyList2 +='<div class="comment-reply" id="'+replyNo+'comment-reply">';	
@@ -233,9 +225,10 @@ function getReplylist(replyNo){
 			replyList2 +=	'</div>';
 			replyList2 +='</div>';
 			/*등록된 댓글 끝*/
-			$('#'+replyNo+'comment-reply').replaceWith(replyList2);
 			
 			$('#'+replyNo+'replyButtons').replaceWith(replyList1);
+			$('#'+replyNo+'comment-reply').replaceWith(replyList2);
+
 		},
 		error:function(xhr, status, error){
 			alert("code = "+ xhr.status + " message = " + xhr.responseText + " error = " + error);
@@ -425,11 +418,11 @@ function getReplylist(replyNo){
 					<!-- 댓글 수정, 댓글 삭제 -->
 							<div class="replyButtons" id="${replyVo.replyNo}replyButtons">
 								<c:if test="${replyVo.userId==sessionScope.userId }" >
-								<button class="btnReplyEditOpen"
+								<button class="btnReplyEditOpen" id="${replyVo.replyNo}btnReplyEditOpen"
 									onclick="replyEditView(${replyVo.replyNo})">수정</button>
 								</c:if>
 								<c:if test="${replyVo.userId==sessionScope.userId || !empty sessionScope.adminId}" >
-								<button class="btnReplyDelete"
+								<button class="btnReplyDelete" id="${replyVo.replyNo}btnReplyDelete"
 									onclick="replyDelete(${replyVo.replyNo})">삭제</button>
 								</c:if>
 							</div>

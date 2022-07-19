@@ -258,6 +258,7 @@ public class BoardController {
 		logger.info("수정 처리, 파라미터 vo={}", vo);
 		
 		String msg="비밀번호 체크 실패!", url="/board/edit?boardNo="+vo.getBoardNo();
+
 		if(boardService.checkPwd(vo.getBoardNo(), vo.getPwd())) {
 			//
 			String fileName="", originalFileName="";

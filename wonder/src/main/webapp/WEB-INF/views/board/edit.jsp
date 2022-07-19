@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%> 
 <%@ include file="../inc/top.jsp"%>
- <!--  
-	<해결과제>
-	1. user 테스트
-	1. admin 테스트
-	
--->
+
 <link rel="stylesheet" type="text/css"  href="<c:url value='/css/board.css'/>" />
 <title>wonder - 자유게시판 수정하기</title>
 <script type="text/javascript">
@@ -19,15 +14,7 @@
 */
 	var userId="<c:out value='${sessionScope.userId}'/>";
 	var adminId="<c:out value='${sessionScope.adminId}'/>"; 
-	
-	$(function(){
-		//alert('${vo.userId}');
-		//alert(adminId);
 
-		
-
-	});
-	
 	//유효성검사
 	function validateForm(){
 

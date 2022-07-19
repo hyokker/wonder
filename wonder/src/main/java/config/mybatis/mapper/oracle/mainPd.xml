@@ -16,7 +16,7 @@
 		where d.pd_type='STANDARD' and 
 		<![CDATA[
 		rownum<=8]]>
-		order by regdate desc
+		order by regdate
 		
 		
 	</select>

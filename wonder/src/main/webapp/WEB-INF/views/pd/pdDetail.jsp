@@ -943,7 +943,7 @@
         
         //전문가 포트폴리오
         $('#more').click(function(){
-			open("<c:url value='/mypage/freeDetailWrite?sellUserId=${expertVo.userId}' />", "중복확인","width=1000, height=800,location=yes, resizable=yes, top=300px, left=300px");
+			open("<c:url value='/mypage/freeDetailWrite?sellUserId=${expertVo.userId}' />", "중복확인","width=1000, height=1000,location=yes, resizable=yes, top=300px, left=300px");
          });
         
     });

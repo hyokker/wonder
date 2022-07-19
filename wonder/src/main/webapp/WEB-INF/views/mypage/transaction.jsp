@@ -94,7 +94,8 @@ IMP.init("imp71307268"); // Example: imp00000000
 	                }),
 	                success: function(res){
 			          if(res == 1){
-						alert('결제 성공')	;		           
+						alert('결제 성공')	;
+						location.href="<c:url value='/mypage/transaction' />";
 			          }
 			        },
 			        error:function(xhr, status, error){
@@ -182,7 +183,6 @@ IMP.init("imp71307268"); // Example: imp00000000
 													<thead class="thead-dark">
 														<tr>
 														  <th scope="col">상품명</th>
-														  <th scope="col" class="m2_hide transactionTd center">조회수</th>
 														  <th scope="col" class="m2_hide transactionTd center">작업기간</th>
 														  <th scope="col" class="transactionTd center">상태</th>
 														  <c:if test="${vo.type == '일반회원' || vo.type == '승인대기' }">
@@ -201,7 +201,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 													
 													<c:choose>
 														<c:when test="${fn:length(list) == 0 }" >
-														 <td colspan="9">
+														 <td colspan="8">
 														 	<br>
 														 	<h5 class="noneList">거래내역이 없습니다</h5>
 														 </td>
@@ -228,6 +228,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																			</div>
 																		</a>
 																	</td>
+																	<%-- 
 																	<td class="m2_hide transactionTd center">
 																		<div class="prt_leads">
 																			<span>
@@ -235,6 +236,7 @@ IMP.init("imp71307268"); // Example: imp00000000
 																			</span>
 																		</div>
 																	</td>
+																	 --%>
 																	<td class="m2_hide transactionTd center">
 																		<div class="_leads_posted"><h5>${map.PD_TERM }일 소요</h5></div>
 																	</td>

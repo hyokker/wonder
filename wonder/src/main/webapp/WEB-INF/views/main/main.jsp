@@ -182,7 +182,7 @@ class="item">
 									<div class="listing-img-wrapper">
 										<div class=""></div>
 										<div class="list-img-slide">
-											<a href="single-property-1.html">
+											<a href="<c:url value='/pd/pdDetail?pdNo=${vo.pdNo}'/>">
 											<img src="${pageContext.request.contextPath}/img/pdupload/${vo.fileName}" class="img-fluid mx-auto" alt="" />
 											</a>
 										</div>
@@ -219,6 +219,12 @@ class="item">
 													<div class="">
 														<p>${vo.lang}</p>
 													</div>
+													
+													
+													
+													
+													
+													
 													<div class="">
 														<p>&nbsp;||${vo.frame}</p>
 													</div>

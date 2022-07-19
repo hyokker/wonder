@@ -58,6 +58,20 @@ public class BoardServiceImpl implements BoardService{
 			dbPwd="";
 		}
 		
+		if(pwd==null) {
+			pwd="";
+		}
+		
+		BoardVO vo=boardDao.selectByNo(boardNo);
+		if(vo.getCateType()=="N") {
+			result=true;
+		}
+		
+		if(vo.getAdminId()!="" || vo.getAdminId() !="N") {
+			result=true;
+		}
+		
+		
 		if(dbPwd.equals(pwd)){
 			result=true;
 		}
