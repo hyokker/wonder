@@ -24,7 +24,7 @@
 		<div class="row">
 			<form name="frmWrite" method="post" enctype="multipart/form-data"
 				action="<c:url value='/qna/qnaEdit'/>">
-<input type="text" name="qnaNo" value="${param.qnaNo }" />
+<input type="hidden" name="qnaNo" value="${param.qnaNo }" />
 <fieldset>
 	<!-- Submit Form -->
 <div class="col-lg-12 col-md-12">

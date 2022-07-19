@@ -67,10 +67,10 @@
                str += '';
                str += '<div class="price-features-wrapper">';
                str += '<div class="list-fx-features">';
-               str += '<div class="listing-card-info-icon">';
+               str += '<div class="">';
                str += '<div class="inc-fleat-icon">' + item.lang + '</div>';
                str += '</div>';
-               str += '<div class="listing-card-info-icon">';
+               str += '<div class="">||';
                str += '<div class="inc-fleat-icon">' + item.frame + '</div>';
                str += '</div>';
                str += '';
