@@ -53,12 +53,10 @@
 - [2. 로그인 기능 구현, 로그인 시 세션 저장 기능 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EB%A1%9C%EA%B7%B8%EC%9D%B8%EA%B8%B0%EB%8A%A5.md) 
 - [3. 회원가입 기능 구현, 회원 가입 시, Spring Sequrity 의 BcryptPasswordEncoder 를 이용한 비밀번호 암호화 기능 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.md)
 - [4. 카카오 로그인 API 연동을 통한 카카오톡 ID, DB에 저장](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A1%9C%EA%B7%B8%EC%9D%B8.md)
-- [5.아이디 찾기 (ajax로 구현), 비밀번호 찾기(ajax를 통해 이메일로 임시 비밀번호 발송)](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B3%84%EC%A0%95%EC%B0%BE%EA%B8%B0.md)
-- 관리자 로그인 구현, 로그인 시 세션 저장 기능 구현
-- 각종 뷰페이지 구현(개인정보 처리방침, 이용약관, FAQ 등)
-- 고객 문의(contactUs) 페이지에서 EmailSender를 통한 이메일 전송 기능 구현
-- 고객 문의(contackUs) 페이지에서 google 지도 API 이용
-- QNA(질문 답변) 게시판 CRUD 구현(CkEditor API 이용), 
-- 메인 페이지 최근 등록된 상품 목록 노출
+- [5. 아이디 찾기 (ajax로 구현), 비밀번호 찾기(ajax를 통해 이메일로 임시 비밀번호 발송)](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B3%84%EC%A0%95%EC%B0%BE%EA%B8%B0.md)
+- [6. 관리자 로그인 구현, 로그인 시 세션 저장 기능 구현]()
+- [7. 각종 뷰페이지 구현(개인정보 처리방침, 이용약관, FAQ 등)]()
+- [8. 고객 문의(contactUs) 페이지에서 EmailSender를 통한 이메일 전송 기능 구현 및 google 지도 API 이용]()
+- [9. QNA(질문 답변) 게시판 CRUD 구현(CkEditor API 이용)]()
 
 
