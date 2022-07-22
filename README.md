@@ -55,8 +55,7 @@
 - [4. 카카오 로그인 API 연동을 통한 카카오톡 ID, DB에 저장](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A1%9C%EA%B7%B8%EC%9D%B8.md)
 - [5. 아이디 찾기 (ajax로 구현), 비밀번호 찾기(ajax를 통해 이메일로 임시 비밀번호 발송)](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B3%84%EC%A0%95%EC%B0%BE%EA%B8%B0.md)
 - [6. 관리자 로그인 구현, 로그인 시 세션 저장 기능 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A1%9C%EA%B7%B8%EC%9D%B8.md)
-- [7. 각종 뷰페이지 구현(개인정보 처리방침, 이용약관, FAQ 등)]()
-- [8. 고객 문의(contactUs) 페이지에서 EmailSender를 통한 이메일 전송 기능 구현 및 google 지도 API 이용]()
-- [9. QNA(질문 답변) 게시판 CRUD 구현(CkEditor API 이용)]()
+- [7. 고객 문의(contactUs) 페이지에서 EmailSender를 통한 이메일 전송 기능 구현 및 google 지도 API 이용](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B3%A0%EA%B0%9D%EB%AC%B8%EC%9D%98%ED%8E%98%EC%9D%B4%EC%A7%80.md)
+- [8. QNA(질문 답변) 게시판 CRUD 구현(CkEditor API 이용)]()
 
 
