@@ -1,5 +1,8 @@
 <div align="center">   
 
+<img width="1265" alt="wonder_main" src="https://user-images.githubusercontent.com/105181325/180354050-83e6cb06-571d-4687-bc1a-6e740961edbc.png">
+
+
 # Wonder
    
 ### BackEnd   
