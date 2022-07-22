@@ -50,7 +50,7 @@
 # 📌 기능 설명
 
 - [1. 메인 페이지 화면 구현]
-- [2.로그인 기능 구현, 로그인 시 세션 저장 기능 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5.md) 
+- [2.로그인 기능 구현, 로그인 시 세션 저장 기능 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EB%A1%9C%EA%B7%B8%EC%9D%B8%EA%B8%B0%EB%8A%A5.md) 
 - 회원가입 기능 구현, 회원 가입 시, Spring Sequrity 의 BcryptPasswordEncoder 를 이용한 비밀번호 암호화 기능 구현
 - 카카오 로그인 API 연동을 통한 카카오톡 ID, DB에 저장
 - 아이디 찾기 (ajax로 구현), 비밀번호 찾기(ajax를 통해 이메일로 임시 비밀번호 발송)
