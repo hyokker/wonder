@@ -852,6 +852,53 @@ ALTER TABLE FORM_CALCLE
 			FORM_NO 
 		);
 
+create or replace procedure replyDelete
+(
+    p_groupNo   number,
+    p_step   number,
+    p_replyNo   number
+)
+is
+cnt number;
+begin
+  
+     if p_step=0 then --1차 댓글 삭제의 경우
+        select count(*) into cnt
+        from REPLY
+        where GROUP_NO= p_groupNo;
+        
+        --그룹 내 댓글 수가
+        IF cnt>1 then   --대댓글 존재=>'삭제된 댓글' 처리
+            update reply
+            set DEL_TYPE='Y'
+            where REPLY_NO=p_replyNo;
+        else    --대댓글 없음=>1차댓글삭제
+            DELETE FROM REPLY
+             where REPLY_NO=p_replyNo;
+        end if;
+      
+    else--대댓글의 삭제( p_step=1)  
+         DELETE FROM REPLY
+         where REPLY_NO=p_replyNo;
+         
+         --대댓글 삭제 후 남아있는 댓글에 대하여
+         select count(*) into cnt
+         from REPLY
+         where GROUP_NO= p_groupNo;
+         
+         if cnt=1 then--'삭제된 댓글'인 원본글만 남은 경우
+            DELETE FROM REPLY A
+            where exists (SELECT 1 FROM REPLY B
+                WHERE A.REPLY_NO=b.REPLY_NO
+                AND GROUP_NO= p_groupNo AND DEL_TYPE='Y' AND STEP is null);
+         end if;
+     end if;
+    COMMIT;
+EXCEPTION    
+    WHEN OTHERS THEN
+        raise_application_error(-20009, '댓글 삭제 실패');
+        ROLLBACK;
+END;
 
 create or replace view expertMemberView
 as
@@ -1159,8 +1206,11 @@ values(framework_SEQ.nextval, 'Xamarin');
 insert into framework
 values(framework_SEQ.nextval, '전자정부표준프레임워크');
 
-
+ALTER TABLE BOARD DROP CONSTRAINT FK_ADMIN_TO_BOARD;
+ALTER TABLE BOARD DROP CONSTRAINT FK_MEMBER_TO_BOARD;
+ALTER TABLE REPLY DROP CONSTRAINT FK_MEMBER_TO_REPLY;
+ALTER TABLE BOARD DROP CONSTRAINT FK_CATEGORY_TO_BOARD;
+ALTER TABLE REPLY DROP CONSTRAINT FK_BOARD_TO_REPLY;
 
 commit;
 
-select * from product;
