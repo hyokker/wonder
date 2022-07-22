@@ -24,7 +24,7 @@
 ```
 
 
-- Controller 
+
 - ConstUtil의 게시판 페이지당 보여줄 상수 를 정한다.
 ```java
 public interface ConstUtil {
