@@ -235,7 +235,7 @@
 - 글 삭제도 마찬가지로, 글 작성자와 관리자만 삭제 가능하다.
 - 삭제 버튼을 클릭하여, 알림창을 통해 글 삭제할지 여부를 확인한다(jquery의 confirm 메서드). 확인 버튼을 누르면 Controller로 이동 후 글 삭제 한다.   
 
-- 글 삭제시에는, delete로 삭제하는 것이 아닌, update를 통해 DB의 del_type 컬럼을 Y로 변경하여, 게시판의 내용이 삭제되지 않고, '삭제 된 글 입니다.' 로 변경 해서 노출할 수 있도록 한다.
+- 글 삭제시에는, delete로 삭제하는 것이 아닌, update를 통해 DB의 del_type 컬럼을 Y로 변경하여, 게시판의 내용이 삭제되지 않고, '삭제 된 게시글 입니다.' 로 변경 해서 노출할 수 있도록 한다.
 
 ```html
 	<delete id="deleteQna" parameterType="int">
@@ -270,7 +270,7 @@
 ```
 
 
-- JSTL의 c:if 문을 통해 vo 의 del_type이 Y이면 '삭제 된 글입니다.' 로 변경해서 출력한다.   
+- JSTL의 c:if 문을 통해 vo 의 del_type이 Y이면 '삭제 된 입니다.' 로 변경해서 출력한다.   
 ```html
 <c:if test="${vo.delType=='Y'}">
 	<strong style="color: red">삭제된 게시글입니다.</strong>
