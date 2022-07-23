@@ -56,6 +56,6 @@
 - [5. 아이디 찾기 (ajax로 구현), 비밀번호 찾기(ajax를 통해 이메일로 임시 비밀번호 발송)](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B3%84%EC%A0%95%EC%B0%BE%EA%B8%B0.md)
 - [6. 관리자 로그인 구현, 로그인 시 세션 저장 기능 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A1%9C%EA%B7%B8%EC%9D%B8.md)
 - [7. 고객 문의(contactUs) 페이지에서 EmailSender를 통한 이메일 전송 기능 구현 및 google 지도 API 이용](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/%EA%B3%A0%EA%B0%9D%EB%AC%B8%EC%9D%98%ED%8E%98%EC%9D%B4%EC%A7%80.md)
-- [8. QNA(질문 답변) 게시판 CRUD 구현(CkEditor API 이용)](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/QNA%EA%B2%8C%EC%8B%9C%ED%8C%90(%EB%AA%A9%EB%A1%9D%EB%B3%B4%EA%B8%B0,%EA%B8%80%EC%9E%91%EC%84%B1).md)
-
-
+- [8. QNA(질문 답변) 게시판 목록보기, 극작성 구현(CkEditor API 이용)](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/QNA%EA%B2%8C%EC%8B%9C%ED%8C%90(%EB%AA%A9%EB%A1%9D%EB%B3%B4%EA%B8%B0,%EA%B8%80%EC%9E%91%EC%84%B1).md)
+- [9. QNA게시판 상세보기 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/QNA%EA%B2%8C%EC%8B%9C%ED%8C%90%20%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0.md)
+- [10. QNA게시판 수정, 삭제 구현](https://github.com/hyokker/wonder/blob/main/%EA%B5%AC%ED%98%84%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85/QNA%EA%B2%8C%EC%8B%9C%ED%8C%90%20%EC%88%98%EC%A0%95,%EC%82%AD%EC%A0%9C.md)
