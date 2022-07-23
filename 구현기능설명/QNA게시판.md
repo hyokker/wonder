@@ -174,6 +174,7 @@ public class PaginationInfo {
 # QNA게시판 질문 작성하기
 
 - 뷰페이지 각 항목에 맞게 내용을 작성한 뒤 등록 버튼을 클릭하여 질문 글 작성하기.
+- controller의 ModelAttribute 어노테이션을 통해 각 항목의 모든 부분을 QnaVO로 받아온다.   
 <img width="809" alt="qna글쓰기" src="https://user-images.githubusercontent.com/105181325/180592028-d8fdb83c-e07c-45d1-988b-11826435c44a.png">
 
 
