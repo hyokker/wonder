@@ -164,7 +164,7 @@
 		where qna_no=#{qnaNo}
 	</update>
 ```
-- 업로드할 파일이 있면 xml의 if문을 포함한 채 실행하고, 없다면 qnano 조건을 통해 업데이트 한다.   
+- 업로드할 파일이 있으면 xml의 if문을 포함한 채 실행하고, 없다면 qnano 조건을 통해 업데이트 한다.   
 
 ***
 ```java
@@ -228,3 +228,47 @@
 		return "common/message";
 	}
 ```
+
+
+## 글 삭제
+
+- 글 삭제도 마찬가지로, 글 작성자와 관리자만 삭제 가능하다.
+- 삭제 버튼을 클릭하여, 알림창을 통해 글 삭제할지 여부를 확인한다(jquery의 confirm 메서드). 확인 버튼을 누르면 Controller로 이동 후 글 삭제 한다.   
+
+- 글 삭제시에는, delete로 삭제하는 것이 아닌, update를 통해 DB의 del_type 컬럼을 Y로 변경하여, 게시판의 내용이 삭제되지 않고, '삭제 된 글 입니다.' 로 변경 해서 노출할 수 있도록 한다.
+
+```html
+	<delete id="deleteQna" parameterType="int">
+		update qna
+		set del_type='Y'
+		where qna_no=#{qnaNo}
+	</delete>
+```
+
+***
+```java
+	@RequestMapping("/qna/qnaDelete")
+	public String qnaDelete(@RequestParam(defaultValue = "0") int qnaNo,
+			Model model) {
+		logger.info("QNA 삭제 처리, 파라미터 qnaNo={}",qnaNo);
+		
+		
+		int cnt=qnaService.deleteQna(qnaNo);
+		logger.info("QNA 삭제 결과, cnt={}",cnt);
+		String msg="삭제 실패하였습니다.", url="/qna/qnaList";
+		
+		if(cnt>0) {
+			msg="삭제 되었습니다.";
+			url="/qna/qnaList";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "/common/message";
+	}
+```
+   
+-이하 삭제 된 글 
+
+<img width="1031" alt="삭제글" src="https://user-images.githubusercontent.com/105181325/180593033-b2e8a549-2981-401c-a165-7f277883cccf.png">
