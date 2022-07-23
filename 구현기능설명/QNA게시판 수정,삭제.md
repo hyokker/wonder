@@ -268,7 +268,15 @@
 		return "/common/message";
 	}
 ```
-   
+
+
+- JSTL의 c:if 문을 통해 vo 의 del_type이 Y이면 '삭제 된 글입니다.' 로 변경해서 출력한다.   
+```html
+<c:if test="${vo.delType=='Y'}">
+	<strong style="color: red">삭제된 게시글입니다.</strong>
+</c:if>
+```
+<br>
 -이하 삭제 된 글 
 
 <img width="1031" alt="삭제글" src="https://user-images.githubusercontent.com/105181325/180593033-b2e8a549-2981-401c-a165-7f277883cccf.png">
