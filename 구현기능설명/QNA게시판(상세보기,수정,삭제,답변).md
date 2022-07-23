@@ -198,5 +198,6 @@
 
 </section>
 ```
+- 작성 된 글의 상세보기 뷰페이지
 <img width="749" alt="qna뒤테일" src="https://user-images.githubusercontent.com/105181325/180592304-7327661c-f6fe-4daa-b5dc-3944946f3722.png">
 
