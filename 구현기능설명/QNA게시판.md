@@ -168,3 +168,56 @@ public class PaginationInfo {
 		model.addAttribute("pagingInfo", pagingInfo);
 	}
 ```
+   
+      
+
+# QNA게시판 질문 작성하기
+
+- 뷰페이지 각 항목에 맞게 내용을 작성한 뒤 등록 버튼을 클릭하여 질문 글 작성하기.
+<img width="809" alt="qna글쓰기" src="https://user-images.githubusercontent.com/105181325/180592028-d8fdb83c-e07c-45d1-988b-11826435c44a.png">
+
+
+```java
+@PostMapping("/qna/qnaWrite")
+	public String qnaWrite_post(@ModelAttribute QnaVO vo,
+			HttpServletRequest request,
+			Model model) {
+		logger.info("글쓰기 처리, 파라미터 vo={}",vo);
+		
+		//파일 업로드 처리
+		String fileName="", oFileName="";
+		long fileSize=0;
+		
+		try {
+			List<Map<String, Object>> fileList
+			=fileUploadUtil.fileUpload(request,
+					QnaConstUtil.UPLOAD_FILE_FLAG);
+			
+			for(Map<String, Object> fileMap : fileList) {
+				oFileName=(String) fileMap.get("originalFileName");
+				fileName=(String) fileMap.get("fileName");
+				fileSize= (long) fileMap.get("fileSize");				
+			}//for
+			
+			logger.info("파일업로드 성공! fileName={}, fileSize={}", fileName, fileSize);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		vo.setFileName(fileName);
+		vo.setOriginalFileName(oFileName);
+		vo.setFileSize(fileSize);
+		
+		String msg="질문 등록 실패!",url="/qna/qnaList";
+		int cnt=qnaService.insertQna(vo);
+		logger.info("글쓰기 처리 결과, cnt={}", cnt);
+		if(cnt>0) {
+			msg="질문 등록 성공!";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+```
